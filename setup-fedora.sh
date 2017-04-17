@@ -28,9 +28,11 @@ sudo dnf -y install thunderbird
 sudo dnf -y remove evolution
 
 # Programming utilities
-sudo dnf -y install pylint rust python perl ctags automake gcc gcc-c++ cmake
+# TODO setup for python3 instead of python2
+sudo dnf -y install pylint rust perl ctags automake gcc gcc-c++ cmake
 sudo dnf -y install python-devel python3-devel clang cargo python python3
-cargo install racer # Needs sorting out
+sudo dnf -y install python-nose python3-nose python3-pylint
+cargo install racer # TODO Needs sorting out
 cargo install rustfmt
 
 # Generate SSH key pair (Add to GitHub!)
