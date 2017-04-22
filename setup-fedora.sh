@@ -32,6 +32,7 @@ sudo dnf -y remove evolution
 sudo dnf -y install pylint rust perl ctags automake gcc gcc-c++ cmake
 sudo dnf -y install python-devel python3-devel clang cargo python python3
 sudo dnf -y install python-nose python3-nose python3-pylint
+sudo dnf -y install texlive-scheme-basic
 cargo install racer # TODO Needs sorting out
 cargo install rustfmt
 
