@@ -1,0 +1,4 @@
+Fedora Broadcom Wireless Setup
+==============================
+
+https://ashhar24.wordpress.com/2012/06/15/setting-up-wireless-driver-fedora/ 
