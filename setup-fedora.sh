@@ -92,3 +92,17 @@ git clone https://github.com/rockon999/dynamic-panel-transparency.git ~/gnome-ex
 mv ~/gnome-ext-temp/dynamic-panel-transparency@rockon999.github.io \
    ~/.local/share/gnome-shell/extensions/ && rm -r ~/gnome-ext-temp
 
+# Gnome shell set up
+gnome-shell --replace
+gnome-shell-extension-tool -e dynamic-panel-transparency@rockon999.github.io
+gsettings set org.gnome.desktop.interface icon-theme "Arc"
+gsettings set org.gnome.desktop.interface gtk-theme "Arc-Darker"
+gsettings set org.gnome.shell.extensions.user-theme name "Arc-Dark"
+gsettings set org.gnome.desktop.interface cursor-theme "Breeze_cursors"
+echo "Enable Global Dark theme in Gnome Tweak Tool"
+echo "Enable User-themes Extension in Gnome Tweak Tool"
+echo "Gnome may require a restart and then enabling extensions if this was not successful"
+echo "Set Dynamic panel transparency time to 200ms"
+echo "Set up online accounts"
+echo "Set up GitHub SSH Key and change dotfiles clone to origin to SSH address"
+echo "Clone other project repos"
