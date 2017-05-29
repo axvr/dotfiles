@@ -1,11 +1,6 @@
 " Vim Configuration File (~/.vimrc)
 " =================================
 
-" Setup Vim
-" ---------
-" $ sudo dnf upgrade && sudo dnf install pylint rust python perl ctags cppcheck
-" $ sudo dnf install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
-"
 " Brief help
 " ----------
 " :PluginList	    - lists configured plugins
@@ -65,7 +60,6 @@
   set linebreak               " breaks lines at words (requires line wrap)
   set showbreak=+++           " Wrap broken line prefix
   set showmatch               " Highlight matching brackets
-  set visualbell              " Use a visual error bell
   set hlsearch                " Highlight all search results
   set ignorecase              " Ignore case in searches
   set smartcase               " enables smart case mode
@@ -93,12 +87,12 @@
   command! MakeTags !ctags -R .
 
   " Auto Close Parens and Quotes
-    "ino " ""<left>
-    "ino ' ''<left>
-    "ino ( ()<left>
-    "ino [ []<left>
-    "ino { {}<left>
-    "ino {<CR> {<CR>}<ESC>O
+    ino " ""<left>
+    ino ' ''<left>
+    ino ( ()<left>
+    ino [ []<left>
+    ino { {}<left>
+    ino {<CR> {<CR>}<ESC>O
 
   " Vim Hard Mode
     "noremap  <Up> ""
@@ -192,17 +186,17 @@
     set ts=8 sts=2 et sw=2 tw=80
   endif
 
-  " Binary & ASCII Files
+  " Binary Files
   " Change vim into a hex editor
     augroup binary
       au!
-      au BufReadPre   *.bin,*.asc let &bin=1
-      au BufReadPost  *.bin,*.asc if &bin | %!xxd
-      au BufReadPost  *.bin,*.asc set ft=xxd | endif
-      au BufWritePre  *.bin,*.asc if &bin | %!xxd -r
-      au BufWritePre  *.bin,*.asc endif
-      au BufWritePost *.bin,*.asc if &bin | %!xxd
-      au BufWritePost *.bin,*.asc set nomod | endif
+      au BufReadPre   *.bin let &bin=1
+      au BufReadPost  *.bin if &bin | %!xxd
+      au BufReadPost  *.bin set ft=xxd | endif
+      au BufWritePre  *.bin if &bin | %!xxd -r
+      au BufWritePre  *.bin endif
+      au BufWritePost *.bin if &bin | %!xxd
+      au BufWritePost *.bin set nomod | endif
     augroup END
 
   " GPG Encrypted Files
@@ -212,27 +206,27 @@
 
       " First make sure nothing is written to ~/.viminfo while editing
       " an encrypted file.
-      autocmd BufReadPre,FileReadPre *.gpg set viminfo=
+      autocmd BufReadPre,FileReadPre *.gpg,*.asc set viminfo=
       " We don't want a various options which write unencrypted data to disk
-      autocmd BufReadPre,FileReadPre *.gpg set noswapfile noundofile nobackup
+      autocmd BufReadPre,FileReadPre *.gpg,*.asc set noswapfile noundofile nobackup
 
       " Switch to binary mode to read the encrypted file
-      autocmd BufReadPre,FileReadPre *.gpg set bin
-      autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+      autocmd BufReadPre,FileReadPre *.gpg,*.asc set bin
+      autocmd BufReadPre,FileReadPre *.gpg,*.asc let ch_save = &ch|set ch=2
       " (If you use tcsh, you may need to alter this line.)
-      autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt 2> /dev/null
+      autocmd BufReadPost,FileReadPost *.gpg,*.asc '[,']!gpg --decrypt 2> /dev/null
 
       " Switch to normal mode for editing
-      autocmd BufReadPost,FileReadPost *.gpg set nobin
-      autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
-      autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
+      autocmd BufReadPost,FileReadPost *.gpg,*.asc set nobin
+      autocmd BufReadPost,FileReadPost *.gpg,*.asc let &ch = ch_save|unlet ch_save
+      autocmd BufReadPost,FileReadPost *.gpg,*.asc execute ":doautocmd BufReadPost " . expand("%:r")
 
       " Convert all text to encrypted text before writing
       " (If you use tcsh, you may need to alter this line.)
-      autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --default-recipient-self -ae 2>/dev/null
+      autocmd BufWritePre,FileWritePre *.gpg,*.asc '[,']!gpg --default-recipient-self -ae 2>/dev/null
       " Undo the encryption so we are back in the normal text, directly
       " after the file has been written.
-      autocmd BufWritePost,FileWritePost *.gpg u
+      autocmd BufWritePost,FileWritePost *.gpg,*.asc u
     augroup END
 
 

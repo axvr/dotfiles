@@ -37,9 +37,8 @@ bash ~/Documents/Projects/dotfiles/install.sh
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 # Other applications
-sudo dnf -y remove evolution
-sudo dnf -y install keepassx hexchat gnome-tweak-tool asunder \
-     torbrowser-launcher gnome-todo libreoffice thunderbird
+sudo dnf -y install keepassx polari gnome-tweak-tool asunder \
+     torbrowser-launcher gnome-todo libreoffice
 
 
 ##########################
@@ -60,13 +59,11 @@ sudo dnf -y install pylint rust perl clang cargo python python3 python-nose \
 cargo install racer # TODO Needs sorting out
 cargo install rustfmt
 
-# Set up system for Mozilla Development
-wget -O bootstrap.py https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py
-python bootstrap.py
-rm bootstrap.py
+# Set up system for Mozilla compatible Development
+wget -O /tmp/bootstrap.py https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py
+python /tmp/bootstrap.py
 
-# Servo development set up
-# TODO Solve servo not building issue with openssl
+# Servo compatible development set up
 sudo dnf install rpm-build python2-virtualenv ncurses-devel ncurses-c++-libs  \
      mesa-libOSMesa-devel mesa-libOSMesa mesa-libGLU-devel libXmu-devel gperf \
      gl-manpages freeglut-devel freeglut cabextract
@@ -78,7 +75,7 @@ sudo dnf install rpm-build python2-virtualenv ncurses-devel ncurses-c++-libs  \
 
 # Install fonts and themes
 sudo dnf -y install adobe-source-code-pro-fonts google-roboto-fonts \
-     google-roboto-mono-fonts atc-theme breeze-cursor-theme
+     google-roboto-mono-fonts arc-theme breeze-cursor-theme
 
 # Install Arc icon theme
 mkdir -p ~/.icons/Arc/ ~/.icons/Arc-temp
@@ -106,3 +103,4 @@ echo "Set Dynamic panel transparency time to 200ms"
 echo "Set up online accounts"
 echo "Set up GitHub SSH Key and change dotfiles clone to origin to SSH address"
 echo "Clone other project repos"
+
