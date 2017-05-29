@@ -20,6 +20,7 @@ sudo dnf -y upgrade
 sudo dnf install git
 git config --global user.name "Alex Vear"
 git config --global user.email "axvr@bitmessage.ch"
+git config --global core.editor "vim"
 
 # Create basic file system structure
 mkdir -p ~/Documents/Projects/ ~/.vim/ ~/.config/nvim/ ~/.emacs.d/
