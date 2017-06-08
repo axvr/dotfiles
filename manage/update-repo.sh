@@ -17,3 +17,9 @@ cp ~/Documents/Projects/mozilla/firefox/.clang-format ~/Documents/Projects/dotfi
 cp ~/Documents/Projects/mozilla/firefox/.clang-format-ignore ~/Documents/Projects/dotfiles/clang/clang-format-ignore
 cp ~/Documents/Projects/mozilla/firefox/.clang-tidy ~/Documents/Projects/dotfiles/clang/clang-tidy
 
+# Xresources - Xresources
+cp ~/.Xresources ~/Documents/Projects/dotfiles/urxvt/Xresources
+
+# Bash - bashrc
+cp ~/.bashrc ~/Documents/Projects/dotfiles/bash/bashrc
+

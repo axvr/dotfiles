@@ -1,0 +1,62 @@
+# ~/.bashrc
+
+# TODO Fix ths file!
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+xrdb ~/.Xresources
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+
+# Custom Bash Prompts
+# Default
+export PS1="[\u@\h \W]\\$ "
+# Shell user type prompt
+#export PS1="\\$ "
+
+# Powerline setup
+#if [ -f `which powerline-daemon` ]; then
+#  powerline-daemon -q
+#  POWERLINE_BASH_CONTINUATION=1
+#  POWERLINE_BASH_SELECT=1
+#  . /usr/share/powerline/bash/powerline.sh
+#fi
+
+man() {
+	if [ "$TERM" = 'linux' ]; then
+		env \
+			LESS_TERMCAP_mb=$(printf "\e[34m") \
+			LESS_TERMCAP_md=$(printf "\e[1;31m") \
+			LESS_TERMCAP_me=$(printf "\e[0m") \
+			LESS_TERMCAP_se=$(printf "\e[0m") \
+			LESS_TERMCAP_so=$(printf "\e[30;43m") \
+			LESS_TERMCAP_ue=$(printf "\e[0m") \
+			LESS_TERMCAP_us=$(printf "\e[32m") \
+					/usr/bin/man "$@"
+	else
+		env \
+			LESS_TERMCAP_mb=$(printf "\e[1;34m") \
+			LESS_TERMCAP_md=$(printf "\e[38;5;9m") \
+			LESS_TERMCAP_me=$(printf "\e[0m") \
+			LESS_TERMCAP_se=$(printf "\e[0m") \
+			LESS_TERMCAP_so=$(printf "\e[30;43m") \
+			LESS_TERMCAP_ue=$(printf "\e[0m") \
+			LESS_TERMCAP_us=$(printf "\e[38;5;10m") \
+					/usr/bin/man "$@"
+	fi
+}
+
+
+# PS1='\n\[\033[1;32m\]┌─● \[\033[1;35m\]\u@\h\[\033[0m\033[1;32m\] ─●─ \[\033[1;31m\]$PWD\[\033[1;32m\] \n\[\033[1;32m\]└─● \$\[\033[0m\] '
+
+# [ -z "$PS1" ] && return

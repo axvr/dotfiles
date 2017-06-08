@@ -37,6 +37,7 @@
     Plugin 'vim-airline/vim-airline'	        " Airline Theme Plugin		    <-- :help Airline
     Plugin 'vim-airline/vim-airline-themes'	" Airline Theme Packages
     Plugin 'tpope/vim-fugitive'		        " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
+    Plugin 'christoomey/vim-conflicted'         " TODO
     Plugin 'terryma/vim-multiple-cursors'       " Vim Multiple Cursors Plugin	    <-- :help vim-multiple-cursors
     Plugin 'scrooloose/syntastic'	        " Syntastic Syntax Checker Plugin   <-- :help syntastic
     Plugin 'airblade/vim-gitgutter'		" Show a Git Diff in the 'Gutter'   <-- :help GitGutter
@@ -45,6 +46,8 @@
     Plugin 'jistr/vim-nerdtree-tabs'	        " NERDTree Tabs Plugin              <-- :help vim-nerdtree-tabs
     Plugin 'xuyuanp/nerdtree-git-plugin'	" Display Git Diffs in NERDTree
     Plugin 'ctrlpvim/ctrlp.vim'		        " CtrlP Plugin			    <-- :help ctrlp.txt
+    Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}  " TODO
+    Plugin 'godlygeek/tabular'                  " TODO
 
   " Input Plugins Above this Line
   call vivid#close()
@@ -54,44 +57,47 @@
 
 " Basic Config
 
-  syntax on                   " turn on syntax highlighting
-  set number                  " Show the line numbers
+  syntax on                       " turn on syntax highlighting
+  set number                      " Show the line numbers
   set relativenumber
-  set linebreak               " breaks lines at words (requires line wrap)
-  set showbreak=+++           " Wrap broken line prefix
-  set showmatch               " Highlight matching brackets
-  set hlsearch                " Highlight all search results
-  set ignorecase              " Ignore case in searches
-  set smartcase               " enables smart case mode
-  set incsearch               " searches for strings incrementaly
-  set autoindent              " enable auto indentation
-  set confirm                 " confirmation prompts
-  set ruler                   " show row and col ruler info
-  set undolevels=1000         " number of undo levels
-  set backspace=indent,start  " Backspace behaviour: current line only
-  set wrap                    " wrap visually
-  set nolist                  " list disables linebreak
+  set linebreak                   " breaks lines at words (requires line wrap)
+  set showbreak=+++               " Wrap broken line prefix
+  set showmatch                   " Highlight matching brackets
+  set hlsearch                    " Highlight all search results
+  set ignorecase                  " Ignore case in searches
+  set smartcase                   " enables smart case mode
+  set incsearch                   " searches for strings incrementaly
+  set autoindent                  " enable auto indentation
+  set confirm                     " confirmation prompts
+  set ruler                       " show row and col ruler info
+  set undolevels=1000             " number of undo levels
+  set backspace=indent,eol,start  " Backspace behaviour: current line only
+  set wrap                        " wrap visually
+  set nolist                      " list disables linebreak
   set nomodeline
-  set expandtab               " Changes tabs into spaces
-  set wrapmargin=0            " Set wrap margin to zero
-  set visualbell t_vb=        " Disable sound alerts
+  set expandtab                   " Changes tabs into spaces
+  set wrapmargin=0                " Set wrap margin to zero
+  set visualbell t_vb=            " Disable sound alerts
   set laststatus=2
   set omnifunc=syntaxcomplete#Complete
   set path+=**
   set wildmenu
   set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
   autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
+
   " Vim Spell Check
   noremap <F7> :setlocal spell! spelllang=en_us<CR>
+
   " Make a tags file
   command! MakeTags !ctags -R .
 
   " Auto Close Parens and Quotes
-    ino " ""<left>
-    ino ' ''<left>
-    ino ( ()<left>
-    ino [ []<left>
-    ino { {}<left>
+  " TODO make more inteligent
+    "ino " ""<left>
+    "ino ' ''<left>
+    "ino ( ()<left>
+    "ino [ []<left>
+    "ino { {}<left>
     ino {<CR> {<CR>}<ESC>O
 
   " Vim Hard Mode
@@ -103,7 +109,7 @@
     "noremap! <Left> <Esc>
     "noremap  <Right> ""
     "noremap! <Right> <Esc>
-    "set mouse=a
+    set mouse=a
 
   " Vim Omnicomplete
     au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
@@ -180,6 +186,7 @@
 " Syntax & File Type Config
 
   " Mozilla Syntax Vim Config
+  " TODO Extend and enhance this.
   if (&filetype == 'python')
     set ts=8 sts=4 et sw=4 tw=80
   else

@@ -1,0 +1,48 @@
+! ~/.Xresources
+! Configuration file for URxvt
+! Load this config file: xrdb ~/.Xresources
+! Package: rxvt-unicode
+
+
+! Extensions
+URxvt.perl-ext-common: default,matcher
+
+
+
+! Extension Configuration
+
+! Clickable URLs
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+
+! Yankable URLs
+! needs setting up
+
+
+! Styling
+
+! Font
+URxvt.font: xft:monospace:size=10
+
+
+
+
+
+! Interaction
+
+! Do not scroll with output
+URxvt*scrollTtyOutput: false
+
+! Scroll in relation to buffer
+URxvt*scrollWithBuffer: true
+
+! Scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+! Disable Scrollback buffer
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+!URxvt.secondaryWheel: 1
+! ^install rxvt-unicode-better-wheel-scrolling from AUR
+
+
