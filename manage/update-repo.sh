@@ -23,3 +23,6 @@ cp ~/.Xresources ~/Documents/Projects/dotfiles/urxvt/Xresources
 # Bash - bashrc
 cp ~/.bashrc ~/Documents/Projects/dotfiles/bash/bashrc
 
+# Sway - config
+cp ~/.config/sway/config ~/Documents/Projects/dotfiles/sway/config
+
