@@ -1,34 +1,95 @@
 ! ~/.Xresources
+! -------------------------------------
 ! Configuration file for URxvt
 ! Load this config file: xrdb ~/.Xresources
 ! Package: rxvt-unicode
+! -------------------------------------
 
+
+
+! #####################################
+! ############ Extensions #############
+! #####################################
 
 ! Extensions
 URxvt.perl-ext-common: default,matcher
-
-
-
-! Extension Configuration
+!URxvt.perl-ext-common: default,matcher,resize-font
 
 ! Clickable URLs
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 
 ! Yankable URLs
-! needs setting up
+! needs setting up (see the Arch Wiki)
+
+! Changing Font Size
+!URxvt.resize-font.smaller: C-Down
+!URxvt.resize-font.bigger: C-Up
+! ^install urxvt-resize-font-git from AUR, then
+! uncomment the extension line and remove the other
 
 
-! Styling
+
+! #####################################
+! ############## Styling ##############
+! #####################################
 
 ! Font
-URxvt.font: xft:monospace:size=10
+URxvt.font: xft:Roboto Mono:size=10
+URxvt.boldFont: xft:Roboto Mono:size=10:weight=bold
+
+! ScrollBar
+URxvt.scrollBar: false
+
+! Border
+URxvt*internalBorder: 4
+
+! Colours
+! -----------------------
+! Colours can be set like
+! * magenta      -- Xterm
+! * yellow3      -- Xterm
+! * #21ff4c      -- Hex
+! * rgb:5c/21/ff -- RGB
+! Transparency
+! * rgba:0000/0000/0200/c800
+! -----------------------
+! Transparency
+! set colour depth to 32 for transparency
+! change background colour to rgba format
+!URxvt*depth: 32
+! -----------------------
+! Background Colour
+URxvt*background: black
+! -----------------------
+! Font/Foreground Colour
+URxvt*foreground: white
+! -----------------------
+! Normal Colours
+URxvt*color0:  black
+URxvt*color1:  red3
+URxvt*color2:  green3
+URxvt*color3:  yellow3
+URxvt*color4:  blue2
+URxvt*color5:  magenta3
+URxvt*color6:  cyan3
+URxvt*color7:  grey90
+! -----------------------
+! Light Colours
+URxvt*color8:  grey50
+URxvt*color9:  red
+URxvt*color10: green
+URxvt*color11: yellow
+URxvt*color12: blue
+URxvt*color13: magenta
+URxvt*color14: cyan
+URxvt*color15: white
 
 
 
-
-
-! Interaction
+! #####################################
+! ########### Interaction #############
+! #####################################
 
 ! Do not scroll with output
 URxvt*scrollTtyOutput: false
