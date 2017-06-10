@@ -13,7 +13,7 @@
 
 ! Extensions
 URxvt.perl-ext-common: default,matcher
-!URxvt.perl-ext-common: default,matcher,resize-font
+!URxvt.perl-ext-common: default,matcher,resize-font,fullscreen
 
 ! Clickable URLs
 URxvt.url-launcher: /usr/bin/xdg-open
@@ -35,17 +35,33 @@ URxvt.matcher.button: 1
 ! #####################################
 
 ! Font
-URxvt.font: xft:Roboto Mono:size=10
-URxvt.boldFont: xft:Roboto Mono:size=10:weight=bold
+URxvt.font:           xft:Roboto Mono:pixelsize=12,style=regular
+URxvt.boldFont:       xft:Roboto Mono:pixelsize=12,style=regular,weight=bold
+URxvt*allow_bold:     true
+URxvt*letterSpace:    1
 
 ! ScrollBar
-URxvt.scrollBar: false
+URxvt.scrollBar:      false
+URxvt*scrollstyle:    plain
 
 ! Border
 URxvt*internalBorder: 4
 
+! Geometry
+URxvt.geometry: 80x24
+
 ! Colours
-! -----------------------
+! -----------------------------
+! URxvt Colour Codes
+! 0,8  => Black
+! 1,9  => Red
+! 2,10 => Green
+! 3,11 => Yellow
+! 4,12 => Blue
+! 5,13 => Magenta
+! 6,14 => Cyan
+! 7,15 => White
+! -----------------------------
 ! Colours can be set like
 ! * magenta      -- Xterm
 ! * yellow3      -- Xterm
@@ -53,43 +69,53 @@ URxvt*internalBorder: 4
 ! * rgb:5c/21/ff -- RGB
 ! Transparency
 ! * rgba:0000/0000/0200/c800
-! -----------------------
+! -----------------------------
 ! Transparency
 ! set colour depth to 32 for transparency
 ! change background colour to rgba format
 !URxvt*depth: 32
-! -----------------------
+! -----------------------------
 ! Background Colour
-URxvt*background: black
-! -----------------------
+URxvt*background:  rgb:34/37/40
+! -----------------------------
 ! Font/Foreground Colour
-URxvt*foreground: white
-! -----------------------
+URxvt*foreground:  rgb:be/c7/d5
+! -----------------------------
+! Cursor Colour
+URxvt*cursorColor: rgb:be/c7/d5
+! -----------------------------
 ! Normal Colours
-URxvt*color0:  black
-URxvt*color1:  red3
-URxvt*color2:  green3
-URxvt*color3:  yellow3
-URxvt*color4:  blue2
-URxvt*color5:  magenta3
-URxvt*color6:  cyan3
-URxvt*color7:  grey90
-! -----------------------
+URxvt*color0:  rgb:18/1c/22
+URxvt*color1:  rgb:20/25/2c
+URxvt*color2:  rgb:5c/90/d3
+URxvt*color3:  rgb:6d/b3/a0
+URxvt*color4:  rgb:5e/6a/7b
+URxvt*color5:  rgb:7e/8e/a3
+URxvt*color6:  rgb:8d/ad/d9
+URxvt*color7:  rgb:5c/61/6c
+! -----------------------------
 ! Light Colours
-URxvt*color8:  grey50
-URxvt*color9:  red
-URxvt*color10: green
-URxvt*color11: yellow
-URxvt*color12: blue
-URxvt*color13: magenta
-URxvt*color14: cyan
-URxvt*color15: white
+URxvt*color8:  rgb:ee/4f/f5
+URxvt*color9:  rgb:ec/70/9a
+URxvt*color10: rgb:4a/9b/e0
+URxvt*color11: rgb:35/9f/ee
+URxvt*color12: rgb:e9/8b/ee
+URxvt*color13: rgb:5d/ce/49
+URxvt*color14: rgb:48/ea/57
+URxvt*color15: rgb:ce/59/bc
 
 
 
 ! #####################################
 ! ########### Interaction #############
 ! #####################################
+
+! Disable Bell
+URxvt.insecure: false
+
+! Cursor
+URxvt*cursorBlink: false
+URxvt*cursorUnderline: false
 
 ! Do not scroll with output
 URxvt*scrollTtyOutput: false
@@ -105,5 +131,10 @@ URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
 !URxvt.secondaryWheel: 1
 ! ^install rxvt-unicode-better-wheel-scrolling from AUR
+
+! Fullscreen
+!URxvt.keysym.F11: perl:fullscreen:switch
+! ^install urxvt-fullscreen from AUR, then
+! uncomment the extension line and remove the other
 
 

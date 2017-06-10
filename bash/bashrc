@@ -20,6 +20,41 @@ fi
 # Load the ~/.Xresources file
 xrdb ~/.Xresources
 
+# History config
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+export HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+
+# Locale
+export LANG=en_GB.UTF-8
+
+# Coloured Man Pages (TODO: Does not work)
+man() {
+	if [ "$TERM" = 'linux' ]; then
+		env \
+			LESS_TERMCAP_mb=$(printf "\e[34m") \
+			LESS_TERMCAP_md=$(printf "\e[1;31m") \
+			LESS_TERMCAP_me=$(printf "\e[0m") \
+			LESS_TERMCAP_se=$(printf "\e[0m") \
+			LESS_TERMCAP_so=$(printf "\e[30;43m") \
+			LESS_TERMCAP_ue=$(printf "\e[0m") \
+			LESS_TERMCAP_us=$(printf "\e[32m") \
+					/usr/bin/man "$@"
+	else
+		env \
+			LESS_TERMCAP_mb=$(printf "\e[1;34m") \
+			LESS_TERMCAP_md=$(printf "\e[38;5;9m") \
+			LESS_TERMCAP_me=$(printf "\e[0m") \
+			LESS_TERMCAP_se=$(printf "\e[0m") \
+			LESS_TERMCAP_so=$(printf "\e[30;43m") \
+			LESS_TERMCAP_ue=$(printf "\e[0m") \
+			LESS_TERMCAP_us=$(printf "\e[38;5;10m") \
+					/usr/bin/man "$@"
+	fi
+}
+
 
 
 #################################
@@ -36,4 +71,5 @@ export PS1="[\u@\h \W]\\$ "
 #################################
 
 alias vi="vim"
+alias e="emacs -nw"
 
