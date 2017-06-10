@@ -20,13 +20,16 @@ URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 
 ! Yankable URLs
-! needs setting up (see the Arch Wiki)
+! TODO needs setting up (see the Arch Wiki)
 
 ! Changing Font Size
 !URxvt.resize-font.smaller: C-Down
 !URxvt.resize-font.bigger: C-Up
 ! ^install urxvt-resize-font-git from AUR, then
 ! uncomment the extension line and remove the other
+
+! Copy & Paste
+! TODO needs setting up
 
 
 
@@ -50,7 +53,7 @@ URxvt*internalBorder: 4
 ! Geometry
 URxvt.geometry: 80x24
 
-! Colours
+! Colours (TODO Set up custom colours)
 ! -----------------------------
 ! URxvt Colour Codes
 ! 0,8  => Black

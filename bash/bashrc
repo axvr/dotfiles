@@ -29,6 +29,7 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; histor
 
 # Locale
 export LANG=en_GB.UTF-8
+export XKB_DEFAULT_LAYOUT=gb
 
 # Coloured Man Pages (TODO: Does not work)
 man() {
