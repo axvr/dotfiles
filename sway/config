@@ -4,6 +4,8 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -18,6 +20,8 @@ set $term urxvt256c-ml
 # Your preferred application launcher
 set $menu dmenu_run
 
+
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/sway/)
@@ -28,6 +32,8 @@ output * bg /usr/share/backgrounds/f25/default/normalish/f25.png fill
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+
+
 
 ### Input configuration
 #
@@ -44,10 +50,17 @@ output * bg /usr/share/backgrounds/f25/default/normalish/f25.png fill
 # The escape symbol "\" has to be removed.
 # Read `man 5 sway-input` for more information about this section.
 
+# ------------------------------------------------------------------------------
+
+
+
 ### Key bindings
+
+
 #
 # Basics:
 #
+
     # start a terminal
     bindsym $mod+Return exec $term
 
@@ -69,9 +82,38 @@ output * bg /usr/share/backgrounds/f25/default/normalish/f25.png fill
 
     # exit sway (logs you out of your wayland session)
     bindsym $mod+Shift+e exit
+
+    # lock sway
+    bindsym $mod+Shift+x exec swaylock
+
+    # Jump to urgent window
+    bindsym $mod+x [urgent=latest] focus
+
+# ------------------------------------------------------------------------------
+
+
+
+#
+# Media and volume controls, etc.
+#
+
+    # Screen brightness control
+    bindsym XF86MonBrightnessUp exec dsplight up 5
+    bindsym XF86MonBrightnessDown exec dsplight down 5
+
+    # Volume controls
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +5%
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -5%
+    bindsym XF86AudioMute exec pactl set-sink-mute $(pacmd list-sinks |awk '/* index:/{print $3}') toggle
+
+# ------------------------------------------------------------------------------
+
+
+
 #
 # Moving around:
 #
+
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
@@ -93,36 +135,61 @@ output * bg /usr/share/backgrounds/f25/default/normalish/f25.png fill
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
+
+# ------------------------------------------------------------------------------
+
+
+
 #
 # Workspaces:
 #
+
+    # workspace names
+    set $workspace01 1
+    set $workspace02 2
+    set $workspace03 3
+    set $workspace04 4
+    set $workspace05 5
+    set $workspace06 6
+    set $workspace07 7
+    set $workspace08 8
+    set $workspace09 9
+    set $workspace10 10
+
     # switch to workspace
-    bindsym $mod+1 workspace 1
-    bindsym $mod+2 workspace 2
-    bindsym $mod+3 workspace 3
-    bindsym $mod+4 workspace 4
-    bindsym $mod+5 workspace 5
-    bindsym $mod+6 workspace 6
-    bindsym $mod+7 workspace 7
-    bindsym $mod+8 workspace 8
-    bindsym $mod+9 workspace 9
-    bindsym $mod+0 workspace 10
+    bindsym $mod+1 workspace $workspace01
+    bindsym $mod+2 workspace $workspace02
+    bindsym $mod+3 workspace $workspace03
+    bindsym $mod+4 workspace $workspace04
+    bindsym $mod+5 workspace $workspace05
+    bindsym $mod+6 workspace $workspace06
+    bindsym $mod+7 workspace $workspace07
+    bindsym $mod+8 workspace $workspace08
+    bindsym $mod+9 workspace $workspace09
+    bindsym $mod+0 workspace $workspace10
+
     # move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace 1
-    bindsym $mod+Shift+2 move container to workspace 2
-    bindsym $mod+Shift+3 move container to workspace 3
-    bindsym $mod+Shift+4 move container to workspace 4
-    bindsym $mod+Shift+5 move container to workspace 5
-    bindsym $mod+Shift+6 move container to workspace 6
-    bindsym $mod+Shift+7 move container to workspace 7
-    bindsym $mod+Shift+8 move container to workspace 8
-    bindsym $mod+Shift+9 move container to workspace 9
-    bindsym $mod+Shift+0 move container to workspace 10
+    bindsym $mod+Shift+1 move container to workspace $workspace01
+    bindsym $mod+Shift+2 move container to workspace $workspace02
+    bindsym $mod+Shift+3 move container to workspace $workspace03
+    bindsym $mod+Shift+4 move container to workspace $workspace04
+    bindsym $mod+Shift+5 move container to workspace $workspace05
+    bindsym $mod+Shift+6 move container to workspace $workspace06
+    bindsym $mod+Shift+7 move container to workspace $workspace07
+    bindsym $mod+Shift+8 move container to workspace $workspace08
+    bindsym $mod+Shift+9 move container to workspace $workspace09
+    bindsym $mod+Shift+0 move container to workspace $workspace10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
+# ------------------------------------------------------------------------------
+
+
+
 #
 # Layout stuff:
 #
+
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -145,9 +212,15 @@ output * bg /usr/share/backgrounds/f25/default/normalish/f25.png fill
 
     # move focus to the parent container
     bindsym $mod+a focus parent
+
+# ------------------------------------------------------------------------------
+
+
+
 #
 # Scratchpad:
 #
+
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
 
@@ -157,9 +230,15 @@ output * bg /usr/share/backgrounds/f25/default/normalish/f25.png fill
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+# ------------------------------------------------------------------------------
+
+
+
 #
 # Resizing containers:
 #
+
 mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
@@ -180,14 +259,22 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
 bindsym $mod+r mode "resize"
+
+# ------------------------------------------------------------------------------
+
+
 
 #
 # Status Bar:
 #
+
 # Read `man 5 sway-bar` for more information about this section.
+
 bar {
-    position top
+    position bottom
+
     colors {
         statusline #ffffff
         background #323232
@@ -195,4 +282,39 @@ bar {
     }
 }
 
+# ------------------------------------------------------------------------------
+
+
+
+#
+# Sway style customisation
+#
+
+    # Window borders
+    new_window pixel 2
+    new_float pixel 2
+
+    # Set colours from Xresources
+    set_from_resource $black color0 #000000
+    set_from_resource $red color1 #ff0000
+    set_from_resource $green color2 #00ff00
+    set_from_resource $yellow color3 #00ffff
+    set_from_resource $blue color4 #0000ff
+    set_from_resource $magenta color5
+    set_from_resource $cyan color6
+    set_from_resource $white color7
+    set_from_resource $light_black color8
+    set_from_resource $light_red color9
+    set_from_resource $light_green color10
+    set_from_resource $light_yellow color11
+    set_from_resource $light_blue color12
+    set_from_resource $light_magenta color13
+    set_from_resource $light_cyan color14
+    set_from_resource $light_white color15
+
+# ------------------------------------------------------------------------------
+
+
 include /etc/sway/config.d/*
+
+

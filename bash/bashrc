@@ -20,6 +20,11 @@ fi
 # Load the ~/.Xresources file
 xrdb ~/.Xresources
 
+# Start Sway on login
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+  exec sway
+fi
+
 # History config
 export HISTSIZE=10000
 export HISTFILESIZE=20000

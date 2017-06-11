@@ -38,8 +38,8 @@ URxvt.matcher.button: 1
 ! #####################################
 
 ! Font
-URxvt.font:           xft:Roboto Mono:pixelsize=12,style=regular
-URxvt.boldFont:       xft:Roboto Mono:pixelsize=12,style=regular,weight=bold
+URxvt.font:           xft:Iosevka:pixelsize=14,style=regular
+URxvt.boldFont:       xft:Iosevka:pixelsize=14,style=bold
 URxvt*allow_bold:     true
 URxvt*letterSpace:    1
 
@@ -51,7 +51,7 @@ URxvt*scrollstyle:    plain
 URxvt*internalBorder: 4
 
 ! Geometry
-URxvt.geometry: 80x24
+URxvt.geometry: 90x35
 
 ! Colours (TODO Set up custom colours)
 ! -----------------------------
