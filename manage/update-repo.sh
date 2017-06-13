@@ -26,3 +26,5 @@ cp ~/.bashrc ~/Documents/Projects/dotfiles/bash/bashrc
 # Sway - config
 cp ~/.config/sway/config ~/Documents/Projects/dotfiles/sway/config
 
+# Reddit Terminal Viewer
+cp ~/.config/rtv/rtv.cfg ~/Documents/Projects/dotfiles/rtv/rtv.cfg

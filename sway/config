@@ -294,24 +294,6 @@ bar {
     new_window pixel 2
     new_float pixel 2
 
-    # Set colours from Xresources
-    set_from_resource $black color0 #000000
-    set_from_resource $red color1 #ff0000
-    set_from_resource $green color2 #00ff00
-    set_from_resource $yellow color3 #00ffff
-    set_from_resource $blue color4 #0000ff
-    set_from_resource $magenta color5
-    set_from_resource $cyan color6
-    set_from_resource $white color7
-    set_from_resource $light_black color8
-    set_from_resource $light_red color9
-    set_from_resource $light_green color10
-    set_from_resource $light_yellow color11
-    set_from_resource $light_blue color12
-    set_from_resource $light_magenta color13
-    set_from_resource $light_cyan color14
-    set_from_resource $light_white color15
-
 # ------------------------------------------------------------------------------
 
 
