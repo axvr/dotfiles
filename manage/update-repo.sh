@@ -26,5 +26,8 @@ cp ~/.bashrc ~/Documents/Projects/dotfiles/bash/bashrc
 # Sway - config
 cp ~/.config/sway/config ~/Documents/Projects/dotfiles/sway/config
 
-# Reddit Terminal Viewer
+# Reddit Terminal Viewer - rtv.cfg
 cp ~/.config/rtv/rtv.cfg ~/Documents/Projects/dotfiles/rtv/rtv.cfg
+
+# Qutebrowser -
+cp ~/.config/qutebrowser/* ~/Documents/Projects/dotfiles/qutebrowser/
