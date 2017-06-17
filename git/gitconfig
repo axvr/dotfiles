@@ -1,0 +1,5 @@
+[user]
+	name = Alex Vear
+	email = axvr@bitmessage.ch
+[core]
+	editor = nvim

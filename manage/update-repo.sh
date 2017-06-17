@@ -31,3 +31,7 @@ cp ~/.config/rtv/rtv.cfg ~/Documents/Projects/dotfiles/rtv/rtv.cfg
 
 # Qutebrowser -
 cp ~/.config/qutebrowser/* ~/Documents/Projects/dotfiles/qutebrowser/
+
+# Git - gitconfig
+cp ~/.gitconfig ~/Documents/Projects/dotfiles/git/gitconfig
+
