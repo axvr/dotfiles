@@ -1,4 +1,4 @@
-" NeoVim Configuration File (~/.config/nvim/init.vim)
+" Neovim Configuration File (~/.config/nvim/init.vim)
 " ===================================================
 
 " Brief help
