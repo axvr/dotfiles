@@ -1,19 +1,15 @@
 " NeoVim Configuration File (~/.config/nvim/init.vim)
 " ===================================================
 
-" $ sudo dnf -y install neovim python2-neovim python3-neovim
-" $ sudo dnf upgrade && sudo dnf install pylint rust python perl ctags cppcheck
-" $ sudo dnf install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
-" " perl-B-Lint ShellCheck
-"
 " Brief help
 " ----------
 " :PluginList	    - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean	    - confirms removal of unused plugins; append `!` to auto-approve removal
 " :PluginUpdate	    - update installed plugins
 " :source $MYVIMRC  - update to the current version if ~/.vimrc
+
+
 
 " Plugin Setup
 
@@ -36,10 +32,10 @@
 
     Plugin 'VividVim/Vivid-Legacy.vim'		" let Vivid manage Vivid	    <-- :help vivid
     Plugin 'rust-lang/rust.vim'		        " Rust Syntax Highlighting
-    Plugin 'kchmck/vim-coffee-script'	        " CoffeeScript Syntax Highlighting
     Plugin 'vim-airline/vim-airline'	        " Airline Theme Plugin		    <-- :help Airline
     Plugin 'vim-airline/vim-airline-themes'	" Airline Theme Packages
     Plugin 'tpope/vim-fugitive'		        " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
+    Plugin 'christoomey/vim-confilcted'         " TODO
     Plugin 'terryma/vim-multiple-cursors'       " Vim Multiple Cursors Plugin	    <-- :help vim-multiple-cursors
     Plugin 'scrooloose/syntastic'	        " Syntastic Syntax Checker Plugin   <-- :help syntastic
     Plugin 'airblade/vim-gitgutter'		" Show a Git Diff in the 'Gutter'   <-- :help GitGutter
@@ -48,7 +44,10 @@
     Plugin 'jistr/vim-nerdtree-tabs'	        " NERDTree Tabs Plugin              <-- :help vim-nerdtree-tabs
     Plugin 'xuyuanp/nerdtree-git-plugin'	" Display Git Diffs in NERDTree
     Plugin 'ctrlpvim/ctrlp.vim'		        " CtrlP Plugin			    <-- :help ctrlp.txt
-    Plugin 'mhartington/oceanic-next'
+    Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}  " TODO
+    Plugin 'godlygeek/tabular'                  " TODO
+    Plugin 'romainl/Apprentice'                 " TODO
+    Plugin 'mhartington/oceanic-next'           " TODO
 
   " Input Plugins Above this Line
   call vivid#close()
@@ -58,55 +57,65 @@
 
 " Basic Config
 
-  set number                  " Show the line numbers
+  syntax on                       " turn on syntax highlighting
+  set number                      " Show the line numbers
   set relativenumber
-  set linebreak               " breaks lines at words (requires line wrap)
-  set showbreak=+++           " Wrap broken line prefix
-  set showmatch               " Highlight matching brackets
-  set visualbell              " Use a visual error bell
-  set ignorecase              " Ignore case in searches
-  set smartcase               " enables smart case mode
-  set confirm                 " confirmation prompts
-  set ruler                   " show row and col ruler info
-  set undolevels=1000         " number of undo levels
-  set wrap                    " wrap visually
-  set nolist                  " list disables linebreak
+  set linebreak                   " breaks lines at words (requires line wrap)
+  set showbreak=+++               " Wrap broken line prefix
+  set showmatch                   " Highlight matching brackets
+  set hlsearch                    " Highlight all search results
+  set ignorecase                  " Ignore case in searches
+  set smartcase                   " enables smart case mode
+  set incsearch                   " searches for strings incrementaly
+  set autoindent                  " enable auto indentation
+  set confirm                     " confirmation prompts
+  set ruler                       " show row and col ruler info
+  set undolevels=1000             " number of undo levels
+  set backspace=indent,eol,start  " Backspace behaviour: current line only
+  set wrap                        " wrap visually
+  set nolist                      " list disables linebreak
   set nomodeline
-  set expandtab               " Changes tabs into spaces
-  set wrapmargin=0            " Set wrap margin to zero
-  set visualbell t_vb=        " Disable sound alerts
+  set expandtab                   " Changes tabs into spaces
+  set wrapmargin=0                " Set wrap margin to zero
+  set visualbell t_vb=            " Disable sound alerts
+  set laststatus=2
   set omnifunc=syntaxcomplete#Complete
   set path+=**
+  set wildmenu
   set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
   autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
+
+  " Vim Colour Scheme
+    colorscheme OceanicNext
+    if (has("termguicolors"))
+      set termguicolors
+    endif
+
   " Vim Spell Check
   noremap <F7> :setlocal spell! spelllang=en_us<CR>
+
   " Make a tags file
   command! MakeTags !ctags -R .
 
-  " Vim Folding - Does not work fully
-    augroup vim_folding
-      inoremap <F9> <C-O>za
-      nnoremap <F9> za
-      onoremap <F9> <C-C>za
-      vnoremap <F9> zf
-      au BufReadPre * setlocal foldmethod=indent
-      au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-    augroup END
-
   " Auto Close Parens and Quotes
+  " TODO make more inteligent
     "ino " ""<left>
     "ino ' ''<left>
     "ino ( ()<left>
     "ino [ []<left>
     "ino { {}<left>
-    "ino {<CR> {<CR>}<ESC>O
+    ino {<CR> {<CR>}<ESC>O
 
-  " GVim Config
-    if has('gui_running')	" Setup GVim to usable configurations
-      colo desert		" colour scheme = desert
-      set guifont=Monospace\ 11	" set font Monospace 11
-    endif
+  " Vim Hard Mode
+    "noremap  <Up> ""
+    "noremap! <Up> <Esc>
+    "noremap  <Down> ""
+    "noremap! <Down> <Esc>
+    "noremap  <Left> ""
+    "noremap! <Left> <Esc>
+    "noremap  <Right> ""
+    "noremap! <Right> <Esc>
+    set mouse=a
 
   " Vim Omnicomplete
     au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
@@ -121,6 +130,20 @@
     nnoremap <F5> :tabp<CR>
     nnoremap <F6> :tabn<CR>
 
+  " Vim Folding - Does not work fully
+    augroup vim_folding
+      inoremap <F9> <C-O>za
+      nnoremap <F9> za
+      onoremap <F9> <C-C>za
+      vnoremap <F9> zf
+      au BufReadPre * setlocal foldmethod=indent
+      au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+    augroup END
+
+  " GVim Config
+    if has('gui_running')	" Setup GVim to usable configurations
+      set guifont=Monospace\ 11	" set font Monospace 11
+    endif
 
 
 " Plugin Config
@@ -173,23 +196,24 @@
 " Syntax & File Type Config
 
   " Mozilla Syntax Vim Config
+  " TODO Extend and enhance this.
   if (&filetype == 'python')
     set ts=8 sts=4 et sw=4 tw=80
   else
     set ts=8 sts=2 et sw=2 tw=80
   endif
 
-  " Binary & ASCII Files
+  " Binary Files
   " Change vim into a hex editor
     augroup binary
       au!
-      au BufReadPre   *.bin,*.asc let &bin=1
-      au BufReadPost  *.bin,*.asc if &bin | %!xxd
-      au BufReadPost  *.bin,*.asc set ft=xxd | endif
-      au BufWritePre  *.bin,*.asc if &bin | %!xxd -r
-      au BufWritePre  *.bin,*.asc endif
-      au BufWritePost *.bin,*.asc if &bin | %!xxd
-      au BufWritePost *.bin,*.asc set nomod | endif
+      au BufReadPre   *.bin  let &bin=1
+      au BufReadPost  *.bin  if &bin | %!xxd
+      au BufReadPost  *.bin  set ft=xxd | endif
+      au BufWritePre  *.bin  if &bin | %!xxd -r
+      au BufWritePre  *.bin  endif
+      au BufWritePost *.bin  if &bin | %!xxd
+      au BufWritePost *.bin  set nomod | endif
     augroup END
 
   " GPG Encrypted Files
@@ -199,43 +223,27 @@
 
       " First make sure nothing is written to ~/.viminfo while editing
       " an encrypted file.
-      autocmd BufReadPre,FileReadPre *.gpg set viminfo=
+      autocmd BufReadPre,FileReadPre *.gpg,*.asc set viminfo=
       " We don't want a various options which write unencrypted data to disk
-      autocmd BufReadPre,FileReadPre *.gpg set noswapfile noundofile nobackup
+      autocmd BufReadPre,FileReadPre *.gpg,*.asc set noswapfile noundofile nobackup
 
       " Switch to binary mode to read the encrypted file
-      autocmd BufReadPre,FileReadPre *.gpg set bin
-      autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+      autocmd BufReadPre,FileReadPre *.gpg,*.asc set bin
+      autocmd BufReadPre,FileReadPre *.gpg,*.asc let ch_save = &ch|set ch=2
       " (If you use tcsh, you may need to alter this line.)
-      autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt 2> /dev/null
+      autocmd BufReadPost,FileReadPost *.gpg,*.asc '[,']!gpg --decrypt 2> /dev/null
 
       " Switch to normal mode for editing
-      autocmd BufReadPost,FileReadPost *.gpg set nobin
-      autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
-      autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
+      autocmd BufReadPost,FileReadPost *.gpg,*.asc set nobin
+      autocmd BufReadPost,FileReadPost *.gpg,*.asc let &ch = ch_save|unlet ch_save
+      autocmd BufReadPost,FileReadPost *.gpg,*.asc execute ":doautocmd BufReadPost " . expand("%:r")
 
       " Convert all text to encrypted text before writing
       " (If you use tcsh, you may need to alter this line.)
-      autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --default-recipient-self -ae 2>/dev/null
+      autocmd BufWritePre,FileWritePre *.gpg,*.asc '[,']!gpg --default-recipient-self -ae 2>/dev/null
       " Undo the encryption so we are back in the normal text, directly
       " after the file has been written.
-      autocmd BufWritePost,FileWritePost *.gpg u
+      autocmd BufWritePost,FileWritePost *.gpg,*.asc u
     augroup END
-
-
-
-" Colour Scheme
-
-  " For Neovim 0.1.3 and 0.1.4
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-  " Or if you have Neovim >= 0.1.5
-  if (has("termguicolors"))
-   set termguicolors
-  endif
-
-  " Theme
-  syntax enable
-  colorscheme OceanicNext
 
 

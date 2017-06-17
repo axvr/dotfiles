@@ -5,7 +5,6 @@
 " ----------
 " :PluginList	    - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean	    - confirms removal of unused plugins; append `!` to auto-approve removal
 " :PluginUpdate	    - update installed plugins
 " :source $MYVIMRC  - update to the current version if ~/.vimrc
@@ -33,7 +32,6 @@
 
     Plugin 'VividVim/Vivid-Legacy.vim'	        " let Vivid manage Vivid	    <-- :help vivid
     Plugin 'rust-lang/rust.vim'		        " Rust Syntax Highlighting
-    Plugin 'kchmck/vim-coffee-script'	        " CoffeeScript Syntax Highlighting
     Plugin 'vim-airline/vim-airline'	        " Airline Theme Plugin		    <-- :help Airline
     Plugin 'vim-airline/vim-airline-themes'	" Airline Theme Packages
     Plugin 'tpope/vim-fugitive'		        " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
@@ -48,6 +46,8 @@
     Plugin 'ctrlpvim/ctrlp.vim'		        " CtrlP Plugin			    <-- :help ctrlp.txt
     Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}  " TODO
     Plugin 'godlygeek/tabular'                  " TODO
+    Plugin 'romainl/Apprentice'                 " TODO
+    Plugin 'mhartington/oceanic-next'           " TODO
 
   " Input Plugins Above this Line
   call vivid#close()
@@ -84,6 +84,12 @@
   set wildmenu
   set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
   autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
+
+  " Vim Colour Scheme
+    colorscheme OceanicNext
+    if (has("termguicolors"))
+      set termguicolors
+    endif
 
   " Vim Spell Check
   noremap <F7> :setlocal spell! spelllang=en_us<CR>
@@ -134,6 +140,10 @@
       au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
     augroup END
 
+  " GVim Config
+    if has('gui_running')	" Setup GVim to usable configurations
+      set guifont=Monospace\ 11	" set font Monospace 11
+    endif
 
 
 " Plugin Config
@@ -197,13 +207,13 @@
   " Change vim into a hex editor
     augroup binary
       au!
-      au BufReadPre   *.bin let &bin=1
-      au BufReadPost  *.bin if &bin | %!xxd
-      au BufReadPost  *.bin set ft=xxd | endif
-      au BufWritePre  *.bin if &bin | %!xxd -r
-      au BufWritePre  *.bin endif
-      au BufWritePost *.bin if &bin | %!xxd
-      au BufWritePost *.bin set nomod | endif
+      au BufReadPre   *.bin  let &bin=1
+      au BufReadPost  *.bin  if &bin | %!xxd
+      au BufReadPost  *.bin  set ft=xxd | endif
+      au BufWritePre  *.bin  if &bin | %!xxd -r
+      au BufWritePre  *.bin  endif
+      au BufWritePost *.bin  if &bin | %!xxd
+      au BufWritePost *.bin  set nomod | endif
     augroup END
 
   " GPG Encrypted Files

@@ -79,33 +79,33 @@ URxvt.geometry: 90x35
 !URxvt*depth: 32
 ! -----------------------------
 ! Background Colour
-URxvt*background:  rgb:34/37/40
+URxvt*background:  rgb:26/26/26
 ! -----------------------------
 ! Font/Foreground Colour
-URxvt*foreground:  rgb:be/c7/d5
+URxvt*foreground:  rgb:bc/bc/bc
 ! -----------------------------
 ! Cursor Colour
-URxvt*cursorColor: rgb:be/c7/d5
+URxvt*cursorColor: rgb:bc/bc/bc
 ! -----------------------------
 ! Normal Colours
-URxvt*color0:  rgb:18/1c/22
-URxvt*color1:  rgb:20/25/2c
-URxvt*color2:  rgb:5c/90/d3
-URxvt*color3:  rgb:6d/b3/a0
-URxvt*color4:  rgb:5e/6a/7b
-URxvt*color5:  rgb:7e/8e/a3
-URxvt*color6:  rgb:8d/ad/d9
-URxvt*color7:  rgb:5c/61/6c
+URxvt*color0:  rgb:1c/1c/1c
+URxvt*color1:  rgb:af/5f/5f
+URxvt*color2:  rgb:5f/87/5f
+URxvt*color3:  rgb:87/87/5f
+URxvt*color4:  rgb:5f/87/af
+URxvt*color5:  rgb:5f/5f/87
+URxvt*color6:  rgb:5f/87/87
+URxvt*color7:  rgb:6c/6c/6c
 ! -----------------------------
 ! Light Colours
-URxvt*color8:  rgb:ee/4f/f5
-URxvt*color9:  rgb:ec/70/9a
-URxvt*color10: rgb:4a/9b/e0
-URxvt*color11: rgb:35/9f/ee
-URxvt*color12: rgb:e9/8b/ee
-URxvt*color13: rgb:5d/ce/49
-URxvt*color14: rgb:48/ea/57
-URxvt*color15: rgb:ce/59/bc
+URxvt*color8:  rgb:44/44/44
+URxvt*color9:  rgb:ff/87/00
+URxvt*color10: rgb:87/af/87
+URxvt*color11: rgb:ff/ff/af
+URxvt*color12: rgb:8f/af/d7
+URxvt*color13: rgb:87/87/af
+URxvt*color14: rgb:5f/af/af
+URxvt*color15: rgb:ff/ff/ff
 
 
 
