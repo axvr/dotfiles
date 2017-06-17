@@ -35,7 +35,7 @@
     Plugin 'vim-airline/vim-airline'	        " Airline Theme Plugin		    <-- :help Airline
     Plugin 'vim-airline/vim-airline-themes'	" Airline Theme Packages
     Plugin 'tpope/vim-fugitive'		        " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
-    Plugin 'christoomey/vim-confilcted'         " TODO
+    Plugin 'christoomey/vim-conflicted'         " TODO
     Plugin 'terryma/vim-multiple-cursors'       " Vim Multiple Cursors Plugin	    <-- :help vim-multiple-cursors
     Plugin 'scrooloose/syntastic'	        " Syntastic Syntax Checker Plugin   <-- :help syntastic
     Plugin 'airblade/vim-gitgutter'		" Show a Git Diff in the 'Gutter'   <-- :help GitGutter
@@ -46,8 +46,7 @@
     Plugin 'ctrlpvim/ctrlp.vim'		        " CtrlP Plugin			    <-- :help ctrlp.txt
     Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}  " TODO
     Plugin 'godlygeek/tabular'                  " TODO
-    Plugin 'romainl/Apprentice'                 " TODO
-    Plugin 'mhartington/oceanic-next'           " TODO
+    Plugin 'rafi/awesome-vim-colorschemes'      " TODO
 
   " Input Plugins Above this Line
   call vivid#close()
@@ -86,7 +85,7 @@
   autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
 
   " Vim Colour Scheme
-    colorscheme OceanicNext
+    colorscheme space-vim-dark
     if (has("termguicolors"))
       set termguicolors
     endif

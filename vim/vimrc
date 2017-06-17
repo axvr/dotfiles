@@ -46,8 +46,7 @@
     Plugin 'ctrlpvim/ctrlp.vim'		        " CtrlP Plugin			    <-- :help ctrlp.txt
     Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}  " TODO
     Plugin 'godlygeek/tabular'                  " TODO
-    Plugin 'romainl/Apprentice'                 " TODO
-    Plugin 'mhartington/oceanic-next'           " TODO
+    Plugin 'rafi/awesome-vim-colorschemes'      " TODO
 
   " Input Plugins Above this Line
   call vivid#close()
@@ -86,7 +85,7 @@
   autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
 
   " Vim Colour Scheme
-    colorscheme OceanicNext
+    colorscheme space-vim-dark
     if (has("termguicolors"))
       set termguicolors
     endif
