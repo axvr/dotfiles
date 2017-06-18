@@ -80,4 +80,5 @@ alias vi="vim"
 alias e="emacs -nw"
 alias sm="emacs -nw"
 alias nv="nvim"
+alias vim="nvim"
 
