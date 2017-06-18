@@ -63,7 +63,7 @@
     endif
 
   " Vim Spell Check
-  noremap <F7> :setlocal spell! spelllang=en_us<CR>
+  noremap <F7> :setlocal spell! spelllang=en_gb<CR>
 
   " Make a tags file
   command! MakeTags !ctags -R .
