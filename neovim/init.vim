@@ -1,20 +1,20 @@
-" Neovim Configuration File (~/.config/nvim/init.vim)
-" ===================================================
+" Neovim Configuration File ($XDG_CONFIG_HOME/nvim/init.vim)
+" ==========================================================
 
 " Brief help
 " ----------
-" :PluginList	    - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginClean	    - confirms removal of unused plugins; append `!` to auto-approve removal
-" :PluginUpdate	    - update installed plugins
-" :source $MYVIMRC  - update to the current version if ~/.vimrc
+" :PlugStatus       - View status of plugins
+" :PlugInstall      - Install new plugins
+" :PlugClean        - Remove unused plugins
+" :PlugUpdate       - Update installed plugins
+" :PlugUpgrade      - Upgrade Vim-Plug
+" :source $MYVIMRC  - Load latest version of init.vim
 
 
 " Plugin Setup
 
   " Install Vim-Plug and Plugins
-    command! InstallVimPlug !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
+    command! Setup !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
   call plug#begin()
   " Input Plugins Below this Line
@@ -165,7 +165,7 @@
 
 " Syntax & File Type Config
 
-  " Mozilla Syntax Vim Config
+  " Mozilla Style Syntax Vim Config
   " TODO Extend and enhance this.
   if (&filetype == 'python')
     set ts=8 sts=4 et sw=4 tw=80
