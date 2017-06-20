@@ -18,9 +18,9 @@
     if (!filereadable(vivid_checkfile))
       echo "Installing Vivid.vim & plugins"
       silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/bundle/Vivid.vim
-      :source $MYVIMRC
+      source $MYVIMRC
       :PluginInstall
-      :source $MYVIMRC
+      source $MYVIMRC
       :q
     endif
 
@@ -28,7 +28,6 @@
   call vivid#open()
   " Input Plugins Below this Line
 
-    Plugin 'axvr/Vivid.vim'       	        " let Vivid manage Vivid	    <-- :help vivid
     Plugin 'rust-lang/rust.vim'		        " Rust Syntax Highlighting
     Plugin 'vim-airline/vim-airline'	        " Airline Theme Plugin		    <-- :help Airline
     Plugin 'vim-airline/vim-airline-themes'	" Airline Theme Packages
