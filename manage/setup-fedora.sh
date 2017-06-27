@@ -4,7 +4,7 @@
 # -----------------------------
 
 # Run this script
-# wget https://https://raw.githubusercontent.com/axvr/dotfiles/master/manage/setup-fedora.sh && ./setup-fedora.sh
+# wget https://raw.githubusercontent.com/axvr/dotfiles/master/manage/setup-fedora.sh && ./setup-fedora.sh
 
 # Fedora Broadcom WiFi drivers
 # https://ashhar24.wordpress.com/2012/06/15/setting-up-wireless-driver-fedora/
@@ -59,4 +59,4 @@ wget $github/bash/bashrc         -O ~/.bashrc
 source ~/.bashrc
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
-# TODO maybe do ssh key gen (ssh-keygen -t rsa -b 4096 -C "email@here.com")
+# TODO maybe add ssh key gen (ssh-keygen -t rsa -b 4096 -C "email@here.com")
