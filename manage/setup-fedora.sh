@@ -1,107 +1,62 @@
 #!/usr/bin/env bash
+# -----------------------------
+# Set up Fedora
+# -----------------------------
 
-#############################################
-### Fedora 25 set up script for Alex Vear ###
-#############################################
+# Run this script
+# wget https://https://raw.githubusercontent.com/axvr/dotfiles/master/manage/setup-fedora.sh && ./setup-fedora.sh
 
+# Fedora Broadcom WiFi drivers
+# https://ashhar24.wordpress.com/2012/06/15/setting-up-wireless-driver-fedora/
 
-# to use this script:
-# $ wget -O setup-fedora.sh https://raw.githubusercontent.com/axvr/dotfiles/master/setup-fedora.sh && ./setup-fedora.sh
-
-
-##################
-### Pre-set-up ###
-##################
-
-# Upgrade fedora (without prompt)
+# Upgrade Fedora
 sudo dnf -y upgrade
 
-# Set up Git version control
-sudo dnf install git
-git config --global user.name "Alex Vear"
-git config --global user.email "axvr@bitmessage.ch"
-git config --global core.editor "vim"
+# Install Applications
+sudo dnf -y install keepassxc polari gnome-tweak-tool asunder \
+     gnome-todo libreoffice torbrowser-launcher
 
-# Create basic file system structure
-mkdir -p ~/Documents/Projects/ ~/.vim/ ~/.config/nvim/ ~/.emacs.d/
-echo "Change git origin to SSH"
-git clone https://github.com/axvr/dotfiles.git ~/Documents/Projects/dotfiles
+# Install Development Tools (Some may need to be installed via pip)
+sudo dnf -y install emacs vim neovim \
+     texlive-scheme-basic texlive-titling texlive-titlesec texlive-roboto \
+     python python3 pylint python3-pylint python-nose python3-nose \
+     python2-devel python3-devel python2-flake8 python3-flake8 \
+     rust cargo \
+     cppcheck clang gtkmm30-devel \
+     cmake ctags shellcheck perl
+cargo install rustfmt racer # TODO set up rust racer
 
+sudo dnf -y groupinstall "Development Tools" \
+     "C Development Tools and Libraries" \
+     "GNOME Software Development"
 
-######################################
-### Application Install and config ###
-######################################
+# Install Fonts
+sudo dnf -y install adobe-source-code-pro-fonts \
+     google-roboto-fonts google-roboto-mono-fonts
+# TODO install Iosevka font
 
-# install and set up editors
-sudo dnf install emacs vim neovim
-bash ~/Documents/Projects/dotfiles/install.sh
+# Install Themes
+sudo dnf -y install arc-theme breeze-cursor-theme
+mkdir -p ~/.fonts/Arc
+git clone https://github.com/horst3180/arc-icon-theme.git /tmp/arc-temp
+mv /tmp/arc-temp/Arc/* ~/.fonts/Arc/
+
+# Install GNOME Extensions
+mkdir -p ~/.local/share/
+git clone https://github.com/rockon999/dynamic-panel-transparency.git \
+    /tmp/dpt
+mv /tmp/dpt/dynamic-panel-transparency@rockon999.github.io \
+   ~/.local/share/gnome-shell/extensions/
+
+# Set up Development Tools
+mkdir -p ~/.emacs.d ~/.config/nvim
+github=https://raw.githubusercontent.com/axvr/dotfiles/master
+wget $github/spacemacs/spacemacs -O ~/.spacemacs
+wget $github/neovim/init.vim     -O ~/.config/nvim/init.vim
+wget $github/vim/vimrc           -O ~/.vimrc
+wget $github/git/gitconfig       -O ~/.gitconfig
+wget $github/bash/bashrc         -O ~/.bashrc
+source ~/.bashrc
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
-# Other applications
-sudo dnf -y install keepassx polari gnome-tweak-tool asunder \
-     torbrowser-launcher gnome-todo libreoffice
-
-
-##########################
-### Development Set up ###
-##########################
-
-# LaTeX packages
-sudo dnf -y install texlive-scheme-basic texlive-titling texlive-titlesec \
-     texlive-roboto
-
-# Generate SSH key pair (Add to GitHub!)
-echo "Add SSH Key to GitHub account"
-ssh-keygen -t rsa -b 4096 -C "axvr@bitmessage.ch"
-
-# Programming utilities
-sudo dnf -y install pylint rust perl clang cargo python python3 python-nose \
-     cppcheck
-cargo install racer # TODO Needs sorting out
-cargo install rustfmt
-
-# Set up system for Mozilla compatible Development
-wget -O /tmp/bootstrap.py https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py
-python /tmp/bootstrap.py
-
-# Servo compatible development set up
-sudo dnf install rpm-build python2-virtualenv ncurses-devel ncurses-c++-libs  \
-     mesa-libOSMesa-devel mesa-libOSMesa mesa-libGLU-devel libXmu-devel gperf \
-     gl-manpages freeglut-devel freeglut cabextract
-
-
-##################################
-### Other system configuration ###
-##################################
-
-# Install fonts and themes
-sudo dnf -y install adobe-source-code-pro-fonts google-roboto-fonts \
-     google-roboto-mono-fonts arc-theme breeze-cursor-theme
-
-# Install Arc icon theme
-mkdir -p ~/.icons/Arc/ ~/.icons/Arc-temp
-wget -O ~/.icons/arc.tar.gz https://github.com/horst3180/arc-icon-theme/archive/20161122.tar.gz
-tar zxvf ~/.icons/arc.tar.gz -C ~/.icons/Arc-temp/ && rm -r ~/.icons/arc.tar.gz
-mv ~/.icons/Arc-temp/$(ls ~/.icons/Arc-temp/)/* ~/.icons/Arc-temp/
-mv ~/.icons/Arc-temp/Arc/* ~/.icons/Arc/ && rm -r ~/.icons/Arc-temp/
-
-# Gnome Extensions
-git clone https://github.com/rockon999/dynamic-panel-transparency.git ~/gnome-ext-temp
-mv ~/gnome-ext-temp/dynamic-panel-transparency@rockon999.github.io \
-   ~/.local/share/gnome-shell/extensions/ && rm -r ~/gnome-ext-temp
-
-# Gnome shell set up
-gnome-shell --replace
-gnome-shell-extension-tool -e dynamic-panel-transparency@rockon999.github.io
-gsettings set org.gnome.desktop.interface icon-theme "Arc"
-gsettings set org.gnome.desktop.interface gtk-theme "Arc-Darker"
-gsettings set org.gnome.shell.extensions.user-theme name "Arc-Dark"
-gsettings set org.gnome.desktop.interface cursor-theme "Breeze_cursors"
-echo "Enable Global Dark theme in Gnome Tweak Tool"
-echo "Enable User-themes Extension in Gnome Tweak Tool"
-echo "Gnome may require a restart and then enabling extensions if this was not successful"
-echo "Set Dynamic panel transparency time to 200ms"
-echo "Set up online accounts"
-echo "Set up GitHub SSH Key and change dotfiles clone to origin to SSH address"
-echo "Clone other project repos"
-
+# TODO maybe do ssh key gen (ssh-keygen -t rsa -b 4096 -C "email@here.com")

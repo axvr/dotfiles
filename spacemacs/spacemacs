@@ -48,9 +48,9 @@ values."
      ;; TODO Set up Rust Racer
      (rust :variables
            rust-format-on-save t)
-     java
+     ;;java
      ;;javascript
-     html
+     ;;html
      git
      markdown
      latex
@@ -272,7 +272,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers 'relative ;;nil
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil

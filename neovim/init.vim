@@ -19,6 +19,7 @@
   call plug#begin()
   " Input Plugins Below this Line
 
+    " TODO test out Deoplete and syntastic replacements
     Plug 'scrooloose/nerdtree',           { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }   " NERDTree Plugin  <-- :help NERD_tree.txt
     Plug 'xuyuanp/nerdtree-git-plugin',   { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }   " Display Git Diffs in NERDTree
     Plug 'tpope/vim-fugitive'             " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
