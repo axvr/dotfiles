@@ -3,8 +3,8 @@
 # Set up Fedora
 # -----------------------------
 
-# Run this script
-# wget https://raw.githubusercontent.com/axvr/dotfiles/master/manage/setup-fedora.sh && ./setup-fedora.sh
+# Run install script using this command
+# wget https://raw.githubusercontent.com/axvr/dotfiles/master/manage/setup-fedora.sh && bash setup-fedora.sh
 
 # Fedora Broadcom WiFi drivers
 # https://ashhar24.wordpress.com/2012/06/15/setting-up-wireless-driver-fedora/
