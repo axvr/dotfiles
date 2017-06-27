@@ -23,8 +23,9 @@ sudo dnf -y install emacs vim neovim \
      python2-devel python3-devel python2-flake8 python3-flake8 \
      rust cargo \
      cppcheck clang gtkmm30-devel \
-     cmake ctags shellcheck perl
-cargo install rustfmt racer # TODO set up rust racer
+     cmake ctags ShellCheck perl
+cargo install rustfmt
+cargo install racer # TODO set up rust racer
 
 sudo dnf -y groupinstall "Development Tools" \
      "C Development Tools and Libraries" \
