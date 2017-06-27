@@ -19,3 +19,12 @@
 ## Fedora
 
 ```dnf install gtkmm30-devel```
+
+
+# Other
+
+## Fedora
+
+```dnf install leveldb-devel libmicrohttpd-devel```
+
+
