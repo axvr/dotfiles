@@ -11,11 +11,14 @@ cp ~/Documents/Projects/dotfiles/neovim/init.vim ~/.config/nvim/init.vim
 # Spacemacs - spacemacs
 cp ~/Documents/Projects/dotfiles/spacemacs/spacemacs ~/.spacemacs
 
-# Xresources - Xresources
-cp ~/Documents/Projects/dotfiles/urxvt/Xresources ~/.Xresources
-
 # Bash - bashrc
 cp ~/Documents/Projects/dotfiles/bash/bashrc ~/.bashrc
+
+# Git - gitconfig
+cp ~/Documents/Projects/dotfiles/git/gitconfig ~/.gitconfig
+
+# Xresources - Xresources
+cp ~/Documents/Projects/dotfiles/urxvt/Xresources ~/.Xresources
 
 # Sway - config
 cp ~/Documents/Projects/dotfiles/sway/config ~/.config/sway/config
@@ -23,5 +26,3 @@ cp ~/Documents/Projects/dotfiles/sway/config ~/.config/sway/config
 # Qutebrowser -
 cp ~/Documents/Projects/dotfiles/qutebrowser/ ~/.config/qutebrowser/*
 
-# Git - gitconfig
-cp ~/Documents/Projects/dotfiles/git/gitconfig ~/.gitconfig
