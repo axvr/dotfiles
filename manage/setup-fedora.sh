@@ -38,9 +38,9 @@ sudo dnf -y install adobe-source-code-pro-fonts \
 
 # Install Themes
 sudo dnf -y install arc-theme breeze-cursor-theme
-mkdir -p ~/.fonts/Arc
+mkdir -p ~/.icons/Arc
 git clone https://github.com/horst3180/arc-icon-theme.git /tmp/arc-temp
-mv /tmp/arc-temp/Arc/* ~/.fonts/Arc/
+mv /tmp/arc-temp/Arc/* ~/.icons/Arc/
 
 # Install GNOME Extensions
 mkdir -p ~/.local/share/
