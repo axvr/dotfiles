@@ -34,7 +34,7 @@ sudo dnf -y groupinstall "Development Tools" \
 # Install Fonts
 sudo dnf -y install adobe-source-code-pro-fonts \
      google-roboto-fonts google-roboto-mono-fonts
-# TODO install Iosevka font
+# TODO install Iosevka font in `~/.fonts/Iosevka/`
 
 # Install Themes
 sudo dnf -y install arc-theme breeze-cursor-theme
