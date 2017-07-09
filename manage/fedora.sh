@@ -58,6 +58,7 @@ function install_themes() {
 
 # Install Icons
 function install_icons() {
+    rm -r ~/.icons/Arc
     mkdir -p ~/.icons/Arc
     git clone https://github.com/horst3180/arc-icon-theme.git /tmp/arc-temp
     mv /tmp/arc-temp/Arc/* ~/.icons/Arc/
@@ -66,7 +67,9 @@ function install_icons() {
 
 # Install GNOME Extensions
 function install_extensions() {
-    mkdir -p ~/.local/share/
+
+    mkdir -p ~/.local/share/gnome-shell/extensions
+    rm -r ~/.local/share/gnome-shell/extensions/dynamic-panel-transparency@rockon999.github.io
     git clone https://github.com/rockon999/dynamic-panel-transparency.git \
         /tmp/dpt
     mv /tmp/dpt/dynamic-panel-transparency@rockon999.github.io \
@@ -77,7 +80,9 @@ function install_extensions() {
 # Set up applications and load dot-files
 function setup_applications() {
 
+
     # Set up Development Tools
+    rm -rf ~/.emacs.d/
     mkdir -p ~/.emacs.d ~/.config/nvim
     github=https://raw.githubusercontent.com/axvr/dotfiles/master
     wget $github/spacemacs/spacemacs -O ~/.spacemacs
@@ -173,10 +178,12 @@ Selection: "
     elif [ "$selection" = "4" ]
     then
         setup_applictions
+        echo "Applications configured and set up"
 
     elif [ "$selection" = "5" ]
     then
         update_repo
+        echo "Dotfiles repository was updated"
 
     elif [ "$selection" = "0" ]
     then
