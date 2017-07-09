@@ -4,7 +4,7 @@
 # -----------------------------
 
 # Run install script using this command
-# wget https://raw.githubusercontent.com/axvr/dotfiles/master/manage/setup-fedora.sh && bash setup-fedora.sh
+# wget https://raw.githubusercontent.com/axvr/dotfiles/master/manage/fedora.sh && bash fedora.sh
 
 # Fedora Broadcom WiFi drivers
 # https://ashhar24.wordpress.com/2012/06/15/setting-up-wireless-driver-fedora/
@@ -102,6 +102,8 @@ function setup_applications() {
 # Add dotfiles to the dotfiles repo
 function update_repo() {
 
+    # TODO mkdir -p ...
+
     # Vim - vimrc
     cp ~/.vimrc ~/Documents/Projects/dotfiles/vim/vimrc
 
@@ -162,11 +164,14 @@ Selection: "
         install_icons
         install_extensions
         setup_applications
+        exitValue=1
+        message="Fedora system was set up"
 
     elif [ "$selection" = "2" ]
     then
         upgrade_system
         install_applications
+        message="Applications were installed"
 
     elif [ "$selection" = "3" ]
     then
@@ -174,16 +179,17 @@ Selection: "
         install_themes
         install_icons
         install_extensions
+        message="Customisations were installed"
 
     elif [ "$selection" = "4" ]
     then
         setup_applictions
-        echo "Applications configured and set up"
+        message="Applications configured and set up"
 
     elif [ "$selection" = "5" ]
     then
         update_repo
-        echo "Dotfiles repository was updated"
+        message="Dotfiles repository was updated"
 
     elif [ "$selection" = "0" ]
     then
@@ -192,7 +198,7 @@ Selection: "
 
     else
         # Error message
-        printf "ERROR: %s is not a valid option \n" "$selection"
+        message="ERROR: \"$selection\" is not a valid option"
     fi
 
 }
@@ -201,9 +207,11 @@ Selection: "
 # -------------------------------------------------------------------------------
 
 exitValue=0
+message="Fedora Configuration Script"
 
 while [ "$exitValue" != "1" ]
 do
+    printf "\n%s\n" "$message"
     user_selection
 done
 
