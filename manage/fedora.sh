@@ -144,7 +144,7 @@ function user_selection() {
     printf "
 Select an option from below:
 [1] : Set up entire Fedora install,
-[2] : Install Applications
+[2] : Install applications
 [3] : Upgrade fonts, themes, icons and extensions,
 [4] : Set up applications (install dotfiles),
 [5] : Update dotfiles repository,
