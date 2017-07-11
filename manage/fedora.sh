@@ -119,7 +119,7 @@ function setup_applications() {
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
     # Install gnome-shell-ext-conf (https://github.com/cyberalex4life/gnome-shell-extension-cl)
-    sudo wget https://raw.githubusercontent.com/cyberalex4life/gnome-shell-extension-cl/master/gnome-shell-extension-cl \
+    sudo wget https://raw.githubusercontent.com/axvr/gnome-shell-extension-cl/master/gnome-shell-extension-cl \
          -O /usr/local/bin/gnome-shell-ext-conf
     sudo chmod +x /usr/local/bin/gnome-shell-ext-conf
 
