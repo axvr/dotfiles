@@ -22,11 +22,12 @@ function install_applications() {
 
     # Install Applications
     sudo dnf -y install keepassxc polari gnome-tweak-tool asunder \
-         gnome-todo libreoffice torbrowser-launcher tilix
+         gnome-todo libreoffice torbrowser-launcher tilix inkscape
 
     # Install Development Tools (Some may need to be installed via pip)
     sudo dnf -y install emacs vim neovim \
-         texlive-scheme-basic texlive-titling texlive-titlesec texlive-roboto \
+         texlive-scheme-basic texlive-titling texlive-titlesec \
+         texlive-roboto texlive-noto \
          python python3 pylint python3-pylint python-nose python3-nose \
          python2-devel python3-devel python2-flake8 python3-flake8 \
          rust cargo \
@@ -42,22 +43,38 @@ function install_applications() {
 }
 
 
-# Install Fonts
+# Install Font Packs
 function install_fonts() {
+    mkdir -p ~/.fonts
     sudo dnf -y install adobe-source-code-pro-fonts \
-         google-roboto-fonts google-roboto-mono-fonts
+         google-roboto-fonts google-roboto-mono-fonts \
+         google-noto-fonts-common google-noto-mono-fonts
     # TODO install Iosevka font in `~/.fonts/Iosevka/`
 }
 
 
-# Install Themes
+# Install GTK+ & Qt Themes, Wallpapers & Cursor Themes
 function install_themes() {
-    sudo dnf -y install arc-theme breeze-cursor-theme
+    mkdir -p ~/.themes
+    sudo dnf -y install arc-theme breeze-cursor-theme gnome-backgrounds-extras \
+         sassc inkscape
+    # Adapta theme
+    sudo rm -rf /usr/share/themes/{Adapta,Adapta-Eta,Adapta-Nokto,Adapta-Nokto-Eta}
+    rm -rf ~/.local/share/themes/{Adapta,Adapta-Eta,Adapta-Nokto,Adapta-Nokto-Eta}
+    rm -rf ~/.themes/{Adapta,Adapta-Eta,Adapta-Nokto,Adapta-Nokto-Eta}
+    rm -rf /tmp/adapta
+    git clone https://github.com/adapta-project/adapta-gtk-theme.git /tmp/adapta
+    current_location=$(pwd)
+    cd /tmp/adapta/ || exit
+    ./autogen.sh
+    make && sudo make install
+    cd "$current_location" || exit
 }
 
 
-# Install Icons
+# Install Icon Packs
 function install_icons() {
+    rm -rf /tmp/arc-temp
     rm -r ~/.icons/Arc
     mkdir -p ~/.icons/Arc
     git clone https://github.com/horst3180/arc-icon-theme.git /tmp/arc-temp
@@ -67,7 +84,7 @@ function install_icons() {
 
 # Install GNOME Extensions
 function install_extensions() {
-
+    rm -rf /tmp/dpt
     mkdir -p ~/.local/share/gnome-shell/extensions
     rm -r ~/.local/share/gnome-shell/extensions/dynamic-panel-transparency@rockon999.github.io
     git clone https://github.com/rockon999/dynamic-panel-transparency.git \
@@ -79,7 +96,6 @@ function install_extensions() {
 
 # Set up applications and load dot-files
 function setup_applications() {
-
 
     # Set up Development Tools
     rm -rf ~/.emacs.d/
@@ -214,4 +230,6 @@ do
     printf "\n%s\n" "$message"
     user_selection
 done
+
+exit
 
