@@ -49,7 +49,7 @@ function install_fonts() {
     sudo dnf -y install adobe-source-code-pro-fonts \
          google-roboto-fonts google-roboto-mono-fonts \
          google-noto-fonts-common google-noto-mono-fonts
-    # TODO install Iosevka font in `~/.fonts/Iosevka/`
+    # TODO install Iosevka font in `~/.fonts/Iosevka/` or compile and render
 }
 
 
@@ -91,6 +91,15 @@ function install_extensions() {
         /tmp/dpt
     mv /tmp/dpt/dynamic-panel-transparency@rockon999.github.io \
        ~/.local/share/gnome-shell/extensions/
+    # TODO add these extensions
+    # * Hide Top Bar
+    # * Focusli (if fixed)
+    # * Dash to Dock
+    # * User Themes (check if pre installed with GNOME)
+    # * Places Status Indicator (check if pre installed with GNOME)
+    # * Background Logo (pre-installed on Fedora)
+    # * AlternateTab (check if pre installed with GNOME)
+    # * Workspaces to Dock
 }
 
 
@@ -108,6 +117,11 @@ function setup_applications() {
     wget $github/bash/bashrc         -O ~/.bashrc
     source ~/.bashrc
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+
+    # Install gnome-shell-ext-conf (https://github.com/cyberalex4life/gnome-shell-extension-cl)
+    sudo wget https://raw.githubusercontent.com/cyberalex4life/gnome-shell-extension-cl/master/gnome-shell-extension-cl \
+         -O /usr/local/bin/gnome-shell-ext-conf
+    sudo chmod +x /usr/local/bin/gnome-shell-ext-conf
 
 }
 
@@ -154,6 +168,70 @@ function update_repo() {
 
 # -------------------------------------------------------------------------------
 
+# Complete theme selection
+
+function default_theme() {
+
+    # Extensions configuration
+    gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
+    gnome-shell-ext-conf -d 'dynamic-panel-transparency@rockon999.github.io'
+
+    # Theme configuration
+    gsettings set org.gnome.desktop.interface cursor-theme   'Adwaita'
+    gsettings set org.gnome.desktop.interface icon-theme     'Adwaita'
+    gsettings set org.gnome.shell.extensions.user-theme name 'Adwaita'
+    gsettings set org.gnome.desktop.interface gtk-theme      'Adwaita'
+
+}
+
+
+function adapta-eta_theme() {
+
+    # Extensions configuration
+    gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
+    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
+
+    # Theme configuration
+    gsettings set org.gnome.desktop.interface cursor-theme   'Breeze_Snow'
+    gsettings set org.gnome.desktop.interface icon-theme     'Arc'
+    gsettings set org.gnome.shell.extensions.user-theme name 'Adapta-Nokto-Eta'
+    gsettings set org.gnome.desktop.interface gtk-theme      'Adapta-Eta'
+
+}
+
+
+function adapta_theme() {
+
+    # Extensions configuration
+    gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
+    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
+
+    # Theme configuration
+    gsettings set org.gnome.desktop.interface cursor-theme   'Breeze_Snow'
+    gsettings set org.gnome.desktop.interface icon-theme     'Arc'
+    gsettings set org.gnome.shell.extensions.user-theme name 'Adapta-Nokto'
+    gsettings set org.gnome.desktop.interface gtk-theme      'Adapta'
+
+}
+
+
+function arc_theme() {
+
+    # Extensions configuration
+    gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
+    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
+
+    # Theme configuration
+    gsettings set org.gnome.desktop.interface cursor-theme   'Breeze_Snow'
+    gsettings set org.gnome.desktop.interface icon-theme     'Arc'
+    gsettings set org.gnome.shell.extensions.user-theme name 'Arc-Dark'
+    gsettings set org.gnome.desktop.interface gtk-theme      'Arc-Darker'
+
+}
+
+
+# -------------------------------------------------------------------------------
+
 function user_selection() {
 
     # User selection
@@ -164,6 +242,7 @@ Select an option from below:
 [3] : Upgrade fonts, themes, icons and extensions,
 [4] : Set up applications (install dotfiles),
 [5] : Update dotfiles repository,
+[6] : Load a GNOME theme,
 [0] : Cancel / Exit.
 
 Selection: "
@@ -206,6 +285,10 @@ Selection: "
     then
         update_repo
         message="Dotfiles repository was updated"
+
+    elif [ "$selection" = "6" ]
+    then
+        1;
 
     elif [ "$selection" = "0" ]
     then
