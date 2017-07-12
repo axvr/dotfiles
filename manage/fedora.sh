@@ -22,7 +22,7 @@ function install_applications() {
 
     # Install Applications
     sudo dnf -y install keepassxc polari gnome-tweak-tool asunder \
-         gnome-todo libreoffice torbrowser-launcher tilix inkscape
+         gnome-todo libreoffice torbrowser-launcher tilix inkscape krita
 
     # Install Development Tools (Some may need to be installed via pip)
     sudo dnf -y install emacs vim neovim \
@@ -95,11 +95,9 @@ function install_extensions() {
     # * Hide Top Bar
     # * Focusli (if fixed)
     # * Dash to Dock
-    # * User Themes (check if pre installed with GNOME)
-    # * Places Status Indicator (check if pre installed with GNOME)
-    # * Background Logo (pre-installed on Fedora)
-    # * AlternateTab (check if pre installed with GNOME)
     # * Workspaces to Dock
+    # * Blyr
+    # * Impatience
 }
 
 
@@ -181,7 +179,7 @@ Select a theme to load:
 [2] : Adapta theme,
 [3] : Adapta-Eta theme,
 [4] : Arc theme,
-[0] : Cancel / Exit.
+[0] : Back / Cancel.
 
 Selection: "
 
@@ -221,61 +219,95 @@ Selection: "
 }
 
 
-function default_theme() {
-
-    # Extensions configuration
+function setup_for_theme() {    # ONLY RUN ONCE
+    # Only run once to avoid errors, and breaking the extension
     gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
-    gnome-shell-ext-conf -d 'dynamic-panel-transparency@rockon999.github.io'
+}
+
+
+function default_theme() {
 
     # Theme configuration
     gsettings set org.gnome.desktop.interface cursor-theme   'Adwaita'
     gsettings set org.gnome.desktop.interface icon-theme     'Adwaita'
-    gsettings set org.gnome.shell.extensions.user-theme name 'Adwaita'
     gsettings set org.gnome.desktop.interface gtk-theme      'Adwaita'
+    gsettings set org.gnome.shell.extensions.user-theme name 'Adwaita'
+
+    # Font configuration
+    gsettings set org.gnome.desktop.wm.preferences titlebar-font  'Cantarell 11'
+    gsettings set org.gnome.desktop.interface font-name           'Cantarell Bold 11'
+    gsettings set org.gnome.desktop.interface document-font-name  'Sans 11'
+    gsettings set org.gnome.desktop.interface monospace-font-name 'Monospace 11'
+
+    # Extensions configuration
+    gnome-shell-ext-conf -d 'dynamic-panel-transparency@rockon999.github.io'
+    gnome-shell-ext-conf -d 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
+    #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
 
 }
 
 
 function adapta_theme() {
 
-    # Extensions configuration
-    gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
-    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
-
     # Theme configuration
     gsettings set org.gnome.desktop.interface cursor-theme   'Breeze_Snow'
     gsettings set org.gnome.desktop.interface icon-theme     'Arc'
-    gsettings set org.gnome.shell.extensions.user-theme name 'Adapta-Nokto'
     gsettings set org.gnome.desktop.interface gtk-theme      'Adapta'
+    gsettings set org.gnome.shell.extensions.user-theme name 'Adapta-Nokto'
+
+    # Font configuration
+    gsettings set org.gnome.desktop.wm.preferences titlebar-font  'Roboto 10'
+    gsettings set org.gnome.desktop.interface font-name           'Roboto Bold 10'
+    gsettings set org.gnome.desktop.interface document-font-name  'Sans 10'
+    gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
+
+    # Extensions configuration
+    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
+    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
+    #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
 
 }
 
 function adapta-eta_theme() {
 
-    # Extensions configuration
-    gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
-    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
-
     # Theme configuration
     gsettings set org.gnome.desktop.interface cursor-theme   'Breeze_Snow'
     gsettings set org.gnome.desktop.interface icon-theme     'Arc'
-    gsettings set org.gnome.shell.extensions.user-theme name 'Adapta-Nokto-Eta'
     gsettings set org.gnome.desktop.interface gtk-theme      'Adapta-Eta'
+    gsettings set org.gnome.shell.extensions.user-theme name 'Adapta-Nokto-Eta'
+
+    # Font configuration
+    gsettings set org.gnome.desktop.wm.preferences titlebar-font  'Roboto 10'
+    gsettings set org.gnome.desktop.interface font-name           'Roboto Bold 10'
+    gsettings set org.gnome.desktop.interface document-font-name  'Sans 10'
+    gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
+
+    # Extensions configuration
+    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
+    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
+    #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
 
 }
 
 
 function arc_theme() {
 
-    # Extensions configuration
-    gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
-    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
-
     # Theme configuration
     gsettings set org.gnome.desktop.interface cursor-theme   'Breeze_Snow'
     gsettings set org.gnome.desktop.interface icon-theme     'Arc'
-    gsettings set org.gnome.shell.extensions.user-theme name 'Arc-Dark'
     gsettings set org.gnome.desktop.interface gtk-theme      'Arc-Darker'
+    gsettings set org.gnome.shell.extensions.user-theme name 'Arc-Dark'
+
+    # Font configuration
+    gsettings set org.gnome.desktop.wm.preferences titlebar-font  'Roboto 10'
+    gsettings set org.gnome.desktop.interface font-name           'Roboto Bold 10'
+    gsettings set org.gnome.desktop.interface monospace-font-name 'Sans 10'
+    gsettings set org.gnome.desktop.interface document-font-name  'Roboto Mono 10'
+
+    # Extensions configuration
+    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
+    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
+    #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
 
 }
 
