@@ -59,6 +59,7 @@
 
   " Vim Colour Scheme
     colorscheme space-vim-dark
+    colorscheme hybrid_material
     if (has("termguicolors"))
       set termguicolors
     endif

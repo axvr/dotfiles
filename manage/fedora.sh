@@ -144,9 +144,12 @@ function update_repo() {
     cp ~/.spacemacs ~/Documents/Projects/dotfiles/spacemacs/spacemacs
 
     # Clang Format - clang-format
-    #cp ~/Documents/Projects/mozilla/firefox/.clang-format ~/Documents/Projects/dotfiles/clang/clang-format
-    #cp ~/Documents/Projects/mozilla/firefox/.clang-format-ignore ~/Documents/Projects/dotfiles/clang/clang-format-ignore
-    #cp ~/Documents/Projects/mozilla/firefox/.clang-tidy ~/Documents/Projects/dotfiles/clang/clang-tidy
+    wget https://hg.mozilla.org/mozilla-central/raw-file/tip/.clang-format \
+         -O ~/Documents/Projects/dotfiles/clang/clang-format
+    wget https://hg.mozilla.org/mozilla-central/raw-file/tip/.clang-format-ignore \
+         -O ~/Documents/Projects/dotfiles/clang/clang-format-ignore
+    wget https://hg.mozilla.org/mozilla-central/raw-file/tip/.clang-tidy \
+         -O ~/Documents/Projects/dotfiles/clang/clang-tidy
 
     # Bash - bashrc
     cp ~/.bashrc ~/Documents/Projects/dotfiles/bash/bashrc
