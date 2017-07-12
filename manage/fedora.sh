@@ -116,7 +116,7 @@ function setup_applications() {
     source ~/.bashrc
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
-    # Install gnome-shell-ext-conf (https://github.com/cyberalex4life/gnome-shell-extension-cl)
+    # Install gnome-shell-ext-conf (original: https://github.com/cyberalex4life/gnome-shell-extension-cl)
     sudo wget https://raw.githubusercontent.com/axvr/gnome-shell-extension-cl/master/gnome-shell-extension-cl \
          -O /usr/local/bin/gnome-shell-ext-conf
     sudo chmod +x /usr/local/bin/gnome-shell-ext-conf
@@ -341,6 +341,7 @@ Selection: "
         install_icons
         install_extensions
         setup_applications
+        setup_for_theme
         message="Fedora system was set up"
 
     elif [ "$selection" = "2" ]
