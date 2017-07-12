@@ -173,6 +173,54 @@ function update_repo() {
 
 # Complete theme selection
 
+function select_theme() {
+
+    printf "
+Select a theme to load:
+[1] : Default theme,
+[2] : Adapta theme,
+[3] : Adapta-Eta theme,
+[4] : Arc theme,
+[0] : Cancel / Exit.
+
+Selection: "
+
+    read -r theme
+    printf "\n"
+
+    if [ "$theme" = "1" ]
+    then
+        default_theme
+        theme_message="Default theme loaded"
+
+    elif [ "$theme" = "2" ]
+    then
+        adapta_theme
+        theme_message="Adapta theme loaded"
+
+    elif [ "$theme" = "3" ]
+    then
+        adapta-eta_theme
+        theme_message="Adapta-Eta theme loaded"
+
+    elif [ "$theme" = "4" ]
+    then
+        arc_theme
+        theme_message="Arc theme loaded"
+
+    elif [ "$theme" = "0" ]
+    then
+        exit_theme_menu=1
+
+    else
+        # Error message
+        theme_message="ERROR: \"$theme\" is not a valid option"
+
+    fi
+
+}
+
+
 function default_theme() {
 
     # Extensions configuration
@@ -188,21 +236,6 @@ function default_theme() {
 }
 
 
-function adapta-eta_theme() {
-
-    # Extensions configuration
-    gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
-    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
-
-    # Theme configuration
-    gsettings set org.gnome.desktop.interface cursor-theme   'Breeze_Snow'
-    gsettings set org.gnome.desktop.interface icon-theme     'Arc'
-    gsettings set org.gnome.shell.extensions.user-theme name 'Adapta-Nokto-Eta'
-    gsettings set org.gnome.desktop.interface gtk-theme      'Adapta-Eta'
-
-}
-
-
 function adapta_theme() {
 
     # Extensions configuration
@@ -214,6 +247,20 @@ function adapta_theme() {
     gsettings set org.gnome.desktop.interface icon-theme     'Arc'
     gsettings set org.gnome.shell.extensions.user-theme name 'Adapta-Nokto'
     gsettings set org.gnome.desktop.interface gtk-theme      'Adapta'
+
+}
+
+function adapta-eta_theme() {
+
+    # Extensions configuration
+    gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
+    gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
+
+    # Theme configuration
+    gsettings set org.gnome.desktop.interface cursor-theme   'Breeze_Snow'
+    gsettings set org.gnome.desktop.interface icon-theme     'Arc'
+    gsettings set org.gnome.shell.extensions.user-theme name 'Adapta-Nokto-Eta'
+    gsettings set org.gnome.desktop.interface gtk-theme      'Adapta-Eta'
 
 }
 
@@ -262,7 +309,6 @@ Selection: "
         install_icons
         install_extensions
         setup_applications
-        exitValue=1
         message="Fedora system was set up"
 
     elif [ "$selection" = "2" ]
@@ -291,7 +337,16 @@ Selection: "
 
     elif [ "$selection" = "6" ]
     then
-        1;
+        exit_theme_menu=0
+        theme_message="Theme Selection Menu"
+
+        while [ "$exit_theme_menu" != "1" ]
+        do
+            printf "\n%s\n" "$theme_message"
+            select_theme
+        done
+
+        message="Fedora Configuration Script"
 
     elif [ "$selection" = "0" ]
     then
