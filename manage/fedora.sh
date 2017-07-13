@@ -240,8 +240,7 @@ function default_theme() {
     gsettings set org.gnome.desktop.interface monospace-font-name 'Monospace 11'
 
     # Extensions configuration
-    gnome-shell-ext-conf -d 'dynamic-panel-transparency@rockon999.github.io'
-    gnome-shell-ext-conf -d 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
+    gnome-shell-ext-conf -da
     #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
 
 }
@@ -262,6 +261,7 @@ function adapta_theme() {
     gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
 
     # Extensions configuration
+    gnome-shell-ext-conf -da
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
     #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
@@ -283,6 +283,7 @@ function adapta-eta_theme() {
     gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
 
     # Extensions configuration
+    gnome-shell-ext-conf -da
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
     #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
@@ -305,6 +306,7 @@ function arc_theme() {
     gsettings set org.gnome.desktop.interface document-font-name  'Roboto Mono 10'
 
     # Extensions configuration
+    gnome-shell-ext-conf -da
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
     #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
