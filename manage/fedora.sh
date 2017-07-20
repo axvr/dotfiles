@@ -126,6 +126,20 @@ function setup_applications() {
 
 # TODO maybe add ssh key gen (ssh-keygen -t rsa -b 4096 -C "email@here.com")
 
+function install_games() {
+  # TODO add to menu
+
+  # Update system before installing
+  sudo dnf upgrade
+
+  # Install Dwarf Fortress - https://www.acm.jhu.edu/~bjr/pages/dwarf-fortress-for-fedora.html
+  wget -P /etc/yum.repos.d/ https://www.acm.jhu.edu/~bjr/fedora/dwarffortress/dwarffortress.repo
+  sudo dnf install dwarffortress
+
+}
+
+
+# -------------------------------------------------------------------------------
 
 # Add dotfiles to the dotfiles repo
 function update_repo() {
