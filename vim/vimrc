@@ -73,6 +73,7 @@
   set expandtab                   " Changes tabs into spaces
   set wrapmargin=0                " Set wrap margin to zero
   set visualbell t_vb=            " Disable sound alerts
+  set cursorline
   set laststatus=2
   set omnifunc=syntaxcomplete#Complete
   set path+=**
@@ -139,6 +140,7 @@
     if has('gui_running')	" Setup GVim to usable configurations
       set guifont=Monospace\ 11	" set font Monospace 11
     endif
+
 
 
 " Plugin Config

@@ -27,7 +27,7 @@ function install_applications() {
     # Install Development Tools (Some may need to be installed via pip)
     sudo dnf -y install emacs vim neovim \
          texlive-scheme-basic texlive-titling texlive-titlesec \
-         texlive-roboto texlive-noto \
+         texlive-roboto texlive-noto latexmk \
          python python3 pylint python3-pylint python-nose python3-nose \
          python2-devel python3-devel python2-flake8 python3-flake8 \
          rust cargo \
