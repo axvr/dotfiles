@@ -157,11 +157,11 @@ function update_repo() {
 
     # Clang Format - clang-format
     wget https://hg.mozilla.org/mozilla-central/raw-file/tip/.clang-format \
-         -O ~/Documents/Projects/dotfiles/clang/clang-format
+         -O ~/Documents/Projects/dotfiles/clang/mozilla/clang-format
     wget https://hg.mozilla.org/mozilla-central/raw-file/tip/.clang-format-ignore \
-         -O ~/Documents/Projects/dotfiles/clang/clang-format-ignore
+         -O ~/Documents/Projects/dotfiles/clang/mozilla/clang-format-ignore
     wget https://hg.mozilla.org/mozilla-central/raw-file/tip/.clang-tidy \
-         -O ~/Documents/Projects/dotfiles/clang/clang-tidy
+         -O ~/Documents/Projects/dotfiles/clang/mozilla/clang-tidy
 
     # Bash - bashrc
     cp ~/.bashrc ~/Documents/Projects/dotfiles/bash/bashrc
