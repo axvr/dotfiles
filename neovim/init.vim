@@ -112,6 +112,7 @@ set nomodeline
 set expandtab                   " Changes tabs into spaces
 set wrapmargin=0                " Set wrap margin to zero
 set cursorline                  " Highlight current line
+let &colorcolumn=join(range(81,999),",")
 set omnifunc=syntaxcomplete#Complete
 set path+=**
 set mouse=a

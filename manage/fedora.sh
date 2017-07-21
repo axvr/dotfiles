@@ -10,7 +10,7 @@
 # https://ashhar24.wordpress.com/2012/06/15/setting-up-wireless-driver-fedora/
 
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # Upgrade Fedora system
 function upgrade_system() {
@@ -69,6 +69,7 @@ function install_themes() {
     ./autogen.sh
     make && sudo make install
     cd "$current_location" || exit
+    # Wallpapers TODO
 }
 
 
@@ -129,9 +130,6 @@ function setup_applications() {
 function install_games() {
   # TODO add to menu
 
-  # Update system before installing
-  sudo dnf upgrade
-
   # Install Dwarf Fortress - https://www.acm.jhu.edu/~bjr/pages/dwarf-fortress-for-fedora.html
   wget -P /etc/yum.repos.d/ https://www.acm.jhu.edu/~bjr/fedora/dwarffortress/dwarffortress.repo
   sudo dnf install dwarffortress
@@ -139,7 +137,7 @@ function install_games() {
 }
 
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # Add dotfiles to the dotfiles repo
 function update_repo() {
@@ -181,7 +179,7 @@ function update_repo() {
 }
 
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # Complete theme selection
 
@@ -328,7 +326,7 @@ function arc_theme() {
 }
 
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 function user_selection() {
 
@@ -410,7 +408,7 @@ Selection: "
 }
 
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 exitValue=0
 message="Fedora Configuration Script"
