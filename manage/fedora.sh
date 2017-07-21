@@ -12,6 +12,9 @@
 
 # ------------------------------------------------------------------------------
 
+fedora_version=26
+
+
 # Upgrade Fedora system
 function upgrade_system() {
     sudo dnf -y upgrade
@@ -70,7 +73,8 @@ function install_themes() {
     ./autogen.sh
     make && sudo make install
     cd "$current_location" || exit
-    # Wallpapers TODO
+    # Wallpapers
+    # TODO install wallpapers
 }
 
 
@@ -115,7 +119,7 @@ function setup_applications() {
     wget $github/vim/vimrc           -O ~/.vimrc
     wget $github/git/gitconfig       -O ~/.gitconfig
     wget $github/bash/bashrc         -O ~/.bashrc
-    source ~/.bashrc
+    source "/home/$USER/.bashrc"
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
     # Install gnome-shell-ext-conf (original: https://github.com/cyberalex4life/gnome-shell-extension-cl)
@@ -141,7 +145,6 @@ function ssh_key_gen() {
 
 
 function install_games() {
-  # TODO add to menu
 
   # Install Dwarf Fortress - https://www.acm.jhu.edu/~bjr/pages/dwarf-fortress-for-fedora.html
   wget -P /etc/yum.repos.d/ https://www.acm.jhu.edu/~bjr/fedora/dwarffortress/dwarffortress.repo
@@ -155,7 +158,8 @@ function install_games() {
 # Add dotfiles to the dotfiles repo
 function update_repo() {
 
-    # TODO mkdir -p ...
+    mkdir -p ~/Documents/Projects/dotfiles/{vim,neovim,spacemacs,bash,git,urxvt,sway,qutebrowser}
+    mkdir -p ~/Documents/Projects/dotfiles/clang/{mozilla,google}
 
     # Vim - vimrc
     cp ~/.vimrc ~/Documents/Projects/dotfiles/vim/vimrc
@@ -266,7 +270,10 @@ function default_theme() {
 
     # Extensions configuration
     gnome-shell-ext-conf -da
-    #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
+
+    # Wallpaper
+    gsettings set org.gnome.desktop.background picture-uri \
+              "file:///usr/share/backgrounds/f$fedora_version/default/f$fedora_version.xml"
 
 }
 
@@ -289,7 +296,10 @@ function adapta_theme() {
     gnome-shell-ext-conf -da
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
-    #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
+
+    # Wallpaper
+    gsettings set org.gnome.desktop.background picture-uri \
+              "file:///home/$USER/Pictures/tealized.jpg"
 
 }
 
@@ -311,7 +321,10 @@ function adapta-eta_theme() {
     gnome-shell-ext-conf -da
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
-    #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
+
+    # Wallpaper
+    gsettings set org.gnome.desktop.background picture-uri \
+              "file:///home/$USER/Pictures/tealized.jpg"
 
 }
 
@@ -334,7 +347,6 @@ function arc_theme() {
     gnome-shell-ext-conf -da
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
-    #gnome-shell-ext-conf -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
 
 }
 
