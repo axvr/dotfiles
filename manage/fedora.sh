@@ -363,22 +363,26 @@ Selection: "
     then
         upgrade_system
         install_applications
+        install_games
         install_fonts
         install_themes
         install_icons
         install_extensions
         setup_applications
         setup_for_theme
+        ssh_key_gen
         message="Fedora system was set up"
 
     elif [ "$selection" = "2" ]
     then
         upgrade_system
         install_applications
+        install_games
         message="Applications were installed"
 
     elif [ "$selection" = "3" ]
     then
+        upgrade_system
         install_fonts
         install_themes
         install_icons
@@ -387,6 +391,7 @@ Selection: "
 
     elif [ "$selection" = "4" ]
     then
+        upgrade_system
         setup_applictions
         message="Applications configured and set up"
 
