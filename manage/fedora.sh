@@ -17,6 +17,7 @@ function upgrade_system() {
     sudo dnf -y upgrade
 }
 
+
 # Function to install applications for Fedora (first install)
 function install_applications() {
 
@@ -125,7 +126,19 @@ function setup_applications() {
 }
 
 
-# TODO maybe add ssh key gen (ssh-keygen -t rsa -b 4096 -C "email@here.com")
+# Generate SSH keys
+function ssh_key_gen() {
+        printf "
+        Input Email address: "
+        read -r email
+        printf "\n"
+        ssh-keygen -t rsa -b 4096 -C "$email"
+        eval "$(ssh-agent -s)"
+        ssh-add ~/.ssh/id_rsa
+        cat ~/.ssh/id_rsa.pub
+        echo "Add key to accounts"
+}
+
 
 function install_games() {
   # TODO add to menu
