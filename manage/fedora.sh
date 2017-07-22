@@ -73,8 +73,12 @@ function install_themes() {
     ./autogen.sh
     make && sudo make install
     cd "$current_location" || exit
-    # Wallpapers
-    # TODO install wallpapers
+}
+
+
+# Install wallpapers into the system
+function install_wallpapers() {
+        # TODO
 }
 
 
@@ -270,10 +274,14 @@ function default_theme() {
 
     # Extensions configuration
     gnome-shell-ext-conf -da
+    gnome-shell-ext-conf -e 'background-logo@fedorahosted.org'
 
     # Wallpaper
     gsettings set org.gnome.desktop.background picture-uri \
               "file:///usr/share/backgrounds/f$fedora_version/default/f$fedora_version.xml"
+    gsettings set org.gnome.desktop.screensaver picture-uri \
+              "file:///usr/share/backgrounds/f$fedora_version/default/f$fedora_version.xml"
+
 
 }
 
@@ -300,6 +308,8 @@ function adapta_theme() {
     # Wallpaper
     gsettings set org.gnome.desktop.background picture-uri \
               "file:///home/$USER/Pictures/tealized.jpg"
+    gsettings set org.gnome.desktop.screensaver picture-uri \
+              "file:///home/$USER/Pictures/tealized.jpg"
 
 }
 
@@ -325,6 +335,8 @@ function adapta-eta_theme() {
     # Wallpaper
     gsettings set org.gnome.desktop.background picture-uri \
               "file:///home/$USER/Pictures/tealized.jpg"
+    gsettings set org.gnome.desktop.screensaver picture-uri \
+              "file:///home/$USER/Pictures/tealized.jpg"
 
 }
 
@@ -347,6 +359,13 @@ function arc_theme() {
     gnome-shell-ext-conf -da
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io'
     gnome-shell-ext-conf -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
+
+    # Wallpaper
+    # TODO
+    #gsettings set org.gnome.desktop.background picture-uri \
+    #          ""
+    #gsettings set org.gnome.desktop.screensaver picture-uri \
+    #          ""
 
 }
 
@@ -380,6 +399,7 @@ Selection: "
         install_themes
         install_icons
         install_extensions
+        install_wallpapers
         setup_applications
         setup_for_theme
         ssh_key_gen
@@ -399,6 +419,7 @@ Selection: "
         install_themes
         install_icons
         install_extensions
+        install_wallpapers
         message="Customisations were installed"
 
     elif [ "$selection" = "4" ]
