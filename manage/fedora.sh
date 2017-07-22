@@ -79,6 +79,7 @@ function install_themes() {
 # Install wallpapers into the system
 function install_wallpapers() {
         # TODO
+        echo "Finish this"
 }
 
 
