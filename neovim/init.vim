@@ -128,6 +128,7 @@ autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
 " Vim & GVim styling
 set background=dark
 colorscheme tender
+"hi Normal guibg=NONE ctermbg=NONE
 if (has("termguicolors"))
   set termguicolors
 endif
