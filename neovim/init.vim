@@ -13,6 +13,7 @@
 
 " -----------------------------------------------------------------------------
 " TODO line & tab length
+" TODO mode line
 " TODO Auto-complete for all languages wanted
 " TODO change configuration based upon file type
 " TODO custom Vim + airline theme (change TODO colour)
@@ -102,37 +103,41 @@ call plug#end()
 " Basic Configuration
 " -------------------
 
-set number relativenumber       " Show the line numbers
+" Line wrap
 set linebreak                   " breaks lines at words
 set showbreak=+++               " Wrap broken line prefix
+set nolist                      " list disables linebreak
+set wrapmargin=0                " Set wrap margin to zero
+
+" Searching
 set showmatch                   " Highlight matching brackets
 set ignorecase                  " Ignore case in searches
 set smartcase                   " enables smart case mode
+
+" TODO Mode line
+set modeline
+
 set confirm                     " confirmation prompts
 set undolevels=1000             " number of undo levels
 set wrap                        " wrap visually
-set nolist                      " list disables linebreak
-set nomodeline
-set expandtab                   " Changes tabs into spaces
-set wrapmargin=0                " Set wrap margin to zero
-set cursorline                  " Highlight current line
-let &colorcolumn=join(range(81,999),",")
-set omnifunc=syntaxcomplete#Complete
-set path+=**
 set mouse=a
 set updatetime=250
 set foldmethod=marker
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
 
 " Vim & GVim styling
+set number relativenumber " Show the line numbers
+set noshowmode
+set laststatus=2
+set cursorline " Highlight current line
+let &colorcolumn=join(range(81,999),",")
 set background=dark
 colorscheme tender
 "hi Normal guibg=NONE ctermbg=NONE
 if (has("termguicolors"))
   set termguicolors
 endif
-if has('gui_running')
+if (has('gui_running'))
   set guifont=Monospace\ 11
 endif
 
@@ -145,6 +150,11 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
                         \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
                         \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+" Wild menu
+set omnifunc=syntaxcomplete#Complete
+set path+=**
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
 
 " -----------------------------------------------------------------------------
@@ -261,12 +271,28 @@ let g:deoplete#sources#clang#clang_header = '/usr/lib64/clang'
 " File Specific Config
 " --------------------
 
-" TODO replace this
+" TODO
+set expandtab     " et -- Change tabs into spaces
+set shiftwidth=4  " sw
+set softtabstop=4 " sts
+set textwidth=80  " tw --
+set ts=8
+
+" Code specific
+set formatoptions+=t
+set formatoptions-=l
+
+" Text specific
+" TODO if filetype is org, txt, md, etc...
+" set textwidth=0
+" set wrap linebreak nolist
+
 "if (&filetype == 'python')
 "  set ts=8 sts=4 et sw=4 tw=80
 "else
 "  set ts=8 sts=2 et sw=2 tw=80
 "endif
+"
 
 " Binary Files
 " Change Vim into a hex editor
