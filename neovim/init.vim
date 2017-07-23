@@ -85,9 +85,13 @@ call plug#begin()
   Plug 'lervag/vimtex', { 'for': 'tex' }
 
   " Colourschemes and themes
-  Plug 'vim-airline/vim-airline'        " Airline Theme Plugin              <-- :help Airline
-  Plug 'vim-airline/vim-airline-themes' " Airline Theme Packages
-  Plug 'rafi/awesome-vim-colorschemes'  " Colour Schemes for Vim
+  Plug 'itchyny/lightline.vim'          " Lightline Theme Plugin
+  "Plug 'vim-airline/vim-airline'        " Airline Theme Plugin              <-- :help Airline
+  "Plug 'vim-airline/vim-airline-themes' " Airline Theme Packages
+  "Plug 'rafi/awesome-vim-colorschemes'  " Colour Schemes for Vim
+  Plug 'jacoborus/tender.vim'
+  Plug 'liuchengxu/space-vim-dark'
+  Plug 'kristijanhusak/vim-hybrid-material'
 
   " Input Plugins Below this line }}}
 call plug#end()
@@ -116,13 +120,14 @@ let &colorcolumn=join(range(81,999),",")
 set omnifunc=syntaxcomplete#Complete
 set path+=**
 set mouse=a
+set updatetime=250
 set foldmethod=marker
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
 
 " Vim & GVim styling
 set background=dark
-colorscheme hybrid_material
+colorscheme tender
 if (has("termguicolors"))
   set termguicolors
 endif
@@ -189,9 +194,21 @@ autocmd FileType c,h,cpp,hpp,cc,objc
 " ---------------------
 
 " Airline Config
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline_theme='lucius' " Set Airline theme
+"let g:airline#extensions#tagbar#enabled = 1
+"let g:airline#extensions#syntastic#enabled = 1
+"let g:airline_theme='lucius' " Set Airline theme
+
+" Lightline Config
+let g:lightline = {
+      \ 'colorscheme': 'tender',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
+      \ },
+      \ }
 
 " CtrlP Config
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
