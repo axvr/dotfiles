@@ -10,6 +10,19 @@
 " :PlugUpgrade      - Upgrade Vim-Plug
 " :source $MYVIMRC  - Load latest version of init.vim
 
+" Encoding
+scriptencoding utf-8
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
+
+function! s:get_SID()
+    return matchstr(expand('<sfile>'), '<SNR>\d\+_zeget_SID$')
+endfunction
+let s:SID = s:get_SID()
+delfunction s:get_SID
+
 
 " -----------------------------------------------------------------------------
 " TODO line & tab length
@@ -22,6 +35,7 @@
 " TODO improve Vim vimrc
 " TODO try to use same tools (e.g. linters) as SM
 " TODO spelling fix
+" TODO tidy up this document
 "
 " Languages still to optimise for
 " * C++
@@ -39,15 +53,22 @@
 " Plugin Setup
 " ------------
 
-" Install Vim-Plug & Plugins
-command! SetupNvim !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim
-      \ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
 
 call plug#begin()
   " Input Plugins Below this Line {{{
 
   " File viewers and switchers
-  Plug 'ctrlpvim/ctrlp.vim',                                                            " CtrlP Fuzzy Finder            <-- :help ctrlp.txt
+  Plug 'ctrlpvim/ctrlp.vim',                                               " CtrlP Fuzzy Finder            <-- :help ctrlp.txt
   Plug 'scrooloose/nerdtree',           { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " NERDTree Plugin               <-- :help NERD_tree.txt
   Plug 'Xuyuanp/nerdtree-git-plugin',   { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " Display Git Diffs in NERDTree
 
@@ -74,6 +95,7 @@ call plug#begin()
   Plug 'rhysd/clever-f.vim'
   Plug 'majutsushi/tagbar'              " Display Tags of a File Easily     <-- :help tagbar
   Plug 'jceb/vim-orgmode'               " :help orgguide
+  Plug 'tpope/vim-speeddating'          " Increment dates
 
   " Git integration
   Plug 'tpope/vim-fugitive'             " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
@@ -103,26 +125,33 @@ call plug#end()
 " Basic Configuration
 " -------------------
 
-" Line wrap
-set linebreak                   " breaks lines at words
-set showbreak=+++               " Wrap broken line prefix
-set nolist                      " list disables linebreak
-set wrapmargin=0                " Set wrap margin to zero
-
 " Searching
-set showmatch                   " Highlight matching brackets
 set ignorecase                  " Ignore case in searches
-set smartcase                   " enables smart case mode
+set smartcase                   " Enables smart case mode
+set hlsearch                    " Highlight all search results
+set incsearch                   " Searches for strings incrementaly
+set wrapscan                    " Allow searching of first real match
 
 " TODO Mode line
 set modeline
 
+" Undo
+if !isdirectory($HOME . '/.config/nvim/undo')
+    call mkdir($HOME . '/.config/nvim/undo', 'p')
+endif
+set undodir=$HOME/.config/nvim/undo
+set undofile
+
 set confirm                     " confirmation prompts
-set undolevels=1000             " number of undo levels
-set wrap                        " wrap visually
-set mouse=a
+set fileformats=unix,dos,mac
+set mouse=a                     " Enable full mouse support
 set updatetime=250
-set foldmethod=marker
+set backspace=indent,eol,start  " Backspace behaviour: current line only
+set history=100
+set ruler                       " show row and col ruler info
+set showmatch                   " Highlight matching brackets
+set foldenable                  " Enable folding
+set foldmethod=marker           " Set fold method to {{{ & }}}
 autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
 
 " Vim & GVim styling
@@ -130,7 +159,9 @@ set number relativenumber " Show the line numbers
 set noshowmode
 set laststatus=2
 set cursorline " Highlight current line
-let &colorcolumn=join(range(81,999),",")
+let &colorcolumn=join(range(81,335),",")
+set visualbell t_vb=            " Disable sound alerts
+
 set background=dark
 colorscheme tender
 "hi Normal guibg=NONE ctermbg=NONE
@@ -144,7 +175,7 @@ endif
 " Vim Omnicomplete
 autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp
                         \ set omnifunc=omni#cpp#complete#Main
-set completeopt=longest,menuone
+set completeopt=longest,menuone,menu
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
                         \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
@@ -152,6 +183,7 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
                         \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " Wild menu
+set wildmenu
 set omnifunc=syntaxcomplete#Complete
 set path+=**
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
@@ -163,8 +195,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 " ----------------------
 
 " Set Leader key
-nnoremap <Space> \
-let mapleader = "\\"
+let g:mapleader = "\\"
 
 " Spacemacs style leader keybindings
 nnoremap <leader>fs :<C-u>w<CR>
@@ -193,10 +224,27 @@ nnoremap <silent> <F4> :<C-u>TagbarToggle<CR>
 nnoremap <silent> <F2> :<C-u>NERDTreeFind<CR>
 nnoremap <F3> :<C-u>NERDTreeToggle<CR>
 " Clang format
-autocmd FileType c,h,cpp,hpp,cc,objc
+autocmd FileType c,h,cpp,hpp,cc,objc setlocal
       \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,h,cpp,hpp,cc,objc
+autocmd FileType c,h,cpp,hpp,cc,objc setlocal
       \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
+
+function! s:delete_current_buf()
+    let bufnr = bufnr('%')
+    bnext
+    if bufnr == bufnr('%') | enew | endif
+    silent! bdelete! #
+endfunction
+nnoremap <leader>bd :<C-u>call <SID>delete_current_buf()<CR>
+
+" Show Highlighting group for current word
+function! s:syn_stack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunction
+nnoremap <leader>hg :call <SID>syn_stack()<CR>
 
 
 " -----------------------------------------------------------------------------
@@ -237,13 +285,17 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 25
 
+" Clever-f Config
+let g:clever_f_smart_case = 1
+let g:clever_f_across_no_line = 1
+
 " Clang Format Config
 " TODO Java, JavaScript, Obj-C, C
 let g:clang_format#code_style = 'google'
 
 " Deoplete Config
 let g:deoplete#enable_at_startup = 1
-" Clang - find locations: https://github.com/zchee/deoplete-clang
+" Deoplete-Clang - find locations: https://github.com/zchee/deoplete-clang
 let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/lib64/clang'
 
@@ -271,28 +323,34 @@ let g:deoplete#sources#clang#clang_header = '/usr/lib64/clang'
 " File Specific Config
 " --------------------
 
-" TODO
+" TODO change on filetype
 set expandtab     " et -- Change tabs into spaces
 set shiftwidth=4  " sw
 set softtabstop=4 " sts
 set textwidth=80  " tw --
-set ts=8
+set tabstop=8     " ts
 
-" Code specific
+set showbreak=+++               " Wrap broken line prefix
+set breakindent
+set nolist                      " list disables linebreak
+set wrapmargin=0                " Set wrap margin to zero
+set shiftround
+set expandtab
+set smarttab
+set linebreak                   " breaks lines at words (requires line wrap)
+set autoindent                  " enable auto indentation
+set cindent
 set formatoptions+=t
 set formatoptions-=l
 
-" Text specific
-" TODO if filetype is org, txt, md, etc...
-" set textwidth=0
-" set wrap linebreak nolist
-
-"if (&filetype == 'python')
-"  set ts=8 sts=4 et sw=4 tw=80
-"else
-"  set ts=8 sts=2 et sw=2 tw=80
-"endif
-"
+" Text Files
+augroup text "{{{
+    autocmd!
+    autocmd FileType text,tex,markdown,org setlocal wrap linebreak nolist
+    autocmd FileType text,tex,markdown,org setlocal textwidth=0 wrapmargin=0
+    autocmd FileType text,tex,markdown,org setlocal spell! spelllang=en_gb
+    " TODO try to disable column highlighting after 80
+augroup END  "}}}
 
 " Binary Files
 " Change Vim into a hex editor
