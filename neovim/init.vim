@@ -54,69 +54,69 @@ delfunction s:get_SID
 " ------------
 
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 autocmd VimEnter *
-  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \|   PlugInstall --sync | q
-  \| endif
+            \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+            \|   PlugInstall --sync | q
+            \| endif
 
 call plug#begin()
-  " Input Plugins Below this Line {{{
+" Input Plugins Below this Line {{{
 
-  " File viewers and switchers
-  Plug 'ctrlpvim/ctrlp.vim',                                               " CtrlP Fuzzy Finder            <-- :help ctrlp.txt
-  Plug 'scrooloose/nerdtree',           { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " NERDTree Plugin               <-- :help NERD_tree.txt
-  Plug 'Xuyuanp/nerdtree-git-plugin',   { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " Display Git Diffs in NERDTree
+" File viewers and switchers
+Plug 'ctrlpvim/ctrlp.vim',                                               " CtrlP Fuzzy Finder            <-- :help ctrlp.txt
+Plug 'scrooloose/nerdtree',           { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " NERDTree Plugin               <-- :help NERD_tree.txt
+Plug 'Xuyuanp/nerdtree-git-plugin',   { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " Display Git Diffs in NERDTree
 
-  " Auto-complete
-  Plug 'jiangmiao/auto-pairs'                                                           " Smart brackets and quotes
-  Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/neco-vim',               { 'for': 'vim' }                                " VimL completion
-  Plug 'zchee/deoplete-clang'                                                           " Clang completion engine
-  Plug 'Shougo/neco-syntax'                                                             " Many languages simple completion engine
-  Plug 'poppyschmo/deoplete-latex',     { 'for': 'tex' }                                " Experimental LaTeX auto-completion engine
-  " TODO Python completion engine 'zchee/deoplete-jedi'
-  " TODO Rust completion engine 'sebastianmarkow/deoplete-rust'
-  " TODO others
+" Auto-complete
+Plug 'jiangmiao/auto-pairs'                                                           " Smart brackets and quotes
+Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neco-vim',               { 'for': 'vim' }                                " VimL completion
+Plug 'zchee/deoplete-clang'                                                           " Clang completion engine
+Plug 'Shougo/neco-syntax'                                                             " Many languages simple completion engine
+Plug 'poppyschmo/deoplete-latex',     { 'for': 'tex' }                                " Experimental LaTeX auto-completion engine
+" TODO Python completion engine 'zchee/deoplete-jedi'
+" TODO Rust completion engine 'sebastianmarkow/deoplete-rust'
+" TODO others
 
-  " TODO Syntax checking (linting)
-  "Plug 'scrooloose/syntastic'           " Syntastic Syntax Checker Plugin   <-- :help syntastic
-  "Plug 'neomake/neomake'
+" TODO Syntax checking (linting)
+"Plug 'scrooloose/syntastic'           " Syntastic Syntax Checker Plugin   <-- :help syntastic
+"Plug 'neomake/neomake'
 
-  " Code formatting
-  Plug 'rhysd/vim-clang-format', { 'on': ['ClangFormat', 'ClangFormatAutoToggle', 'ClangFormatAutoEnable'] }  " Format files using Clang
+" Code formatting
+Plug 'rhysd/vim-clang-format', { 'on': ['ClangFormat', 'ClangFormatAutoToggle', 'ClangFormatAutoEnable'] }  " Format files using Clang
 
-  " Vim enhancements
-  Plug 'terryma/vim-multiple-cursors'   " Vim Multiple Cursors Plugin       <-- :help vim-multiple-cursors
-  Plug 'rhysd/clever-f.vim'
-  Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }              " Display Tags of a File Easily     <-- :help tagbar
-  Plug 'jceb/vim-orgmode', { 'for': 'org' }               " :help orgguide
-  Plug 'tpope/vim-speeddating', { 'for': 'org' }          " Increment dates
+" Vim enhancements
+Plug 'terryma/vim-multiple-cursors'   " Vim Multiple Cursors Plugin       <-- :help vim-multiple-cursors
+Plug 'rhysd/clever-f.vim'
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }              " Display Tags of a File Easily     <-- :help tagbar
+Plug 'jceb/vim-orgmode', { 'for': 'org' }               " :help orgguide
+Plug 'tpope/vim-speeddating', { 'for': 'org' }          " Increment dates
 
-  " Git integration
-  Plug 'tpope/vim-fugitive'             " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
-  Plug 'airblade/vim-gitgutter'         " Show a Git Diff in the 'Gutter'   <-- :help GitGutter
-  Plug 'rhysd/committia.vim'            " More Pleasant Editing on Commit Message
+" Git integration
+Plug 'tpope/vim-fugitive'             " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
+Plug 'airblade/vim-gitgutter'         " Show a Git Diff in the 'Gutter'   <-- :help GitGutter
+Plug 'rhysd/committia.vim'            " More Pleasant Editing on Commit Message
 
-  " Syntax highlighting packs
-  Plug 'rust-lang/rust.vim'             " Rust Syntax Highlighting
-  Plug 'tomlion/vim-solidity'           " Solidity Syntax Highlighting
-  Plug 'lervag/vimtex', { 'for': 'tex' }
+" Syntax highlighting packs
+Plug 'rust-lang/rust.vim'             " Rust Syntax Highlighting
+Plug 'tomlion/vim-solidity'           " Solidity Syntax Highlighting
+Plug 'lervag/vimtex', { 'for': 'tex' }
 
-  " Colourschemes and themes
-  Plug 'itchyny/lightline.vim'          " Lightline Theme Plugin
-  "Plug 'vim-airline/vim-airline'        " Airline Theme Plugin              <-- :help Airline
-  "Plug 'vim-airline/vim-airline-themes' " Airline Theme Packages
-  "Plug 'rafi/awesome-vim-colorschemes'  " Colour Schemes for Vim
-  Plug 'jacoborus/tender.vim'
-  Plug 'liuchengxu/space-vim-dark'
-  Plug 'kristijanhusak/vim-hybrid-material'
+" Colourschemes and themes
+Plug 'itchyny/lightline.vim'          " Lightline Theme Plugin
+"Plug 'vim-airline/vim-airline'        " Airline Theme Plugin              <-- :help Airline
+"Plug 'vim-airline/vim-airline-themes' " Airline Theme Packages
+"Plug 'rafi/awesome-vim-colorschemes'  " Colour Schemes for Vim
+Plug 'jacoborus/tender.vim'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'kristijanhusak/vim-hybrid-material'
 
-  " Input Plugins Below this line }}}
+" Input Plugins Below this line }}}
 call plug#end()
 
 
@@ -179,13 +179,13 @@ endif
 
 " Vim Omnicomplete
 autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp
-                        \ set omnifunc=omni#cpp#complete#Main
+            \ set omnifunc=omni#cpp#complete#Main
 set completeopt=longest,menuone,menu
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-                        \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+            \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-                        \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+            \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " Wild menu
 set wildmenu
