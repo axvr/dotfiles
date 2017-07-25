@@ -30,13 +30,13 @@ delfunction s:get_SID
 " -----------------------------------------------------------------------------
 " TODO indentation
 " TODO Auto-complete for all languages wanted
-" TODO custom Vim + airline theme (change TODO colour)
-" TODO replace syntastic
+" TODO replace syntastic with neomake
+" TODO try to use same tools (e.g. linters) as SM
 " TODO improve Vim buffers (similar to SM)
 " TODO improve Vim vimrc
-" TODO try to use same tools (e.g. linters) as SM
-" TODO spelling fix
+" TODO spelling fix / correction keymap (maybe list corrections)
 " TODO tidy up this document
+" TODO custom Vim + airline theme (change TODO colour)
 "
 " Languages still to optimise for
 " * C++
@@ -84,8 +84,8 @@ Plug 'poppyschmo/deoplete-latex',     { 'for': 'tex' }                          
 " TODO Rust completion engine 'sebastianmarkow/deoplete-rust'
 " TODO others
 
-" TODO Syntax checking (linting)
-"Plug 'scrooloose/syntastic'           " Syntastic Syntax Checker Plugin   <-- :help syntastic
+" Syntax checking (linting) TODO replace syntastic
+Plug 'scrooloose/syntastic'           " Syntastic Syntax Checker Plugin   <-- :help syntastic
 "Plug 'neomake/neomake'
 
 " Code formatting
@@ -327,19 +327,19 @@ let g:deoplete#sources#clang#clang_header = '/usr/lib64/clang'
 "let g:tagbar_autofocus = 1
 
 " Syntastic Config TODO replace
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_rust_checkers = ['rustc']
-"let g:syntastic_python_checkers = ['pylint', 'python']
-"let g:syntastic_perl_checkers = ['perl']
-"let g:syntastic_cpp_checkers = ['cppcheck', 'clang_check', 'gcc']
-"let g:syntastic_c_checkers = ['clang_check', 'gcc']
-"let g:syntastic_enable_perl_checker = 1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_rust_checkers = ['rustc']
+let g:syntastic_python_checkers = ['pylint', 'python']
+let g:syntastic_perl_checkers = ['perl']
+let g:syntastic_cpp_checkers = ['cppcheck', 'clang_check', 'gcc']
+let g:syntastic_c_checkers = ['clang_check', 'gcc']
+let g:syntastic_enable_perl_checker = 1
 
 
 " -----------------------------------------------------------------------------
