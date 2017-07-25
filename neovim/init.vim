@@ -25,7 +25,7 @@ delfunction s:get_SID
 
 
 " -----------------------------------------------------------------------------
-" TODO line & tab length
+" TODO indentation
 " TODO mode line
 " TODO Auto-complete for all languages wanted
 " TODO change configuration based upon file type
@@ -334,16 +334,18 @@ set softtabstop=4 " sts
 set textwidth=80  " tw --
 set tabstop=8     " ts
 
-set showbreak=+++               " Wrap broken line prefix
-set breakindent
+if exists('+breakindent')
+    set breakindent             " Indent same as where the wrap/break started
+    let &showbreak='>>> '       " Wrap broken line & prefix
+endif
+
 set nolist                      " list disables linebreak
 set wrapmargin=0                " Set wrap margin to zero
 set shiftround
-set expandtab
 set smarttab
 set linebreak                   " breaks lines at words (requires line wrap)
 set autoindent                  " enable auto indentation
-set cindent
+set cindent                     " C style indentation
 set formatoptions+=t
 set formatoptions-=l
 
@@ -352,7 +354,7 @@ augroup text "{{{
     autocmd!
     autocmd FileType text,tex,markdown,org,gitcommit setlocal wrap linebreak nolist
     autocmd FileType text,tex,markdown,org,gitcommit setlocal textwidth=0 wrapmargin=0
-    autocmd FileType text,tex,markdown,org,gitcommit setlocal spell! spelllang=en_gb
+    autocmd FileType text,tex,markdown,org,gitcommit setlocal spell spelllang=en_gb
     autocmd FileType text,tex,markdown,gitcommit,diff setlocal nofoldenable
     autocmd FileType org setlocal foldenable
     autocmd FileType text,tex,markdown,org,gitcommit let &l:colorcolumn=0
