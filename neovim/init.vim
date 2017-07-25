@@ -347,14 +347,17 @@ set cindent
 set formatoptions+=t
 set formatoptions-=l
 
-" Text Files
+" Text Files (text, tex, markdown, org, gitcommit, diff)
 augroup text "{{{
     autocmd!
     autocmd FileType text,tex,markdown,org,gitcommit setlocal wrap linebreak nolist
     autocmd FileType text,tex,markdown,org,gitcommit setlocal textwidth=0 wrapmargin=0
     autocmd FileType text,tex,markdown,org,gitcommit setlocal spell! spelllang=en_gb
-    autocmd FileType text,tex,markdown,org,gitcommit,diff setlocal nofoldenable
+    autocmd FileType text,tex,markdown,gitcommit,diff setlocal nofoldenable
+    autocmd FileType org setlocal foldenable
     autocmd FileType text,tex,markdown,org,gitcommit let &l:colorcolumn=0
+    autocmd FileType text,tex,markdown,org,diff setlocal number norelativenumber
+    autocmd FileType gitcommit setlocal nonumber norelativenumber
 augroup END  "}}}
 
 " Binary Files
