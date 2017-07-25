@@ -93,9 +93,9 @@ call plug#begin()
   " Vim enhancements
   Plug 'terryma/vim-multiple-cursors'   " Vim Multiple Cursors Plugin       <-- :help vim-multiple-cursors
   Plug 'rhysd/clever-f.vim'
-  Plug 'majutsushi/tagbar'              " Display Tags of a File Easily     <-- :help tagbar
-  Plug 'jceb/vim-orgmode'               " :help orgguide
-  Plug 'tpope/vim-speeddating'          " Increment dates
+  Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }              " Display Tags of a File Easily     <-- :help tagbar
+  Plug 'jceb/vim-orgmode', { 'for': 'org' }               " :help orgguide
+  Plug 'tpope/vim-speeddating', { 'for': 'org' }          " Increment dates
 
   " Git integration
   Plug 'tpope/vim-fugitive'             " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
@@ -163,7 +163,7 @@ set number relativenumber " Show the line numbers
 set noshowmode
 set laststatus=2
 set cursorline " Highlight current line
-let &colorcolumn=join(range(81,335),",")
+let &colorcolumn=join(range(81,335), ",")
 set visualbell t_vb=            " Disable sound alerts
 
 set background=dark
@@ -350,10 +350,11 @@ set formatoptions-=l
 " Text Files
 augroup text "{{{
     autocmd!
-    autocmd FileType text,tex,markdown,org setlocal wrap linebreak nolist
-    autocmd FileType text,tex,markdown,org setlocal textwidth=0 wrapmargin=0
-    autocmd FileType text,tex,markdown,org setlocal spell! spelllang=en_gb
-    " TODO try to disable column highlighting after 80
+    autocmd FileType text,tex,markdown,org,gitcommit setlocal wrap linebreak nolist
+    autocmd FileType text,tex,markdown,org,gitcommit setlocal textwidth=0 wrapmargin=0
+    autocmd FileType text,tex,markdown,org,gitcommit setlocal spell! spelllang=en_gb
+    autocmd FileType text,tex,markdown,org,gitcommit,diff setlocal nofoldenable
+    autocmd FileType text,tex,markdown,org,gitcommit let &l:colorcolumn=0
 augroup END  "}}}
 
 " Binary Files
