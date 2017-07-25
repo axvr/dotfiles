@@ -170,10 +170,11 @@ set background=dark
 colorscheme tender
 "hi Normal guibg=NONE ctermbg=NONE
 if (has("termguicolors"))
-  set termguicolors
+    set termguicolors
 endif
 if (has('gui_running'))
-  set guifont=Monospace\ 11
+    set t_Co=256
+    set guifont=Monospace\ 11
 endif
 
 " Vim Omnicomplete
@@ -229,9 +230,9 @@ nnoremap <silent> <F2> :<C-u>NERDTreeFind<CR>
 nnoremap <F3> :<C-u>NERDTreeToggle<CR>
 " Clang format
 autocmd FileType c,h,cpp,hpp,cc,objc setlocal
-      \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+            \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,h,cpp,hpp,cc,objc setlocal
-      \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
+            \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
 function! s:delete_current_buf()
     let bufnr = bufnr('%')
@@ -263,22 +264,22 @@ nnoremap <leader>hg :call <SID>syn_stack()<CR>
 
 " Lightline Config
 let g:lightline = {
-      \ 'colorscheme': 'tender',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \ },
-      \ }
+            \ 'colorscheme': 'tender',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'fugitive#head',
+            \ },
+            \ }
 
 " CtrlP Config
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_prompt_mappings = {
-      \ 'AcceptSelection("e")': ['<c-t>'],
-      \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-      \ }
+            \ 'AcceptSelection("e")': ['<c-t>'],
+            \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+            \ }
 
 " NERDTree Config
 let g:NERDTreeChDirMode=2
@@ -365,43 +366,43 @@ augroup END  "}}}
 " Binary Files
 " Change Vim into a hex editor
 augroup binary "{{{
-  au!
-  au BufReadPre   *.bin let &bin=1
-  au BufReadPost  *.bin if &bin | %!xxd
-  au BufReadPost  *.bin set ft=xxd | endif
-  au BufWritePre  *.bin if &bin | %!xxd -r
-  au BufWritePre  *.bin endif
-  au BufWritePost *.bin if &bin | %!xxd
-  au BufWritePost *.bin set nomod | endif
+    au!
+    au BufReadPre   *.bin let &bin=1
+    au BufReadPost  *.bin if &bin | %!xxd
+    au BufReadPost  *.bin set ft=xxd | endif
+    au BufWritePre  *.bin if &bin | %!xxd -r
+    au BufWritePre  *.bin endif
+    au BufWritePost *.bin if &bin | %!xxd
+    au BufWritePost *.bin set nomod | endif
 augroup END "}}}
 
 " GPG Encrypted Files
 " Transparent editing of gpg encrypted files. By Wouter Hanegraaff.
 augroup encrypted "{{{
-  au!
+    au!
 
-  " First make sure nothing is written to ~/.viminfo while editing
-  " an encrypted file.
-  autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set viminfo=
-  " We don't want a various options which write unencrypted data to disk
-  autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set noswapfile noundofile nobackup
+    " First make sure nothing is written to ~/.viminfo while editing
+    " an encrypted file.
+    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set viminfo=
+    " We don't want a various options which write unencrypted data to disk
+    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set noswapfile noundofile nobackup
 
-  " Switch to binary mode to read the encrypted file
-  autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set bin
-  autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp let ch_save = &ch|set ch=2
-  " (If you use tcsh, you may need to alter this line.)
-  autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp '[,']!gpg --decrypt 2> /dev/null
+    " Switch to binary mode to read the encrypted file
+    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set bin
+    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp let ch_save = &ch|set ch=2
+    " (If you use tcsh, you may need to alter this line.)
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp '[,']!gpg --decrypt 2> /dev/null
 
-  " Switch to normal mode for editing
-  autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp set nobin
-  autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp let &ch = ch_save|unlet ch_save
-  autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp execute ":doautocmd BufReadPost " . expand("%:r")
+    " Switch to normal mode for editing
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp set nobin
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp let &ch = ch_save|unlet ch_save
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp execute ":doautocmd BufReadPost " . expand("%:r")
 
-  " Convert all text to encrypted text before writing
-  " (If you use tcsh, you may need to alter this line.)
-  autocmd BufWritePre,FileWritePre *.gpg,*.asc,*.pgp '[,']!gpg --default-recipient-self -ae 2>/dev/null
-  " Undo the encryption so we are back in the normal text, directly
-  " after the file has been written.
-  autocmd BufWritePost,FileWritePost *.gpg,*.asc,*.pgp u
+    " Convert all text to encrypted text before writing
+    " (If you use tcsh, you may need to alter this line.)
+    autocmd BufWritePre,FileWritePre *.gpg,*.asc,*.pgp '[,']!gpg --default-recipient-self -ae 2>/dev/null
+    " Undo the encryption so we are back in the normal text, directly
+    " after the file has been written.
+    autocmd BufWritePost,FileWritePost *.gpg,*.asc,*.pgp u
 augroup END "}}}
 
