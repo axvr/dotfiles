@@ -136,11 +136,15 @@ set wrapscan                    " Allow searching of first real match
 set modeline
 
 " Undo
-if !isdirectory($HOME . '/.config/nvim/undo')
-    call mkdir($HOME . '/.config/nvim/undo', 'p')
+if has('persistent_undo')
+    if !isdirectory($HOME . '/.config/nvim/undo')
+        call mkdir($HOME . '/.config/nvim/undo', 'p')
+    endif
+    set undodir=$HOME/.config/nvim/undo
+    set undofile
+else
+    set undolevels=1000
 endif
-set undodir=$HOME/.config/nvim/undo
-set undofile
 
 set confirm                     " confirmation prompts
 set fileformats=unix,dos,mac
