@@ -10,6 +10,9 @@
 " :PlugUpgrade      - Upgrade Vim-Plug
 " :source $MYVIMRC  - Load latest version of init.vim
 
+
+set nocompatible
+
 " Encoding
 scriptencoding utf-8
 set encoding=utf-8
@@ -26,9 +29,7 @@ delfunction s:get_SID
 
 " -----------------------------------------------------------------------------
 " TODO indentation
-" TODO mode line
 " TODO Auto-complete for all languages wanted
-" TODO change configuration based upon file type
 " TODO custom Vim + airline theme (change TODO colour)
 " TODO replace syntastic
 " TODO improve Vim buffers (similar to SM)
@@ -125,15 +126,20 @@ call plug#end()
 " Basic Configuration
 " -------------------
 
+" Essentials
+filetype plugin indent on
+syntax enable
+
 " Searching
 set ignorecase                  " Ignore case in searches
 set smartcase                   " Enables smart case mode
 set hlsearch                    " Highlight all search results
 set incsearch                   " Searches for strings incrementaly
-set wrapscan                    " Allow searching of first real match
+set wrapscan                    " Wrap back to the start of the file
 
-" TODO Mode line
+" Mode line
 set modeline
+set modelines=5
 
 " Undo
 if has('persistent_undo')
@@ -146,6 +152,9 @@ else
     set undolevels=1000
 endif
 
+" TODO set backup dir & manage swap files
+set autoread
+set showcmd
 set confirm                     " confirmation prompts
 set fileformats=unix,dos,mac
 set mouse=a                     " Enable full mouse support
@@ -164,7 +173,7 @@ set noshowmode
 set laststatus=2
 set cursorline " Highlight current line
 let &colorcolumn=join(range(81,335), ",")
-set visualbell t_vb=            " Disable sound alerts
+set visualbell t_vb=            " Disable sound & visual alerts
 
 set background=dark
 colorscheme tender
@@ -229,9 +238,9 @@ nnoremap <silent> <F4> :<C-u>TagbarToggle<CR>
 nnoremap <silent> <F2> :<C-u>NERDTreeFind<CR>
 nnoremap <F3> :<C-u>NERDTreeToggle<CR>
 " Clang format
-autocmd FileType c,h,cpp,hpp,cc,objc setlocal
+autocmd FileType c,h,cpp,hpp,cc,objc
             \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,h,cpp,hpp,cc,objc setlocal
+autocmd FileType c,h,cpp,hpp,cc,objc
             \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
 function! s:delete_current_buf()
@@ -250,6 +259,16 @@ function! s:syn_stack()
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 nnoremap <leader>hg :call <SID>syn_stack()<CR>
+
+" Append modeline after last line in buffer.
+" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX files.
+function! AppendModeline()
+    let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+                \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+    let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+    call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :<C-u>call AppendModeline()<CR>
 
 
 " -----------------------------------------------------------------------------
@@ -406,3 +425,5 @@ augroup encrypted "{{{
     autocmd BufWritePost,FileWritePost *.gpg,*.asc,*.pgp u
 augroup END "}}}
 
+
+" vim: set ts=8 sw=4 tw=80 et :
