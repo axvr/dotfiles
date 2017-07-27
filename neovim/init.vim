@@ -354,11 +354,7 @@ set softtabstop=4 " sts
 set textwidth=80  " tw --
 set tabstop=8     " ts
 
-if exists('+breakindent')
-    set breakindent             " Indent same as where the wrap/break started
-    let &showbreak='>>> '       " Wrap broken line & prefix
-endif
-
+let &showbreak='>>> '           " Wrap broken line & prefix
 set nolist                      " list disables linebreak
 set wrapmargin=0                " Set wrap margin to zero
 set shiftround
@@ -377,7 +373,13 @@ augroup text "{{{
     autocmd FileType text,tex,markdown,org,gitcommit setlocal spell spelllang=en_gb
     autocmd FileType text,tex,markdown,gitcommit,diff setlocal nofoldenable
     autocmd FileType org setlocal foldenable
+
+    if exists('+breakindent')
+        autocmd FileType text,tex,markdown,org,gitcommit,diff setlocal breakindent
+    endif
+
     autocmd FileType text,tex,markdown,org,gitcommit let &l:colorcolumn=0
+    autocmd FileType diff let &colorcolumn=join(range(82,335), ",")
     autocmd FileType text,tex,markdown,org,diff setlocal number norelativenumber
     autocmd FileType gitcommit setlocal nonumber norelativenumber
 augroup END  "}}}
