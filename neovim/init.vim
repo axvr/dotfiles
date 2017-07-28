@@ -30,22 +30,17 @@ delfunction s:get_SID
 " -----------------------------------------------------------------------------
 " TODO indentation
 " TODO Auto-complete for all languages wanted
-" TODO replace syntastic with neomake
-" TODO try to use same tools (e.g. linters) as SM
 " TODO improve Vim buffers (similar to SM)
 " TODO improve Vim vimrc
 " TODO spelling fix / correction keymap (maybe list corrections)
 " TODO tidy up this document
-" TODO custom Vim + airline theme (change TODO colour)
+" TODO custom Vim + airline + lightline theme (change TODO colour)
 "
 " Languages still to optimise for
-" * C++
 " * C
 " * Rust
 " * Python
 " * Java
-" * Bash / Shell
-" * Perl
 " * JavaScript
 " * HTML
 " * CSS
@@ -55,7 +50,7 @@ delfunction s:get_SID
 " ------------
 
 if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
@@ -69,24 +64,24 @@ call plug#begin()
 " Input Plugins Below this Line {{{
 
 " File viewers and switchers
-Plug 'ctrlpvim/ctrlp.vim',                                               " CtrlP Fuzzy Finder            <-- :help ctrlp.txt
-Plug 'scrooloose/nerdtree',           { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " NERDTree Plugin               <-- :help NERD_tree.txt
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree',           { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " NERDTree Plugin  <-- :help NERD_tree.txt
 Plug 'Xuyuanp/nerdtree-git-plugin',   { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " Display Git Diffs in NERDTree
 
 " Auto-complete
-Plug 'jiangmiao/auto-pairs'                                                           " Smart brackets and quotes
+Plug 'jiangmiao/auto-pairs'                                               " Smart brackets and quotes
 Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neco-vim',               { 'for': 'vim' }                                " VimL completion
-Plug 'zchee/deoplete-clang'                                                           " Clang completion engine
-Plug 'Shougo/neco-syntax'                                                             " Many languages simple completion engine
-Plug 'poppyschmo/deoplete-latex',     { 'for': 'tex' }                                " Experimental LaTeX auto-completion engine
+Plug 'Shougo/neco-vim',               { 'for': 'vim' }                    " VimL completion
+Plug 'zchee/deoplete-clang'                                               " Clang completion engine
+Plug 'Shougo/neco-syntax'                                                 " Many languages simple completion engine
+Plug 'poppyschmo/deoplete-latex',     { 'for': 'tex' }                    " Experimental LaTeX auto-completion engine
 " TODO Python completion engine 'zchee/deoplete-jedi'
 " TODO Rust completion engine 'sebastianmarkow/deoplete-rust'
 " TODO others
 
-" Syntax checking (linting) TODO replace syntastic
-Plug 'scrooloose/syntastic'           " Syntastic Syntax Checker Plugin   <-- :help syntastic
-"Plug 'neomake/neomake'
+" Syntax checking (linting)
+Plug 'neomake/neomake'
 
 " Code formatting
 Plug 'rhysd/vim-clang-format', { 'on': ['ClangFormat', 'ClangFormatAutoToggle', 'ClangFormatAutoEnable'] }  " Format files using Clang
@@ -107,10 +102,11 @@ Plug 'rhysd/committia.vim'            " More Pleasant Editing on Commit Message
 Plug 'rust-lang/rust.vim'             " Rust Syntax Highlighting
 Plug 'tomlion/vim-solidity'           " Solidity Syntax Highlighting
 Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 " Colourschemes and themes
 Plug 'itchyny/lightline.vim'          " Lightline Theme Plugin
-"Plug 'vim-airline/vim-airline'        " Airline Theme Plugin              <-- :help Airline
+"Plug 'vim-airline/vim-airline'        " Airline Theme Plugin  <-- :help Airline
 "Plug 'vim-airline/vim-airline-themes' " Airline Theme Packages
 "Plug 'rafi/awesome-vim-colorschemes'  " Colour Schemes for Vim
 Plug 'jacoborus/tender.vim'
@@ -213,8 +209,9 @@ let g:mapleader = "\\"
 
 " Spacemacs style leader keybindings
 nnoremap <leader>fs :<C-u>w<CR>
-nnoremap <leader>ff :<C-u>CtrlP<CR>
+nnoremap <leader>ff :<C-u>FZF<CR>
 nnoremap <leader>ft :<C-u>NERDTreeToggle<CR>
+nnoremap <leader>bb :<C-u>buffers<CR>:<C-u>buffer<Space>
 nnoremap <leader>qq :<C-u>qa<CR>
 nnoremap <leader>gs :<C-u>Gstatus<CR>
 nnoremap <leader>gc :<C-u>Gcommit<CR>
@@ -277,8 +274,6 @@ nnoremap <silent> <Leader>ml :<C-u>call AppendModeline()<CR>
 " ---------------------
 
 " Airline Config
-"let g:airline#extensions#tagbar#enabled = 1
-"let g:airline#extensions#syntastic#enabled = 1
 "let g:airline_theme='lucius' " Set Airline theme
 
 " Lightline Config
@@ -291,13 +286,6 @@ let g:lightline = {
             \ 'component_function': {
             \   'gitbranch': 'fugitive#head',
             \ },
-            \ }
-
-" CtrlP Config
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_prompt_mappings = {
-            \ 'AcceptSelection("e")': ['<c-t>'],
-            \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
             \ }
 
 " NERDTree Config
@@ -316,6 +304,7 @@ let g:clever_f_across_no_line = 1
 " Clang Format Config
 " TODO Java, JavaScript, Obj-C, C
 let g:clang_format#code_style = 'google'
+let g:clang_format#detect_style_file = 1
 
 " Deoplete Config
 let g:deoplete#enable_at_startup = 1
@@ -326,20 +315,18 @@ let g:deoplete#sources#clang#clang_header = '/usr/lib64/clang'
 " Tagbar Config
 "let g:tagbar_autofocus = 1
 
-" Syntastic Config TODO replace
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_rust_checkers = ['rustc']
-let g:syntastic_python_checkers = ['pylint', 'python']
-let g:syntastic_perl_checkers = ['perl']
-let g:syntastic_cpp_checkers = ['cppcheck', 'clang_check', 'gcc']
-let g:syntastic_c_checkers = ['clang_check', 'gcc']
-let g:syntastic_enable_perl_checker = 1
+" Neomake Config
+autocmd! BufWritePost * Neomake
+let g:neomake_c_enabled_makers = ['clang', 'gcc'] " TODO C test and configure
+let g:neomake_cpp_enabled_makers = ['clangtidy', 'cppcheck']
+let g:neomake_cpp_clangtidy_maker = {
+            \ 'exe': 'clang-tidy',
+            \ 'args': ['-checks=*'],
+            \ }
+let g:neomake_python_enabled_makers = ['pylint', 'python'] " TODO Python3
+let g:neomake_perl_enabled_makers = ['perl']
+let g:neomake_rust_enabled_makers = ['rustc']
+let g:neomake_sh_enabled_makers = ['shellcheck']
 
 
 " -----------------------------------------------------------------------------

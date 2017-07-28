@@ -57,3 +57,5 @@ alias sm="emacs -nw"
 alias nv="nvim"
 #alias vim="nvim"
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

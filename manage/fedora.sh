@@ -35,7 +35,7 @@ function install_applications() {
          python python3 pylint python3-pylint python-nose python3-nose \
          python2-devel python3-devel python2-flake8 python3-flake8 \
          rust cargo \
-         cppcheck clang gtkmm30-devel \
+         cppcheck clang gtkmm30-devel clang-tools-extra \
          cmake ctags ShellCheck perl
     cargo install rustfmt
     cargo install racer # TODO set up rust racer
