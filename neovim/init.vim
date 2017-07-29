@@ -64,8 +64,7 @@ call plug#begin()
 " Input Plugins Below this Line {{{
 
 " File viewers and switchers
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim',                                               " CtrlP Fuzzy Finder            <-- :help ctrlp.txt
 Plug 'scrooloose/nerdtree',           { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " NERDTree Plugin  <-- :help NERD_tree.txt
 Plug 'Xuyuanp/nerdtree-git-plugin',   { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }    " Display Git Diffs in NERDTree
 
@@ -209,7 +208,7 @@ let g:mapleader = "\\"
 
 " Spacemacs style leader keybindings
 nnoremap <leader>fs :<C-u>w<CR>
-nnoremap <leader>ff :<C-u>FZF<CR>
+nnoremap <leader>ff :<C-u>CtrlP<CR>
 nnoremap <leader>ft :<C-u>NERDTreeToggle<CR>
 nnoremap <leader>bb :<C-u>buffers<CR>:<C-u>buffer<Space>
 nnoremap <leader>qq :<C-u>qa<CR>
@@ -220,6 +219,7 @@ nnoremap <leader>ge :<C-u>Gedit<CR>
 nnoremap <leader>gm :<C-u>Gmove<CR>
 nnoremap <leader>gr :<C-u>Gdelete<CR>
 nnoremap <leader>gb :<C-u>Gblame<CR>
+nnoremap <leader>p  :<C-u>CtrlP<CR>
 nnoremap <leader>'  :<C-u>terminal<CR>
 " Spell check
 nnoremap <leader>st :<C-u>setlocal spell! spelllang=en_gb<CR>
@@ -281,12 +281,43 @@ let g:lightline = {
             \ 'colorscheme': 'tender',
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+            \             [ 'gitbranch', 'readonly', 'relativepath', 'modified' ] ]
             \ },
             \ 'component_function': {
             \   'gitbranch': 'fugitive#head',
             \ },
             \ }
+
+" CtrlP Config
+" -----------------------------------------------------------------------------
+"     Run :CtrlP or :CtrlP [starting-directory] to invoke CtrlP in find file mode.
+"     Run :CtrlPBuffer or :CtrlPMRU to start CtrlP in find buffer or find MRU file mode.
+"     Run :CtrlPMixed to search in Files, Buffers and MRU files at the same time.
+"
+" Check :help ctrlp-commands and :help ctrlp-extensions for other commands.
+" Run :help ctrlp-mappings or submit ? in CtrlP for more mapping help.
+"
+" Once CtrlP is open:
+"     Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+"     Press <c-f> and <c-b> to cycle between modes.
+"     Press <c-d> to switch to filename search instead of full path.
+"     Press <c-r> to switch to regexp mode.
+"     Use <c-j>, <c-k> or the arrow keys to navigate the result list.
+"     Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
+"     Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
+"     Use <c-y> to create a new file and its parent directories.
+"     Use <c-z> to mark/unmark multiple files and <c-o> to open them.
+"
+"     Submit two or more dots .. to go up the directory tree by one or multiple levels.
+"     End the input with a colon : followed by a command to execute it after opening the file:
+"         Use :25 to jump to line 25.
+"         Use :/any\:\ string to jump to the first instance of any: string.
+"         Use :+setfiletype\ myfiletype|25 to set the filetype to myfiletype then jump to line 25.
+"         Use :diffthis when opening files marked by <c-z> to run :diffthis on the first 4 files.
+" -----------------------------------------------------------------------------
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
 " NERDTree Config
 let g:NERDTreeChDirMode=2
