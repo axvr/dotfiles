@@ -91,6 +91,7 @@ Plug 'rhysd/clever-f.vim'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }              " Display Tags of a File Easily     <-- :help tagbar
 Plug 'jceb/vim-orgmode', { 'for': 'org' }               " :help orgguide
 Plug 'tpope/vim-speeddating', { 'for': 'org' }          " Increment dates
+Plug 'sjl/gundo.vim' " Traverse the Vim undo tree
 
 " Git integration
 Plug 'tpope/vim-fugitive'             " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
@@ -111,6 +112,7 @@ Plug 'itchyny/lightline.vim'          " Lightline Theme Plugin
 Plug 'jacoborus/tender.vim'
 Plug 'liuchengxu/space-vim-dark'
 Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'tomasr/molokai'
 
 " Input Plugins Below this line }}}
 call plug#end()
@@ -156,6 +158,7 @@ set mouse=a                     " Enable full mouse support
 set updatetime=250
 set backspace=indent,eol,start  " Backspace behaviour: current line only
 set history=100
+set lazyredraw
 set ruler                       " show row and col ruler info
 set showmatch                   " Highlight matching brackets
 set foldenable                  " Enable folding
@@ -204,7 +207,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 " ----------------------
 
 " Set Leader key
-let g:mapleader = "\\"
+let g:mapleader = ","
 
 " Spacemacs style leader keybindings
 nnoremap <leader>fs :<C-u>w<CR>
@@ -221,6 +224,7 @@ nnoremap <leader>gr :<C-u>Gdelete<CR>
 nnoremap <leader>gb :<C-u>Gblame<CR>
 nnoremap <leader>p  :<C-u>CtrlP<CR>
 nnoremap <leader>'  :<C-u>terminal<CR>
+nnoremap <leader>u  :<C-u>GundoToggle<CR>
 " Spell check
 nnoremap <leader>st :<C-u>setlocal spell! spelllang=en_gb<CR>
 nnoremap <F7> :<C-u>setlocal spell! spelllang=en_gb<CR>
@@ -370,7 +374,7 @@ set expandtab     " et -- Change tabs into spaces
 set shiftwidth=4  " sw
 set softtabstop=4 " sts
 set textwidth=80  " tw --
-set tabstop=8     " ts
+set tabstop=4     " ts
 
 let &showbreak='>>> '           " Wrap broken line & prefix
 set nolist                      " list disables linebreak
