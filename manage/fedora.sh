@@ -14,6 +14,9 @@
 
 fedora_version=26
 
+# TODO make fully cross platform
+# TODO fix minor problems and present user with more options
+# TODO maybe move to whiptail (using my perl whiptail module)
 
 # Upgrade Fedora system
 function upgrade_system() {
@@ -104,9 +107,6 @@ function install_extensions() {
        ~/.local/share/gnome-shell/extensions/
     # TODO add these extensions
     # * Hide Top Bar
-    # * Focusli (if fixed)
-    # * Dash to Dock
-    # * Workspaces to Dock
     # * Blyr
     # * Impatience
 }
@@ -127,10 +127,10 @@ function setup_applications() {
     source "/home/$USER/.bashrc"
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
-    # Install gnome-shell-ext-conf (original: https://github.com/cyberalex4life/gnome-shell-extension-cl)
+    # Install gnome-shell-extension-cl (original: https://github.com/cyberalex4life/gnome-shell-extension-cl)
     sudo wget https://raw.githubusercontent.com/axvr/gnome-shell-extension-cl/master/gnome-shell-extension-cl \
-         -O /usr/local/bin/gnome-shell-ext-conf
-    sudo chmod +x /usr/local/bin/gnome-shell-ext-conf
+         -O /usr/local/bin/gnome-shell-extension-cl
+    sudo chmod +x /usr/local/bin/gnome-shell-extension-cl
 
 }
 
@@ -395,7 +395,7 @@ Selection: "
     then
         upgrade_system
         install_applications
-        install_games
+        #install_games
         install_fonts
         install_themes
         install_icons
@@ -410,7 +410,7 @@ Selection: "
     then
         upgrade_system
         install_applications
-        install_games
+        #install_games
         message="Applications were installed"
 
     elif [ "$selection" = "3" ]
