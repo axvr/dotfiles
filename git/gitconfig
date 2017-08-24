@@ -2,4 +2,4 @@
 	name = Alex Vear
 	email = axvr@users.noreply.github.com
 [core]
-	editor = nvim
+	editor = vim

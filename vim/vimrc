@@ -1,247 +1,417 @@
 " Vim Configuration File (~/.vimrc)
-" =================================
+" ==========================================================
 
 " Brief help
 " ----------
-" :PluginList	    - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginClean	    - confirms removal of unused plugins; append `!` to auto-approve removal
-" :PluginUpdate	    - update installed plugins
-" :source $MYVIMRC  - update to the current version if ~/.vimrc
+" :PluginInstall    - Install new plugins
+" :PluginClean      - Remove unused plugins
+" :PluginUpgrade    - Update installed plugins
+" :source $MYVIMRC  - Load latest version of '$MYVIMRC'
+
+" Make sure the file is readable
+if !1 | finish | endif
+
+if &compatible
+    set nocompatible
+    filetype off
+endif
+
+" Make vim and neovim use same info (e.g. undo & swap files)
+" TODO full neovim compatibility with different plugins
+let s:unify = 0
+
+" Encoding
+scriptencoding utf-8
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
+
+function! s:get_SID()
+    return matchstr(expand('<sfile>'), '<SNR>\d\+_zeget_SID$')
+endfunction
+let s:SID = s:get_SID()
+delfunction s:get_SID
 
 
+" -----------------------------------------------------------------------------
 
 " Plugin Setup
+" ------------
 
-  " Auto Install Vivid and Plugins
-    let vivid_checkfile=expand('~/.vim/bundle/Vivid.vim/test-files/checkfile.txt')
-    if (!filereadable(vivid_checkfile))
-      echo "Installing Vivid.vim & plugins"
-      silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/bundle/Vivid.vim
-      source $MYVIMRC
-      :PluginInstall
-      source $MYVIMRC
-      :q
+" TODO auto download Vivid
+
+if has('vim_starting') || s:unify == 1
+    "set rtp+=~/.vim/bundle/Vivid.vim
+    packadd Vivid.vim
+endif
+
+if s:unify == 1
+    call vivid#set_install_dir($HOME . '/.vim/bundle')
+endif
+
+
+" Input Plugins Below this Line {{{
+
+" Code formatting
+call vivid#add('rhysd/vim-clang-format')         " Format files using Clang
+
+" Vim enhancements
+call vivid#add('rhysd/clever-f.vim',   { 'enabled': 1, })
+call vivid#add('jiangmiao/auto-pairs', { 'enabled': 1, }) " Smart brackets and quotes
+call vivid#add('ajh17/VimCompletesMe', { 'enabled': 1, })
+
+" Git integration
+call vivid#add('tpope/vim-fugitive')             " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
+call vivid#add('airblade/vim-gitgutter')         " Show a Git Diff in the 'Gutter'   <-- :help GitGutter
+call vivid#add('rhysd/committia.vim')            " More Pleasant Editing on Commit Message
+
+" Syntax highlighting packs
+call vivid#add('rust-lang/rust.vim')             " Rust Syntax Highlighting
+call vivid#add('tomlion/vim-solidity')           " Solidity Syntax Highlighting
+call vivid#add('lervag/vimtex')
+call vivid#add('octol/vim-cpp-enhanced-highlight')
+
+" Colourschemes and themes
+call vivid#add('liuchengxu/space-vim-dark', { 'enabled': 1, })
+
+" Input Plugins Below this line }}}
+
+call vivid#enable()
+
+" -----------------------------------------------------------------------------
+
+" Basic Configuration
+" -------------------
+
+" Essentials
+filetype plugin indent on
+syntax enable
+
+" Searching
+set ignorecase                  " Ignore case in searches
+set smartcase                   " Enables smart case mode
+set hlsearch                    " Highlight all search results
+set incsearch                   " Searches for strings incrementaly
+set wrapscan                    " Wrap back to the start of the file
+
+" Mode line
+set modeline
+set modelines=5
+
+" Swap
+if has('nvim') && s:unify == 0
+    if !isdirectory($HOME . '/.config/nvim/swap')
+        call mkdir($HOME . '/.config/nvim/swap', 'p')
     endif
-
-  set rtp+=~/.vim/bundle/Vivid.vim
-  call vivid#open()
-  " Input Plugins Below this Line
-
-    Plugin 'rust-lang/rust.vim'		        " Rust Syntax Highlighting
-    Plugin 'vim-airline/vim-airline'	        " Airline Theme Plugin		    <-- :help Airline
-    Plugin 'vim-airline/vim-airline-themes'	" Airline Theme Packages
-    Plugin 'tpope/vim-fugitive'		        " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
-    Plugin 'christoomey/vim-conflicted'         " TODO
-    Plugin 'terryma/vim-multiple-cursors'       " Vim Multiple Cursors Plugin	    <-- :help vim-multiple-cursors
-    Plugin 'scrooloose/syntastic'	        " Syntastic Syntax Checker Plugin   <-- :help syntastic
-    Plugin 'airblade/vim-gitgutter'		" Show a Git Diff in the 'Gutter'   <-- :help GitGutter
-    Plugin 'majutsushi/tagbar'		        " Display Tags of a File Easily	    <-- :help tagbar
-    Plugin 'scrooloose/nerdtree'		" NERDTree Plugin		    <-- :help NERD_tree.txt
-    Plugin 'jistr/vim-nerdtree-tabs'	        " NERDTree Tabs Plugin              <-- :help vim-nerdtree-tabs
-    Plugin 'xuyuanp/nerdtree-git-plugin'	" Display Git Diffs in NERDTree
-    Plugin 'ctrlpvim/ctrlp.vim'		        " CtrlP Plugin			    <-- :help ctrlp.txt
-    Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}  " TODO
-    Plugin 'godlygeek/tabular'                  " TODO
-    Plugin 'rafi/awesome-vim-colorschemes'      " TODO
-
-  " Input Plugins Above this Line
-  call vivid#close()
-
-
-
-" Basic Config
-
-  syntax enable                   " turn on syntax highlighting
-  set number                      " Show the line numbers
-  set relativenumber
-  set linebreak                   " breaks lines at words (requires line wrap)
-  set showbreak=+++               " Wrap broken line prefix
-  set showmatch                   " Highlight matching brackets
-  set hlsearch                    " Highlight all search results
-  set ignorecase                  " Ignore case in searches
-  set smartcase                   " enables smart case mode
-  set incsearch                   " searches for strings incrementaly
-  set autoindent                  " enable auto indentation
-  set confirm                     " confirmation prompts
-  set ruler                       " show row and col ruler info
-  set undolevels=1000             " number of undo levels
-  set backspace=indent,eol,start  " Backspace behaviour: current line only
-  set wrap                        " wrap visually
-  set nolist                      " list disables linebreak
-  set nomodeline
-  set expandtab                   " Changes tabs into spaces
-  set wrapmargin=0                " Set wrap margin to zero
-  set visualbell t_vb=            " Disable sound alerts
-  let &colorcolumn=join(range(81,999),",")
-  set cursorline
-  set laststatus=2
-  set omnifunc=syntaxcomplete#Complete
-  set path+=**
-  set wildmenu
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-  autocmd BufWritePre * %s/\s\+$//e " Remove trailing whitespace
-
-  " Vim Colour Scheme
-    colorscheme space-vim-dark
-    if (has("termguicolors"))
-      set termguicolors
+    set directory=~/.config/nvim/swap
+else
+    if !isdirectory($HOME . '/.vim/swap')
+        call mkdir($HOME . '/.vim/swap', 'p')
     endif
+    set directory=~/.vim/swap
+endif
 
-  " Vim Spell Check
-  noremap <F7> :setlocal spell! spelllang=en_us<CR>
-
-  " Make a tags file
-  command! MakeTags !ctags -R .
-
-  " Auto Close Parens and Quotes
-  " TODO make more inteligent
-    "ino " ""<left>
-    "ino ' ''<left>
-    "ino ( ()<left>
-    "ino [ []<left>
-    "ino { {}<left>
-    ino {<CR> {<CR>}<ESC>O
-
-  " Vim Hard Mode
-    "noremap  <Up> ""
-    "noremap! <Up> <Esc>
-    "noremap  <Down> ""
-    "noremap! <Down> <Esc>
-    "noremap  <Left> ""
-    "noremap! <Left> <Esc>
-    "noremap  <Right> ""
-    "noremap! <Right> <Esc>
-    set mouse=a
-
-  " Vim Omnicomplete
-    au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
-    set completeopt=longest,menuone
-    inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-      \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-    inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-      \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-  " Vim Tabs Config
-    nnoremap <F5> :tabp<CR>
-    nnoremap <F6> :tabn<CR>
-
-  " Vim Folding
-    augroup vim_folding
-      inoremap <F9> <C-O>za
-      nnoremap <F9> za
-      onoremap <F9> <C-C>za
-      vnoremap <F9> zf
-      au BufReadPre * setlocal foldmethod=indent
-      au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-    augroup END
-
-  " GVim Config
-    if has('gui_running')	" Setup GVim to usable configurations
-      set guifont=Monospace\ 11	" set font Monospace 11
+" Undo
+if has('persistent_undo')
+    if has('nvim') && s:unify == 0
+        if !isdirectory($HOME . '/.config/nvim/undo')
+            call mkdir($HOME . '/.config/nvim/undo', 'p')
+        endif
+        set undodir=$HOME/.config/nvim/undo
+    else
+        if !isdirectory($HOME . '/.vim/undo')
+            call mkdir($HOME . '/.vim/undo', 'p')
+        endif
+        set undodir=$HOME/.vim/undo
     endif
+    set undofile
+else
+    set undolevels=1000
+endif
+
+" TODO set backup dir & manage swap files
+set autoread
+set showcmd
+set confirm                     " confirmation prompts
+set fileformats=unix,dos,mac
+set mouse=a                     " Enable full mouse support
+set updatetime=250
+set backspace=indent,eol,start  " Backspace behaviour: current line only
+set history=100
+set lazyredraw
+set ruler                       " show row and col ruler info
+set showmatch                   " Highlight matching brackets
+set foldenable                  " Enable folding
+set foldmethod=marker           " Set fold method to {{{ & }}}
+
+" Vim & GVim styling
+set number relativenumber " Show the line numbers
+"set noshowmode
+set laststatus=2
+set cursorline " Highlight current line
+let &colorcolumn=join(range(81,335), ",")
+set visualbell t_vb=            " Disable sound & visual alerts
+" TODO ruler and statusline
+set rulerformat=%45(%12f%=\ %m%{'['.(&fenc!=''?&fenc:&enc).']'}\ %l-%v\ %p%%\ [%02B]%)
+set statusline=%f:\ %{substitute(getcwd(),'.*/','','')}\ %m%=%{(&fenc!=''?&fenc:&enc).':'.strpart(&ff,0,1)}\ %l-%v\ %p%%\ %02B
+
+set background=dark
+colorscheme space-vim-dark
+"hi Normal guibg=NONE ctermbg=NONE
+if has("termguicolors")
+    set termguicolors
+endif
+if has('gui_running')
+    set t_Co=256
+    set guifont=Monospace\ 11
+endif
+
+" Vim Omnicomplete
+autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp
+            \ set omnifunc=omni#cpp#complete#Main
+set completeopt=longest,menuone,menu
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+            \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+            \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+" Wild menu
+set wildmenu
+set omnifunc=syntaxcomplete#Complete
+set path+=**
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
 
+" -----------------------------------------------------------------------------
 
-" Plugin Config
+" Set Keymaps & Commands
+" ----------------------
 
-  " Airline Config
-    let g:airline#extensions#tagbar#enabled = 1
-    let g:airline#extensions#syntastic#enabled = 1
-    let g:airline_theme='lucius' " Set Airline theme (favs: 'lucius' 'luna' 'raven')
+" Set Leader key
+let g:mapleader = ","
 
-  " NERDTree Config
-    let g:NERDTreeChDirMode=2
-    let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-    let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-    let g:NERDTreeShowBookmarks=1
-    let g:nerdtree_tabs_focus_on_files=1
-    let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-    let g:NERDTreeWinSize = 25
-    set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-    nnoremap <silent> <F2> :NERDTreeFind<CR>
-    noremap <F3> :NERDTreeToggle<CR>
+" Spacemacs style leader keybindings
+nnoremap <leader>fs :<C-u>w<CR>
+nnoremap <leader>ff :<C-u><CR>
+nnoremap <leader>ft :<C-u><CR>
+nnoremap <leader>bb :<C-u>buffers<CR>:<C-u>buffer<Space>
+nnoremap <leader>qq :<C-u>qa<CR>
+nnoremap <leader>gs :<C-u>Gstatus<CR>
+nnoremap <leader>gc :<C-u>Gcommit<CR>
+nnoremap <leader>gd :<C-u>Gdiff<CR>
+nnoremap <leader>ge :<C-u>Gedit<CR>
+nnoremap <leader>gm :<C-u>Gmove<CR>
+nnoremap <leader>gr :<C-u>Gdelete<CR>
+nnoremap <leader>gb :<C-u>Gblame<CR>
+nnoremap <leader>p  :<C-u><CR>
+nnoremap <leader>'  :<C-u>terminal<CR>
+inoremap <C-e>      <END>
+vnoremap <C-e>      <END>
+cnoremap <C-e>      <END>
+inoremap <C-a>      <HOME>
+vnoremap <C-a>      <HOME>
+cnoremap <C-a>      <HOME>
+" Spell check
+nnoremap <leader>st :<C-u>setlocal spell! spelllang=en_gb<CR>
+nnoremap <F7> :<C-u>setlocal spell! spelllang=en_gb<CR>
+" Switch tabs using <FX> keys
+nnoremap <F5> :<C-u>tabp<CR>
+nnoremap <F6> :<C-u>tabn<CR>
+" Make tags file using ctags
+command! MakeTags !ctags -R .
+" Clang format
+" TODO remap '=' format to 'ClangFormat' for clang files
+autocmd FileType c,h,cpp,hpp,cc,objc
+            \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,h,cpp,hpp,cc,objc
+            \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
-  " Syntastic Config
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-    let g:syntastic_rust_checkers = ['rustc']
-    let g:syntastic_python_checkers = ['pylint', 'python']
-    let g:syntastic_perl_checkers = ['perl']
-    let g:syntastic_cpp_checkers = ['cppcheck', 'clang_check', 'gcc']
-    let g:syntastic_c_checkers = ['clang_check', 'gcc']
-    let g:syntastic_enable_perl_checker = 1
-
-  " CtrlP Config
-    let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-    let g:ctrlp_prompt_mappings = {
-      \ 'AcceptSelection("e")': ['<c-t>'],
-      \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-      \ }
-
-  " Tagbar Config
-    nmap <silent> <F4> :TagbarToggle<CR>
-    let g:tagbar_autofocus = 1
-
-
-
-" Syntax & File Type Config
-
-  " Mozilla Syntax Vim Config
-  " TODO Extend and enhance this.
-  if (&filetype == 'python')
-    set ts=8 sts=4 et sw=4 tw=80
-  else
-    set ts=8 sts=2 et sw=2 tw=80
+function! StripTrailingWhitespace()
+  if !&binary && &filetype != 'diff'
+    normal mz
+    normal Hmy
+    %s/\s\+$//e
+    normal 'yz<CR>
+    normal `z
+    echo "Removed trailing whitespace"
   endif
+endfunction
+nnoremap <leader>rw :<C-u>call StripTrailingWhitespace()<CR>
 
-  " Binary Files
-  " Change vim into a hex editor
-    augroup binary
-      au!
-      au BufReadPre   *.bin  let &bin=1
-      au BufReadPost  *.bin  if &bin | %!xxd
-      au BufReadPost  *.bin  set ft=xxd | endif
-      au BufWritePre  *.bin  if &bin | %!xxd -r
-      au BufWritePre  *.bin  endif
-      au BufWritePost *.bin  if &bin | %!xxd
-      au BufWritePost *.bin  set nomod | endif
-    augroup END
+function! s:delete_current_buf()
+    let bufnr = bufnr('%')
+    bnext
+    if bufnr == bufnr('%') | enew | endif
+    silent! bdelete! #
+endfunction
+nnoremap <leader>bd :<C-u>call <SID>delete_current_buf()<CR>
 
-  " GPG Encrypted Files
-  " Transparent editing of gpg encrypted files. By Wouter Hanegraaff.
-    augroup encrypted
-      au!
+" Show Highlighting group for current word
+function! s:syn_stack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunction
+nnoremap <leader>hg :call <SID>syn_stack()<CR>
 
-      " First make sure nothing is written to ~/.viminfo while editing
-      " an encrypted file.
-      autocmd BufReadPre,FileReadPre *.gpg,*.asc set viminfo=
-      " We don't want a various options which write unencrypted data to disk
-      autocmd BufReadPre,FileReadPre *.gpg,*.asc set noswapfile noundofile nobackup
+" Append modeline after last line in buffer.
+" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX files.
+" TODO print more information
+" TODO replace existing vim modeline
+function! AppendModeline()
+    let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+                \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+    let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+    call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :<C-u>call AppendModeline()<CR>
 
-      " Switch to binary mode to read the encrypted file
-      autocmd BufReadPre,FileReadPre *.gpg,*.asc set bin
-      autocmd BufReadPre,FileReadPre *.gpg,*.asc let ch_save = &ch|set ch=2
-      " (If you use tcsh, you may need to alter this line.)
-      autocmd BufReadPost,FileReadPost *.gpg,*.asc '[,']!gpg --decrypt 2> /dev/null
+" Make file executable
+if executable('chmod')
+    function! s:add_permission_x() abort
+        let file = expand('%:p')
+        if getline(1) =~# '^#![^[]' && !executable(file)
+            silent! call vimproc#system('chmod u+x ' . shellescape(file))
+        endif
+    endfunction
+    autocmd BufWritePost * call s:add_permission_x()
+endif
 
-      " Switch to normal mode for editing
-      autocmd BufReadPost,FileReadPost *.gpg,*.asc set nobin
-      autocmd BufReadPost,FileReadPost *.gpg,*.asc let &ch = ch_save|unlet ch_save
-      autocmd BufReadPost,FileReadPost *.gpg,*.asc execute ":doautocmd BufReadPost " . expand("%:r")
+" Git stage file
+function! s:git_add(fname) abort
+    if ! filereadable(a:fname)
+        echoerr 'file cannot be opened'
+        return
+    endif
+    execute 'lcd' fnamemodify(a:fname, ':h')
+    let result = system('git add '.a:fname)
+    if v:shell_error
+        echoerr 'failed to add: '.result
+    else
+        echo fnamemodify(a:fname, ':t') . ' is added:'
+    endif
+endfunction
+command! -nargs=0 GitAdd call <SID>git_add(expand('%:p'))
+nnoremap <silent><Leader>ga :<C-u>GitAdd<CR>
 
-      " Convert all text to encrypted text before writing
-      " (If you use tcsh, you may need to alter this line.)
-      autocmd BufWritePre,FileWritePre *.gpg,*.asc '[,']!gpg --default-recipient-self -ae 2>/dev/null
-      " Undo the encryption so we are back in the normal text, directly
-      " after the file has been written.
-      autocmd BufWritePost,FileWritePost *.gpg,*.asc u
-    augroup END
+
+" -----------------------------------------------------------------------------
+
+" Plugin Configurattion
+" ---------------------
+
+" Clever-f Config
+let g:clever_f_smart_case = 1
+let g:clever_f_across_no_line = 1
+
+" Clang Format Config
+" TODO Java, JavaScript, Obj-C, C
+let g:clang_format#code_style = 'google'
+let g:clang_format#detect_style_file = 1
+
+" Neomake Config
+" TODO try to use built in vim features
+"autocmd! BufWritePost * Neomake
+"let g:neomake_c_enabled_makers = ['clang', 'gcc'] " TODO C test and configure
+"let g:neomake_cpp_enabled_makers = ['clangtidy', 'cppcheck']
+"let g:neomake_cpp_clangtidy_maker = {
+"            \ 'exe': 'clang-tidy',
+"            \ 'args': ['-checks=*'],
+"            \ }
+"let g:neomake_python_enabled_makers = ['pylint', 'python'] " TODO Python3
+"let g:neomake_perl_enabled_makers = ['perl']
+"let g:neomake_rust_enabled_makers = ['rustc']
+"let g:neomake_sh_enabled_makers = ['shellcheck']
 
 
+" -----------------------------------------------------------------------------
+
+" File Specific Config
+" --------------------
+
+" TODO change on filetype
+" TODO set good defaults
+set expandtab     " et -- Change tabs into spaces
+set shiftwidth=4  " sw
+set softtabstop=4 " sts
+set textwidth=80  " tw --
+set tabstop=4     " ts
+
+let &showbreak='>>> '           " Wrap broken line & prefix
+set nolist                      " list disables linebreak
+set wrapmargin=0                " Set wrap margin to zero
+set shiftround
+set smarttab
+set linebreak                   " breaks lines at words (requires line wrap)
+set autoindent                  " enable auto indentation
+set cindent                     " C style indentation
+set formatoptions+=t
+set formatoptions-=l
+
+" Text Files (text, tex, markdown, org, gitcommit, diff)
+augroup text "{{{
+    autocmd!
+    autocmd FileType text,tex,markdown,org,gitcommit setlocal wrap linebreak nolist
+    autocmd FileType text,tex,markdown,org,gitcommit setlocal textwidth=0 wrapmargin=0
+    autocmd FileType text,tex,markdown,org,gitcommit setlocal spell spelllang=en_gb
+    autocmd FileType text,tex,markdown,gitcommit,diff setlocal nofoldenable
+    autocmd FileType org setlocal foldenable
+
+    if exists('+breakindent')
+        autocmd FileType text,tex,markdown,org,gitcommit,diff setlocal breakindent
+    endif
+
+    autocmd FileType text,tex,markdown,org,gitcommit let &l:colorcolumn=0
+    autocmd FileType diff let &colorcolumn=join(range(82,335), ",")
+    autocmd FileType text,tex,markdown,org,diff setlocal number norelativenumber
+    autocmd FileType gitcommit setlocal nonumber norelativenumber
+augroup END  "}}}
+
+" Binary Files
+" Change Vim into a hex editor
+augroup binary "{{{
+    au!
+    au BufReadPre   *.bin let &bin=1
+    au BufReadPost  *.bin if &bin | %!xxd
+    au BufReadPost  *.bin set ft=xxd | endif
+    au BufWritePre  *.bin if &bin | %!xxd -r
+    au BufWritePre  *.bin endif
+    au BufWritePost *.bin if &bin | %!xxd
+    au BufWritePost *.bin set nomod | endif
+augroup END "}}}
+
+" GPG Encrypted Files
+" Transparent editing of gpg encrypted files. By Wouter Hanegraaff.
+augroup encrypted "{{{
+    au!
+
+    " First make sure nothing is written to ~/.viminfo while editing
+    " an encrypted file.
+    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set viminfo=
+    " We don't want a various options which write unencrypted data to disk
+    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set noswapfile noundofile nobackup
+
+    " Switch to binary mode to read the encrypted file
+    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set bin
+    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp let ch_save = &ch|set ch=2
+    " (If you use tcsh, you may need to alter this line.)
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp '[,']!gpg --decrypt 2> /dev/null
+
+    " Switch to normal mode for editing
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp set nobin
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp let &ch = ch_save|unlet ch_save
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp execute ":doautocmd BufReadPost " . expand("%:r")
+
+    " Convert all text to encrypted text before writing
+    " (If you use tcsh, you may need to alter this line.)
+    autocmd BufWritePre,FileWritePre *.gpg,*.asc,*.pgp '[,']!gpg --default-recipient-self -ae 2>/dev/null
+    " Undo the encryption so we are back in the normal text, directly
+    " after the file has been written.
+    autocmd BufWritePost,FileWritePost *.gpg,*.asc,*.pgp u
+augroup END "}}}
+
+
+" vim: set ts=8 sw=4 tw=80 et :
