@@ -1,5 +1,5 @@
 " Vim Configuration File (~/.vimrc)
-" ==========================================================
+" =================================
 
 " Brief help
 " ----------
@@ -8,17 +8,39 @@
 " :PluginUpgrade    - Update installed plugins
 " :source $MYVIMRC  - Load latest version of '$MYVIMRC'
 
+" -----------------------------------------------------------------------------
+" TODO indentation
+" TODO built in vim linting
+" TODO Auto-complete for all languages wanted
+" TODO improve Vim buffers (similar to SM)
+" TODO improve Vim vimrc
+" TODO spelling fix / correction keymap (maybe list corrections)
+" TODO tidy up this document
+" TODO lightline space-vim theme
+" TODO replace some neovim plugins with stock vim features
+"
+" Languages still to optimise for
+" * C
+" * Rust
+" * Python
+" * Java
+" * JavaScript
+" * HTML
+" * CSS
+" -----------------------------------------------------------------------------
+
 " Make sure the file is readable
 if !1 | finish | endif
 
 if &compatible
     set nocompatible
-    filetype off
 endif
 
 " Make vim and neovim use same info (e.g. undo & swap files)
 " TODO full neovim compatibility with different plugins
 let s:unify = 0
+" TODO nvim use regular vim conf
+let s:minimal_nvim = 0
 
 " Encoding
 scriptencoding utf-8
@@ -47,11 +69,13 @@ if has('vim_starting') || s:unify == 1
 endif
 
 if s:unify == 1
-    call vivid#set_install_dir($HOME . '/.vim/bundle')
+    " TODO set up Vivid to support changing the dirs
+    "call vivid#set_install_dir($HOME . '/.vim/pack/vivid/opt')
 endif
 
+" TODO if using neovim add python integration
 
-" Input Plugins Below this Line {{{
+" Input Plugins below this line {{{
 
 " Code formatting
 call vivid#add('rhysd/vim-clang-format')         " Format files using Clang
@@ -59,7 +83,33 @@ call vivid#add('rhysd/vim-clang-format')         " Format files using Clang
 " Vim enhancements
 call vivid#add('rhysd/clever-f.vim',   { 'enabled': 1, })
 call vivid#add('jiangmiao/auto-pairs', { 'enabled': 1, }) " Smart brackets and quotes
-call vivid#add('ajh17/VimCompletesMe', { 'enabled': 1, })
+if has('nvim')
+    call vivid#add('majutsushi/tagbar'),    " Display Tags of a File Easily     <-- :help tagbar
+    call vivid#add('jceb/vim-orgmode'),     " :help orgguide
+    call vivid#add('tpope/vim-speeddating') " Increment dates
+    call vivid#add('sjl/gundo.vim')         " Traverse the Vim undo tree
+endif
+
+" Auto-complete
+if has('nvim')
+    " TODO check for python integration
+    call vivid#add('Shougo/deoplete.nvim', { 'enabled': 1, })
+    call vivid#add('Shougo/neco-vim',      { 'enabled': 1, }) " VimL completion
+    call vivid#add('zchee/deoplete-clang', { 'enabled': 1, }) " Clang completion engine
+    call vivid#add('Shougo/neco-syntax',   { 'enabled': 1, }) " Many languages simple completion engine
+    call vivid#add('poppyschmo/deoplete-latex', { 'enabled': 1, }) " Experimental LaTeX auto-completion engine
+    " TODO Python completion engine 'zchee/deoplete-jedi'
+    " TODO Rust completion engine 'sebastianmarkow/deoplete-rust'
+    " TODO others
+    " TODO dependency installing plugin
+else
+    call vivid#add('ajh17/VimCompletesMe', { 'enabled': 1, })
+endif
+
+" Syntax checking (linting)
+if has('nvim')
+    call vivid#add('neomake/neomake', { 'enabled': 1, })
+endif
 
 " Git integration
 call vivid#add('tpope/vim-fugitive')             " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
@@ -73,9 +123,19 @@ call vivid#add('lervag/vimtex')
 call vivid#add('octol/vim-cpp-enhanced-highlight')
 
 " Colourschemes and themes
+call vivid#add('itchyny/lightline.vim',     { 'enabled': 1, })
 call vivid#add('liuchengxu/space-vim-dark', { 'enabled': 1, })
+"call vivid#add('tomasr/molokai',            { 'enabled': 1, })
+call vivid#add('jacoborus/tender.vim',      { 'enabled': 1, })
 
-" Input Plugins Below this line }}}
+" File viewers and switchers
+if has('nvim')
+    call vivid#add('ctrlpvim/ctrlp.vim')          " CtrlP Fuzzy Finder   <-- :help ctrlp.txt
+    call vivid#add('scrooloose/nerdtree')         " NERDTree Plugin  <-- :help NERD_tree.txt
+    call vivid#add('Xuyuanp/nerdtree-git-plugin') " Display Git Diffs in NERDTree
+endif
+
+" Input Plugins above this line }}}
 
 call vivid#enable()
 
@@ -130,13 +190,13 @@ else
     set undolevels=1000
 endif
 
-" TODO set backup dir & manage swap files
+" TODO set backup dir
 set autoread
 set showcmd
 set confirm                     " confirmation prompts
 set fileformats=unix,dos,mac
 set mouse=a                     " Enable full mouse support
-set updatetime=250
+set updatetime=1000
 set backspace=indent,eol,start  " Backspace behaviour: current line only
 set history=100
 set lazyredraw
@@ -147,14 +207,19 @@ set foldmethod=marker           " Set fold method to {{{ & }}}
 
 " Vim & GVim styling
 set number relativenumber " Show the line numbers
-"set noshowmode
 set laststatus=2
+set noshowmode
 set cursorline " Highlight current line
 let &colorcolumn=join(range(81,335), ",")
 set visualbell t_vb=            " Disable sound & visual alerts
-" TODO ruler and statusline
-set rulerformat=%45(%12f%=\ %m%{'['.(&fenc!=''?&fenc:&enc).']'}\ %l-%v\ %p%%\ [%02B]%)
-set statusline=%f:\ %{substitute(getcwd(),'.*/','','')}\ %m%=%{(&fenc!=''?&fenc:&enc).':'.strpart(&ff,0,1)}\ %l-%v\ %p%%\ %02B
+"if call vivid#enabled('lightline') == 0
+     " TODO ruler and statusline
+"    set showmode
+"    set rulerformat=%45(%12f%=\ %m%{'['.(&fenc!=''?&fenc:&enc).']'}\ %l-%v\ %p%%\ [%02B]%)
+"    set statusline=%#LineNr#\ %{fugitive#head()}\ %#StatusLine#\ %f%m%r%h%w%=
+"    set statusline+=%{&ff}\ \|\ %{&fileencoding?&fileencoding:&encoding}\ \|
+"    set statusline+=\ %y\ \|\ %p%%\ \|\ %04l:%04v
+"endif
 
 set background=dark
 colorscheme space-vim-dark
@@ -163,8 +228,10 @@ if has("termguicolors")
     set termguicolors
 endif
 if has('gui_running')
-    set t_Co=256
+    " TODO use different font
     set guifont=Monospace\ 11
+elseif !has('gui_running')
+    set t_Co=256
 endif
 
 " Vim Omnicomplete
@@ -303,6 +370,19 @@ nnoremap <silent><Leader>ga :<C-u>GitAdd<CR>
 " Plugin Configurattion
 " ---------------------
 
+" Lightline Config
+" TODO GitGutter diffs integration
+let g:lightline = {
+           \ 'colorscheme': 'one',
+           \ 'active': {
+           \   'left': [ [ 'mode', 'paste' ],
+           \             [ 'gitbranch', 'readonly', 'relativepath', 'modified' ] ]
+           \ },
+           \ 'component_function': {
+           \   'gitbranch': 'fugitive#head',
+           \ },
+           \ }
+
 " Clever-f Config
 let g:clever_f_smart_case = 1
 let g:clever_f_across_no_line = 1
@@ -313,18 +393,76 @@ let g:clang_format#code_style = 'google'
 let g:clang_format#detect_style_file = 1
 
 " Neomake Config
-" TODO try to use built in vim features
-"autocmd! BufWritePost * Neomake
-"let g:neomake_c_enabled_makers = ['clang', 'gcc'] " TODO C test and configure
-"let g:neomake_cpp_enabled_makers = ['clangtidy', 'cppcheck']
-"let g:neomake_cpp_clangtidy_maker = {
-"            \ 'exe': 'clang-tidy',
-"            \ 'args': ['-checks=*'],
-"            \ }
-"let g:neomake_python_enabled_makers = ['pylint', 'python'] " TODO Python3
-"let g:neomake_perl_enabled_makers = ['perl']
-"let g:neomake_rust_enabled_makers = ['rustc']
-"let g:neomake_sh_enabled_makers = ['shellcheck']
+if has('nvim')
+    autocmd! BufWritePost * Neomake
+    let g:neomake_c_enabled_makers = ['clang', 'gcc'] " TODO C test and configure
+    let g:neomake_cpp_enabled_makers = ['clangtidy', 'cppcheck']
+    let g:neomake_cpp_clangtidy_maker = {
+                \ 'exe': 'clang-tidy',
+                \ 'args': ['-checks=*'],
+                \ }
+    let g:neomake_python_enabled_makers = ['pylint', 'python'] " TODO Python3
+    let g:neomake_perl_enabled_makers = ['perl']
+    let g:neomake_rust_enabled_makers = ['rustc']
+    let g:neomake_sh_enabled_makers = ['shellcheck']
+endif
+
+" CtrlP Config
+" -----------------------------------------------------------------------------
+"     Run :CtrlP or :CtrlP [starting-directory] to invoke CtrlP in find file mode.
+"     Run :CtrlPBuffer or :CtrlPMRU to start CtrlP in find buffer or find MRU file mode.
+"     Run :CtrlPMixed to search in Files, Buffers and MRU files at the same time.
+"
+" Check :help ctrlp-commands and :help ctrlp-extensions for other commands.
+" Run :help ctrlp-mappings or submit ? in CtrlP for more mapping help.
+"
+" Once CtrlP is open:
+"     Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+"     Press <c-f> and <c-b> to cycle between modes.
+"     Press <c-d> to switch to filename search instead of full path.
+"     Press <c-r> to switch to regexp mode.
+"     Use <c-j>, <c-k> or the arrow keys to navigate the result list.
+"     Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
+"     Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
+"     Use <c-y> to create a new file and its parent directories.
+"     Use <c-z> to mark/unmark multiple files and <c-o> to open them.
+"
+"     Submit two or more dots .. to go up the directory tree by one or multiple levels.
+"     End the input with a colon : followed by a command to execute it after opening the file:
+"         Use :25 to jump to line 25.
+"         Use :/any\:\ string to jump to the first instance of any: string.
+"         Use :+setfiletype\ myfiletype|25 to set the filetype to myfiletype then jump to line 25.
+"         Use :diffthis when opening files marked by <c-z> to run :diffthis on the first 4 files.
+" -----------------------------------------------------------------------------
+if has('nvim')
+    let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+    let g:ctrlp_map = '<c-p>'
+    let g:ctrlp_cmd = 'CtrlP'
+endif
+
+" NERDTree Config
+if has('nvim')
+    let g:NERDTreeChDirMode=2
+    let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+    let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+    let g:NERDTreeShowBookmarks=1
+    let g:nerdtree_tabs_focus_on_files=1
+    let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+    let g:NERDTreeWinSize = 25
+endif
+
+" Deoplete Config
+if has('nvim')
+    let g:deoplete#enable_at_startup = 1
+    " Deoplete-Clang - find locations: https://github.com/zchee/deoplete-clang
+    let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
+    let g:deoplete#sources#clang#clang_header = '/usr/lib64/clang'
+endif
+
+" Tagbar Config
+"if has('nvim')
+    "let g:tagbar_autofocus = 1
+"endif
 
 
 " -----------------------------------------------------------------------------
