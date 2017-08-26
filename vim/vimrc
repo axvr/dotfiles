@@ -11,6 +11,8 @@
 " -----------------------------------------------------------------------------
 " TODO indentation
 " TODO built in vim linting
+" TODO set up mucomplete
+" TODO fuzzy file finder (maybe use default vim settings)
 " TODO Auto-complete for all languages wanted
 " TODO improve Vim buffers (similar to SM)
 " TODO improve Vim vimrc
@@ -27,6 +29,7 @@
 " * JavaScript
 " * HTML
 " * CSS
+" * & many more
 " -----------------------------------------------------------------------------
 
 " Make sure the file is readable
@@ -61,7 +64,10 @@ delfunction s:get_SID
 " Plugin Setup
 " ------------
 
-" TODO auto download Vivid
+if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
+    echomsg "Installing Vivid.vim"
+    silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/pack/vivid/opt/Vivid.vim
+endif
 
 if has('vim_starting') || s:unify == 1
     "set rtp+=~/.vim/bundle/Vivid.vim
@@ -84,10 +90,7 @@ call vivid#add('rhysd/vim-clang-format')         " Format files using Clang
 call vivid#add('rhysd/clever-f.vim',   { 'enabled': 1, })
 call vivid#add('jiangmiao/auto-pairs', { 'enabled': 1, }) " Smart brackets and quotes
 if has('nvim')
-    call vivid#add('majutsushi/tagbar'),    " Display Tags of a File Easily     <-- :help tagbar
-    call vivid#add('jceb/vim-orgmode'),     " :help orgguide
-    call vivid#add('tpope/vim-speeddating') " Increment dates
-    call vivid#add('sjl/gundo.vim')         " Traverse the Vim undo tree
+    call vivid#add('majutsushi/tagbar')    " Display Tags of a File Easily     <-- :help tagbar
 endif
 
 " Auto-complete
@@ -103,7 +106,8 @@ if has('nvim')
     " TODO others
     " TODO dependency installing plugin
 else
-    call vivid#add('ajh17/VimCompletesMe', { 'enabled': 1, })
+    "call vivid#add('ajh17/VimCompletesMe', { 'enabled': 1, })
+    call vivid#add('lifepillar/vim-mucomplete', { 'enabled': 1, })
 endif
 
 " Syntax checking (linting)
@@ -123,17 +127,7 @@ call vivid#add('lervag/vimtex')
 call vivid#add('octol/vim-cpp-enhanced-highlight')
 
 " Colourschemes and themes
-call vivid#add('itchyny/lightline.vim',     { 'enabled': 1, })
 call vivid#add('liuchengxu/space-vim-dark', { 'enabled': 1, })
-"call vivid#add('tomasr/molokai',            { 'enabled': 1, })
-call vivid#add('jacoborus/tender.vim',      { 'enabled': 1, })
-
-" File viewers and switchers
-if has('nvim')
-    call vivid#add('ctrlpvim/ctrlp.vim')          " CtrlP Fuzzy Finder   <-- :help ctrlp.txt
-    call vivid#add('scrooloose/nerdtree')         " NERDTree Plugin  <-- :help NERD_tree.txt
-    call vivid#add('Xuyuanp/nerdtree-git-plugin') " Display Git Diffs in NERDTree
-endif
 
 " Input Plugins above this line }}}
 
@@ -208,30 +202,26 @@ set foldmethod=marker           " Set fold method to {{{ & }}}
 " Vim & GVim styling
 set number relativenumber " Show the line numbers
 set laststatus=2
-set noshowmode
 set cursorline " Highlight current line
 let &colorcolumn=join(range(81,335), ",")
 set visualbell t_vb=            " Disable sound & visual alerts
-"if call vivid#enabled('lightline') == 0
-     " TODO ruler and statusline
-"    set showmode
-"    set rulerformat=%45(%12f%=\ %m%{'['.(&fenc!=''?&fenc:&enc).']'}\ %l-%v\ %p%%\ [%02B]%)
-"    set statusline=%#LineNr#\ %{fugitive#head()}\ %#StatusLine#\ %f%m%r%h%w%=
-"    set statusline+=%{&ff}\ \|\ %{&fileencoding?&fileencoding:&encoding}\ \|
-"    set statusline+=\ %y\ \|\ %p%%\ \|\ %04l:%04v
-"endif
+set showmode
+" TODO statusline
+set statusline=%#LineNr#\ %{fugitive#head()}\ %#StatusLine#\ %f%m%r%h%w%=
+set statusline+=%{&ff}\ \|\ %{&fileencoding?&fileencoding:&encoding}\ \|
+set statusline+=\ %y\ \|\ %p%%\ \|\ %04l:%04v\     " Vim ruler config
 
 set background=dark
 colorscheme space-vim-dark
 "hi Normal guibg=NONE ctermbg=NONE
-if has("termguicolors")
-    set termguicolors
-endif
 if has('gui_running')
     " TODO use different font
     set guifont=Monospace\ 11
 elseif !has('gui_running')
     set t_Co=256
+endif
+if has("termguicolors")
+    set termguicolors
 endif
 
 " Vim Omnicomplete
@@ -261,6 +251,7 @@ let g:mapleader = ","
 
 " Spacemacs style leader keybindings
 nnoremap <leader>fs :<C-u>w<CR>
+" TODO add file browser (maybe the one built into Vim?)
 nnoremap <leader>ff :<C-u><CR>
 nnoremap <leader>ft :<C-u><CR>
 nnoremap <leader>bb :<C-u>buffers<CR>:<C-u>buffer<Space>
@@ -370,19 +361,6 @@ nnoremap <silent><Leader>ga :<C-u>GitAdd<CR>
 " Plugin Configurattion
 " ---------------------
 
-" Lightline Config
-" TODO GitGutter diffs integration
-let g:lightline = {
-           \ 'colorscheme': 'one',
-           \ 'active': {
-           \   'left': [ [ 'mode', 'paste' ],
-           \             [ 'gitbranch', 'readonly', 'relativepath', 'modified' ] ]
-           \ },
-           \ 'component_function': {
-           \   'gitbranch': 'fugitive#head',
-           \ },
-           \ }
-
 " Clever-f Config
 let g:clever_f_smart_case = 1
 let g:clever_f_across_no_line = 1
@@ -407,50 +385,6 @@ if has('nvim')
     let g:neomake_sh_enabled_makers = ['shellcheck']
 endif
 
-" CtrlP Config
-" -----------------------------------------------------------------------------
-"     Run :CtrlP or :CtrlP [starting-directory] to invoke CtrlP in find file mode.
-"     Run :CtrlPBuffer or :CtrlPMRU to start CtrlP in find buffer or find MRU file mode.
-"     Run :CtrlPMixed to search in Files, Buffers and MRU files at the same time.
-"
-" Check :help ctrlp-commands and :help ctrlp-extensions for other commands.
-" Run :help ctrlp-mappings or submit ? in CtrlP for more mapping help.
-"
-" Once CtrlP is open:
-"     Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
-"     Press <c-f> and <c-b> to cycle between modes.
-"     Press <c-d> to switch to filename search instead of full path.
-"     Press <c-r> to switch to regexp mode.
-"     Use <c-j>, <c-k> or the arrow keys to navigate the result list.
-"     Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
-"     Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
-"     Use <c-y> to create a new file and its parent directories.
-"     Use <c-z> to mark/unmark multiple files and <c-o> to open them.
-"
-"     Submit two or more dots .. to go up the directory tree by one or multiple levels.
-"     End the input with a colon : followed by a command to execute it after opening the file:
-"         Use :25 to jump to line 25.
-"         Use :/any\:\ string to jump to the first instance of any: string.
-"         Use :+setfiletype\ myfiletype|25 to set the filetype to myfiletype then jump to line 25.
-"         Use :diffthis when opening files marked by <c-z> to run :diffthis on the first 4 files.
-" -----------------------------------------------------------------------------
-if has('nvim')
-    let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-    let g:ctrlp_map = '<c-p>'
-    let g:ctrlp_cmd = 'CtrlP'
-endif
-
-" NERDTree Config
-if has('nvim')
-    let g:NERDTreeChDirMode=2
-    let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-    let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-    let g:NERDTreeShowBookmarks=1
-    let g:nerdtree_tabs_focus_on_files=1
-    let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-    let g:NERDTreeWinSize = 25
-endif
-
 " Deoplete Config
 if has('nvim')
     let g:deoplete#enable_at_startup = 1
@@ -458,11 +392,6 @@ if has('nvim')
     let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
     let g:deoplete#sources#clang#clang_header = '/usr/lib64/clang'
 endif
-
-" Tagbar Config
-"if has('nvim')
-    "let g:tagbar_autofocus = 1
-"endif
 
 
 " -----------------------------------------------------------------------------
