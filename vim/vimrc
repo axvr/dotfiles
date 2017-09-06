@@ -65,7 +65,6 @@ delfunction s:get_SID
 " ------------
 
 if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
-    echomsg "Installing Vivid.vim"
     silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/pack/vivid/opt/Vivid.vim
 endif
 
@@ -84,11 +83,13 @@ endif
 " Input Plugins below this line {{{
 
 " Code formatting
-call vivid#add('rhysd/vim-clang-format')         " Format files using Clang
+Plugin 'rhysd/vim-clang-format'         " Format files using Clang
 
 " Vim enhancements
-call vivid#add('rhysd/clever-f.vim',   { 'enabled': 1, })
-call vivid#add('jiangmiao/auto-pairs', { 'enabled': 1, }) " Smart brackets and quotes
+"call vivid#add('rhysd/clever-f.vim',   { 'enabled': 1, })
+"call vivid#add('jiangmiao/auto-pairs', { 'enabled': 1, }) " Smart brackets and quotes
+Plugin 'rhysd/clever-f.vim',    { 'enabled': 1 }
+Plugin 'jiangmiao/auto-pairs',  { 'enabled': 1 }
 if has('nvim')
     call vivid#add('majutsushi/tagbar')    " Display Tags of a File Easily     <-- :help tagbar
 endif
@@ -106,8 +107,8 @@ if has('nvim')
     " TODO others
     " TODO dependency installing plugin
 else
-    "call vivid#add('ajh17/VimCompletesMe', { 'enabled': 1, })
-    call vivid#add('lifepillar/vim-mucomplete', { 'enabled': 1, })
+    call vivid#add('ajh17/VimCompletesMe', { 'enabled': 1, })
+    "call vivid#add('lifepillar/vim-mucomplete', { 'enabled': 1, })
 endif
 
 " Syntax checking (linting)
@@ -116,7 +117,7 @@ if has('nvim')
 endif
 
 " Git integration
-call vivid#add('tpope/vim-fugitive')             " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
+call vivid#add('tpope/vim-fugitive', { 'enabled': 1, })             " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
 call vivid#add('airblade/vim-gitgutter')         " Show a Git Diff in the 'Gutter'   <-- :help GitGutter
 call vivid#add('rhysd/committia.vim')            " More Pleasant Editing on Commit Message
 
@@ -125,9 +126,12 @@ call vivid#add('rust-lang/rust.vim')             " Rust Syntax Highlighting
 call vivid#add('tomlion/vim-solidity')           " Solidity Syntax Highlighting
 call vivid#add('lervag/vimtex')
 call vivid#add('octol/vim-cpp-enhanced-highlight')
+"Plugin 'sheerun/vim-polyglot'
 
 " Colourschemes and themes
+"Plugin 'mhinz/vim-startify', { 'enabled': 1, }
 call vivid#add('liuchengxu/space-vim-dark', { 'enabled': 1, })
+Plugin 'drzel/vim-line-no-indicator', { 'enabled': 1, }
 
 " Input Plugins above this line }}}
 
@@ -141,6 +145,7 @@ call vivid#enable()
 " Essentials
 filetype plugin indent on
 syntax enable
+set hidden
 
 " Searching
 set ignorecase                  " Ignore case in searches
@@ -188,7 +193,7 @@ endif
 set autoread
 set showcmd
 set confirm                     " confirmation prompts
-set fileformats=unix,dos,mac
+set fileformats=unix,mac,dos
 set mouse=a                     " Enable full mouse support
 set updatetime=1000
 set backspace=indent,eol,start  " Backspace behaviour: current line only
@@ -207,9 +212,31 @@ let &colorcolumn=join(range(81,335), ",")
 set visualbell t_vb=            " Disable sound & visual alerts
 set showmode
 " TODO statusline
-set statusline=%#LineNr#\ %{fugitive#head()}\ %#StatusLine#\ %f%m%r%h%w%=
+" TODO localise this function
+function! GitBranch() abort
+    if vivid#enabled('vim-fugitive')
+        let l:branch = fugitive#head()
+        if l:branch != ""
+            return "  " . l:branch . " "
+        else
+            return ""
+        endif
+    else
+        return ""
+    endif
+endfunction
+set statusline=%#LineNr#%{GitBranch()}      " Git branch name
+set statusline+=%#StatusLine#\ %f%m%r%h%w   " Current file info
+set statusline+=%=                          " Move to rightside of screen
 set statusline+=%{&ff}\ \|\ %{&fileencoding?&fileencoding:&encoding}\ \|
-set statusline+=\ %y\ \|\ %p%%\ \|\ %04l:%04v\     " Vim ruler config
+set statusline+=\ %y\ \|
+" TODO set colours
+if vivid#enabled('vim-line-no-indicator')
+    set statusline+=\ %{LineNoIndicator()}\ :%2c\  " sdojnf
+else
+    set statusline+=\ %p%%\ \|
+    set statusline+=\ %04l:%04v\     " Vim ruler config
+endif
 
 set background=dark
 colorscheme space-vim-dark
