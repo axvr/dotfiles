@@ -11,25 +11,9 @@
 " -----------------------------------------------------------------------------
 " TODO indentation
 " TODO built in vim linting
-" TODO set up mucomplete
-" TODO fuzzy file finder (maybe use default vim settings)
+" TODO set up mucomplete or VimCompletesMe
 " TODO Auto-complete for all languages wanted
-" TODO improve Vim buffers (similar to SM)
-" TODO improve Vim vimrc
 " TODO spelling fix / correction keymap (maybe list corrections)
-" TODO tidy up this document
-" TODO lightline space-vim theme
-" TODO replace some neovim plugins with stock vim features
-"
-" Languages still to optimise for
-" * C
-" * Rust
-" * Python
-" * Java
-" * JavaScript
-" * HTML
-" * CSS
-" * & many more
 " -----------------------------------------------------------------------------
 
 " Make sure the file is readable
@@ -42,8 +26,6 @@ endif
 " Make vim and neovim use same info (e.g. undo & swap files)
 " TODO full neovim compatibility with different plugins
 let s:unify = 0
-" TODO nvim use regular vim conf
-let s:minimal_nvim = 0
 
 " Encoding
 scriptencoding utf-8
@@ -64,12 +46,12 @@ delfunction s:get_SID
 " Plugin Setup
 " ------------
 
+" TODO replace with the finished cross platform version
 if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
     silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/pack/vivid/opt/Vivid.vim
 endif
 
 if has('vim_starting') || s:unify == 1
-    "set rtp+=~/.vim/bundle/Vivid.vim
     packadd Vivid.vim
 endif
 
@@ -82,55 +64,35 @@ endif
 
 " Input Plugins below this line {{{
 
-" Code formatting
-Plugin 'rhysd/vim-clang-format'         " Format files using Clang
-
 " Vim enhancements
-"call vivid#add('rhysd/clever-f.vim',   { 'enabled': 1, })
-"call vivid#add('jiangmiao/auto-pairs', { 'enabled': 1, }) " Smart brackets and quotes
-Plugin 'rhysd/clever-f.vim',    { 'enabled': 1 }
-Plugin 'jiangmiao/auto-pairs',  { 'enabled': 1 }
-if has('nvim')
-    call vivid#add('majutsushi/tagbar')    " Display Tags of a File Easily     <-- :help tagbar
-endif
+Plugin 'rhysd/clever-f.vim',    { 'enabled': 1, }
+Plugin 'jiangmiao/auto-pairs',  { 'enabled': 1, }
+Plugin 'tommcdo/vim-lion', { 'enabled': 1, }
+Plugin 'wellle/targets.vim', { 'enabled': 1, }
+Plugin 'romainl/vim-cool', { 'enabled': 1, }
 
 " Auto-complete
-if has('nvim')
-    " TODO check for python integration
-    call vivid#add('Shougo/deoplete.nvim', { 'enabled': 1, })
-    call vivid#add('Shougo/neco-vim',      { 'enabled': 1, }) " VimL completion
-    call vivid#add('zchee/deoplete-clang', { 'enabled': 1, }) " Clang completion engine
-    call vivid#add('Shougo/neco-syntax',   { 'enabled': 1, }) " Many languages simple completion engine
-    call vivid#add('poppyschmo/deoplete-latex', { 'enabled': 1, }) " Experimental LaTeX auto-completion engine
-    " TODO Python completion engine 'zchee/deoplete-jedi'
-    " TODO Rust completion engine 'sebastianmarkow/deoplete-rust'
-    " TODO others
-    " TODO dependency installing plugin
-else
-    call vivid#add('ajh17/VimCompletesMe', { 'enabled': 1, })
-    "call vivid#add('lifepillar/vim-mucomplete', { 'enabled': 1, })
-endif
+Plugin 'ajh17/VimCompletesMe', { 'enabled': 1, }
+"Plugin 'lifepillar/vim-mucomplete', { 'enabled': 1, }
 
 " Syntax checking (linting)
 if has('nvim')
     call vivid#add('neomake/neomake', { 'enabled': 1, })
 endif
+"Plugin 'romainl/vim-qf'
 
 " Git integration
-call vivid#add('tpope/vim-fugitive', { 'enabled': 1, })             " Fugitive.Vim Git Wrapper Plugin   <-- :help fugitive
-call vivid#add('airblade/vim-gitgutter')         " Show a Git Diff in the 'Gutter'   <-- :help GitGutter
-call vivid#add('rhysd/committia.vim')            " More Pleasant Editing on Commit Message
+Plugin 'tpope/vim-fugitive', { 'enabled': 1, }
+Plugin 'rhysd/committia.vim'
+Plugin 'airblade/vim-gitgutter'
 
-" Syntax highlighting packs
-call vivid#add('rust-lang/rust.vim')             " Rust Syntax Highlighting
-call vivid#add('tomlion/vim-solidity')           " Solidity Syntax Highlighting
-call vivid#add('lervag/vimtex')
-call vivid#add('octol/vim-cpp-enhanced-highlight')
-"Plugin 'sheerun/vim-polyglot'
+" Syntax highlighting packs & code formatting
+Plugin 'rhysd/vim-clang-format'
+Plugin 'lervag/vimtex'
+Plugin 'sheerun/vim-polyglot', { 'enabled': 1, }
 
 " Colourschemes and themes
-"Plugin 'mhinz/vim-startify', { 'enabled': 1, }
-call vivid#add('liuchengxu/space-vim-dark', { 'enabled': 1, })
+Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
 Plugin 'drzel/vim-line-no-indicator', { 'enabled': 1, }
 
 " Input Plugins above this line }}}
@@ -145,7 +107,7 @@ call vivid#enable()
 " Essentials
 filetype plugin indent on
 syntax enable
-set hidden
+"set hidden
 
 " Searching
 set ignorecase                  " Ignore case in searches
@@ -192,26 +154,25 @@ endif
 " TODO set backup dir
 set autoread
 set showcmd
-set confirm                     " confirmation prompts
+set confirm
 set fileformats=unix,mac,dos
-set mouse=a                     " Enable full mouse support
+set mouse=a
 set updatetime=1000
-set backspace=indent,eol,start  " Backspace behaviour: current line only
+set backspace=indent,eol,start
 set history=100
 set lazyredraw
-set ruler                       " show row and col ruler info
-set showmatch                   " Highlight matching brackets
-set foldenable                  " Enable folding
-set foldmethod=marker           " Set fold method to {{{ & }}}
+set ruler
+set showmatch
+set foldenable
+set foldmethod=marker
 
 " Vim & GVim styling
-set number relativenumber " Show the line numbers
+set number relativenumber
 set laststatus=2
 set cursorline " Highlight current line
 let &colorcolumn=join(range(81,335), ",")
-set visualbell t_vb=            " Disable sound & visual alerts
+set visualbell t_vb=   " Disable sound & visual alerts
 set showmode
-" TODO statusline
 " TODO localise this function
 function! GitBranch() abort
     if vivid#enabled('vim-fugitive')
@@ -228,9 +189,9 @@ endfunction
 set statusline=%#LineNr#%{GitBranch()}      " Git branch name
 set statusline+=%#StatusLine#\ %f%m%r%h%w   " Current file info
 set statusline+=%=                          " Move to rightside of screen
-set statusline+=%{&ff}\ \|\ %{&fileencoding?&fileencoding:&encoding}\ \|
+set statusline+=%{&ff}\ \|
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ \|
 set statusline+=\ %y\ \|
-" TODO set colours
 if vivid#enabled('vim-line-no-indicator')
     set statusline+=\ %{LineNoIndicator()}\ :%2c\  " sdojnf
 else
@@ -306,12 +267,21 @@ nnoremap <F5> :<C-u>tabp<CR>
 nnoremap <F6> :<C-u>tabn<CR>
 " Make tags file using ctags
 command! MakeTags !ctags -R .
+nnoremap <leader>tm :<C-u>MakeTags<CR>
 " Clang format
 " TODO remap '=' format to 'ClangFormat' for clang files
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
+" Vim autocomplete
+inoremap <silent> <leader>f <C-x><C-f>
+inoremap <silent> <leader>i <C-x><C-i>
+inoremap <silent> <leader>l <C-x><C-l>
+inoremap <silent> <leader>n <C-x><C-n>
+inoremap <silent> <leader>o <C-x><C-o>
+inoremap <silent> <leader>t <C-x><C-]>
+inoremap <silent> <leader>u <C-x><C-u>
 
 function! StripTrailingWhitespace()
   if !&binary && &filetype != 'diff'
@@ -374,9 +344,9 @@ function! s:git_add(fname) abort
     execute 'lcd' fnamemodify(a:fname, ':h')
     let result = system('git add '.a:fname)
     if v:shell_error
-        echoerr 'failed to add: '.result
+        echoerr 'failed to stage: '.result
     else
-        echo fnamemodify(a:fname, ':t') . ' is added:'
+        echo fnamemodify(a:fname, ':t') . ' was staged'
     endif
 endfunction
 command! -nargs=0 GitAdd call <SID>git_add(expand('%:p'))
@@ -397,8 +367,12 @@ let g:clever_f_across_no_line = 1
 let g:clang_format#code_style = 'google'
 let g:clang_format#detect_style_file = 1
 
+" Lion Config
+let g:lion_squeeze_spaces = 1
+
 " Neomake Config
-if has('nvim')
+" TODO replace with :make and :quickfix
+if vivid#enabled('neomake') && has('nvim')
     autocmd! BufWritePost * Neomake
     let g:neomake_c_enabled_makers = ['clang', 'gcc'] " TODO C test and configure
     let g:neomake_cpp_enabled_makers = ['clangtidy', 'cppcheck']
@@ -410,14 +384,6 @@ if has('nvim')
     let g:neomake_perl_enabled_makers = ['perl']
     let g:neomake_rust_enabled_makers = ['rustc']
     let g:neomake_sh_enabled_makers = ['shellcheck']
-endif
-
-" Deoplete Config
-if has('nvim')
-    let g:deoplete#enable_at_startup = 1
-    " Deoplete-Clang - find locations: https://github.com/zchee/deoplete-clang
-    let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
-    let g:deoplete#sources#clang#clang_header = '/usr/lib64/clang'
 endif
 
 
@@ -445,22 +411,29 @@ set cindent                     " C style indentation
 set formatoptions+=t
 set formatoptions-=l
 
-" Text Files (text, tex, markdown, org, gitcommit, diff)
+" Text Files (text, tex, markdown, org, gitcommit, diffm
 augroup text "{{{
     autocmd!
-    autocmd FileType text,tex,markdown,org,gitcommit setlocal wrap linebreak nolist
-    autocmd FileType text,tex,markdown,org,gitcommit setlocal textwidth=0 wrapmargin=0
-    autocmd FileType text,tex,markdown,org,gitcommit setlocal spell spelllang=en_gb
+    autocmd FileType text,tex,markdown,org,gitcommit,html,css
+                \ setlocal wrap linebreak nolist
+    autocmd FileType text,tex,markdown,org,gitcommit,html,css
+                \ setlocal textwidth=0 wrapmargin=0
+    autocmd FileType text,tex,markdown,org,gitcommit,html,css
+                \ setlocal spell spelllang=en_gb
     autocmd FileType text,tex,markdown,gitcommit,diff setlocal nofoldenable
     autocmd FileType org setlocal foldenable
 
     if exists('+breakindent')
-        autocmd FileType text,tex,markdown,org,gitcommit,diff setlocal breakindent
+        autocmd FileType text,tex,markdown,org,gitcommit,diff,html,css
+                    \ setlocal breakindent
     endif
 
-    autocmd FileType text,tex,markdown,org,gitcommit let &l:colorcolumn=0
-    autocmd FileType diff let &colorcolumn=join(range(82,335), ",")
-    autocmd FileType text,tex,markdown,org,diff setlocal number norelativenumber
+    autocmd FileType text,tex,markdown,org,gitcommit,html,css
+                \ let &l:colorcolumn=0
+    autocmd FileType diff
+                \ let &colorcolumn=join(range(82,335), ",")
+    autocmd FileType text,tex,markdown,org,diff
+                \ setlocal number norelativenumber
     autocmd FileType gitcommit setlocal nonumber norelativenumber
 augroup END  "}}}
 
