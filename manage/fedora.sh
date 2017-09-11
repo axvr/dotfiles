@@ -17,6 +17,7 @@ fedora_version=26
 # TODO make fully cross platform
 # TODO fix minor problems and present user with more options
 # TODO maybe move to whiptail (using my perl whiptail module)
+# TODO download bitcoin clang files
 
 # Upgrade Fedora system
 function upgrade_system() {
@@ -32,7 +33,7 @@ function install_applications() {
          gnome-todo libreoffice torbrowser-launcher tilix inkscape krita
 
     # Install Development Tools (Some may need to be installed via pip)
-    sudo dnf -y install emacs vim neovim \
+    sudo dnf -y install vim neovim emacs \
          texlive-scheme-basic texlive-titling texlive-titlesec \
          texlive-roboto texlive-noto latexmk \
          python python3 pylint python3-pylint python-nose python3-nose \

@@ -67,9 +67,9 @@ endif
 " Vim enhancements
 Plugin 'rhysd/clever-f.vim',    { 'enabled': 1, }
 Plugin 'jiangmiao/auto-pairs',  { 'enabled': 1, }
-Plugin 'tommcdo/vim-lion', { 'enabled': 1, }
-Plugin 'wellle/targets.vim', { 'enabled': 1, }
-Plugin 'romainl/vim-cool', { 'enabled': 1, }
+Plugin 'tommcdo/vim-lion',      { 'enabled': 1, }
+Plugin 'wellle/targets.vim',    { 'enabled': 1, }
+Plugin 'romainl/vim-cool',      { 'enabled': 1, }
 
 " Auto-complete
 Plugin 'ajh17/VimCompletesMe', { 'enabled': 1, }
@@ -78,11 +78,12 @@ Plugin 'ajh17/VimCompletesMe', { 'enabled': 1, }
 " Syntax checking (linting)
 if has('nvim')
     call vivid#add('neomake/neomake', { 'enabled': 1, })
+else
+    Plugin 'romainl/vim-qf'
 endif
-"Plugin 'romainl/vim-qf'
 
 " Git integration
-Plugin 'tpope/vim-fugitive', { 'enabled': 1, }
+Plugin 'tpope/vim-fugitive'
 Plugin 'rhysd/committia.vim'
 Plugin 'airblade/vim-gitgutter'
 
@@ -92,13 +93,25 @@ Plugin 'lervag/vimtex'
 Plugin 'sheerun/vim-polyglot', { 'enabled': 1, }
 
 " Colourschemes and themes
-Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
+Plugin 'liuchengxu/space-vim-dark',   { 'enabled': 1, }
 Plugin 'drzel/vim-line-no-indicator', { 'enabled': 1, }
 
 " Input Plugins above this line }}}
 
-call vivid#enable()
 
+" Git Plugin Enabling
+function! s:enable_git_plugins() abort
+    if system('git rev-parse --is-inside-work-tree') =~ '^true'
+        call vivid#enable('vim-fugitive', 'committia', 'vim-gitgutter')
+    endif
+endfunction
+
+augroup plugins
+    autocmd!
+    autocmd BufReadPre,BufReadPost,VimEnter * call s:enable_git_plugins()
+    autocmd FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format')
+    autocmd FileType tex call vivid#enable('vimtex')
+augroup END
 " -----------------------------------------------------------------------------
 
 " Basic Configuration
