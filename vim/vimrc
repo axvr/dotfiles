@@ -65,22 +65,13 @@ endif
 " Input Plugins below this line {{{
 
 " Vim enhancements
-Plugin 'rhysd/clever-f.vim',    { 'enabled': 1, }
-Plugin 'jiangmiao/auto-pairs',  { 'enabled': 1, }
-Plugin 'tommcdo/vim-lion',      { 'enabled': 1, }
-Plugin 'wellle/targets.vim',    { 'enabled': 1, }
-Plugin 'romainl/vim-cool',      { 'enabled': 1, }
-
-" Auto-complete
-Plugin 'ajh17/VimCompletesMe', { 'enabled': 1, }
-"Plugin 'lifepillar/vim-mucomplete', { 'enabled': 1, }
-
-" Syntax checking (linting)
-if has('nvim')
-    call vivid#add('neomake/neomake', { 'enabled': 1, })
-else
-    Plugin 'romainl/vim-qf'
-endif
+Plugin 'rhysd/clever-f.vim',   { 'enabled': 1, }
+Plugin 'jiangmiao/auto-pairs', { 'enabled': 1, }
+Plugin 'tommcdo/vim-lion',     { 'enabled': 1, }
+Plugin 'wellle/targets.vim',   { 'enabled': 1, }
+Plugin 'romainl/vim-cool',     { 'enabled': 1, }
+Plugin 'romainl/vim-qf',       { 'enabled': 0, }
+Plugin 'justinmk/vim-dirvish', { 'enabled': 1, }
 
 " Git integration
 Plugin 'tpope/vim-fugitive'
@@ -94,7 +85,7 @@ Plugin 'sheerun/vim-polyglot', { 'enabled': 1, }
 
 " Colourschemes and themes
 Plugin 'liuchengxu/space-vim-dark',   { 'enabled': 1, }
-Plugin 'drzel/vim-line-no-indicator', { 'enabled': 1, }
+Plugin 'drzel/vim-line-no-indicator', { 'enabled': 0, }
 
 " Input Plugins above this line }}}
 
@@ -108,10 +99,12 @@ endfunction
 
 augroup plugins
     autocmd!
-    autocmd BufReadPre,BufReadPost,VimEnter * call s:enable_git_plugins()
+    autocmd BufReadPre,BufReadPost,VimEnter * call s:enable_git_plugins() " TODO improve & optimise this
     autocmd FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format')
     autocmd FileType tex call vivid#enable('vimtex')
 augroup END
+
+
 " -----------------------------------------------------------------------------
 
 " Basic Configuration
@@ -133,7 +126,7 @@ set wrapscan                    " Wrap back to the start of the file
 set modeline
 set modelines=5
 
-" Swap
+" Swap  {{{
 if has('nvim') && s:unify == 0
     if !isdirectory($HOME . '/.config/nvim/swap')
         call mkdir($HOME . '/.config/nvim/swap', 'p')
@@ -144,9 +137,9 @@ else
         call mkdir($HOME . '/.vim/swap', 'p')
     endif
     set directory=~/.vim/swap
-endif
+endif " }}}
 
-" Undo
+" Undo  {{{
 if has('persistent_undo')
     if has('nvim') && s:unify == 0
         if !isdirectory($HOME . '/.config/nvim/undo')
@@ -162,7 +155,7 @@ if has('persistent_undo')
     set undofile
 else
     set undolevels=1000
-endif
+endif " }}}
 
 " TODO set backup dir
 set autoread
@@ -188,15 +181,9 @@ set visualbell t_vb=   " Disable sound & visual alerts
 set showmode
 " TODO localise this function
 function! GitBranch() abort
-    if vivid#enabled('vim-fugitive')
-        let l:branch = fugitive#head()
-        if l:branch != ""
-            return "  " . l:branch . " "
-        else
-            return ""
-        endif
-    else
-        return ""
+    if vivid#enabled('vim-fugitive') && fugitive#head() != ""
+        return "  " . fugitive#head() . " "
+    else | return ""
     endif
 endfunction
 set statusline=%#LineNr#%{GitBranch()}      " Git branch name
@@ -206,10 +193,10 @@ set statusline+=%{&ff}\ \|
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ \|
 set statusline+=\ %y\ \|
 if vivid#enabled('vim-line-no-indicator')
-    set statusline+=\ %{LineNoIndicator()}\ :%2c\  " sdojnf
+    set statusline+=\ %{LineNoIndicator()}\ :%2c\  "  Set line indicator
 else
     set statusline+=\ %p%%\ \|
-    set statusline+=\ %04l:%04v\     " Vim ruler config
+    set statusline+=\ %2v\     " Vim ruler config
 endif
 
 set background=dark
@@ -225,15 +212,17 @@ if has("termguicolors")
     set termguicolors
 endif
 
-" Vim Omnicomplete
-autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp
-            \ set omnifunc=omni#cpp#complete#Main
-set completeopt=longest,menuone,menu
+" Vim Omnicomplete & ins-complete
+set completeopt+=longest,menuone,noinsert,noselect
+set shortmess-=c
+set belloff+=ctrlg
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
             \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
             \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp
+            \ set omnifunc=omni#cpp#complete#Main
 
 " Wild menu
 set wildmenu
@@ -248,7 +237,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 " ----------------------
 
 " Set Leader key
-let g:mapleader = ","
+"let g:mapleader = ","
 
 " Spacemacs style leader keybindings
 nnoremap <leader>fs :<C-u>w<CR>
@@ -266,12 +255,6 @@ nnoremap <leader>gr :<C-u>Gdelete<CR>
 nnoremap <leader>gb :<C-u>Gblame<CR>
 nnoremap <leader>p  :<C-u><CR>
 nnoremap <leader>'  :<C-u>terminal<CR>
-inoremap <C-e>      <END>
-vnoremap <C-e>      <END>
-cnoremap <C-e>      <END>
-inoremap <C-a>      <HOME>
-vnoremap <C-a>      <HOME>
-cnoremap <C-a>      <HOME>
 " Spell check
 nnoremap <leader>st :<C-u>setlocal spell! spelllang=en_gb<CR>
 nnoremap <F7> :<C-u>setlocal spell! spelllang=en_gb<CR>
@@ -288,13 +271,13 @@ autocmd FileType c,h,cpp,hpp,cc,objc
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
 " Vim autocomplete
-inoremap <silent> <leader>f <C-x><C-f>
-inoremap <silent> <leader>i <C-x><C-i>
-inoremap <silent> <leader>l <C-x><C-l>
-inoremap <silent> <leader>n <C-x><C-n>
-inoremap <silent> <leader>o <C-x><C-o>
-inoremap <silent> <leader>t <C-x><C-]>
-inoremap <silent> <leader>u <C-x><C-u>
+"inoremap <silent> <leader>f <C-x><C-f>
+"inoremap <silent> <leader>i <C-x><C-i>
+"inoremap <silent> <leader>l <C-x><C-l>
+"inoremap <silent> <leader>n <C-x><C-n>
+"inoremap <silent> <leader>o <C-x><C-o>
+"inoremap <silent> <leader>t <C-x><C-]>
+"inoremap <silent> <leader>u <C-x><C-u>
 
 function! StripTrailingWhitespace()
   if !&binary && &filetype != 'diff'
@@ -337,17 +320,6 @@ function! AppendModeline()
 endfunction
 nnoremap <silent> <Leader>ml :<C-u>call AppendModeline()<CR>
 
-" Make file executable
-if executable('chmod')
-    function! s:add_permission_x() abort
-        let file = expand('%:p')
-        if getline(1) =~# '^#![^[]' && !executable(file)
-            silent! call vimproc#system('chmod u+x ' . shellescape(file))
-        endif
-    endfunction
-    autocmd BufWritePost * call s:add_permission_x()
-endif
-
 " Git stage file
 function! s:git_add(fname) abort
     if ! filereadable(a:fname)
@@ -362,7 +334,7 @@ function! s:git_add(fname) abort
         echo fnamemodify(a:fname, ':t') . ' was staged'
     endif
 endfunction
-command! -nargs=0 GitAdd call <SID>git_add(expand('%:p'))
+command! -nargs=0 -bar GitAdd call <SID>git_add(expand('%:p'))
 nnoremap <silent><Leader>ga :<C-u>GitAdd<CR>
 
 
@@ -383,7 +355,7 @@ let g:clang_format#detect_style_file = 1
 " Lion Config
 let g:lion_squeeze_spaces = 1
 
-" Neomake Config
+" Neomake Config {{{
 " TODO replace with :make and :quickfix
 if vivid#enabled('neomake') && has('nvim')
     autocmd! BufWritePost * Neomake
@@ -397,7 +369,7 @@ if vivid#enabled('neomake') && has('nvim')
     let g:neomake_perl_enabled_makers = ['perl']
     let g:neomake_rust_enabled_makers = ['rustc']
     let g:neomake_sh_enabled_makers = ['shellcheck']
-endif
+endif   " }}}
 
 
 " -----------------------------------------------------------------------------
@@ -413,15 +385,15 @@ set softtabstop=4 " sts
 set textwidth=80  " tw --
 set tabstop=4     " ts
 
-let &showbreak='>>> '           " Wrap broken line & prefix
-set nolist                      " list disables linebreak
-set wrapmargin=0                " Set wrap margin to zero
+let &showbreak='>>> ' " Wrap broken line & prefix
+set nolist            " list disables linebreak
+set wrapmargin=0      " Set wrap margin to zero
 set shiftround
 set smarttab
-set linebreak                   " breaks lines at words (requires line wrap)
-set autoindent                  " enable auto indentation
-set cindent                     " C style indentation
-set formatoptions+=t
+set linebreak         " breaks lines at words (requires line wrap)
+set autoindent        " enable auto indentation
+set cindent           " C style indentation
+set formatoptions+=t  " TODO check these settings
 set formatoptions-=l
 
 " Text Files (text, tex, markdown, org, gitcommit, diffm
