@@ -25,7 +25,7 @@ endif
 
 " Make vim and neovim use same info (e.g. undo & swap files)
 " TODO full neovim compatibility with different plugins
-let s:unify = 0
+let s:unify = 1
 
 " Encoding
 scriptencoding utf-8
@@ -126,38 +126,33 @@ set wrapscan                    " Wrap back to the start of the file
 set modeline
 set modelines=5
 
-" Swap  {{{
+" Backup, Swap & Undo files {{{
+let s:dirs = ['', '', '']
 if has('nvim') && s:unify == 0
-    if !isdirectory($HOME . '/.config/nvim/swap')
-        call mkdir($HOME . '/.config/nvim/swap', 'p')
-    endif
-    set directory=~/.config/nvim/swap
+    let s:dirs[0] = expand($HOME . '/.config/nvim/backup')
+    let s:dirs[1] = expand($HOME . '/.config/nvim/swap')
+    let s:dirs[2] = expand($HOME . '/.config/nvim/undo')
 else
-    if !isdirectory($HOME . '/.vim/swap')
-        call mkdir($HOME . '/.vim/swap', 'p')
+    let s:dirs[0] = expand($HOME . '/.vim/backup')
+    let s:dirs[1] = expand($HOME . '/.vim/swap')
+    let s:dirs[2] = expand($HOME . '/.vim/undo')
+endif
+for s:dir in s:dirs
+    if !isdirectory(s:dir)
+        call mkdir(s:dir, 'p')
     endif
-    set directory=~/.vim/swap
-endif " }}}
-
-" Undo  {{{
+endfor
+let &backupdir = s:dirs[0]
+set backup
+let &directory = s:dirs[1]
 if has('persistent_undo')
-    if has('nvim') && s:unify == 0
-        if !isdirectory($HOME . '/.config/nvim/undo')
-            call mkdir($HOME . '/.config/nvim/undo', 'p')
-        endif
-        set undodir=$HOME/.config/nvim/undo
-    else
-        if !isdirectory($HOME . '/.vim/undo')
-            call mkdir($HOME . '/.vim/undo', 'p')
-        endif
-        set undodir=$HOME/.vim/undo
-    endif
+    let &undodir = s:dirs[2]
     set undofile
 else
     set undolevels=1000
-endif " }}}
+endif
+unlet s:dirs  " }}}
 
-" TODO set backup dir
 set autoread
 set showcmd
 set confirm
@@ -241,7 +236,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
 " Spacemacs style leader keybindings
 nnoremap <leader>fs :<C-u>w<CR>
-" TODO add file browser (maybe the one built into Vim?)
+" TODO set up dirvish
 nnoremap <leader>ff :<C-u><CR>
 nnoremap <leader>ft :<C-u><CR>
 nnoremap <leader>bb :<C-u>buffers<CR>:<C-u>buffer<Space>
@@ -262,7 +257,7 @@ nnoremap <F7> :<C-u>setlocal spell! spelllang=en_gb<CR>
 nnoremap <F5> :<C-u>tabp<CR>
 nnoremap <F6> :<C-u>tabn<CR>
 " Make tags file using ctags
-command! MakeTags !ctags -R .
+command! -nargs=0 MakeTags !ctags -R .
 nnoremap <leader>tm :<C-u>MakeTags<CR>
 " Clang format
 " TODO remap '=' format to 'ClangFormat' for clang files
@@ -270,14 +265,15 @@ autocmd FileType c,h,cpp,hpp,cc,objc
             \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
+
 " Vim autocomplete
-"inoremap <silent> <leader>f <C-x><C-f>
-"inoremap <silent> <leader>i <C-x><C-i>
-"inoremap <silent> <leader>l <C-x><C-l>
-"inoremap <silent> <leader>n <C-x><C-n>
-"inoremap <silent> <leader>o <C-x><C-o>
-"inoremap <silent> <leader>t <C-x><C-]>
-"inoremap <silent> <leader>u <C-x><C-u>
+inoremap <silent> <leader>f <C-x><C-f>
+inoremap <silent> <leader>i <C-x><C-i>
+inoremap <silent> <leader>l <C-x><C-l>
+inoremap <silent> <leader>n <C-x><C-n>
+inoremap <silent> <leader>o <C-x><C-o>
+inoremap <silent> <leader>t <C-x><C-]>
+inoremap <silent> <leader>u <C-x><C-u>
 
 function! StripTrailingWhitespace()
   if !&binary && &filetype != 'diff'
