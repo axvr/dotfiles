@@ -54,6 +54,6 @@ export PS1="[\u@\h \W]\\$ "
 alias vi="vim"
 alias e="emacs -nw"
 alias sm="emacs -nw"
-alias nv="nvim"
+alias nv="nvim -u ~/.vimrc"
 #alias vim="nvim"
 

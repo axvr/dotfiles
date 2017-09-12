@@ -24,7 +24,6 @@ if &compatible
 endif
 
 " Make vim and neovim use same info (e.g. undo & swap files)
-" TODO full neovim compatibility with different plugins
 let s:unify = 1
 
 " Encoding
@@ -207,7 +206,7 @@ if has("termguicolors")
     set termguicolors
 endif
 
-" Vim Omnicomplete & ins-complete
+" TODO Vim Omnicomplete & ins-complete
 set completeopt+=longest,menuone,noinsert,noselect
 set shortmess-=c
 set belloff+=ctrlg
@@ -265,6 +264,8 @@ autocmd FileType c,h,cpp,hpp,cc,objc
             \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
+autocmd FileType c,h,cpp,hpp,cc,objc
+            \ xnoremap <buffer>= :ClangFormat<CR>
 
 " Vim autocomplete
 inoremap <silent> <leader>f <C-x><C-f>
@@ -276,14 +277,14 @@ inoremap <silent> <leader>t <C-x><C-]>
 inoremap <silent> <leader>u <C-x><C-u>
 
 function! StripTrailingWhitespace()
-  if !&binary && &filetype != 'diff'
-    normal mz
-    normal Hmy
-    %s/\s\+$//e
-    normal 'yz<CR>
-    normal `z
-    echo "Removed trailing whitespace"
-  endif
+    if !&binary && &filetype != 'diff'
+        normal mz
+        normal Hmy
+        %s/\s\+$//e
+        normal 'yz<CR>
+        normal `z
+        echo "Removed trailing whitespace"
+    endif
 endfunction
 nnoremap <leader>rw :<C-u>call StripTrailingWhitespace()<CR>
 
@@ -421,20 +422,20 @@ augroup END  "}}}
 " Binary Files
 " Change Vim into a hex editor
 augroup binary "{{{
-    au!
-    au BufReadPre   *.bin let &bin=1
-    au BufReadPost  *.bin if &bin | %!xxd
-    au BufReadPost  *.bin set ft=xxd | endif
-    au BufWritePre  *.bin if &bin | %!xxd -r
-    au BufWritePre  *.bin endif
-    au BufWritePost *.bin if &bin | %!xxd
-    au BufWritePost *.bin set nomod | endif
+    autocmd!
+    autocmd BufReadPre   *.bin let &bin=1
+    autocmd BufReadPost  *.bin if &bin | %!xxd
+    autocmd BufReadPost  *.bin set ft=xxd | endif
+    autocmd BufWritePre  *.bin if &bin | %!xxd -r
+    autocmd BufWritePre  *.bin endif
+    autocmd BufWritePost *.bin if &bin | %!xxd
+    autocmd BufWritePost *.bin set nomod | endif
 augroup END "}}}
 
 " GPG Encrypted Files
 " Transparent editing of gpg encrypted files. By Wouter Hanegraaff.
 augroup encrypted "{{{
-    au!
+    autocmd!
 
     " First make sure nothing is written to ~/.viminfo while editing
     " an encrypted file.
