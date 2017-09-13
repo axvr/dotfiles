@@ -9,11 +9,11 @@
 " :source $MYVIMRC  - Load latest version of '$MYVIMRC'
 
 " -----------------------------------------------------------------------------
-" TODO indentation
-" TODO built in vim linting
-" TODO set up mucomplete or VimCompletesMe
-" TODO Auto-complete for all languages wanted
+" TODO indentation & tabs
+" TODO built in vim linting (:make & :quickfix also use vim-qf)
+" TODO set up ins-complete & omnicomplete & learn how to use it
 " TODO spelling fix / correction keymap (maybe list corrections)
+" TODO vim sessions keymaps
 " -----------------------------------------------------------------------------
 
 " Make sure the file is readable
@@ -59,7 +59,7 @@ if s:unify == 1
     "call vivid#set_install_dir($HOME . '/.vim/pack/vivid/opt')
 endif
 
-" TODO if using neovim add python integration
+" TODO if using neovim check and add python integration
 
 " Input Plugins below this line {{{
 
@@ -111,7 +111,9 @@ augroup END
 
 " Essentials
 filetype plugin indent on
-syntax enable
+if !exists("g:syntax_on")
+    syntax enable
+endif
 "set hidden
 
 " Searching
@@ -197,7 +199,6 @@ set background=dark
 colorscheme space-vim-dark
 "hi Normal guibg=NONE ctermbg=NONE
 if has('gui_running')
-    " TODO use different font
     set guifont=Monospace\ 11
 elseif !has('gui_running')
     set t_Co=256
@@ -259,7 +260,6 @@ nnoremap <F6> :<C-u>tabn<CR>
 command! -nargs=0 MakeTags !ctags -R .
 nnoremap <leader>tm :<C-u>MakeTags<CR>
 " Clang format
-" TODO remap '=' format to 'ClangFormat' for clang files
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,h,cpp,hpp,cc,objc
@@ -307,11 +307,11 @@ nnoremap <leader>hg :call <SID>syn_stack()<CR>
 
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX files.
-" TODO print more information
 " TODO replace existing vim modeline
 function! AppendModeline()
-    let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
-                \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+    let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set ft=%s fdm=%s fmr=%s :",
+                \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no',
+                \ &filetype, &foldmethod, &foldmarker)
     let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
     call append(line("$"), l:modeline)
 endfunction
@@ -374,13 +374,11 @@ endif   " }}}
 " File Specific Config
 " --------------------
 
-" TODO change on filetype
-" TODO set good defaults
 set expandtab     " et -- Change tabs into spaces
 set shiftwidth=4  " sw
 set softtabstop=4 " sts
 set textwidth=80  " tw --
-set tabstop=4     " ts
+set tabstop=8     " ts
 
 let &showbreak='>>> ' " Wrap broken line & prefix
 set nolist            " list disables linebreak
@@ -463,4 +461,4 @@ augroup encrypted "{{{
 augroup END "}}}
 
 
-" vim: set ts=8 sw=4 tw=80 et :
+" vim: set ts=8 sw=4 tw=80 et ft=vim fdm=marker fmr={{{,}}} :
