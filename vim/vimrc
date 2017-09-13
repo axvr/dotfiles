@@ -7,14 +7,23 @@
 " :PluginClean      - Remove unused plugins
 " :PluginUpgrade    - Update installed plugins
 " :source $MYVIMRC  - Load latest version of '$MYVIMRC'
+" :mks[ession] path - Create a session
+" :so[urce] path    - Load a session
 
 " -----------------------------------------------------------------------------
 " TODO indentation & tabs
 " TODO built in vim linting (:make & :quickfix also use vim-qf)
 " TODO set up ins-complete & omnicomplete & learn how to use it
 " TODO spelling fix / correction keymap (maybe list corrections)
-" TODO vim sessions keymaps
+" TODO augroups, autocmds and keymap organisation
+" TODO neatening up and organising file
 " -----------------------------------------------------------------------------
+
+" Dependencies:
+" * latexmk
+" * pdflatex
+
+" Initial Config {{{
 
 " Make sure the file is readable
 if !1 | finish | endif
@@ -39,13 +48,11 @@ endfunction
 let s:SID = s:get_SID()
 delfunction s:get_SID
 
+" }}}
 
-" -----------------------------------------------------------------------------
 
-" Plugin Setup
-" ------------
+" Plugin Setup {{{
 
-" TODO replace with the finished cross platform version
 if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
     silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/pack/vivid/opt/Vivid.vim
 endif
@@ -59,7 +66,6 @@ if s:unify == 1
     "call vivid#set_install_dir($HOME . '/.vim/pack/vivid/opt')
 endif
 
-" TODO if using neovim check and add python integration
 
 " Input Plugins below this line {{{
 
@@ -69,7 +75,7 @@ Plugin 'jiangmiao/auto-pairs', { 'enabled': 1, }
 Plugin 'tommcdo/vim-lion',     { 'enabled': 1, }
 Plugin 'wellle/targets.vim',   { 'enabled': 1, }
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
-Plugin 'romainl/vim-qf'
+Plugin 'romainl/vim-qf',       { 'enabled': 1, }
 Plugin 'justinmk/vim-dirvish', { 'enabled': 1, }
 
 " Git integration
@@ -78,9 +84,10 @@ Plugin 'rhysd/committia.vim'
 Plugin 'airblade/vim-gitgutter'
 
 " Syntax highlighting packs & code formatting
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'rust-lang/rust.vim'
+Plugin 'tomlion/vim-solidity'
 Plugin 'rhysd/vim-clang-format'
-Plugin 'lervag/vimtex'
-Plugin 'sheerun/vim-polyglot', { 'enabled': 1, }
 
 " Colourschemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
@@ -98,15 +105,12 @@ endfunction
 augroup plugins
     autocmd!
     autocmd BufReadPre,BufReadPost,VimEnter * call s:enable_git_plugins() " TODO improve & optimise this
-    autocmd FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format')
-    autocmd FileType tex call vivid#enable('vimtex')
 augroup END
 
+" }}}
 
-" -----------------------------------------------------------------------------
 
-" Basic Configuration
-" -------------------
+" Basic Configuration {{{
 
 " Essentials
 filetype plugin indent on
@@ -211,7 +215,6 @@ endif
 " TODO Vim Omnicomplete & ins-complete
 set completeopt+=longest,menuone,noinsert,noselect
 set shortmess-=c
-set belloff+=ctrlg
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
             \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
@@ -226,40 +229,32 @@ set omnifunc=syntaxcomplete#Complete
 set path+=**
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
+" }}}
 
-" -----------------------------------------------------------------------------
 
-" Set Keymaps & Commands
-" ----------------------
+" Set Keymaps & Commands {{{
 
 " Set Leader key
 "let g:mapleader = ","
 
-" Spacemacs style leader keybindings
-nnoremap <leader>fs :<C-u>w<CR>
 " TODO set up dirvish
-nnoremap <leader>ff :<C-u><CR>
-nnoremap <leader>ft :<C-u><CR>
-nnoremap <leader>bb :<C-u>buffers<CR>:<C-u>buffer<Space>
-nnoremap <leader>qq :<C-u>qa<CR>
+" Git keybindings
 nnoremap <leader>gs :<C-u>Gstatus<CR>
 nnoremap <leader>gc :<C-u>Gcommit<CR>
 nnoremap <leader>gd :<C-u>Gdiff<CR>
-nnoremap <leader>ge :<C-u>Gedit<CR>
-nnoremap <leader>gm :<C-u>Gmove<CR>
-nnoremap <leader>gr :<C-u>Gdelete<CR>
 nnoremap <leader>gb :<C-u>Gblame<CR>
-nnoremap <leader>p  :<C-u><CR>
-nnoremap <leader>'  :<C-u>terminal<CR>
-" Spell check
-nnoremap <leader>st :<C-u>setlocal spell! spelllang=en_gb<CR>
+" TODO Spell check
+nnoremap <leader>ss :<C-u>setlocal spell! spelllang=en_gb<CR>
 nnoremap <F7> :<C-u>setlocal spell! spelllang=en_gb<CR>
-" Switch tabs using <FX> keys
-nnoremap <F5> :<C-u>tabp<CR>
-nnoremap <F6> :<C-u>tabn<CR>
-" Make tags file using ctags
+" TODO Make tags file using ctags
 command! -nargs=0 MakeTags !ctags -R .
 nnoremap <leader>tm :<C-u>MakeTags<CR>
+" TODO LaTeX Files & augroup (create a LaTeX compiler plugin)
+autocmd FileType tex 
+            \ nnoremap <buffer><leader>lcp :<C-u>call <SID>latex_compile_to_pdf(expand('%:p'))<CR>
+function! s:latex_compile_to_pdf(path) abort
+    " !latexmk -pdf %
+endfunction
 " Clang format
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
@@ -268,7 +263,7 @@ autocmd FileType c,h,cpp,hpp,cc,objc
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ xnoremap <buffer>= :ClangFormat<CR>
 
-" Vim autocomplete
+" TODO Vim autocomplete
 inoremap <silent> <leader>f <C-x><C-f>
 inoremap <silent> <leader>i <C-x><C-i>
 inoremap <silent> <leader>l <C-x><C-l>
@@ -277,25 +272,18 @@ inoremap <silent> <leader>o <C-x><C-o>
 inoremap <silent> <leader>t <C-x><C-]>
 inoremap <silent> <leader>u <C-x><C-u>
 
-function! StripTrailingWhitespace()
-    if !&binary && &filetype != 'diff'
+" Remove trailing whitespace
+function! s:trim(bang) abort
+    if a:bang || (!&binary && &filetype != 'diff')
         normal mz
         normal Hmy
         %s/\s\+$//e
         normal 'yz<CR>
         normal `z
-        echo "Removed trailing whitespace"
+    else | echoerr "Warning! Not reccommended to trim whitespace in this file."
     endif
 endfunction
-nnoremap <leader>rw :<C-u>call StripTrailingWhitespace()<CR>
-
-function! s:delete_current_buf()
-    let bufnr = bufnr('%')
-    bnext
-    if bufnr == bufnr('%') | enew | endif
-    silent! bdelete! #
-endfunction
-nnoremap <leader>bd :<C-u>call <SID>delete_current_buf()<CR>
+command! -nargs=0 -bar -bang Trim call <SID>trim('<bang>')
 
 " Show Highlighting group for current word
 function! s:syn_stack()
@@ -335,11 +323,10 @@ endfunction
 command! -nargs=0 -bar GitAdd call <SID>git_add(expand('%:p'))
 nnoremap <silent><Leader>ga :<C-u>GitAdd<CR>
 
+" }}}
 
-" -----------------------------------------------------------------------------
 
-" Plugin Configurattion
-" ---------------------
+" Plugin Configuration {{{
 
 " Clever-f Config
 let g:clever_f_smart_case = 1
@@ -369,10 +356,10 @@ if vivid#enabled('neomake') && has('nvim')
     let g:neomake_sh_enabled_makers = ['shellcheck']
 endif   " }}}
 
+" }}}
 
-" -----------------------------------------------------------------------------
 
-" File Specific Config
+" File Specific Config {{{
 " --------------------
 
 set expandtab     " et -- Change tabs into spaces
@@ -391,6 +378,13 @@ set autoindent        " enable auto indentation
 set cindent           " C style indentation
 set formatoptions+=t  " TODO check these settings
 set formatoptions-=l
+
+" Clang Files
+augroup clang
+    autocmd!
+    autocmd FileType c,h,cpp,hpp,cc,objc
+                \ call vivid#enable('vim-clang-format', 'vim-cpp-enhanced-highlight')
+augroup END
 
 " Text Files (text, tex, markdown, org, gitcommit, diffm
 augroup text "{{{
@@ -440,26 +434,33 @@ augroup encrypted "{{{
     " an encrypted file.
     autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set viminfo=
     " We don't want a various options which write unencrypted data to disk
-    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set noswapfile noundofile nobackup
+    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp 
+                \ set noswapfile noundofile nobackup
 
     " Switch to binary mode to read the encrypted file
     autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set bin
     autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp let ch_save = &ch|set ch=2
     " (If you use tcsh, you may need to alter this line.)
-    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp '[,']!gpg --decrypt 2> /dev/null
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp 
+                \ '[,']!gpg --decrypt 2> /dev/null
 
     " Switch to normal mode for editing
     autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp set nobin
-    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp let &ch = ch_save|unlet ch_save
-    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp execute ":doautocmd BufReadPost " . expand("%:r")
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp 
+                \ let &ch = ch_save|unlet ch_save
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp 
+                \ execute ":doautocmd BufReadPost " . expand("%:r")
 
     " Convert all text to encrypted text before writing
     " (If you use tcsh, you may need to alter this line.)
-    autocmd BufWritePre,FileWritePre *.gpg,*.asc,*.pgp '[,']!gpg --default-recipient-self -ae 2>/dev/null
+    autocmd BufWritePre,FileWritePre *.gpg,*.asc,*.pgp 
+                \ '[,']!gpg --default-recipient-self -ae 2>/dev/null
     " Undo the encryption so we are back in the normal text, directly
     " after the file has been written.
     autocmd BufWritePost,FileWritePost *.gpg,*.asc,*.pgp u
 augroup END "}}}
+
+" }}}
 
 
 " vim: set ts=8 sw=4 tw=80 et ft=vim fdm=marker fmr={{{,}}} :
