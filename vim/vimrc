@@ -69,7 +69,7 @@ Plugin 'jiangmiao/auto-pairs', { 'enabled': 1, }
 Plugin 'tommcdo/vim-lion',     { 'enabled': 1, }
 Plugin 'wellle/targets.vim',   { 'enabled': 1, }
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
-Plugin 'romainl/vim-qf',       { 'enabled': 0, }
+Plugin 'romainl/vim-qf'
 Plugin 'justinmk/vim-dirvish', { 'enabled': 1, }
 
 " Git integration
@@ -83,8 +83,7 @@ Plugin 'lervag/vimtex'
 Plugin 'sheerun/vim-polyglot', { 'enabled': 1, }
 
 " Colourschemes and themes
-Plugin 'liuchengxu/space-vim-dark',   { 'enabled': 1, }
-Plugin 'drzel/vim-line-no-indicator', { 'enabled': 0, }
+Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
 
 " Input Plugins above this line }}}
 
@@ -117,15 +116,15 @@ endif
 "set hidden
 
 " Searching
-set ignorecase                  " Ignore case in searches
-set smartcase                   " Enables smart case mode
-set hlsearch                    " Highlight all search results
-set incsearch                   " Searches for strings incrementaly
-set wrapscan                    " Wrap back to the start of the file
+set ignorecase      " Ignore case in searches
+set smartcase       " Enables smart case mode
+set hlsearch        " Highlight all search results
+set incsearch       " Searches for strings incrementaly
+set wrapscan        " Wrap back to the start of the file
 
 " Mode line
-set modeline
-set modelines=5
+set modeline        " Allow reading modelines
+set modelines=5     " Set the number of lines to search through to find modeline
 
 " Backup, Swap & Undo files {{{
 let s:dirs = ['', '', '']
@@ -188,15 +187,17 @@ set statusline+=%=                          " Move to rightside of screen
 set statusline+=%{&ff}\ \|
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ \|
 set statusline+=\ %y\ \|
-if vivid#enabled('vim-line-no-indicator')
-    set statusline+=\ %{LineNoIndicator()}\ :%2c\  "  Set line indicator
-else
-    set statusline+=\ %p%%\ \|
-    set statusline+=\ %2v\     " Vim ruler config
-endif
+set statusline+=\ %p%%\ \|
+set statusline+=\ %2v\     " Vim ruler config
 
 set background=dark
-colorscheme space-vim-dark
+if vivid#enabled('space-vim-dark')
+    colorscheme space-vim-dark
+else
+    colorscheme desert
+    set nocursorline
+    let &colorcolumn=0
+endif
 "hi Normal guibg=NONE ctermbg=NONE
 if has('gui_running')
     set guifont=Monospace\ 11
@@ -378,7 +379,7 @@ set expandtab     " et -- Change tabs into spaces
 set shiftwidth=4  " sw
 set softtabstop=4 " sts
 set textwidth=80  " tw --
-set tabstop=8     " ts
+set tabstop=8     " ts -- Don't change this value
 
 let &showbreak='>>> ' " Wrap broken line & prefix
 set nolist            " list disables linebreak
