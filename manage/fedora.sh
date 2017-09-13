@@ -121,7 +121,7 @@ function setup_applications() {
     mkdir -p ~/.emacs.d ~/.config/nvim
     github=https://raw.githubusercontent.com/axvr/dotfiles/master
     wget $github/spacemacs/spacemacs -O ~/.spacemacs
-    wget $github/neovim/init.vim     -O ~/.config/nvim/init.vim
+    #wget $github/neovim/init.vim     -O ~/.config/nvim/init.vim
     wget $github/vim/vimrc           -O ~/.vimrc
     wget $github/git/gitconfig       -O ~/.gitconfig
     wget $github/bash/bashrc         -O ~/.bashrc
@@ -164,14 +164,14 @@ function install_games() {
 # Add dotfiles to the dotfiles repo
 function update_repo() {
 
-    mkdir -p ~/Documents/Projects/dotfiles/{vim,neovim,spacemacs,bash,git,urxvt,sway,qutebrowser}
-    mkdir -p ~/Documents/Projects/dotfiles/clang/{mozilla,google}
+    mkdir -p ~/Documents/Projects/dotfiles/{vim,spacemacs,bash,git,urxvt,sway,qutebrowser}
+    mkdir -p ~/Documents/Projects/dotfiles/clang/{mozilla,google,bitcoin}
 
     # Vim - vimrc
     cp ~/.vimrc ~/Documents/Projects/dotfiles/vim/vimrc
 
     # Neovim - init.vim
-    cp ~/.config/nvim/init.vim ~/Documents/Projects/dotfiles/neovim/init.vim
+    #cp ~/.config/nvim/init.vim ~/Documents/Projects/dotfiles/neovim/init.vim
 
     # Spacemacs - spacemacs
     cp ~/.spacemacs ~/Documents/Projects/dotfiles/spacemacs/spacemacs
