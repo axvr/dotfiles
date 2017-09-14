@@ -97,7 +97,7 @@ Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
 
 " Git Plugin Enabling
 function! s:enable_git_plugins() abort
-    if system('git rev-parse --is-inside-work-tree') =~ '^true'
+    if system('git rev-parse --is-inside-work-tree') =~# '\m\C^true'
         call vivid#enable('vim-fugitive', 'committia', 'vim-gitgutter')
     endif
 endfunction
@@ -114,7 +114,7 @@ augroup END
 
 " Essentials
 filetype plugin indent on
-if !exists("g:syntax_on")
+if !exists('g:syntax_on')
     syntax enable
 endif
 "set hidden
@@ -175,14 +175,14 @@ set foldmethod=marker
 set number relativenumber
 set laststatus=2
 set cursorline " Highlight current line
-let &colorcolumn=join(range(81,335), ",")
+let &colorcolumn=join(range(81,335), ',')
 set visualbell t_vb=   " Disable sound & visual alerts
 set showmode
 " TODO localise this function
 function! GitBranch() abort
-    if vivid#enabled('vim-fugitive') && fugitive#head() != ""
-        return "  " . fugitive#head() . " "
-    else | return ""
+    if vivid#enabled('vim-fugitive') && fugitive#head() != ''
+        return '  ' . fugitive#head() . ' '
+    else | return ''
     endif
 endfunction
 set statusline=%#LineNr#%{GitBranch()}      " Git branch name
@@ -195,27 +195,21 @@ set statusline+=\ %p%%\ \|
 set statusline+=\ %2v\     " Vim ruler config
 
 set background=dark
-if vivid#enabled('space-vim-dark')
-    colorscheme space-vim-dark
-else
-    colorscheme desert
-    set nocursorline
-    let &colorcolumn=0
-endif
+colorscheme space-vim-dark
 "hi Normal guibg=NONE ctermbg=NONE
 if has('gui_running')
     set guifont=Monospace\ 11
 elseif !has('gui_running')
     set t_Co=256
 endif
-if has("termguicolors")
+if has('termguicolors')
     set termguicolors
 endif
 
 " TODO Vim Omnicomplete & ins-complete
 set completeopt+=longest,menuone,noinsert,noselect
 set shortmess-=c
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <CR> pumvisible() ? '\<C-y>' : '\<C-g>u\<CR>'
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
             \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
@@ -235,7 +229,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 " Set Keymaps & Commands {{{
 
 " Set Leader key
-"let g:mapleader = ","
+"let g:mapleader = ','
 
 " TODO set up dirvish
 " Git keybindings
@@ -250,7 +244,7 @@ nnoremap <F7> :<C-u>setlocal spell! spelllang=en_gb<CR>
 command! -nargs=0 MakeTags !ctags -R .
 nnoremap <leader>tm :<C-u>MakeTags<CR>
 " TODO LaTeX Files & augroup (create a LaTeX compiler plugin)
-autocmd FileType tex 
+autocmd FileType tex
             \ nnoremap <buffer><leader>lcp :<C-u>call <SID>latex_compile_to_pdf(expand('%:p'))<CR>
 function! s:latex_compile_to_pdf(path) abort
     " !latexmk -pdf %
@@ -275,19 +269,19 @@ inoremap <silent> <leader>u <C-x><C-u>
 " Remove trailing whitespace
 function! s:trim(bang) abort
     if a:bang || (!&binary && &filetype != 'diff')
-        normal mz
-        normal Hmy
-        %s/\s\+$//e
-        normal 'yz<CR>
-        normal `z
-    else | echoerr "Warning! Not reccommended to trim whitespace in this file."
+        normal! mz
+        normal! Hmy
+        %s/\m\C\s\+$//e
+        normal! 'yz<CR>
+        normal! `z
+    else | echoerr 'Warning! Not reccommended to trim whitespace in this file.'
     endif
 endfunction
 command! -nargs=0 -bar -bang Trim call <SID>trim('<bang>')
 
 " Show Highlighting group for current word
 function! s:syn_stack()
-    if !exists("*synstack")
+    if !exists('*synstack')
         return
     endif
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
@@ -298,11 +292,11 @@ nnoremap <leader>hg :call <SID>syn_stack()<CR>
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX files.
 " TODO replace existing vim modeline
 function! AppendModeline()
-    let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set ft=%s fdm=%s fmr=%s :",
+    let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set ft=%s fdm=%s fmr=%s :',
                 \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no',
                 \ &filetype, &foldmethod, &foldmarker)
-    let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-    call append(line("$"), l:modeline)
+    let l:modeline = substitute(&commentstring, '%s', l:modeline, '')
+    call append(line('$'), l:modeline)
 endfunction
 nnoremap <silent> <Leader>ml :<C-u>call AppendModeline()<CR>
 
@@ -406,7 +400,7 @@ augroup text "{{{
     autocmd FileType text,tex,markdown,org,gitcommit,html,css
                 \ let &l:colorcolumn=0
     autocmd FileType diff
-                \ let &colorcolumn=join(range(82,335), ",")
+                \ let &colorcolumn=join(range(82,335), ',')
     autocmd FileType text,tex,markdown,org,diff
                 \ setlocal number norelativenumber
     autocmd FileType gitcommit setlocal nonumber norelativenumber
@@ -434,26 +428,26 @@ augroup encrypted "{{{
     " an encrypted file.
     autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set viminfo=
     " We don't want a various options which write unencrypted data to disk
-    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp 
+    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp
                 \ set noswapfile noundofile nobackup
 
     " Switch to binary mode to read the encrypted file
     autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set bin
     autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp let ch_save = &ch|set ch=2
     " (If you use tcsh, you may need to alter this line.)
-    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp 
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp
                 \ '[,']!gpg --decrypt 2> /dev/null
 
     " Switch to normal mode for editing
     autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp set nobin
-    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp 
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp
                 \ let &ch = ch_save|unlet ch_save
-    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp 
-                \ execute ":doautocmd BufReadPost " . expand("%:r")
+    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp
+                \ execute ':doautocmd BufReadPost ' . expand('%:r')
 
     " Convert all text to encrypted text before writing
     " (If you use tcsh, you may need to alter this line.)
-    autocmd BufWritePre,FileWritePre *.gpg,*.asc,*.pgp 
+    autocmd BufWritePre,FileWritePre *.gpg,*.asc,*.pgp
                 \ '[,']!gpg --default-recipient-self -ae 2>/dev/null
     " Undo the encryption so we are back in the normal text, directly
     " after the file has been written.
