@@ -4,7 +4,6 @@
 # --------------------------------------
 
 
-
 #################################
 #### Configuration and Setup ####
 #################################
@@ -18,9 +17,9 @@ fi
 [[ $- != *i* ]] && return
 
 # Start Sway on login
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-  exec sway
-fi
+#if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+#  exec sway
+#fi
 
 # History config
 export HISTSIZE=10000
@@ -34,8 +33,7 @@ export LANG=en_GB.UTF-8
 export XKB_DEFAULT_LAYOUT=gb
 
 # Rust Development
-export PATH=$PATH:$HOME/.cargo/bin
-
+#export PATH=$PATH:$HOME/.cargo/bin
 
 
 #################################
@@ -46,7 +44,6 @@ export PATH=$PATH:$HOME/.cargo/bin
 export PS1="[\u@\h \W]\\$ "
 
 
-
 #################################
 ##### Aliases and Functions #####
 #################################
@@ -55,5 +52,4 @@ alias vi="vim"
 alias e="emacs -nw"
 alias sm="emacs -nw"
 alias nv="nvim -u ~/.vimrc"
-#alias vim="nvim"
 
