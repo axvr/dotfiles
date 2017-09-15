@@ -28,9 +28,8 @@
 " Make sure the file is readable
 if !1 | finish | endif
 
-if &compatible
-    set nocompatible
-endif
+unlet! g:skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
 
 " Make vim and neovim use same info (e.g. undo & swap files)
 let s:unify = 1
@@ -52,9 +51,14 @@ delfunction s:get_SID
 
 
 " Plugin Setup {{{
-
-if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
-    silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/pack/vivid/opt/Vivid.vim
+if has('nvim')
+    if !filereadable(expand($HOME . '/.config/nvim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
+        silent !git clone https://github.com/axvr/Vivid.vim.git ~/.config/nvim/pack/vivid/opt/Vivid.vim
+    endif
+else
+    if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
+        silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/pack/vivid/opt/Vivid.vim
+    endif
 endif
 
 if has('vim_starting') || s:unify == 1
@@ -117,6 +121,7 @@ filetype plugin indent on
 if !exists('g:syntax_on')
     syntax enable
 endif
+set splitbelow splitright
 "set hidden
 
 " Searching
@@ -209,13 +214,13 @@ endif
 " TODO Vim Omnicomplete & ins-complete
 set completeopt+=longest,menuone,noinsert,noselect
 set shortmess-=c
-inoremap <expr> <CR> pumvisible() ? '\<C-y>' : '\<C-g>u\<CR>'
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-            \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-            \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp
-            \ set omnifunc=omni#cpp#complete#Main
+"inoremap <expr> <CR> pumvisible() ? '\<C-y>' : '\<C-g>u\<CR>'
+"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+"            \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+"            \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp
+"            \ set omnifunc=omni#cpp#complete#Main
 
 " Wild menu
 set wildmenu
