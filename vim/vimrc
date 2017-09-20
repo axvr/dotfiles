@@ -23,34 +23,21 @@
 " * latexmk
 " * pdflatex
 
-" Initial Config {{{
+" Initial Config
 
 " Make sure the file is readable
 if !1 | finish | endif
 
-unlet! g:skip_defaults_vim
-source $VIMRUNTIME/defaults.vim
-
 " Make vim and neovim use same info (e.g. undo & swap files)
-let s:unify = 1
+let s:unify = 0
 
 " Encoding
 scriptencoding utf-8
 set encoding=utf-8
-set termencoding=utf-8
 set fileencoding=utf-8
-set fileencodings=utf-8
-
-function! s:get_SID()
-    return matchstr(expand('<sfile>'), '<SNR>\d\+_zeget_SID$')
-endfunction
-let s:SID = s:get_SID()
-delfunction s:get_SID
-
-" }}}
 
 
-" Plugin Setup {{{
+" Plugin Setup
 if has('nvim')
     if !filereadable(expand($HOME . '/.config/nvim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
         silent !git clone https://github.com/axvr/Vivid.vim.git ~/.config/nvim/pack/vivid/opt/Vivid.vim
@@ -111,17 +98,14 @@ augroup plugins
     autocmd BufReadPre,BufReadPost,VimEnter * call s:enable_git_plugins() " TODO improve & optimise this
 augroup END
 
-" }}}
 
-
-" Basic Configuration {{{
+" Basic Configuration
 
 " Essentials
 filetype plugin indent on
 if !exists('g:syntax_on')
     syntax enable
 endif
-set splitbelow splitright
 "set hidden
 
 " Searching
@@ -135,7 +119,7 @@ set wrapscan        " Wrap back to the start of the file
 set modeline        " Allow reading modelines
 set modelines=5     " Set the number of lines to search through to find modeline
 
-" Backup, Swap & Undo files {{{
+" Backup, Swap & Undo files  {{{
 let s:dirs = ['', '', '']
 if has('nvim') && s:unify == 0
     let s:dirs[0] = expand($HOME . '/.config/nvim/backup')
@@ -145,6 +129,7 @@ else
     let s:dirs[0] = expand($HOME . '/.vim/backup')
     let s:dirs[1] = expand($HOME . '/.vim/swap')
     let s:dirs[2] = expand($HOME . '/.vim/undo')
+    set viminfo+=n~/.vim/viminfo
 endif
 for s:dir in s:dirs
     if !isdirectory(s:dir)
@@ -160,16 +145,15 @@ if has('persistent_undo')
 else
     set undolevels=1000
 endif
-unlet s:dirs  " }}}
+unlet s:dirs " }}}
 
 set autoread
 set showcmd
 set confirm
 set fileformats=unix,mac,dos
 set mouse=a
-set updatetime=1000
 set backspace=indent,eol,start
-set history=100
+set history=200
 set lazyredraw
 set ruler
 set showmatch
@@ -195,7 +179,7 @@ set statusline+=%#StatusLine#\ %f%m%r%h%w   " Current file info
 set statusline+=%=                          " Move to rightside of screen
 set statusline+=%{&ff}\ \|
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ \|
-set statusline+=\ %y\ \|
+set statusline+=\ %{&filetype}\ \|
 set statusline+=\ %p%%\ \|
 set statusline+=\ %2v\     " Vim ruler config
 
@@ -212,15 +196,6 @@ if has('termguicolors')
 endif
 
 " TODO Vim Omnicomplete & ins-complete
-set completeopt+=longest,menuone,noinsert,noselect
-set shortmess-=c
-"inoremap <expr> <CR> pumvisible() ? '\<C-y>' : '\<C-g>u\<CR>'
-"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-"            \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-"            \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-"autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp
-"            \ set omnifunc=omni#cpp#complete#Main
 
 " Wild menu
 set wildmenu
@@ -228,13 +203,8 @@ set omnifunc=syntaxcomplete#Complete
 set path+=**
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
-" }}}
 
-
-" Set Keymaps & Commands {{{
-
-" Set Leader key
-"let g:mapleader = ','
+" Set Keymaps & Commands
 
 " TODO set up dirvish
 " Git keybindings
@@ -243,7 +213,6 @@ nnoremap <leader>gc :<C-u>Gcommit<CR>
 nnoremap <leader>gd :<C-u>Gdiff<CR>
 nnoremap <leader>gb :<C-u>Gblame<CR>
 " TODO Spell check
-nnoremap <leader>ss :<C-u>setlocal spell! spelllang=en_gb<CR>
 nnoremap <F7> :<C-u>setlocal spell! spelllang=en_gb<CR>
 " TODO Make tags file using ctags
 command! -nargs=0 MakeTags !ctags -R .
@@ -259,8 +228,7 @@ autocmd FileType c,h,cpp,hpp,cc,objc
             \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
-autocmd FileType c,h,cpp,hpp,cc,objc
-            \ xnoremap <buffer>= :ClangFormat<CR>
+autocmd FileType c,h,cpp,hpp,cc,objc xnoremap <buffer>= :ClangFormat<CR>
 
 " TODO Vim autocomplete
 inoremap <silent> <leader>f <C-x><C-f>
@@ -282,13 +250,11 @@ function! s:trim(bang) abort
     else | echoerr 'Warning! Not reccommended to trim whitespace in this file.'
     endif
 endfunction
-command! -nargs=0 -bar -bang Trim call <SID>trim('<bang>')
+command! -nargs=0 -bar -bang Trim call <SID>trim('!' == '<bang>')
 
 " Show Highlighting group for current word
 function! s:syn_stack()
-    if !exists('*synstack')
-        return
-    endif
+    if !exists('*synstack') | return | endif
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 nnoremap <leader>hg :call <SID>syn_stack()<CR>
@@ -297,7 +263,8 @@ nnoremap <leader>hg :call <SID>syn_stack()<CR>
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX files.
 " TODO replace existing vim modeline
 function! AppendModeline()
-    let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set ft=%s fdm=%s fmr=%s :',
+    let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set ft=%s fdm=%s ' .
+                \ 'fmr=%s :',
                 \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no',
                 \ &filetype, &foldmethod, &foldmarker)
     let l:modeline = substitute(&commentstring, '%s', l:modeline, '')
@@ -307,8 +274,8 @@ nnoremap <silent> <Leader>ml :<C-u>call AppendModeline()<CR>
 
 " Git stage file
 function! s:git_add(fname) abort
-    if ! filereadable(a:fname)
-        echoerr 'file cannot be opened'
+    if !filereadable(a:fname)
+        echoerr 'File is not readable'
         return
     endif
     execute 'lcd' fnamemodify(a:fname, ':h')
@@ -319,13 +286,11 @@ function! s:git_add(fname) abort
         echo fnamemodify(a:fname, ':t') . ' was staged'
     endif
 endfunction
-command! -nargs=0 -bar GitAdd call <SID>git_add(expand('%:p'))
-nnoremap <silent><Leader>ga :<C-u>GitAdd<CR>
-
-" }}}
+command! -nargs=0 -bar Gadd call <SID>git_add(expand('%:p'))
+nnoremap <silent><Leader>ga :<C-u>Gadd<CR>
 
 
-" Plugin Configuration {{{
+" Plugin Configuration
 
 " Clever-f Config
 let g:clever_f_smart_case = 1
@@ -339,7 +304,7 @@ let g:clang_format#detect_style_file = 1
 " Lion Config
 let g:lion_squeeze_spaces = 1
 
-" Neomake Config {{{
+" Neomake Config
 " TODO replace with :make and :quickfix
 if vivid#enabled('neomake') && has('nvim')
     autocmd! BufWritePost * Neomake
@@ -353,41 +318,41 @@ if vivid#enabled('neomake') && has('nvim')
     let g:neomake_perl_enabled_makers = ['perl']
     let g:neomake_rust_enabled_makers = ['rustc']
     let g:neomake_sh_enabled_makers = ['shellcheck']
-endif   " }}}
-
-" }}}
+endif
 
 
-" File Specific Config {{{
+
+" File Specific Config
 " --------------------
 
-set expandtab     " et -- Change tabs into spaces
-set shiftwidth=4  " sw
-set softtabstop=4 " sts
-set textwidth=80  " tw --
-set tabstop=8     " ts -- Don't change this value
+" Indentation Config (Spaces > Tabs)
+set tabstop=8       " ts  -- Don't change this value
+set softtabstop=4   " sts -- Number of spaces = to a tab
+set shiftwidth=4    " sw  -- Number of sapces used for indenting
+set expandtab       " et  -- Change tabs into spaces
+set shiftround      " sr  -- Round indent to multiple of sw
+set autoindent      " ai  -- Enable unintrusive auto-indentation
 
-let &showbreak='>>> ' " Wrap broken line & prefix
-set nolist            " list disables linebreak
-set wrapmargin=0      " Set wrap margin to zero
-set shiftround
-set smarttab
-set linebreak         " breaks lines at words (requires line wrap)
-set autoindent        " enable auto indentation
-set cindent           " C style indentation
-set formatoptions+=t  " TODO check these settings
-set formatoptions-=l
+" Line wrap config (Use soft wrap, and manually hard wrap text)
+let &showbreak='>>> '   " Prefix for soft wrapped line
+set textwidth=80        " Maximum width of text
+set wrapmargin=0        " Set wrap margin on right of screen
+set wrap                " Enable line wrap
+set linebreak           " Breaks lines at words
+set nolist              " List disables linebreak
 
 " Clang Files
 augroup clang
     autocmd!
     autocmd FileType c,h,cpp,hpp,cc,objc
-                \ call vivid#enable('vim-clang-format', 'vim-cpp-enhanced-highlight')
+                \ call vivid#enable('vim-clang-format',
+                \ 'vim-cpp-enhanced-highlight')
 augroup END
 
-" Text Files (text, tex, markdown, org, gitcommit, diffm
-augroup text "{{{
+" Text Files (text, tex, markdown, org, gitcommit, diff)
+augroup text
     autocmd!
+    " Set soft wrap for text files
     autocmd FileType text,tex,markdown,org,gitcommit,html,css
                 \ setlocal wrap linebreak nolist
     autocmd FileType text,tex,markdown,org,gitcommit,html,css
@@ -409,11 +374,11 @@ augroup text "{{{
     autocmd FileType text,tex,markdown,org,diff
                 \ setlocal number norelativenumber
     autocmd FileType gitcommit setlocal nonumber norelativenumber
-augroup END  "}}}
+augroup END
 
 " Binary Files
 " Change Vim into a hex editor
-augroup binary "{{{
+augroup binary " {{{
     autocmd!
     autocmd BufReadPre   *.bin let &bin=1
     autocmd BufReadPost  *.bin if &bin | %!xxd
@@ -422,11 +387,11 @@ augroup binary "{{{
     autocmd BufWritePre  *.bin endif
     autocmd BufWritePost *.bin if &bin | %!xxd
     autocmd BufWritePost *.bin set nomod | endif
-augroup END "}}}
+augroup END  " }}}
 
 " GPG Encrypted Files
 " Transparent editing of gpg encrypted files. By Wouter Hanegraaff.
-augroup encrypted "{{{
+augroup encrypted  " {{{
     autocmd!
 
     " First make sure nothing is written to ~/.viminfo while editing
@@ -457,9 +422,7 @@ augroup encrypted "{{{
     " Undo the encryption so we are back in the normal text, directly
     " after the file has been written.
     autocmd BufWritePost,FileWritePost *.gpg,*.asc,*.pgp u
-augroup END "}}}
-
-" }}}
+augroup END  " }}}
 
 
 " vim: set ts=8 sw=4 tw=80 et ft=vim fdm=marker fmr={{{,}}} :
