@@ -23,14 +23,16 @@
 " * latexmk & pdflatex
 " * perl (& Vi::QuickFix)
 " * shellcheck
+" * clang-tidy (-checks=* ???)
+" * clang, gcc, gcc-c++ (g++)
+" * pylint
+" * make, cmake, etc
+" * ctags
 
 " Initial Config
 
 " Make sure the file is readable
 if !1 | finish | endif
-
-" Make vim and neovim use same info (e.g. undo & swap files)
-let s:unify = 0
 
 " Encoding
 scriptencoding utf-8
@@ -49,13 +51,8 @@ else
     endif
 endif
 
-if has('vim_starting') || s:unify == 1
+if has('vim_starting')
     packadd Vivid.vim
-endif
-
-if s:unify == 1
-    " TODO set up Vivid to support changing the dirs
-    "call vivid#set_install_dir($HOME . '/.vim/pack/vivid/opt')
 endif
 
 
@@ -78,10 +75,9 @@ Plugin 'airblade/vim-gitgutter'
 " Syntax highlighting packs & code formatting
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'rust-lang/rust.vim'
-Plugin 'tomlion/vim-solidity'
 Plugin 'rhysd/vim-clang-format'
 
-" Colourschemes and themes
+" Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
 
 " Input Plugins above this line }}}
@@ -96,7 +92,7 @@ endfunction
 
 augroup plugins
     autocmd!
-    autocmd BufReadPre,BufReadPost,VimEnter * call s:enable_git_plugins() " TODO improve & optimise this
+    autocmd BufReadPre * call s:enable_git_plugins()
 augroup END
 
 
@@ -122,7 +118,7 @@ set modelines=5     " Set the number of lines to search through to find modeline
 
 " Backup, Swap & Undo files  {{{
 let s:dirs = ['', '', '']
-if has('nvim') && s:unify == 0
+if has('nvim')
     let s:dirs[0] = expand($HOME . '/.config/nvim/backup')
     let s:dirs[1] = expand($HOME . '/.config/nvim/swap')
     let s:dirs[2] = expand($HOME . '/.config/nvim/undo')
@@ -154,6 +150,7 @@ set confirm
 set fileformats=unix,mac,dos
 set mouse=a
 set backspace=indent,eol,start
+set spelllang=en_gb
 set history=200
 set lazyredraw
 set ruler
@@ -181,7 +178,7 @@ set statusline+=%=                          " Move to rightside of screen
 set statusline+=%{&ff}\ \|
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ \|
 set statusline+=\ %{&filetype}\ \|
-set statusline+=\ %p%%\ \|
+set statusline+=\ %P\ \|
 set statusline+=\ %2v\     " Vim ruler config
 
 set background=dark
@@ -198,7 +195,7 @@ endif
 
 " TODO Vim Omnicomplete & ins-complete
 
-" Wild menu
+" TODO Wild menu
 set wildmenu
 set omnifunc=syntaxcomplete#Complete
 set path+=**
@@ -213,32 +210,15 @@ nnoremap <leader>gs :<C-u>Gstatus<CR>
 nnoremap <leader>gc :<C-u>Gcommit<CR>
 nnoremap <leader>gd :<C-u>Gdiff<CR>
 nnoremap <leader>gb :<C-u>Gblame<CR>
-" TODO Spell check
-nnoremap <F7> :<C-u>setlocal spell! spelllang=en_gb<CR>
-" TODO Make tags file using ctags
+nnoremap <F7> :<C-u>setlocal spell!
+" Make tags file using ctags TODO add more options
 command! -nargs=0 MakeTags !ctags -R .
-nnoremap <leader>tm :<C-u>MakeTags<CR>
-" TODO LaTeX Files & augroup (create a LaTeX compiler plugin)
-autocmd FileType tex
-            \ nnoremap <buffer><leader>lcp :<C-u>call <SID>latex_compile_to_pdf(expand('%:p'))<CR>
-function! s:latex_compile_to_pdf(path) abort
-    " !latexmk -pdf %
-endfunction
 " Clang format
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
 autocmd FileType c,h,cpp,hpp,cc,objc xnoremap <buffer>= :ClangFormat<CR>
-
-" TODO Vim autocomplete
-inoremap <silent> <leader>f <C-x><C-f>
-inoremap <silent> <leader>i <C-x><C-i>
-inoremap <silent> <leader>l <C-x><C-l>
-inoremap <silent> <leader>n <C-x><C-n>
-inoremap <silent> <leader>o <C-x><C-o>
-inoremap <silent> <leader>t <C-x><C-]>
-inoremap <silent> <leader>u <C-x><C-u>
 
 " Remove trailing whitespace
 function! s:trim(bang) abort
@@ -293,34 +273,16 @@ nnoremap <silent><Leader>ga :<C-u>Gadd<CR>
 
 " Plugin Configuration
 
-" Clever-f Config
-let g:clever_f_smart_case = 1
-let g:clever_f_across_no_line = 1
-
-" Clang Format Config
-" TODO Java, JavaScript, Obj-C, C
-let g:clang_format#code_style = 'google'
-let g:clang_format#detect_style_file = 1
-
 " Lion Config
 let g:lion_squeeze_spaces = 1
 
-" Neomake Config
-" TODO replace with :make and :quickfix
-if vivid#enabled('neomake') && has('nvim')
-    autocmd! BufWritePost * Neomake
-    let g:neomake_c_enabled_makers = ['clang', 'gcc'] " TODO C test and configure
-    let g:neomake_cpp_enabled_makers = ['clangtidy', 'cppcheck']
-    let g:neomake_cpp_clangtidy_maker = {
-                \ 'exe': 'clang-tidy',
-                \ 'args': ['-checks=*'],
-                \ }
-    let g:neomake_python_enabled_makers = ['pylint', 'python'] " TODO Python3
-    let g:neomake_perl_enabled_makers = ['perl']
-    let g:neomake_rust_enabled_makers = ['rustc']
-    let g:neomake_sh_enabled_makers = ['shellcheck']
-endif
+" Clever-f Config
+let g:clever_f_smart_case     = 1
+let g:clever_f_across_no_line = 1
 
+" Clang Format Config
+let g:clang_format#code_style = 'google'
+let g:clang_format#detect_style_file = 1
 
 
 " File Specific Config
@@ -342,14 +304,13 @@ set wrap                " Enable line wrap
 set linebreak           " Breaks lines at words
 set nolist              " List disables linebreak
 
+
 " Clang Files
 augroup clang
     autocmd!
-    autocmd FileType c,h,cpp,hpp,cc,objc
-                \ call vivid#enable('vim-clang-format',
+    autocmd FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format',
                 \ 'vim-cpp-enhanced-highlight')
 augroup END
-
 
 " Perl files
 augroup perl
@@ -369,34 +330,23 @@ augroup END
 augroup tex
     autocmd!
     autocmd FileType tex setlocal makeprg=latexmk\ -pdf\ %
-    "autocmd FileType tex setlocal errorformat+=
-    "autocmd FileType tex setlocal errorformat+=
 augroup END
 
 " Text Files (text, tex, markdown, org, gitcommit, diff)
 augroup text
     autocmd!
     " Set soft wrap for text files
-    autocmd FileType text,tex,markdown,org,gitcommit,html,css
-                \ setlocal wrap linebreak nolist
-    autocmd FileType text,tex,markdown,org,gitcommit,html,css
-                \ setlocal textwidth=0 wrapmargin=0
-    autocmd FileType text,tex,markdown,org,gitcommit,html,css
-                \ setlocal spell spelllang=en_gb
+    autocmd FileType text,tex,markdown,gitcommit,html,css setlocal spell
     autocmd FileType text,tex,markdown,gitcommit,diff setlocal nofoldenable
-    autocmd FileType org setlocal foldenable
 
     if exists('+breakindent')
-        autocmd FileType text,tex,markdown,org,gitcommit,diff,html,css
+        autocmd FileType text,tex,markdown,gitcommit,diff,html,css
                     \ setlocal breakindent
     endif
 
-    autocmd FileType text,tex,markdown,org,gitcommit,html,css
-                \ let &l:colorcolumn=0
-    autocmd FileType diff
-                \ let &colorcolumn=join(range(82,335), ',')
-    autocmd FileType text,tex,markdown,org,diff
-                \ setlocal number norelativenumber
+    autocmd FileType text,tex,markdown,gitcommit,html,css let &l:colorcolumn=0
+    autocmd FileType diff let &colorcolumn=join(range(82,335), ',')
+    autocmd FileType text,tex,markdown,diff setlocal number norelativenumber
     autocmd FileType gitcommit setlocal nonumber norelativenumber
 augroup END
 
@@ -411,7 +361,7 @@ augroup binary " {{{
     autocmd BufWritePre  *.bin endif
     autocmd BufWritePost *.bin if &bin | %!xxd
     autocmd BufWritePost *.bin set nomod | endif
-augroup END  " }}}
+augroup END " }}}
 
 " GPG Encrypted Files
 " Transparent editing of gpg encrypted files. By Wouter Hanegraaff.
