@@ -5,7 +5,7 @@
 
 
 #################################
-#### Configuration and Setup ####
+##### Initial Configuration #####
 #################################
 
 # Source global definitions
@@ -32,9 +32,6 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; histor
 export LANG=en_GB.UTF-8
 export XKB_DEFAULT_LAYOUT=gb
 
-# Rust development
-#export PATH=$PATH:$HOME/.cargo/bin
-
 # Switch to Vi mode
 set -o vi
 
@@ -42,6 +39,21 @@ set -o vi
 VISUAL=vim
 export VISUAL EDITOR=vim
 export EDITOR
+
+
+#################################
+###### Development Config #######
+#################################
+
+# Rust development
+#export PATH=$PATH:$HOME/.cargo/bin
+
+# Perl development
+PATH="/home/axvr/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/axvr/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/axvr/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/axvr/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/axvr/perl5"; export PERL_MM_OPT;
 
 
 #################################

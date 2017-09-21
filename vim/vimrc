@@ -20,8 +20,9 @@
 " -----------------------------------------------------------------------------
 
 " Dependencies:
-" * latexmk
-" * pdflatex
+" * latexmk & pdflatex
+" * perl (& Vi::QuickFix)
+" * shellcheck
 
 " Initial Config
 
@@ -201,7 +202,7 @@ endif
 set wildmenu
 set omnifunc=syntaxcomplete#Complete
 set path+=**
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,errors.err
 
 
 " Set Keymaps & Commands
@@ -347,6 +348,29 @@ augroup clang
     autocmd FileType c,h,cpp,hpp,cc,objc
                 \ call vivid#enable('vim-clang-format',
                 \ 'vim-cpp-enhanced-highlight')
+augroup END
+
+
+" Perl files
+augroup perl
+    autocmd!
+    autocmd FileType perl setlocal makeprg=perl\ -c\ -MVi::QuickFix\ %
+    autocmd FileType perl setlocal errorformat+=%m\ at\ %f\ line\ %l\.
+    autocmd FileType perl setlocal errorformat+=%m\ at\ %f\ line\ %l
+augroup END
+
+" Shell files
+augroup shell
+    autocmd!
+    autocmd FileType sh setlocal makeprg=shellcheck\ -f\ gcc\ %
+augroup END
+
+" LaTeX files
+augroup tex
+    autocmd!
+    autocmd FileType tex setlocal makeprg=latexmk\ -pdf\ %
+    "autocmd FileType tex setlocal errorformat+=
+    "autocmd FileType tex setlocal errorformat+=
 augroup END
 
 " Text Files (text, tex, markdown, org, gitcommit, diff)

@@ -124,6 +124,7 @@ function setup_applications() {
     #wget $github/neovim/init.vim     -O ~/.config/nvim/init.vim
     wget $github/vim/vimrc           -O ~/.vim/vimrc
     wget $github/git/gitconfig       -O ~/.gitconfig
+    wget $github/git/gitignore_global -O ~/.gitignore_global
     wget $github/bash/bashrc         -O ~/.bashrc
     source "/home/$USER/.bashrc"
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
@@ -189,6 +190,7 @@ function update_repo() {
 
     # Git - gitconfig
     cp ~/.gitconfig ~/Documents/Projects/dotfiles/git/gitconfig
+    cp ~/.gitignore_global ~/Documents/Projects/dotfiles/git/gitignore_global
 
     # Xresources - Xresources
     #cp ~/.Xresources ~/Documents/Projects/dotfiles/customise/urxvt/Xresources
