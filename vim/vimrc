@@ -6,28 +6,17 @@
 " :PluginInstall    - Install new plugins
 " :PluginClean      - Remove unused plugins
 " :PluginUpgrade    - Update installed plugins
-" :source $MYVIMRC  - Load latest version of '$MYVIMRC'
 " :mks[ession] path - Create a session
-" :so[urce] path    - Load a session
-
-" -----------------------------------------------------------------------------
-" TODO indentation & tabs
-" TODO built in vim linting (:make & :quickfix also use vim-qf)
-" TODO set up ins-complete & omnicomplete & learn how to use it
-" TODO spelling fix / correction keymap (maybe list corrections)
-" TODO augroups, autocmds and keymap organisation
-" TODO neatening up and organising file
-" -----------------------------------------------------------------------------
+" :so[urce] path    - Load a session or Vim Script
 
 " Dependencies:
-" * latexmk & pdflatex
-" * perl (& Vi::QuickFix)
-" * shellcheck
-" * clang-tidy (-checks=* ???)
-" * clang, gcc, gcc-c++ (g++)
-" * pylint
-" * make, cmake, etc
-" * ctags
+"   LaTeX:  latexmk & pdflatex
+"   Perl:   perl (& Vi::QuickFix)
+"   Shell:  shellcheck
+"   Clang:  clang-tidy (-checks=* ???), clang, gcc, gcc-c++ (g++)
+"   Python: pylint
+"   Build:  make, cmake, etc
+"   Tags:   ctags
 
 " Initial Config
 
@@ -161,9 +150,9 @@ set foldmethod=marker
 " Vim & GVim styling
 set number relativenumber
 set laststatus=2
-set cursorline " Highlight current line
+set cursorline          " Highlight current line
 let &colorcolumn=join(range(81,335), ',')
-set visualbell t_vb=   " Disable sound & visual alerts
+set visualbell t_vb=    " Disable sound & visual alerts
 set showmode
 " TODO localise this function
 function! GitBranch() abort
@@ -179,7 +168,7 @@ set statusline+=%{&ff}\ \|
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ \|
 set statusline+=\ %{&filetype}\ \|
 set statusline+=\ %P\ \|
-set statusline+=\ %2v\     " Vim ruler config
+set statusline+=\ %2v\                      " Vim ruler config
 
 set background=dark
 colorscheme space-vim-dark
@@ -193,13 +182,12 @@ if has('termguicolors')
     set termguicolors
 endif
 
-" TODO Vim Omnicomplete & ins-complete
-
-" TODO Wild menu
-set wildmenu
+" Vim Omnicomplete, Ins-complete & Wild menu
+"set completeopt=longest,menuone
 set omnifunc=syntaxcomplete#Complete
-set path+=**
+set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,errors.err
+set path+=**
 
 
 " Set Keymaps & Commands
@@ -210,7 +198,7 @@ nnoremap <leader>gs :<C-u>Gstatus<CR>
 nnoremap <leader>gc :<C-u>Gcommit<CR>
 nnoremap <leader>gd :<C-u>Gdiff<CR>
 nnoremap <leader>gb :<C-u>Gblame<CR>
-nnoremap <F7> :<C-u>setlocal spell!
+nnoremap <F7> :<C-u>setlocal spell!<CR>
 " Make tags file using ctags TODO add more options
 command! -nargs=0 MakeTags !ctags -R .
 " Clang format
