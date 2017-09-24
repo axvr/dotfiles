@@ -12,12 +12,12 @@
 ! #####################################
 
 ! Extensions
-URxvt.perl-ext-common: default,matcher
-!URxvt.perl-ext-common: default,matcher,resize-font,fullscreen
+URxvt*perl-ext-common: default,matcher
+!URxvt*perl-ext-common: default,matcher,resize-font,fullscreen
 
 ! Clickable URLs
-URxvt.url-launcher: /usr/bin/xdg-open
-URxvt.matcher.button: 1
+URxvt*url-launcher: /usr/bin/xdg-open
+URxvt*matcher*button: 1
 
 ! Yankable URLs
 ! TODO needs setting up (see the Arch Wiki)
@@ -38,22 +38,34 @@ URxvt.matcher.button: 1
 ! #####################################
 
 ! Font
-URxvt.font:           xft:Iosevka:pixelsize=14,style=regular
-URxvt.boldFont:       xft:Iosevka:pixelsize=14,style=bold
-URxvt*allow_bold:     true
-URxvt*letterSpace:    1
+URxvt*font:             xft:Iosevka:regular:pixelsize=14,xft:Monospace:regular:pixelsize=14
+URxvt*boldFont:         xft:Iosevka:bold:pixelsize=14,xft:Monospace:bold:pixelsize=14
+URxvt*italicFont:       xft:Iosevka:italic:pixelsize=14,xft:Monospace:italic:pixelsize=14
+URxvt*boldItalicFont:   xft:Iosevka:italic:bold:pixelsize=14,xft:Monospace:bold:italic:pixelsize=14
+URxvt*allow_bold:       true
+URxvt*allow_italic:     true
+URxvt*letterSpace:      1
 
 ! ScrollBar
-URxvt.scrollBar:      false
-URxvt*scrollstyle:    plain
+URxvt*scrollBar:            false
+URxvt*scrollBar_right:      false
+URxvt*scrollBar_floating:   false
+URxvt*scrollstyle:          plain
 
 ! Border
-URxvt*internalBorder: 4
+URxvt*internalBorder:   2
 
 ! Geometry
-URxvt.geometry: 90x35
+URxvt.geometry:         90x35
 
-! Colours (TODO Set up custom colours)
+! Focus fading
+URxvt*fading:           30
+
+! Term Name
+URxvt*termName:         screen-256color
+URxvt*title:            Terminal Emulator
+
+! Colours
 ! -----------------------------
 ! URxvt Colour Codes
 ! 0,8  => Black
@@ -77,35 +89,45 @@ URxvt.geometry: 90x35
 ! set colour depth to 32 for transparency
 ! change background colour to rgba format
 !URxvt*depth: 32
+! Pseudo-transparency
+!URxvt*transparent: true
 ! -----------------------------
 ! Background Colour
-URxvt*background:  rgb:26/26/26
+URxvt*background:  rgb:1f/20/22
 ! -----------------------------
 ! Font/Foreground Colour
-URxvt*foreground:  rgb:bc/bc/bc
+URxvt*foreground:  rgb:a3/a3/a3
 ! -----------------------------
 ! Cursor Colour
-URxvt*cursorColor: rgb:bc/bc/bc
+URxvt*cursorColor: rgb:a3/a3/a3
 ! -----------------------------
 ! Normal Colours
-URxvt*color0:  rgb:1c/1c/1c
-URxvt*color1:  rgb:af/5f/5f
-URxvt*color2:  rgb:5f/87/5f
-URxvt*color3:  rgb:87/87/5f
-URxvt*color4:  rgb:5f/87/af
-URxvt*color5:  rgb:5f/5f/87
-URxvt*color6:  rgb:5f/87/87
-URxvt*color7:  rgb:6c/6c/6c
+URxvt*color0:  rgb:1f/20/22
+URxvt*color1:  rgb:f2/24/1f
+URxvt*color2:  rgb:67/b1/1d
+URxvt*color3:  rgb:b1/95/1d
+URxvt*color4:  rgb:4f/97/d7
+URxvt*color5:  rgb:a3/1d/b1
+URxvt*color6:  rgb:2d/95/74
+URxvt*color7:  rgb:a3/a3/a3
 ! -----------------------------
 ! Light Colours
-URxvt*color8:  rgb:44/44/44
-URxvt*color9:  rgb:ff/87/00
-URxvt*color10: rgb:87/af/87
-URxvt*color11: rgb:ff/ff/af
-URxvt*color12: rgb:8f/af/d7
-URxvt*color13: rgb:87/87/af
-URxvt*color14: rgb:5f/af/af
-URxvt*color15: rgb:ff/ff/ff
+URxvt*color8:  rgb:58/58/58
+URxvt*color9:  rgb:f2/24/1f
+URxvt*color10: rgb:67/b1/1d
+URxvt*color11: rgb:b1/95/1d
+URxvt*color12: rgb:4f/97/9d
+URxvt*color13: rgb:a3/1d/b1
+URxvt*color14: rgb:2d/95/74
+URxvt*color15: rgb:f8/f8/f8
+! -----------------------------
+! Additional Colours
+URxvt*color16: rgb:ff/a5/00
+URxvt*color17: rgb:b0/30/60
+URxvt*color18: rgb:28/28/28
+URxvt*color19: rgb:44/41/55
+URxvt*color20: rgb:b8/b8/b8
+URxvt*color21: rgb:e8/e8/e8
 
 
 
@@ -114,30 +136,37 @@ URxvt*color15: rgb:ff/ff/ff
 ! #####################################
 
 ! Disable Bell
-URxvt.insecure: false
+URxvt*visualBell:   false
+URxvt*insecure:     false
 
 ! Cursor
-URxvt*cursorBlink: false
-URxvt*cursorUnderline: false
+URxvt*cursorBlink:      false
+URxvt*cursorUnderline:  false
 
-! Do not scroll with output
-URxvt*scrollTtyOutput: false
+! True: Start as a login shell (reload bash conf files)
+URxvt*loginShell:   false
 
-! Scroll in relation to buffer
-URxvt*scrollWithBuffer: true
-
+! Scrolling
 ! Scroll back to the bottom on keypress
-URxvt*scrollTtyKeypress: true
-
-! Disable Scrollback buffer
-URxvt.secondaryScreen: 1
-URxvt.secondaryScroll: 0
-!URxvt.secondaryWheel: 1
+URxvt*scrollTtyKeypress:    true
+! Do not scroll with output
+URxvt*scrollTtyOutput:      false
+! Do not scroll in relation to buffer
+URxvt*scrollWithBuffer:     false
+URxvt*secondaryScreen:      true
+URxvt*secondaryScroll:      true
+!URxvt*secondaryWheel: true
 ! ^install rxvt-unicode-better-wheel-scrolling from AUR
+URxvt*jumpScroll:           false
+URxvt*skipScroll:           true
+URxvt*scrollWheelMousePage: false
 
 ! Fullscreen
 !URxvt.keysym.F11: perl:fullscreen:switch
 ! ^install urxvt-fullscreen from AUR, then
 ! uncomment the extension line and remove the other
 
+! Mouse Cursor
+URxvt*pointerBlank:         true
+URxvt*pointerBlankDelay:    4
 

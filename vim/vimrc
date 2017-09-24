@@ -13,7 +13,7 @@
 "   LaTeX:  latexmk & pdflatex
 "   Perl:   perl (& Vi::QuickFix)
 "   Shell:  shellcheck
-"   Clang:  clang-tidy (-checks=* ???), clang, gcc, gcc-c++ (g++)
+"   Clangs: clang-tidy (-checks=* ???), clang, gcc, gcc-c++ (g++)
 "   Python: pylint
 "   Build:  make, cmake, etc
 "   Tags:   ctags
@@ -55,6 +55,8 @@ Plugin 'wellle/targets.vim',   { 'enabled': 1, }
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
 Plugin 'romainl/vim-qf',       { 'enabled': 1, }
 Plugin 'justinmk/vim-dirvish', { 'enabled': 1, }
+Plugin 'christoomey/vim-tmux-navigator'
+packadd matchit
 
 " Git integration
 Plugin 'tpope/vim-fugitive'
@@ -134,7 +136,6 @@ endif
 unlet s:dirs " }}}
 
 set autoread
-set showcmd
 set confirm
 set fileformats=unix,mac,dos
 set mouse=a
@@ -142,13 +143,14 @@ set backspace=indent,eol,start
 set spelllang=en_gb
 set history=200
 set lazyredraw
-set ruler
 set showmatch
 set foldenable
 set foldmethod=marker
 
 " Vim & GVim styling
 set number relativenumber
+set ruler
+set showcmd
 set laststatus=2
 set cursorline          " Highlight current line
 let &colorcolumn=join(range(81,335), ',')
@@ -172,18 +174,21 @@ set statusline+=\ %2v\                      " Vim ruler config
 
 set background=dark
 colorscheme space-vim-dark
-"hi Normal guibg=NONE ctermbg=NONE
+" TODO check if terminal is compatible
+highlight Comment cterm=italic
+"highlight Normal guibg=NONE ctermbg=NONE
 if has('gui_running')
     set guifont=Monospace\ 11
 elseif !has('gui_running')
     set t_Co=256
 endif
 if has('termguicolors')
+    " TODO check if terminal is compatible
     set termguicolors
+    "set t_Co=256
 endif
 
 " Vim Omnicomplete, Ins-complete & Wild menu
-"set completeopt=longest,menuone
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,errors.err

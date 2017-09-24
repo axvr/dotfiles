@@ -21,6 +21,12 @@ fi
 #  exec sway
 #fi
 
+# Load ~/.Xresources
+xrdb ~/.Xresources
+
+# Use 256 Colour
+export TERM=xterm-256color
+
 # History config
 export HISTSIZE=10000
 export HISTFILESIZE=20000
