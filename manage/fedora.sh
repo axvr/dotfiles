@@ -166,7 +166,7 @@ function install_games() {
 function update_repo() {
 
     mkdir -p ~/Documents/Projects/dotfiles/{vim,neovim,spacemacs,bash,git,urxvt,sway,qutebrowser}
-    mkdir -p ~/Documents/Projects/dotfiles/clang/{mozilla,google,bitcoin}
+    #mkdir -p ~/Documents/Projects/dotfiles/clang/{mozilla,google,bitcoin}
 
     # Vim - vimrc
     cp ~/.vim/vimrc ~/Documents/Projects/dotfiles/vim/vimrc
@@ -193,10 +193,10 @@ function update_repo() {
     cp ~/.gitignore_global ~/Documents/Projects/dotfiles/git/gitignore_global
 
     # Xresources - Xresources
-    #cp ~/.Xresources ~/Documents/Projects/dotfiles/customise/urxvt/Xresources
+    cp ~/.Xresources ~/Documents/Projects/dotfiles/urxvt/Xresources
 
     # Sway - config
-    #cp ~/.config/sway/config ~/Documents/Projects/dotfiles/customise/sway/config
+    cp ~/.config/sway/config ~/Documents/Projects/dotfiles/sway/config
 
     # Qutebrowser
     #cp ~/.config/qutebrowser/* ~/Documents/Projects/dotfiles/customise/qutebrowser/

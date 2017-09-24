@@ -25,7 +25,7 @@ set $menu dmenu_run
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/sway/)
-output * bg /usr/share/backgrounds/f25/default/normalish/f25.png fill
+output * bg /home/axvr/Pictures/Wallpapers/tuxcomputer.png fill
 #
 # Example configuration:
 #
