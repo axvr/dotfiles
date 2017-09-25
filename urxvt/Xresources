@@ -62,7 +62,7 @@ URxvt.geometry:         90x35
 URxvt*fading:           30
 
 ! Term Name
-URxvt*termName:         screen-256color
+!URxvt*termName:         screen-256color
 URxvt*title:            Terminal Emulator
 
 ! Colours
