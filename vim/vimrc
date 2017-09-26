@@ -18,6 +18,7 @@
 "   Build:  make, cmake, etc
 "   Tags:   ctags
 
+
 " Initial Config
 
 " Make sure the file is readable
@@ -27,7 +28,6 @@ if !1 | finish | endif
 scriptencoding utf-8
 set encoding=utf-8
 set fileencoding=utf-8
-
 
 " Plugin Setup
 if has('nvim')
@@ -49,13 +49,15 @@ endif
 
 " Vim enhancements
 Plugin 'rhysd/clever-f.vim',   { 'enabled': 1, }
+let g:clever_f_smart_case = 1
+let g:clever_f_across_no_line = 1
 Plugin 'jiangmiao/auto-pairs', { 'enabled': 1, }
 Plugin 'tommcdo/vim-lion',     { 'enabled': 1, }
+let g:lion_squeeze_spaces = 1
 Plugin 'wellle/targets.vim',   { 'enabled': 1, }
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
 Plugin 'romainl/vim-qf',       { 'enabled': 1, }
 Plugin 'justinmk/vim-dirvish', { 'enabled': 1, }
-Plugin 'christoomey/vim-tmux-navigator'
 packadd matchit
 
 " Git integration
@@ -67,6 +69,8 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'rust-lang/rust.vim'
 Plugin 'rhysd/vim-clang-format'
+let g:clang_format#code_style = 'google'
+let g:clang_format#detect_style_file = 1
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
@@ -80,11 +84,7 @@ function! s:enable_git_plugins() abort
         call vivid#enable('vim-fugitive', 'committia', 'vim-gitgutter')
     endif
 endfunction
-
-augroup plugins
-    autocmd!
-    autocmd BufReadPre * call s:enable_git_plugins()
-augroup END
+autocmd! BufReadPre * call s:enable_git_plugins()
 
 
 " Basic Configuration
@@ -231,7 +231,7 @@ nnoremap <leader>hg :call <SID>syn_stack()<CR>
 
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX files.
-" TODO replace existing vim modeline
+" TODO replace an existing vim modeline
 function! AppendModeline()
     let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set ft=%s fdm=%s ' .
                 \ 'fmr=%s :',
@@ -260,22 +260,7 @@ command! -nargs=0 -bar Gadd call <SID>git_add(expand('%:p'))
 nnoremap <silent><Leader>ga :<C-u>Gadd<CR>
 
 
-" Plugin Configuration
-
-" Lion Config
-let g:lion_squeeze_spaces = 1
-
-" Clever-f Config
-let g:clever_f_smart_case     = 1
-let g:clever_f_across_no_line = 1
-
-" Clang Format Config
-let g:clang_format#code_style = 'google'
-let g:clang_format#detect_style_file = 1
-
-
 " File Specific Config
-" --------------------
 
 " Indentation Config (Spaces > Tabs)
 set tabstop=8       " ts  -- Don't change this value
@@ -297,49 +282,37 @@ if exists('+breakindent')
     set breakindent
 endif
 
-
-" Clang Files
-augroup clang
+" Vim ':make' config
+augroup vim-make
     autocmd!
+    " Clang Files
     autocmd FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format',
                 \ 'vim-cpp-enhanced-highlight')
-augroup END
-
-" Perl files
-augroup perl
-    autocmd!
+    " Perl files
     autocmd FileType perl setlocal makeprg=perl\ -c\ -MVi::QuickFix\ %
     autocmd FileType perl setlocal errorformat+=%m\ at\ %f\ line\ %l\.
     autocmd FileType perl setlocal errorformat+=%m\ at\ %f\ line\ %l
-augroup END
-
-" Shell files
-augroup shell
-    autocmd!
+    " Shell files
     autocmd FileType sh setlocal makeprg=shellcheck\ -f\ gcc\ %
-augroup END
-
-" LaTeX files
-augroup tex
-    autocmd!
-    autocmd FileType tex setlocal makeprg=latexmk\ -pdf\ %
+    " LaTeX files
+    autocmd FileType plaintex,tex setlocal makeprg=latexmk\ -pdf\ %
 augroup END
 
 " Text Files (text, tex, markdown, org, gitcommit, diff)
 augroup text
     autocmd!
     " Set soft wrap for text files
-    autocmd FileType text,tex,markdown,gitcommit,html,css setlocal spell
-    autocmd FileType text,tex,markdown,gitcommit,diff setlocal nofoldenable
+    autocmd FileType text,plaintex,tex,markdown,gitcommit,html,css setlocal spell
+    autocmd FileType text,plaintex,tex,markdown,gitcommit,diff setlocal nofoldenable
 
     if exists('+breakindent')
-        autocmd FileType text,tex,markdown,gitcommit,diff,html,css
+        autocmd FileType text,plaintex,tex,markdown,gitcommit,diff,html,css
                     \ setlocal breakindent
     endif
 
-    autocmd FileType text,tex,markdown,gitcommit,html,css let &l:colorcolumn=0
+    autocmd FileType text,plaintex,tex,markdown,gitcommit,html,css let &l:colorcolumn=0
     autocmd FileType diff let &colorcolumn=join(range(82,335), ',')
-    autocmd FileType text,tex,markdown,diff setlocal number norelativenumber
+    autocmd FileType text,plaintex,tex,markdown,diff setlocal number norelativenumber
     autocmd FileType gitcommit setlocal nonumber norelativenumber
 augroup END
 
