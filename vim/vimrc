@@ -193,7 +193,6 @@ set path+=**
 
 " Set Keymaps & Commands
 
-" TODO set up dirvish
 " Git keybindings
 nnoremap <leader>gs :<C-u>Gstatus<CR>
 nnoremap <leader>gc :<C-u>Gcommit<CR>

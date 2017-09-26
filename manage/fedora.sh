@@ -30,17 +30,18 @@ function install_applications() {
 
     # Install Applications
     sudo dnf -y install keepassxc polari gnome-tweak-tool asunder \
-         gnome-todo libreoffice torbrowser-launcher tilix inkscape krita
+         gnome-todo libreoffice torbrowser-launcher tilix inkscape krita sway
 
     # Install Development Tools (Some may need to be installed via pip)
-    sudo dnf -y install vim neovim emacs \
+    # (On some systems they may need to be installed using different tools)
+    sudo dnf -y install nvi vim neovim emacs \
          texlive-scheme-basic texlive-titling texlive-titlesec \
          texlive-roboto texlive-noto latexmk \
          python python3 pylint python3-pylint python-nose python3-nose \
          python2-devel python3-devel python2-flake8 python3-flake8 \
          rust cargo \
          cppcheck clang gtkmm30-devel clang-tools-extra \
-         cmake ctags ShellCheck perl
+         cmake ctags ShellCheck perl perl-CPAN
     cargo install rustfmt
     cargo install racer # TODO set up rust racer
 
