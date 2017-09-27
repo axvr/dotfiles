@@ -10,19 +10,58 @@
 
 
 # Set location to store dotfiles
-dotfile_location="$HOME/Documents/Projects/dotfiles"
+dotfile_local_location="Documents/Projects/dotfiles"
+dotfile_location="$HOME/$dotfile_local_location"
 # File name to run
 dotdotdot_file=".dot.sh"
 # Ensure the directory exists
 mkdir -p "$dotfile_location"
 
 
-function load_dotfiles() {
+function install_dotfiles() {
+
+    # TODO run all
+    arguments=("$@")
+    unset "arguments[0]"
+
+    for selected_dir in "${arguments[@]}"
+    do
+
+        if  [ -f "$selected_dir/$dotdotdot_file" ]
+        then
+            bash "$dotfile_location/$selected_dir/$dotdotdot_file" -i
+        else
+            printf "File '%s/%s' does not exist\n" \
+                "$selected_dir" "$dotdotdot_file"
+            exit
+        fi
+
+    done
+
     return 0
 }
 
 
 function update_dotfiles() {
+
+    # TODO run all
+    arguments=("$@")
+    unset "arguments[0]"
+
+    for selected_dir in "${arguments[@]}"
+    do
+
+        if  [ -f "$selected_dir/$dotdotdot_file" ]
+        then
+            bash "$dotfile_location/$selected_dir/$dotdotdot_file" -u
+        else
+            printf "File '%s/%s' does not exist\n" \
+                "$selected_dir" "$dotdotdot_file"
+            exit
+        fi
+
+    done
+
     return 0
 }
 
@@ -34,7 +73,14 @@ function create_template {
     unset "arguments[0]"
     # TODO validate and check there are arguments given
 
-    template="#!/usr/bin/env bash
+    for selected_dir in "${arguments[@]}"
+    do
+
+        # Create the template for dots.sh to create {{{
+        template="#!/usr/bin/env bash
+
+# Set location to store dotfiles
+dotfile_location=\"\$HOME/$dotfile_local_location/$selected_dir\"
 
 function update() {
     # Commands to run to copy your dotfiles to the repo
@@ -58,10 +104,7 @@ case \$1 in
         return 1
         ;;
 esac
-"
-
-    for selected_dir in "${arguments[@]}"
-    do
+" # }}}
 
         if [ -f "$selected_dir/$dotdotdot_file" ]
         then
@@ -79,7 +122,7 @@ esac
                     printf "Cancelled overwrite of '%s' in '%s'\n" \
                         "$dotdotdot_file" "$selected_dir"
                     ;;
-                * ) 
+                * )
                     echo "Invalid option"
                     exit
                     ;;
@@ -102,7 +145,7 @@ esac
                         printf "Cancelled creation of directory '%s'\n" \
                             "$selected_dir"
                         ;;
-                    * ) 
+                    * )
                         echo "Invalid option"
                         exit
                         ;;
@@ -115,6 +158,7 @@ esac
             fi
         fi
     done
+    return 0
 } # }}}
 
 
@@ -141,15 +185,26 @@ Options:
 }
 
 
-case $1 in 
+case $1 in
     -t|--template )
         create_template "$@"
+        exit
+        ;;
+    -u|--update )
+        update_dotfiles "$@"
+        exit
+        ;;
+    -i|--install )
+        install_dotfiles "$@"
+        exit
         ;;
     -h|--help )
         print_message "help"
+        exit
         ;;
     * )
         print_message "usage"
+        exit
         ;;
 esac
 
