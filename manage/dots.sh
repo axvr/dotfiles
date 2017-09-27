@@ -4,8 +4,8 @@
 # -------------------------
 
 # Install dots on your system:
-# $ wget https://raw.githubusercontent.com/axvr/dotfiles/master/manage/dots.sh -O /usr/local/bin/dots.sh
-# $ chmod u+x /usr/local/bin/dots.sh
+# $ wget https://raw.githubusercontent.com/axvr/dotfiles/master/manage/dots.sh -O /usr/local/bin/dots
+# $ chmod +x /usr/local/bin/dots
 # Or just execute the downloaded dots.sh file
 
 
@@ -27,7 +27,7 @@ function install_dotfiles() {
     for selected_dir in "${arguments[@]}"
     do
 
-        if  [ -f "$selected_dir/$dotdotdot_file" ]
+        if  [ -f "$dotfile_location/$selected_dir/$dotdotdot_file" ]
         then
             bash "$dotfile_location/$selected_dir/$dotdotdot_file" -i
         else
@@ -51,7 +51,7 @@ function update_dotfiles() {
     for selected_dir in "${arguments[@]}"
     do
 
-        if  [ -f "$selected_dir/$dotdotdot_file" ]
+        if  [ -f "$dotfile_location/$selected_dir/$dotdotdot_file" ]
         then
             bash "$dotfile_location/$selected_dir/$dotdotdot_file" -u
         else
@@ -175,6 +175,8 @@ Simple Dotfile Management Script:
 Options:
     -h, --help                  Display this help message.
     -t, --template [directory]  Create a management script template.
+    -u, --update   [directory]  Update the files in the dotfiles dir.
+    -i, --install  [directory]  Install the dotfiles to the system.
 \n" "$usage_message"
     elif [ "$1" = "usage" ]
     then
