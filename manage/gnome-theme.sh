@@ -49,8 +49,8 @@ function export_current_theme() {
     printf "gnome-shell-extension-cl -da\n"
     for extension in $(gnome-shell-extension-cl -le)
     do
-        if [ $extension != "user-theme" ] && [ $extension != "user-themes" ] && \
-            [ $extension != "user-theme@gnome-shell-extensions.gcampax.github.com" ]
+        if [ "$extension" != "user-theme" ] && [ "$extension" != "user-themes" ] && \
+            [ "$extension" != "user-theme@gnome-shell-extensions.gcampax.github.com" ]
         then
             printf "gnome-shell-extension-cl -e '%s'\n"  "$extension"
         fi
