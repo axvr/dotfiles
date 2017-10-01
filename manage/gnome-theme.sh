@@ -44,6 +44,8 @@ function export_current_theme() {
     printf "lock_screen_wallpaper="
     gsettings get org.gnome.desktop.screensaver picture-uri
 
+    printf "\nchange_theme\n"
+
     # Extension configuration
     printf "\n# Extension Configuration\n"
     printf "gnome-shell-extension-cl -da\n"
@@ -143,6 +145,7 @@ Selection: "
 
                 change_theme
 
+                # Extension Configuration
                 gnome-shell-extension-cl -da
                 gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
                 gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
@@ -167,6 +170,7 @@ Selection: "
 
                 change_theme
 
+                # Extension Configuration
                 gnome-shell-extension-cl -da
                 gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
                 gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
@@ -191,6 +195,7 @@ Selection: "
 
                 change_theme
 
+                # Extension Configuration
                 gnome-shell-extension-cl -da
                 # enable twice to solve unknown bug
                 gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
