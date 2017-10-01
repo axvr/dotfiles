@@ -30,16 +30,6 @@ set encoding=utf-8
 set fileencoding=utf-8
 
 " Plugin Setup
-if has('nvim')
-    if !filereadable(expand($HOME . '/.config/nvim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
-        silent !git clone https://github.com/axvr/Vivid.vim.git ~/.config/nvim/pack/vivid/opt/Vivid.vim
-    endif
-else
-    if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
-        silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/pack/vivid/opt/Vivid.vim
-    endif
-endif
-
 if has('vim_starting')
     packadd Vivid.vim
 endif
