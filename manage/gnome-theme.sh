@@ -74,6 +74,7 @@ function default_theme() {
 
     # Extensions configuration
     gnome-shell-extension-cl -da
+    gnome-shell-extension-cl -d 'dynamic-panel-transparency@rockon999.github.io'
     gnome-shell-extension-cl -e 'background-logo@fedorahosted.org'
 
     # Wallpaper
@@ -162,10 +163,10 @@ function arc_theme() {
 
     # Wallpaper
     # TODO
-    #gsettings set org.gnome.desktop.background picture-uri \
-        #          ""
-    #gsettings set org.gnome.desktop.screensaver picture-uri \
-        #          ""
+    gsettings set org.gnome.desktop.background picture-uri \
+        "file:///home/$USER/Pictures/mountains_garrett_parker.jpg"
+    gsettings set org.gnome.desktop.screensaver picture-uri \
+        "file:///home/$USER/Pictures/mountains_garrett_parker.jpg"
 
 }
 
