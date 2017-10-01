@@ -1,13 +1,36 @@
 #!/usr/bin/env bash
 
-fedora_version=26
+function setup_for_theme_switching() {    # ONLY RUN ONCE (using 'setup' as an option)
+    sudo wget https://raw.githubusercontent.com/cyberalex4life/gnome-shell-extension-cl/master/gnome-shell-extension-cl \
+    -O /usr/local/bin/gnome-shell-extension-cl
+    sudo chmod +x /usr/local/bin/gnome-shell-extension-cl
+    gnome-shell-extension-cl -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
+}
 
-# REQUIRES: https://github.com/cyberalex4life/gnome-shell-extension-cl
 
-# Complete theme selection
+function change_theme() {
 
-function select_theme() {
+    # Theme configuration
+    gsettings set org.gnome.desktop.interface cursor-theme      "$cursor_theme"
+    gsettings set org.gnome.desktop.interface icon-theme        "$icon_theme"
+    gsettings set org.gnome.desktop.interface gtk-theme         "$gtk_theme"
+    gsettings set org.gnome.shell.extensions.user-theme name    "$shell_theme"
 
+    # Font configuration
+    gsettings set org.gnome.desktop.wm.preferences titlebar-font    "$window_titles_font" 
+    gsettings set org.gnome.desktop.interface font-name             "$interface_font"
+    gsettings set org.gnome.desktop.interface document-font-name    "$document_font"
+    gsettings set org.gnome.desktop.interface monospace-font-name   "$monospace_font"
+
+    # Wallpaper
+    gsettings set org.gnome.desktop.background picture-uri  "$desktop_wallpaper"
+    gsettings set org.gnome.desktop.screensaver picture-uri "$lock_screen_wallpaper"
+
+}
+
+
+while true
+do
     printf "
 Select a theme to load:
 [1] : Default theme,
@@ -21,166 +44,114 @@ Selection: "
     read -r theme
     printf "\n"
 
-    if [ "$theme" = "1" ]
-    then
-        default_theme
-        theme_message="Default theme loaded"
+    case $theme in
+        1)
+            # GNOME Shell Theming
+            cursor_theme="Adwaita"
+            icon_theme="Adwaita"
+            gtk_theme="Adwaita"
+            shell_theme="Adwaita"
 
-    elif [ "$theme" = "2" ]
-    then
-        adapta_theme
-        theme_message="Adapta theme loaded"
+            # GNOME Font Theming
+            window_titles_font="Cantarell 11"
+            interface_font="Cantarell Bold 11"
+            document_font="Sans 11"
+            monospace_font="Monospace 11"
 
-    elif [ "$theme" = "3" ]
-    then
-        adapta-eta_theme
-        theme_message="Adapta-Eta theme loaded"
+            # Wallpaper Theming
+            fedora_version=26
+            desktop_wallpaper="file:///usr/share/backgrounds/f$fedora_version/default/f$fedora_version.xml"
+            lock_screen_wallpaper="file:///usr/share/backgrounds/f$fedora_version/default/f$fedora_version.xml"
 
-    elif [ "$theme" = "4" ]
-    then
-        arc_theme
-        theme_message="Arc theme loaded"
+            change_theme
 
-    elif [ "$theme" = "0" ]
-    then
-        exit_theme_menu=1
+            # Extension Configuration
+            gnome-shell-extension-cl -da
+            gnome-shell-extension-cl -d 'dynamic-panel-transparency@rockon999.github.io'
+            gnome-shell-extension-cl -e 'background-logo@fedorahosted.org'
 
-    else
-        # Error message
-        theme_message="ERROR: \"$theme\" is not a valid option"
+            ;;
+        2)
+            # GNOME Shell Theming
+            cursor_theme="Breeze_Snow"
+            icon_theme="Arc"
+            gtk_theme="Adapta"
+            shell_theme="Adapta-Nokto"
 
-    fi
+            # GNOME Font Theming
+            window_titles_font="Roboto 10"
+            interface_font="Roboto Bold 10"
+            document_font="Sans 10"
+            monospace_font="Source Code Pro 10"
 
-}
+            # Wallpaper Theming
+            desktop_wallpaper="file://$HOME/Pictures/tealized.jpg"
+            lock_screen_wallpaper="file://$HOME/Pictures/tealized.jpg"
 
+            change_theme
 
-function setup_for_theme() {    # ONLY RUN ONCE
-    # Only run once to avoid errors, and breaking the extension
-    gnome-shell-extension-cl -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
-}
+            gnome-shell-extension-cl -da
+            gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
+            gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
 
+            ;;
+        3)
+            # GNOME Shell Theming
+            cursor_theme="Breeze_Snow"
+            icon_theme="Arc"
+            gtk_theme="Adapta-Eta"
+            shell_theme="Adapta-Nokto-Eta"
 
-function default_theme() {
+            # GNOME Font Theming
+            window_titles_font="Roboto 10"
+            interface_font="Roboto Bold 10"
+            document_font="Sans 10"
+            monospace_font="Source Code Pro 10"
 
-    # Theme configuration
-    gsettings set org.gnome.desktop.interface cursor-theme   'Adwaita'
-    gsettings set org.gnome.desktop.interface icon-theme     'Adwaita'
-    gsettings set org.gnome.desktop.interface gtk-theme      'Adwaita'
-    gsettings set org.gnome.shell.extensions.user-theme name 'Adwaita'
+            # Wallpaper Theming
+            desktop_wallpaper="file://$HOME/Pictures/tealized.jpg"
+            lock_screen_wallpaper="file://$HOME/Pictures/tealized.jpg"
 
-    # Font configuration
-    gsettings set org.gnome.desktop.wm.preferences titlebar-font  'Cantarell 11'
-    gsettings set org.gnome.desktop.interface font-name           'Cantarell Bold 11'
-    gsettings set org.gnome.desktop.interface document-font-name  'Sans 11'
-    gsettings set org.gnome.desktop.interface monospace-font-name 'Monospace 11'
+            change_theme
 
-    # Extensions configuration
-    gnome-shell-extension-cl -da
-    gnome-shell-extension-cl -d 'dynamic-panel-transparency@rockon999.github.io'
-    gnome-shell-extension-cl -e 'background-logo@fedorahosted.org'
+            gnome-shell-extension-cl -da
+            gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
+            gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
 
-    # Wallpaper
-    gsettings set org.gnome.desktop.background picture-uri \
-        "file:///usr/share/backgrounds/f$fedora_version/default/f$fedora_version.xml"
-    gsettings set org.gnome.desktop.screensaver picture-uri \
-        "file:///usr/share/backgrounds/f$fedora_version/default/f$fedora_version.xml"
+            ;;
+        4)
+            # GNOME Shell Theming
+            cursor_theme="Breeze_Snow"
+            icon_theme="Arc"
+            gtk_theme="Arc-Darker"
+            shell_theme="Arc-Dark"
 
+            # GNOME Font Theming
+            window_titles_font="Roboto 10"
+            interface_font="Roboto Bold 10"
+            document_font="Sans 10"
+            monospace_font="Roboto Mono 10"
 
-}
+            # Wallpaper Theming
+            desktop_wallpaper="file://$HOME/Pictures/mountains_garrett_parker.jpg"
+            lock_screen_wallpaper="file://$HOME/Pictures/mountains_garrett_parker.jpg"
 
+            change_theme
 
-function adapta_theme() {
+            gnome-shell-extension-cl -da 
+            # enable twice to solve unknown bug
+            gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
+            gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
 
-    # Theme configuration
-    gsettings set org.gnome.desktop.interface cursor-theme   'Breeze_Snow'
-    gsettings set org.gnome.desktop.interface icon-theme     'Arc'
-    gsettings set org.gnome.desktop.interface gtk-theme      'Adapta'
-    gsettings set org.gnome.shell.extensions.user-theme name 'Adapta-Nokto'
-
-    # Font configuration
-    gsettings set org.gnome.desktop.wm.preferences titlebar-font  'Roboto 10'
-    gsettings set org.gnome.desktop.interface font-name           'Roboto Bold 10'
-    gsettings set org.gnome.desktop.interface document-font-name  'Sans 10'
-    gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
-
-    # Extensions configuration
-    gnome-shell-extension-cl -da
-    gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
-    gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
-
-    # Wallpaper
-    gsettings set org.gnome.desktop.background picture-uri \
-        "file:///home/$USER/Pictures/tealized.jpg"
-    gsettings set org.gnome.desktop.screensaver picture-uri \
-        "file:///home/$USER/Pictures/tealized.jpg"
-
-}
-
-function adapta-eta_theme() {
-
-    # Theme configuration
-    gsettings set org.gnome.desktop.interface cursor-theme   'Breeze_Snow'
-    gsettings set org.gnome.desktop.interface icon-theme     'Arc'
-    gsettings set org.gnome.desktop.interface gtk-theme      'Adapta-Eta'
-    gsettings set org.gnome.shell.extensions.user-theme name 'Adapta-Nokto-Eta'
-
-    # Font configuration
-    gsettings set org.gnome.desktop.wm.preferences titlebar-font  'Roboto 10'
-    gsettings set org.gnome.desktop.interface font-name           'Roboto Bold 10'
-    gsettings set org.gnome.desktop.interface document-font-name  'Sans 10'
-    gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
-
-    # Extensions configuration
-    gnome-shell-extension-cl -da
-    gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
-    gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
-
-    # Wallpaper
-    gsettings set org.gnome.desktop.background picture-uri \
-        "file:///home/$USER/Pictures/tealized.jpg"
-    gsettings set org.gnome.desktop.screensaver picture-uri \
-        "file:///home/$USER/Pictures/tealized.jpg"
-
-}
-
-
-function arc_theme() {
-
-    # Theme configuration
-    gsettings set org.gnome.desktop.interface cursor-theme   'Breeze_Snow'
-    gsettings set org.gnome.desktop.interface icon-theme     'Arc'
-    gsettings set org.gnome.desktop.interface gtk-theme      'Arc-Darker'
-    gsettings set org.gnome.shell.extensions.user-theme name 'Arc-Dark'
-
-    # Font configuration
-    gsettings set org.gnome.desktop.wm.preferences titlebar-font  'Roboto 10'
-    gsettings set org.gnome.desktop.interface font-name           'Roboto Bold 10'
-    gsettings set org.gnome.desktop.interface monospace-font-name 'Sans 10'
-    gsettings set org.gnome.desktop.interface document-font-name  'Roboto Mono 10'
-
-    # Extensions configuration
-    gnome-shell-extension-cl -da
-    gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
-    gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
-
-    # Wallpaper
-    # TODO
-    gsettings set org.gnome.desktop.background picture-uri \
-        "file:///home/$USER/Pictures/mountains_garrett_parker.jpg"
-    gsettings set org.gnome.desktop.screensaver picture-uri \
-        "file:///home/$USER/Pictures/mountains_garrett_parker.jpg"
-
-}
-
-# ------------------------------------------------------------------------------
-
-
-exit_theme_menu=0
-theme_message="Theme Selection Menu"
-
-while [ "$exit_theme_menu" != "1" ]
-do
-    printf "\n%s\n" "$theme_message"
-    select_theme
+            ;;
+        0)
+            exit ;;
+        [Ss][Ee][Tt][Uu][Pp])
+            setup_for_theme_switching ;;
+        *)
+            printf "ERROR: '%s' is not a valid option\n" "$theme"
+            continue 
+            ;;
+    esac
 done
 
