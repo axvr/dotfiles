@@ -198,6 +198,7 @@ nnoremap <leader>gs :<C-u>Gstatus<CR>
 nnoremap <leader>gc :<C-u>Gcommit<CR>
 nnoremap <leader>gd :<C-u>Gdiff<CR>
 nnoremap <leader>gb :<C-u>Gblame<CR>
+nnoremap <leader>ga :<C-u>Gwrite<CR>
 nnoremap <F7> :<C-u>setlocal spell!<CR>
 " Make tags file using ctags TODO add more options
 command! -nargs=0 MakeTags !ctags -R .
@@ -240,23 +241,6 @@ function! AppendModeline()
     call append(line('$'), l:modeline)
 endfunction
 nnoremap <silent> <Leader>ml :<C-u>call AppendModeline()<CR>
-
-" Git stage file
-function! s:git_add(fname) abort
-    if !filereadable(a:fname)
-        echoerr 'File is not readable'
-        return
-    endif
-    execute 'lcd' fnamemodify(a:fname, ':h')
-    let result = system('git add '.a:fname)
-    if v:shell_error
-        echoerr 'failed to stage: '.result
-    else
-        echo fnamemodify(a:fname, ':t') . ' was staged'
-    endif
-endfunction
-command! -nargs=0 -bar Gadd call <SID>git_add(expand('%:p'))
-nnoremap <silent><Leader>ga :<C-u>Gadd<CR>
 
 
 " File Specific Config
