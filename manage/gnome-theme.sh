@@ -2,6 +2,8 @@
 
 fedora_version=26
 
+# REQUIRES: https://github.com/cyberalex4life/gnome-shell-extension-cl
+
 # Complete theme selection
 
 function select_theme() {
