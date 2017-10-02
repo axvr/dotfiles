@@ -61,9 +61,6 @@ Session.vim
 # Temporary
 .netrwhist
 
-# Vim QuickFix Perl error check
-errors.err
-
 
 ##########################
 ######## Packages ########

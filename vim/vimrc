@@ -11,7 +11,7 @@
 
 " Dependencies:
 "   LaTeX:  latexmk & pdflatex
-"   Perl:   perl, perl-CPAN (& Vi::QuickFix)
+"   Perl:   perl
 "   Shell:  shellcheck
 "   Clangs: clang-tidy (-checks=* ???), clang, gcc, gcc-c++ (g++)
 "   Python: pylint
@@ -177,7 +177,7 @@ endif
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,errors.err
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 set path+=**
 
 
@@ -189,6 +189,7 @@ nnoremap <leader>gc :<C-u>Gcommit<CR>
 nnoremap <leader>gd :<C-u>Gdiff<CR>
 nnoremap <leader>gb :<C-u>Gblame<CR>
 nnoremap <leader>ga :<C-u>Gwrite<CR>
+" Spell check toggle
 nnoremap <F7> :<C-u>setlocal spell!<CR>
 " Make tags file using ctags TODO add more options
 command! -nargs=0 MakeTags !ctags -R .
@@ -262,7 +263,7 @@ augroup vim-make
     autocmd FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format',
                 \ 'vim-cpp-enhanced-highlight')
     " Perl files
-    autocmd FileType perl setlocal makeprg=perl\ -c\ -MVi::QuickFix\ %
+    autocmd FileType perl setlocal makeprg=perl\ -c\ %
     autocmd FileType perl setlocal errorformat+=%m\ at\ %f\ line\ %l\.
     autocmd FileType perl setlocal errorformat+=%m\ at\ %f\ line\ %l
     " Shell files

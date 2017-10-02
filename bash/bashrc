@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # ~/.bashrc
 # --------------------------------------
 # Bash Configuration File
@@ -10,7 +11,7 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+    . /etc/bashrc
 fi
 
 # If not running interactively, don't do anything
@@ -54,13 +55,6 @@ export EDITOR
 # Rust development
 #export PATH=$PATH:$HOME/.cargo/bin
 
-# Perl development
-PATH="/home/axvr/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/axvr/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/axvr/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/axvr/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/axvr/perl5"; export PERL_MM_OPT;
-
 
 #################################
 ###### Custom Bash Prompts ######
@@ -74,10 +68,5 @@ export PS1="[\u@\h \W]\\$ "
 ##### Aliases and Functions #####
 #################################
 
-#alias vi="nvi"
-#alias vim="vim"
-#alias nvim="nvim"
 alias nv="nvim -u ~/.vim/vimrc"
-alias e="emacs -nw"
-alias sm="emacs -nw"
 
