@@ -214,10 +214,10 @@ Selection: "
 
 
 
-case $1 in
-    [Ss][Ee][Tt][Uu][Pp])
+case ${1,,} in
+    setup)
         setup_for_theme_switching ;;
-    [Ee][Xx][Pp][Oo][Rr][Tt])
+    export)
         export_current_theme ;;
     *)
         select_theme ;;
