@@ -122,7 +122,6 @@ Selection: "
 
                 # Extension Configuration
                 gnome-shell-extension-cl -da
-                gnome-shell-extension-cl -d 'dynamic-panel-transparency@rockon999.github.io'
                 gnome-shell-extension-cl -e 'background-logo@fedorahosted.org'
 
                 ;;
