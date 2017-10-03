@@ -38,22 +38,22 @@ endif
 " Input Plugins below this line {{{
 
 " Vim enhancements
-Plugin 'rhysd/clever-f.vim',   { 'enabled': 1, }
+Plugin 'rhysd/clever-f.vim',   { 'enabled': 1, }    " :h clever-f.txt
 let g:clever_f_smart_case = 1
 let g:clever_f_across_no_line = 1
-Plugin 'jiangmiao/auto-pairs', { 'enabled': 1, }
-Plugin 'tommcdo/vim-lion',     { 'enabled': 1, }
+Plugin 'jiangmiao/auto-pairs', { 'enabled': 1, }    " :h AutoPairs.txt
+Plugin 'tommcdo/vim-lion',     { 'enabled': 1, }    " :h lion.txt
 let g:lion_squeeze_spaces = 1
-Plugin 'wellle/targets.vim',   { 'enabled': 1, }
+Plugin 'wellle/targets.vim',   { 'enabled': 1, }    " :h targets.txt
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
-Plugin 'romainl/vim-qf',       { 'enabled': 1, }
-Plugin 'justinmk/vim-dirvish', { 'enabled': 1, }
+Plugin 'romainl/vim-qf',       { 'enabled': 1, }    " :h qf.txt
+Plugin 'justinmk/vim-dirvish', { 'enabled': 1, }    " :h dirvish.txt
 packadd matchit
 
 " Git integration
-Plugin 'tpope/vim-fugitive'
-Plugin 'rhysd/committia.vim'
-Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'                         " :h fugitive.txt
+Plugin 'rhysd/committia.vim'                        " :h commitia.txt
+Plugin 'airblade/vim-gitgutter'                     " :h gitgutter.txt
 
 " Syntax highlighting packs & code formatting
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -198,7 +198,6 @@ autocmd FileType c,h,cpp,hpp,cc,objc
             \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
-autocmd FileType c,h,cpp,hpp,cc,objc xnoremap <buffer>= :ClangFormat<CR>
 
 " Remove trailing whitespace
 function! s:trim(bang) abort
@@ -246,6 +245,7 @@ set autoindent      " ai  -- Enable unintrusive auto-indentation
 
 " Line wrap config (Use soft wrap, and manually hard wrap text)
 " TODO set up hard wrap or wrap formatters (formatprg, fo, fo-table)
+" TODO maybe switch between wrap modes?
 let &showbreak='>>> '   " Prefix for soft wrapped line
 set textwidth=80        " Maximum width of text
 set wrapmargin=0        " Set wrap margin on right of screen
