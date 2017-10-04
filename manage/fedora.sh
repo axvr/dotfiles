@@ -42,6 +42,7 @@ function install_applications() {
          rust cargo \
          cppcheck clang gtkmm30-devel clang-tools-extra \
          cmake ctags ShellCheck perl perl-CPAN
+         gtk+ libvtemm-devel
     cargo install rustfmt
     cargo install racer # TODO set up rust racer
 

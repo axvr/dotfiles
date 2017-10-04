@@ -1,9 +1,9 @@
 ! ~/.Xresources
-! -------------------------------------
-! Configuration file for URxvt
+! ---------------------------------------------------
+! Configuration file for URxvt, and other X programs
 ! Load this config file: xrdb ~/.Xresources
-! Package: rxvt-unicode
-! -------------------------------------
+! Packages: rxvt-unicode
+! ---------------------------------------------------
 
 
 
@@ -12,24 +12,14 @@
 ! #####################################
 
 ! Extensions
-URxvt*perl-ext-common: default,matcher
-!URxvt*perl-ext-common: default,matcher,resize-font,fullscreen
+URxvt.perl-ext-common: default,matcher
 
 ! Clickable URLs
-URxvt*url-launcher: /usr/bin/xdg-open
-URxvt*matcher*button: 1
-
-! Yankable URLs
-! TODO needs setting up (see the Arch Wiki)
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher*button: 1
 
 ! Changing Font Size
-!URxvt.resize-font.smaller: C-Down
-!URxvt.resize-font.bigger: C-Up
-! ^install urxvt-resize-font-git from AUR, then
-! uncomment the extension line and remove the other
-
-! Copy & Paste
-! TODO needs setting up
+! install urxvt-resize-font-git from AUR, then
 
 
 
@@ -59,7 +49,7 @@ URxvt*internalBorder:   2
 URxvt.geometry:         90x35
 
 ! Focus fading
-URxvt*fading:           30
+URxvt*fading:           20
 
 ! Term Name
 !URxvt*termName:         screen-256color
@@ -140,8 +130,8 @@ URxvt*visualBell:   false
 URxvt*insecure:     false
 
 ! Cursor
-URxvt*cursorBlink:      false
-URxvt*cursorUnderline:  false
+URxvt.cursorBlink:      true
+URxvt.cursorUnderline:  false
 
 ! True: Start as a login shell (reload bash conf files)
 URxvt*loginShell:   false
@@ -153,18 +143,13 @@ URxvt*scrollTtyKeypress:    true
 URxvt*scrollTtyOutput:      false
 ! Scroll in relation to buffer
 URxvt*scrollWithBuffer:     true
-URxvt*secondaryScreen:      true
-URxvt*secondaryScroll:      false
-!URxvt*secondaryWheel: true
-! ^install rxvt-unicode-better-wheel-scrolling from AUR
+URxvt.secondaryScreen:      1
+URxvt.secondaryScroll:      0
+!URxvt.secondaryWheel:       1
+! ^install 'rxvt-unicode-better-wheel-scrolling' from AUR
 URxvt*jumpScroll:           false
 URxvt*skipScroll:           true
 URxvt*scrollWheelMousePage: false
-
-! Fullscreen
-!URxvt.keysym.F11: perl:fullscreen:switch
-! ^install urxvt-fullscreen from AUR, then
-! uncomment the extension line and remove the other
 
 ! Mouse Cursor
 URxvt*pointerBlank:         true

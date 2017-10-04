@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+# -----------------------------
 # ~/.bashrc
-# --------------------------------------
+# -----------------------------
 # Bash Configuration File
-# --------------------------------------
+# -----------------------------
 
 
 #################################
@@ -38,9 +39,6 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; histor
 # Locale
 export LANG=en_GB.UTF-8
 export XKB_DEFAULT_LAYOUT=gb
-
-# Switch to Vi mode
-set -o vi
 
 # Set default editor to Vim
 VISUAL=vim
