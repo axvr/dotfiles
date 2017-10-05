@@ -18,14 +18,6 @@ fi
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Start Sway on login
-#if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-#  exec sway
-#fi
-
-# Load ~/.Xresources
-#xrdb ~/.Xresources
-
 # Use 256 Colour
 export TERM=xterm-256color
 
@@ -40,15 +32,15 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; histor
 export LANG=en_GB.UTF-8
 export XKB_DEFAULT_LAYOUT=gb
 
-# Set default editor to Vim
-VISUAL=vim
-export VISUAL EDITOR=vim
-export EDITOR
-
 
 #################################
 ###### Development Config #######
 #################################
+
+# Set default editor to Vim
+VISUAL=vim
+export VISUAL EDITOR=vim
+export EDITOR
 
 # Rust development
 #export PATH=$PATH:$HOME/.cargo/bin
@@ -78,5 +70,6 @@ export PS1="[\u@\h \W\[\e[32m\]\`parse_git_branch\`\[\e[m\]]\\$ "
 ##### Aliases and Functions #####
 #################################
 
+alias startx='startx; vlock'
 alias nv="nvim -u ~/.vim/vimrc"
 

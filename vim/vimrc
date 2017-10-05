@@ -84,7 +84,8 @@ filetype plugin indent on
 if !exists('g:syntax_on')
     syntax enable
 endif
-"set hidden
+set hidden
+set splitright splitbelow
 
 " Searching
 set ignorecase      " Ignore case in searches
