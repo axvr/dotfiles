@@ -19,7 +19,7 @@ URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher*button: 1
 
 ! Changing Font Size
-! install urxvt-resize-font-git from AUR, then
+! install urxvt-resize-font-git from AUR
 
 
 
@@ -49,7 +49,7 @@ URxvt*internalBorder:   2
 URxvt.geometry:         90x35
 
 ! Focus fading
-URxvt*fading:           20
+!URxvt*fading:           20
 
 ! Term Name
 !URxvt*termName:         screen-256color
