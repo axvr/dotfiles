@@ -3,10 +3,8 @@
 # GNU Readline Configuration File
 # --------------------------------
 
-
 # Prevent strange problems when typing
 $include /etc/inputrc
-
 
 # Set readline to Vi mode
 set editing-mode vi
