@@ -38,22 +38,18 @@ endif
 " Input Plugins below this line {{{
 
 " Vim enhancements
-Plugin 'rhysd/clever-f.vim',   { 'enabled': 1, }    " :h clever-f.txt
-let g:clever_f_smart_case = 1
-let g:clever_f_across_no_line = 1
-Plugin 'jiangmiao/auto-pairs', { 'enabled': 1, }    " :h AutoPairs.txt
-Plugin 'tommcdo/vim-lion',     { 'enabled': 1, }    " :h lion.txt
+Plugin 'jiangmiao/auto-pairs', { 'enabled': 1, } " :h AutoPairs.txt
+Plugin 'tommcdo/vim-lion',     { 'enabled': 1, } " :h lion.txt
 let g:lion_squeeze_spaces = 1
-Plugin 'wellle/targets.vim',   { 'enabled': 1, }    " :h targets.txt
+Plugin 'wellle/targets.vim',   { 'enabled': 1, } " :h targets.txt
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
-Plugin 'romainl/vim-qf',       { 'enabled': 1, }    " :h qf.txt
-Plugin 'justinmk/vim-dirvish', { 'enabled': 1, }    " :h dirvish.txt
+Plugin 'romainl/vim-qf',       { 'enabled': 1, } " :h qf.txt
 packadd matchit
 
 " Git integration
-Plugin 'tpope/vim-fugitive'                         " :h fugitive.txt
-Plugin 'rhysd/committia.vim'                        " :h commitia.txt
-Plugin 'airblade/vim-gitgutter'                     " :h gitgutter.txt
+Plugin 'tpope/vim-fugitive'     " :h fugitive.txt
+Plugin 'rhysd/committia.vim'    " :h commitia.txt
+Plugin 'airblade/vim-gitgutter' " :h gitgutter.txt
 
 " Syntax highlighting packs & code formatting
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -180,6 +176,11 @@ set omnifunc=syntaxcomplete#Complete
 set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 set path+=**
+
+" Netrw Configuration
+let g:netrw_banner = 0
+let g:netrw_winsize = 20
+let g:netrw_list_hide = &wildignore
 
 
 " Set Keymaps & Commands
