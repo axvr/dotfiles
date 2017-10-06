@@ -1,4 +1,8 @@
-# .bash_profile
+#!/usr/bin/env bash
+# ------------------------------
+# ~/.bash_profile
+# ------------------------------
+
 
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
@@ -12,12 +16,14 @@ PATH=$PATH:$HOME/.local/bin:$HOME/bin
 export PATH
 
 # Load ~/.Xresources
-xrdb ~/.Xresources
+if [ -f ~/.Xresources ]; then
+    xrdb ~/.Xresources
+fi
 
 # Start window manager on login
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+if [[ -z "$DISPLAY" ]] && [[ "$(tty)" = /dev/tty1 ]]; then
     #exec sway
     #exec startx
-    continue
+    true
 fi
 

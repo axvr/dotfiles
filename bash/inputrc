@@ -25,12 +25,10 @@ $if mode=vi
     "\e[B":history-search-forward
     j:history-search-forward
     k:history-search-backward
-    "\C-h":reverse-search-history
     set keymap vi-insert
     # these are for vi-insert mode
     "\e[A":history-search-backward
     "\e[B":history-search-forward
-    "\C-h":reverse-search-history
     "\C-n":menu-complete
     "\C-p":menu-complete-backward
 $endif
@@ -49,6 +47,6 @@ set mark-symlinked-directories On
 set colored-completion-prefix On
 # Color the common prefix in menu-complete
 set menu-complete-display-prefix On
-# Tab displays all options
+# FIXME Tab displays all completion options
 set show-all-if-unmodified On
 
