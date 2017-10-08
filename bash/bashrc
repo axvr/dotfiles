@@ -42,6 +42,9 @@ VISUAL=vim
 export VISUAL EDITOR=vim
 export EDITOR
 
+# Set Man pager
+export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -"
+
 # Rust development
 #export PATH=$PATH:$HOME/.cargo/bin
 

@@ -4,8 +4,8 @@
 " Brief help
 " ----------
 " :PluginInstall    - Install new plugins
-" :PluginClean      - Remove unused plugins
 " :PluginUpgrade    - Update installed plugins
+" :PluginClean      - Remove unused plugins
 " :mks[ession] path - Create a session
 " :so[urce] path    - Load a session or Vim Script
 
@@ -27,13 +27,17 @@ if !1 | finish | endif
 " Encoding
 scriptencoding utf-8
 set encoding=utf-8
-set fileencoding=utf-8
+if &modifiable != 0
+    set fileencoding=utf-8
+endif
 
 " Plugin Setup
 if has('vim_starting')
     packadd Vivid.vim
 endif
 
+" TODO use something similar to this in Vivid
+"autocmd! SourceCmd ~/.vim/pack/vivid/opt/vim-qf/*/*.vim if vivid#enabled('vim-qf') == 0 | call vivid#enable('vim-qf') | echo "hello world" | endif
 
 " Input Plugins below this line {{{
 
@@ -44,7 +48,8 @@ let g:lion_squeeze_spaces = 1
 Plugin 'wellle/targets.vim',   { 'enabled': 1, } " :h targets.txt
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
 Plugin 'romainl/vim-qf',       { 'enabled': 1, } " :h qf.txt
-packadd matchit
+packadd! matchit
+runtime ftplugin/man.vim
 
 " Git integration
 Plugin 'tpope/vim-fugitive'     " :h fugitive.txt
@@ -71,6 +76,10 @@ function! s:enable_git_plugins() abort
     endif
 endfunction
 autocmd! BufReadPre * call s:enable_git_plugins()
+
+" Clang Plugin Enabling TODO move this
+autocmd! FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format',
+            \ 'vim-cpp-enhanced-highlight')
 
 
 " Basic Configuration
@@ -166,7 +175,7 @@ endif
 "highlight Normal guibg=NONE ctermbg=NONE
 if has('gui_running')
     set guifont=Monospace\ 11
-elseif !has('gui_running')
+else
     set t_Co=256
     set termguicolors
 endif
@@ -249,7 +258,7 @@ set autoindent      " ai  -- Enable unintrusive auto-indentation
 " TODO set up hard wrap or wrap formatters (formatprg, fo, fo-table)
 " TODO maybe switch between wrap modes?
 let &showbreak='>>> '   " Prefix for soft wrapped line
-set textwidth=80        " Maximum width of text
+set textwidth=80        " Maximum width of text TODO maybe set to 0
 set wrapmargin=0        " Set wrap margin on right of screen
 set wrap                " Enable line wrap
 set linebreak           " Breaks lines at words
@@ -261,9 +270,6 @@ endif
 " Vim ':make' config
 augroup vim-make
     autocmd!
-    " Clang Files
-    autocmd FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format',
-                \ 'vim-cpp-enhanced-highlight')
     " Perl files
     autocmd FileType perl setlocal makeprg=perl\ -c\ %
     autocmd FileType perl setlocal errorformat+=%m\ at\ %f\ line\ %l\.
@@ -279,17 +285,17 @@ augroup text
     autocmd!
     " Set soft wrap for text files
     autocmd FileType text,plaintex,tex,markdown,gitcommit,html,css setlocal spell
-    autocmd FileType text,plaintex,tex,markdown,gitcommit,diff setlocal nofoldenable
+    autocmd FileType text,plaintex,tex,markdown,gitcommit,diff,man setlocal nofoldenable
 
     if exists('+breakindent')
         autocmd FileType text,plaintex,tex,markdown,gitcommit,diff,html,css
                     \ setlocal breakindent
     endif
 
-    autocmd FileType text,plaintex,tex,markdown,gitcommit,html,css let &l:colorcolumn=0
-    autocmd FileType diff let &colorcolumn=join(range(82,335), ',')
+    autocmd FileType text,plaintex,tex,markdown,gitcommit,html,css,man let &l:colorcolumn=0
+    autocmd FileType diff let &l:colorcolumn=join(range(82,335), ',')
     autocmd FileType text,plaintex,tex,markdown,diff setlocal number norelativenumber
-    autocmd FileType gitcommit setlocal nonumber norelativenumber
+    autocmd FileType gitcommit,man setlocal nonumber norelativenumber
 augroup END
 
 " Binary Files
