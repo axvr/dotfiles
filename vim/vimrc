@@ -36,8 +36,6 @@ if has('vim_starting')
     packadd Vivid.vim
 endif
 
-" TODO use something similar to this in Vivid
-"autocmd! SourceCmd ~/.vim/pack/vivid/opt/vim-qf/*/*.vim if vivid#enabled('vim-qf') == 0 | call vivid#enable('vim-qf') | echo "hello world" | endif
 
 " Input Plugins below this line {{{
 
@@ -152,6 +150,8 @@ set cursorline          " Highlight current line
 let &colorcolumn=join(range(81,335), ',')
 set visualbell t_vb=    " Disable sound & visual alerts
 set showmode
+
+" Configure the Vim status line
 function! GitBranch() abort
     if vivid#enabled('vim-fugitive') && fugitive#head() != ''
         return '  ' . fugitive#head() . ' '
@@ -167,18 +167,20 @@ set statusline+=\ %{&filetype}\ \|
 set statusline+=\ %P\ \|
 set statusline+=\ %2v\                      " Vim ruler config
 
-set background=dark
-colorscheme space-vim-dark
-if system('echo -e "\e[3mfoo\e[23m"') =~# '\m\Cfoo'
-    highlight Comment cterm=italic
-endif
 "highlight Normal guibg=NONE ctermbg=NONE
-if has('gui_running')
+if has('gui_running')  " Just incase I ever use GVim (not likely)
     set guifont=Monospace\ 11
+    set guioptions-=T guioptions-=m guioptions-=r guioptions+=c guioptions-=L
 else
     set t_Co=256
     set termguicolors
+    if system('printf "$TMUX"') =~# '\m\C^$'
+        highlight Comment cterm=italic
+    endif
 endif
+set background=dark
+colorscheme space-vim-dark
+
 
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
