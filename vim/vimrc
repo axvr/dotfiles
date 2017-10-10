@@ -53,6 +53,13 @@ runtime ftplugin/man.vim
 Plugin 'tpope/vim-fugitive'     " :h fugitive.txt
 Plugin 'rhysd/committia.vim'    " :h commitia.txt
 Plugin 'airblade/vim-gitgutter' " :h gitgutter.txt
+let g:gitgutter_map_keys = 0
+let g:gitgutter_sign_added = '•'
+let g:gitgutter_sign_modified = '•'
+let g:gitgutter_sign_removed = '⎽'
+let g:gitgutter_sign_removed_first_line = '⎺'
+let g:gitgutter_sign_modified_removed = '•⎽' " Works for 50% of cases
+let g:gitgutter_override_sign_column_highlight = 0
 
 " Syntax highlighting packs & code formatting
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -63,6 +70,7 @@ let g:clang_format#detect_style_file = 1
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
+"let g:space_vim_dark_background = 235
 
 " Input Plugins above this line }}}
 
@@ -167,6 +175,8 @@ set statusline+=\ %{&filetype}\ \|
 set statusline+=\ %P\ \|
 set statusline+=\ %2v\                      " Vim ruler config
 
+set background=dark
+colorscheme space-vim-dark
 "highlight Normal guibg=NONE ctermbg=NONE
 if has('gui_running')  " Just incase I ever use GVim (not likely)
     set guifont=Monospace\ 11
@@ -176,10 +186,10 @@ else
     set termguicolors
     if system('printf "$TMUX"') =~# '\m\C^$'
         highlight Comment cterm=italic
+    else
+        highlight Comment cterm=NONE
     endif
 endif
-set background=dark
-colorscheme space-vim-dark
 
 
 " Vim Omnicomplete, Ins-complete & Wild menu
