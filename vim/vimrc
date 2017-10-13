@@ -46,7 +46,7 @@ let g:lion_squeeze_spaces = 1
 Plugin 'wellle/targets.vim',   { 'enabled': 1, } " :h targets.txt
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
 Plugin 'romainl/vim-qf',       { 'enabled': 1, } " :h qf.txt
-packadd! matchit
+packadd matchit
 runtime ftplugin/man.vim
 
 " Git integration
@@ -78,7 +78,7 @@ Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
 " Git Plugin Enabling
 function! s:enable_git_plugins() abort
     if system('git rev-parse --is-inside-work-tree') =~# '\m\C^true'
-        call vivid#enable('vim-fugitive', 'committia', 'vim-gitgutter')
+        call vivid#enable('vim-fugitive', 'committia.vim', 'vim-gitgutter')
     endif
 endfunction
 autocmd! BufReadPre * call s:enable_git_plugins()
@@ -290,6 +290,8 @@ augroup vim-make
     autocmd FileType sh setlocal makeprg=shellcheck\ -f\ gcc\ %
     " LaTeX files
     autocmd FileType plaintex,tex setlocal makeprg=latexmk\ -pdf\ %
+    " Xdefaults files
+    autocmd FileType xdefaults setlocal makeprg=xrdb\ %
 augroup END
 
 " Text Files (text, tex, markdown, org, gitcommit, diff)
