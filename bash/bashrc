@@ -67,6 +67,9 @@ function parse_git_branch() {
 }
 export PS1="[\u@\h \W\[\e[32m\]\`parse_git_branch\`\[\e[m\]]\\$ "
 
+# Termux (Android) version of default
+#export PS1="[\W]$ "
+
 
 #################################
 ##### Aliases and Functions #####
