@@ -18,6 +18,7 @@
 "   Build:  make, cmake, etc
 "   Tags:   ctags
 
+" FIXME disable auto-pairs when in lisp files
 
 " Initial Config
 
@@ -159,22 +160,6 @@ let &colorcolumn=join(range(81,335), ',')
 set visualbell t_vb=    " Disable sound & visual alerts
 set showmode
 
-" Configure the Vim status line
-function! GitBranch() abort
-    if vivid#enabled('vim-fugitive') && fugitive#head() != ''
-        return '  ' . fugitive#head() . ' '
-    else | return ''
-    endif
-endfunction
-set statusline=%#LineNr#%{GitBranch()}      " Git branch name
-set statusline+=%#StatusLine#\ %f%m%r%h%w   " Current file info
-set statusline+=%=                          " Move to rightside of screen
-set statusline+=%{&ff}\ \|
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ \|
-set statusline+=\ %{&filetype}\ \|
-set statusline+=\ %P\ \|
-set statusline+=\ %2v\                      " Vim ruler config
-
 set background=dark
 colorscheme space-vim-dark
 "highlight Normal guibg=NONE ctermbg=NONE
@@ -192,6 +177,112 @@ else
 endif
 
 
+" Configure the Vim status line
+" Left:
+" [Git Branch][File name (f)][modified (m)][read-only (r)][help (h)][preview (w)]
+" [Block 1   ][Block 2                                                          ]
+" Right:
+" [File format][Encoding][File type][Position in file][Column number]
+" [Block 3              ][Block 4  ][Block 5                        ]
+
+" Fetch the Git branch
+function! GitBranch() abort
+    if vivid#enabled('vim-fugitive') && fugitive#head() != ''
+        return '  ' . fugitive#head() . ' '
+    else | return ''
+    endif
+endfunction
+
+" TODO improve colour selection for blocks
+" TODO separation between items in blocks
+" TODO set all block colours
+" TODO allow setting different statuslines
+" TODO maybe split core functionality into a plugin
+
+function! ActiveStatus() abort " {{{
+    " Create empty status line variable
+    let l:statusline = ""
+    " Block 1  (Git branch)
+    let l:statusline .= "%("
+    let l:statusline .= "%#LineNr#"
+    let l:statusline .= "%{GitBranch()}"
+    let l:statusline .= "%)"
+    " Block 2  (File name and labels)
+    let l:statusline .= "%("
+    let l:statusline .= "%#StatusLine#"
+    let l:statusline .= "\ %f"
+    let l:statusline .= "%m%r%h%w\ "
+    let l:statusline .= "%)"
+    " Move to right of screen
+    let l:statusline .= "%#StatusLine#"
+    let l:statusline .= "%="
+    " Block 3  (File format)
+    let l:statusline .= "%("
+    let l:statusline .= "%#StatusLine#"
+    let l:statusline .= "\ %{&fileformat}\ "
+    let l:statusline .= "\ %{&fileencoding?&fileencoding:&encoding}\ "
+    let l:statusline .= "%)"
+    " Block 4
+    let l:statusline .= "%("
+    let l:statusline .= "%#StatusLine#"
+    let l:statusline .= "\ %{&filetype}\ "
+    let l:statusline .= "%)"
+    " Block 5
+    let l:statusline .= "%("
+    let l:statusline .= "%#StatusLine#"
+    let l:statusline .= "\ %P\ "
+    let l:statusline .= "\ %2c\ "
+    let l:statusline .= "%)"
+    " Return result
+    return l:statusline
+endfunction " }}}
+
+function! InactiveStatus() abort " {{{
+    " Create empty status line variable
+    let l:statusline = ""
+    " Block 1  (Git branch)
+    let l:statusline .= "%("
+    let l:statusline .= "%#LineNr#"
+    let l:statusline .= "%{GitBranch()}"
+    let l:statusline .= "%)"
+    " Block 2  (File name and labels)
+    let l:statusline .= "%("
+    let l:statusline .= "%#StatusLineNC#"
+    let l:statusline .= "\ %f"
+    let l:statusline .= "%m%r%h%w\ "
+    let l:statusline .= "%)"
+    " Move to right of screen
+    let l:statusline .= "%#StatusLineNC#"
+    let l:statusline .= "%="
+    " Block 3  (File format)
+    let l:statusline .= "%("
+    let l:statusline .= "%#StatusLineNC#"
+    let l:statusline .= "\ %{&fileformat}\ "
+    let l:statusline .= "\ %{&fileencoding?&fileencoding:&encoding}\ "
+    let l:statusline .= "%)"
+    " Block 4
+    let l:statusline .= "%("
+    let l:statusline .= "%#StatusLineNC#"
+    let l:statusline .= "\ %{&filetype}\ "
+    let l:statusline .= "%)"
+    " Block 5
+    let l:statusline .= "%("
+    let l:statusline .= "%#StatusLineNC#"
+    let l:statusline .= "\ %P\ "
+    let l:statusline .= "\ %2c\ "
+    let l:statusline .= "%)"
+    " Return result
+    return l:statusline
+endfunction  " }}}
+
+set statusline=%!ActiveStatus()
+augroup theme
+    autocmd!
+    autocmd BufEnter,WinEnter * setlocal statusline=%!ActiveStatus()
+    autocmd BufLeave,WinLeave * setlocal statusline=%!InactiveStatus()
+augroup END
+
+
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
@@ -199,8 +290,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 set path+=**
 
 " Netrw Configuration
-let g:netrw_banner = 0
-let g:netrw_winsize = 20
+let g:netrw_banner    = 0
+let g:netrw_winsize   = 20
 let g:netrw_list_hide = &wildignore
 
 
