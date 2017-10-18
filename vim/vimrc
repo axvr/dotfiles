@@ -178,108 +178,64 @@ endif
 
 
 " Configure the Vim status line
-" Left:
-" [Git Branch][File name (f)][modified (m)][read-only (r)][help (h)][preview (w)]
-" [Block 1   ][Block 2                                                          ]
-" Right:
-" [File format][Encoding][File type][Position in file][Column number]
-" [Block 3              ][Block 4  ][Block 5                        ]
+" Left:  [Git Branch][File name][Modified][Read-only][Help][Preview]
+"        [Block 1   ][Block 2                                      ]
+" Right: [File format][Encoding][File type][Position in file][Column number]
+"        [Block 3              ][Block 4  ][Block 5                        ]
 
 " Fetch the Git branch
-function! GitBranch() abort
+function! s:GitBranch() abort
     if vivid#enabled('vim-fugitive') && fugitive#head() != ''
-        return '  ' . fugitive#head() . ' '
+        return ' ' . fugitive#head() . ' '
     else | return ''
     endif
 endfunction
 
-" TODO improve colour selection for blocks
-" TODO separation between items in blocks
-" TODO set all block colours
-" TODO allow setting different statuslines
-" TODO maybe split core functionality into a plugin
+function! s:Active(isactive, active, inactive) abort
+    if type(a:isactive) == v:t_number && a:isactive == 1
+        return a:active
+    else
+        return a:inactive
+    endif
+endfunction
 
-function! ActiveStatus() abort " {{{
+function! DrawStatus(isactive) abort " {{{
     " Create empty status line variable
-    let l:statusline = ""
+    let l:statusline = ''
     " Block 1  (Git branch)
-    let l:statusline .= "%("
-    let l:statusline .= "%#LineNr#"
-    let l:statusline .= "%{GitBranch()}"
-    let l:statusline .= "%)"
+    let l:statusline .= '%(' . <SID>Active(a:isactive, '%#LineNr#', '%#LineNr#')
+    let l:statusline .= <SID>GitBranch()
+    let l:statusline .= '%)'
     " Block 2  (File name and labels)
-    let l:statusline .= "%("
-    let l:statusline .= "%#StatusLine#"
-    let l:statusline .= "\ %f"
-    let l:statusline .= "%m%r%h%w\ "
-    let l:statusline .= "%)"
+    let l:statusline .= '%(' . <SID>Active(a:isactive, '%#StatusLine#', '%#StatusLineNC#')
+    let l:statusline .= ' %f'
+    let l:statusline .= '%m%r%h%w '
+    let l:statusline .= '%)'
     " Move to right of screen
-    let l:statusline .= "%#StatusLine#"
-    let l:statusline .= "%="
-    " Block 3  (File format)
-    let l:statusline .= "%("
-    let l:statusline .= "%#StatusLine#"
-    let l:statusline .= "\ %{&fileformat}\ "
-    let l:statusline .= "\ %{&fileencoding?&fileencoding:&encoding}\ "
-    let l:statusline .= "%)"
-    " Block 4
-    let l:statusline .= "%("
-    let l:statusline .= "%#StatusLine#"
-    let l:statusline .= "\ %{&filetype}\ "
-    let l:statusline .= "%)"
-    " Block 5
-    let l:statusline .= "%("
-    let l:statusline .= "%#StatusLine#"
-    let l:statusline .= "\ %P\ "
-    let l:statusline .= "\ %2c\ "
-    let l:statusline .= "%)"
+    let l:statusline .= <SID>Active(a:isactive, '%#StatusLine#', '%#StatusLineNC#')
+    let l:statusline .= '%=%<'
+    " Block 3  (File format & encoding)
+    let l:statusline .= '%(' . <SID>Active(a:isactive, '%#StatusLine#', '%#StatusLineNC#')
+    let l:statusline .= ' %{&fileformat} '
+    let l:statusline .= ' %{&fileencoding?&fileencoding:&encoding} '
+    let l:statusline .= '%)'
+    " Block 4 (File type)
+    let l:statusline .= '%(' . <SID>Active(a:isactive, '%#StatusLine#', '%#StatusLineNC#')
+    let l:statusline .= ' %{&filetype} '
+    let l:statusline .= '%)'
+    " Block 5 (Position in file)
+    let l:statusline .= '%(' . <SID>Active(a:isactive, '%#StatusLine#', '%#StatusLineNC#')
+    let l:statusline .= ' %P '
+    let l:statusline .= ' %2c '
+    let l:statusline .= '%)'
     " Return result
     return l:statusline
 endfunction " }}}
 
-function! InactiveStatus() abort " {{{
-    " Create empty status line variable
-    let l:statusline = ""
-    " Block 1  (Git branch)
-    let l:statusline .= "%("
-    let l:statusline .= "%#LineNr#"
-    let l:statusline .= "%{GitBranch()}"
-    let l:statusline .= "%)"
-    " Block 2  (File name and labels)
-    let l:statusline .= "%("
-    let l:statusline .= "%#StatusLineNC#"
-    let l:statusline .= "\ %f"
-    let l:statusline .= "%m%r%h%w\ "
-    let l:statusline .= "%)"
-    " Move to right of screen
-    let l:statusline .= "%#StatusLineNC#"
-    let l:statusline .= "%="
-    " Block 3  (File format)
-    let l:statusline .= "%("
-    let l:statusline .= "%#StatusLineNC#"
-    let l:statusline .= "\ %{&fileformat}\ "
-    let l:statusline .= "\ %{&fileencoding?&fileencoding:&encoding}\ "
-    let l:statusline .= "%)"
-    " Block 4
-    let l:statusline .= "%("
-    let l:statusline .= "%#StatusLineNC#"
-    let l:statusline .= "\ %{&filetype}\ "
-    let l:statusline .= "%)"
-    " Block 5
-    let l:statusline .= "%("
-    let l:statusline .= "%#StatusLineNC#"
-    let l:statusline .= "\ %P\ "
-    let l:statusline .= "\ %2c\ "
-    let l:statusline .= "%)"
-    " Return result
-    return l:statusline
-endfunction  " }}}
-
-set statusline=%!ActiveStatus()
 augroup theme
     autocmd!
-    autocmd BufEnter,WinEnter * setlocal statusline=%!ActiveStatus()
-    autocmd BufLeave,WinLeave * setlocal statusline=%!InactiveStatus()
+    autocmd VimEnter,BufEnter * setlocal statusline=%!DrawStatus(1)
+    autocmd WinLeave,BufLeave * setlocal statusline=%!DrawStatus(0)
 augroup END
 
 
