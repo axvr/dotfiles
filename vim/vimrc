@@ -1,13 +1,13 @@
 " Vim Configuration File (~/.vimrc)
 " =================================
 
-" Brief help
-" ----------
-" :PluginInstall    - Install new plugins
-" :PluginUpgrade    - Update installed plugins
-" :PluginClean      - Remove unused plugins
-" :mks[ession] path - Create a session
-" :so[urce] path    - Load a session or Vim Script
+" Brief Help:
+"   :PluginInstall      - Install new plugins
+"   :PluginUpgrade      - Update installed plugins
+"   :PluginEnable       - Enable a named plugin
+"   :PluginClean        - Remove unused plugins
+"   :mks[ession] path   - Create a session
+"   :so[urce] path      - Load a session or Vim Script
 
 " Dependencies:
 "   LaTeX:  latexmk & pdflatex
@@ -16,11 +16,19 @@
 "   Clangs: clang-tidy (-checks=* ???), clang, gcc, gcc-c++ (g++)
 "   Python: pylint
 "   Build:  make, cmake, etc
-"   Tags:   ctags
+"   Tools:  ctags
 
-" FIXME disable auto-pairs when in lisp files
+" Vim To Do List:
+" FIXME disable (don't enable) auto-pairs when editing lisp files
+" TODO replace an existing vim modeline when adding new modeline
+" TODO pick between hard wrap and soft wrap for specific files
+" TODO set up hard wrap or wrap formatters (formatprg, fo, fo-table)
+" TODO maybe allow switching between wrap modes?
+" TODO Finish Vivid.vim plugin manager
+" TODO tidy up and organise $MYVIMRC
 
-" Initial Config
+
+" Initial Config {{{
 
 " Make sure the file is readable
 if !1 | finish | endif
@@ -32,13 +40,14 @@ if &modifiable != 0
     set fileencoding=utf-8
 endif
 
+" }}}
+
+" Plugin Configuration {{{
+
 " Plugin Setup
 if has('vim_starting')
     packadd Vivid.vim
 endif
-
-
-" Input Plugins below this line {{{
 
 " Vim enhancements
 Plugin 'jiangmiao/auto-pairs', { 'enabled': 1, } " :h AutoPairs.txt
@@ -71,9 +80,10 @@ let g:clang_format#detect_style_file = 1
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
-"let g:space_vim_dark_background = 235
 
-" Input Plugins above this line }}}
+" Netrw Configuration
+let g:netrw_banner    = 0
+let g:netrw_winsize   = 20
 
 
 " Git Plugin Enabling
@@ -84,12 +94,13 @@ function! s:enable_git_plugins() abort
 endfunction
 autocmd! BufReadPre * call s:enable_git_plugins()
 
-" Clang Plugin Enabling TODO move this
+" Clang Plugin Enabling
 autocmd! FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format',
             \ 'vim-cpp-enhanced-highlight')
 
+" }}}
 
-" Basic Configuration
+" Basic Configuration {{{
 
 " Essentials
 filetype plugin indent on
@@ -109,6 +120,8 @@ set lazyredraw
 set showmatch
 set foldenable
 set foldmethod=marker
+set modeline        " Allow reading modelines
+set modelines=5     " Set the number of lines to search through to find modeline
 
 " Searching
 set ignorecase      " Ignore case in searches
@@ -116,10 +129,6 @@ set smartcase       " Enables smart case mode
 set hlsearch        " Highlight all search results
 set incsearch       " Searches for strings incrementaly
 set wrapscan        " Wrap back to the start of the file
-
-" Mode line
-set modeline        " Allow reading modelines
-set modelines=5     " Set the number of lines to search through to find modeline
 
 " Backup, Swap & Undo files  {{{
 let s:dirs = ['', '', '']
@@ -149,27 +158,23 @@ else
 endif
 unlet s:dirs " }}}
 
+" Vim Omnicomplete, Ins-complete & Wild menu
+set omnifunc=syntaxcomplete#Complete
+set wildmenu
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set path+=**
 
-" Vim & GVim styling
+" }}}
+
+" Vim & GVim styling {{{
 set number relativenumber
-set ruler laststatus=2
+set showmode showcmd
+set ruler
+set rulerformat=%.20(%=%<%(%{&filetype==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %2c%)%)
 set cursorline          " Highlight current line
 let &colorcolumn=join(range(81,335), ',')
 set visualbell t_vb=    " Disable sound & visual alerts
-set showmode showcmd
-
-if has('gui_running')  " Just incase I ever use GVim (not likely)
-    set guifont=Monospace\ 11
-    set guioptions-=T guioptions-=m guioptions-=r guioptions+=c guioptions-=L
-else
-    set t_Co=256
-    set termguicolors
-    if system('printf "$TMUX"') =~# '\m\C^$'
-        highlight Comment cterm=italic
-    else
-        highlight Comment cterm=NONE
-    endif
-endif
+set laststatus=2        " Always display statusline
 
 " Configure the Vim status line {{{
 " Left:  [Git Branch][File name][Modified][Read-only][Help][Preview]
@@ -185,13 +190,16 @@ function! GitBranch() abort
     endif
 endfunction
 
+" Git branch info
+"set statusline=%{vivid#enabled('vim-fugitive')==1&&fugitive#head()!=''?'\ \ '.fugitive#head().'\ ':''}
+
 function! ActiveStatus() abort
     let l:statusline  = "%(%#LineNr#%{GitBranch()}%)"             " Block 1
     let l:statusline .= "%(%#StatusLine#\ %f%m%r%h%w\ %)"         " Block 2
     let l:statusline .= "%#StatusLine#%=%<"                       " Right side
     let l:statusline .= "%(%#StatusLine#%{&fileformat}\ \ " .
                 \ "%{&fileencoding?&fileencoding:&encoding}\ %)"  " Block 3
-    let l:statusline .= "%(%#StatusLine#\ %{&filetype}\ %)"       " Block 4
+    let l:statusline .= "%(%#StatusLine#%{&filetype==''?'':'\ '.&ft.'\ '}%)"       " Block 4
     let l:statusline .= "%(%#StatusLine#\ %P\ \ %2c\ %)"          " Block 5
     return l:statusline
 endfunction
@@ -202,7 +210,7 @@ function! InactiveStatus() abort
     let l:statusline .= "%#StatusLineNC#%=%<"                     " Right side
     let l:statusline .= "%(%#StatusLineNC#%{&fileformat}\ \ " .
                 \ "%{&fileencoding?&fileencoding:&encoding}\ %)"  " Block 3
-    let l:statusline .= "%(%#StatusLineNC#\ %{&filetype}\ %)"     " Block 4
+    let l:statusline .= "%(%#StatusLineNC#%{&filetype==''?'':'\ '.&ft.'\ '}%)"     " Block 4
     let l:statusline .= "%(%#StatusLineNC#\ %P\ \ %2c\ %)"        " Block 5
     return l:statusline
 endfunction
@@ -215,21 +223,22 @@ augroup END " }}}
 
 set background=dark
 colorscheme space-vim-dark
+if has('gui_running')  " Just incase I ever use GVim (not likely)
+    set guifont=Monospace\ 11
+    set guioptions-=T guioptions-=m guioptions-=r guioptions+=c guioptions-=L
+else
+    set t_Co=256
+    set termguicolors
+    if system('printf "$TMUX"') =~# '\m\C^$'
+        highlight Comment cterm=italic
+    else
+        highlight Comment cterm=NONE
+    endif
+endif
 
+" }}}
 
-" Vim Omnicomplete, Ins-complete & Wild menu
-set omnifunc=syntaxcomplete#Complete
-set wildmenu
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-set path+=**
-
-" Netrw Configuration
-let g:netrw_banner    = 0
-let g:netrw_winsize   = 20
-let g:netrw_list_hide = &wildignore
-
-
-" Set Keymaps & Commands
+" Set Keymaps & Commands {{{
 
 " Git keybindings
 nnoremap <leader>gs :<C-u>Gstatus<CR>
@@ -239,7 +248,7 @@ nnoremap <leader>gb :<C-u>Gblame<CR>
 nnoremap <leader>ga :<C-u>Gwrite<CR>
 " Spell check toggle
 nnoremap <F7> :<C-u>setlocal spell!<CR>
-" Make tags file using ctags TODO add more options
+" Make tags file using ctags
 command! -nargs=0 MakeTags !ctags -R .
 " Clang format
 autocmd FileType c,h,cpp,hpp,cc,objc
@@ -247,7 +256,7 @@ autocmd FileType c,h,cpp,hpp,cc,objc
 autocmd FileType c,h,cpp,hpp,cc,objc
             \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
-" Remove trailing whitespace
+" Remove trailing whitespace {{{
 function! s:trim(bang) abort
     if a:bang || (!&binary && &filetype != 'diff')
         normal! mz
@@ -258,7 +267,7 @@ function! s:trim(bang) abort
     else | echoerr 'Warning! Not reccommended to trim whitespace in this file.'
     endif
 endfunction
-command! -nargs=0 -bar -bang Trim call <SID>trim('!' == '<bang>')
+command! -nargs=0 -bar -bang Trim call <SID>trim('!' == '<bang>') " }}}
 
 " Show Highlighting group for current word
 function! s:syn_stack()
@@ -269,7 +278,6 @@ nnoremap <leader>hg :call <SID>syn_stack()<CR>
 
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX files.
-" TODO replace an existing vim modeline
 function! AppendModeline()
     let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set ft=%s fdm=%s ' .
                 \ 'fmr=%s :',
@@ -280,8 +288,9 @@ function! AppendModeline()
 endfunction
 nnoremap <silent> <Leader>ml :<C-u>call AppendModeline()<CR>
 
+" }}}
 
-" File Specific Config
+" File Specific Config {{{
 
 " Indentation Config (Spaces > Tabs)
 set tabstop=8       " ts  -- Don't change this value
@@ -292,10 +301,8 @@ set shiftround      " sr  -- Round indent to multiple of sw
 set autoindent      " ai  -- Enable unintrusive auto-indentation
 
 " Line wrap config (Use soft wrap, and manually hard wrap text)
-" TODO set up hard wrap or wrap formatters (formatprg, fo, fo-table)
-" TODO maybe switch between wrap modes?
 let &showbreak='>>> '   " Prefix for soft wrapped line
-set textwidth=80        " Maximum width of text TODO maybe set to 0
+set textwidth=80        " Maximum width of text
 set wrapmargin=0        " Set wrap margin on right of screen
 set wrap                " Enable line wrap
 set linebreak           " Breaks lines at words
@@ -384,6 +391,8 @@ augroup encrypted  " {{{
     " after the file has been written.
     autocmd BufWritePost,FileWritePost *.gpg,*.asc,*.pgp u
 augroup END  " }}}
+
+" }}}
 
 
 " vim: set ts=8 sw=4 tw=80 et ft=vim fdm=marker fmr={{{,}}} :
