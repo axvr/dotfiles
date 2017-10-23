@@ -81,6 +81,10 @@ let g:clang_format#detect_style_file = 1
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
 
+" CLI Tools Integration
+Plugin 'ledger/vim-ledger'
+Plugin 'blindFS/vim-taskwarrior' " Maybe remove this?
+
 " Netrw Configuration
 let g:netrw_banner    = 0
 let g:netrw_winsize   = 20
@@ -97,6 +101,10 @@ autocmd! BufReadPre * call s:enable_git_plugins()
 " Clang Plugin Enabling
 autocmd! FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format',
             \ 'vim-cpp-enhanced-highlight')
+
+" Enable Ledger Plugin
+autocmd! FileType ledger if vivid#enabled('vim-ledger') == 0 | 
+            \ call vivid#enable('vim-ledger') | e % | endif
 
 " }}}
 
@@ -120,8 +128,8 @@ set lazyredraw
 set showmatch
 set foldenable
 set foldmethod=marker
-set modeline        " Allow reading modelines
-set modelines=5     " Set the number of lines to search through to find modeline
+set modeline
+set modelines=5
 
 " Searching
 set ignorecase      " Ignore case in searches
