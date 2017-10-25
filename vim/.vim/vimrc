@@ -46,7 +46,11 @@ endif
 
 " Plugin Setup
 if has('vim_starting')
-    packadd Vivid.vim
+    if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
+        silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/pack/vivid/opt/Vivid.vim
+    else
+        packadd Vivid.vim
+    endif
 endif
 
 " Vim enhancements
