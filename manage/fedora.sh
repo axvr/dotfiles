@@ -46,6 +46,8 @@ function install_applications() {
     cargo install rustfmt
     cargo install racer # TODO set up rust racer
 
+    # TODO install GNU stow
+
     sudo dnf -y groupinstall "Development Tools" \
          "C Development Tools and Libraries" \
          "GNOME Software Development"
@@ -118,16 +120,6 @@ function install_extensions() {
 # Set up applications and load dot-files
 function setup_applications() {
 
-    # Set up Development Tools
-    rm -rf ~/.emacs.d/
-    mkdir -p ~/.emacs.d ~/.config/nvim ~/.vim
-    github=https://raw.githubusercontent.com/axvr/dotfiles/master
-    wget $github/spacemacs/spacemacs -O ~/.spacemacs
-    #wget $github/neovim/init.vim     -O ~/.config/nvim/init.vim
-    wget $github/vim/vimrc           -O ~/.vim/vimrc
-    wget $github/git/gitconfig       -O ~/.gitconfig
-    wget $github/git/gitignore_global -O ~/.gitignore_global
-    wget $github/bash/bashrc         -O ~/.bashrc
     source "/home/$USER/.bashrc"
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
@@ -164,49 +156,6 @@ function install_games() {
 
 # ------------------------------------------------------------------------------
 
-# Add dotfiles to the dotfiles repo
-function update_repo() {
-
-    mkdir -p ~/Documents/Projects/dotfiles/{vim,neovim,spacemacs,bash,git,urxvt,sway,qutebrowser}
-    #mkdir -p ~/Documents/Projects/dotfiles/clang/{mozilla,google,bitcoin}
-
-    # Vim - vimrc
-    cp ~/.vim/vimrc ~/Documents/Projects/dotfiles/vim/vimrc
-
-    # Neovim - init.vim
-    cp ~/.config/nvim/init.vim ~/Documents/Projects/dotfiles/neovim/init.vim
-
-    # Spacemacs - spacemacs
-    cp ~/.spacemacs ~/Documents/Projects/dotfiles/spacemacs/spacemacs
-
-    # Clang Format - clang-format
-    #wget https://hg.mozilla.org/mozilla-central/raw-file/tip/.clang-format \
-    #     -O ~/Documents/Projects/dotfiles/clang/mozilla/clang-format
-    #wget https://hg.mozilla.org/mozilla-central/raw-file/tip/.clang-format-ignore \
-    #     -O ~/Documents/Projects/dotfiles/clang/mozilla/clang-format-ignore
-    #wget https://hg.mozilla.org/mozilla-central/raw-file/tip/.clang-tidy \
-    #     -O ~/Documents/Projects/dotfiles/clang/mozilla/clang-tidy
-
-    # Bash - bashrc
-    cp ~/.bashrc ~/Documents/Projects/dotfiles/bash/bashrc
-
-    # Git - gitconfig
-    cp ~/.gitconfig ~/Documents/Projects/dotfiles/git/gitconfig
-    cp ~/.gitignore_global ~/Documents/Projects/dotfiles/git/gitignore_global
-
-    # Xresources - Xresources
-    cp ~/.Xresources ~/Documents/Projects/dotfiles/urxvt/Xresources
-
-    # Sway - config
-    cp ~/.config/sway/config ~/Documents/Projects/dotfiles/sway/config
-
-    # Qutebrowser
-    #cp ~/.config/qutebrowser/* ~/Documents/Projects/dotfiles/customise/qutebrowser/
-
-}
-
-
-# ------------------------------------------------------------------------------
 
 function user_selection() {
 
