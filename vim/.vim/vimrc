@@ -83,7 +83,6 @@ Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
 
 " CLI Tools Integration
 Plugin 'ledger/vim-ledger'
-Plugin 'blindFS/vim-taskwarrior' " Maybe remove this?
 
 " Netrw Configuration
 let g:netrw_banner    = 0
