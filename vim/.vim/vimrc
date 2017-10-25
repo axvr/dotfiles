@@ -48,9 +48,8 @@ endif
 if has('vim_starting')
     if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
         silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/pack/vivid/opt/Vivid.vim
-    else
-        packadd Vivid.vim
     endif
+    packadd Vivid.vim
 endif
 
 " Vim enhancements
