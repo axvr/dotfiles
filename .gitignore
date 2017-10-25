@@ -1,2 +1,7 @@
+# Vim config
 */.vim/*
 !*/.vim/vimrc
+
+# Emacs config
+*/.emacs.d/*
+!*/.emacs.d/init.el
