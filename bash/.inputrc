@@ -45,6 +45,6 @@ set mark-symlinked-directories On
 # Color the common prefix
 set colored-completion-prefix On
 set menu-complete-display-prefix On
-# FIXME Tab displays all completion options
+# Tab displays all completion options
 set show-all-if-unmodified On
 

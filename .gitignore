@@ -5,3 +5,10 @@
 # Emacs config
 */.emacs.d/*
 !*/.emacs.d/init.el
+
+# Just in case
+*.dat
+.bash_history
+*.gpg
+*.asc
+*.pgp
