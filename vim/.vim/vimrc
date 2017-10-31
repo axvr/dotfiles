@@ -18,15 +18,6 @@
 "   Build:  make, cmake, etc
 "   Tools:  ctags
 
-" Vim To Do List:
-" FIXME disable (don't enable) auto-pairs when editing lisp files
-" TODO replace an existing vim modeline when adding new modeline
-" TODO pick between hard wrap and soft wrap for specific files
-" TODO set up hard wrap or wrap formatters (formatprg, fo, fo-table)
-" TODO maybe allow switching between wrap modes?
-" TODO Finish Vivid.vim plugin manager
-" TODO tidy up and organise $MYVIMRC
-
 
 " Initial Config {{{
 
@@ -297,6 +288,10 @@ function! AppendModeline()
     call append(line('$'), l:modeline)
 endfunction
 nnoremap <silent> <Leader>ml :<C-u>call AppendModeline()<CR>
+
+" Custom notes solution integration
+
+"command! -bar -nargs=? Note call name#pending(<f-args>)
 
 " }}}
 

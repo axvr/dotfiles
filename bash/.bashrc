@@ -75,6 +75,33 @@ export PS1="[\u@\h \W\[\e[32m\]\`parse_git_branch\`\[\e[m\]]\\$ "
 ##### Aliases and Functions #####
 #################################
 
+# Custom per project note management solution
+export NOTE_DIRECTORY="${HOME}/Documents/Notes"
+function Note() {
+    if [[ ! -d "${NOTE_DIRECTORY}" ]]; then
+        mkdir -p "${NOTE_DIRECTORY}"
+    fi
+
+    if [[ "$@" = "" ]]; then
+        if [[ parse_git_branch != "" ]]; then
+            NOTE_PROJECT="${PWD##*/}"
+        fi
+        $EDITOR "${NOTE_DIRECTORY}/Projects/${NOTE_PROJECT}.md"
+    else
+        $EDITOR "${NOTE_DIRECTORY}/${1}.md"
+    fi
+}
+
+# TODO improve this
+#function Notes() {
+#    echo "~/Documents/Notes:"
+#    ls -Ac ~/Documents/Notes/ | grep "$*"
+#}
+
+alias Notes="ls -A ~/Documents/Notes/"
+
+
 alias startx='startx; vlock'
 alias nv="nvim -u ~/.vim/vimrc"
+alias em="emacs -nw"
 

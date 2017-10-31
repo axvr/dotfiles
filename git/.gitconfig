@@ -6,6 +6,7 @@
 [core]
         editor = vim
         excludesfile = /home/axvr/.gitignore_global
+        pager = less -R
 [color]
         ui = auto
         interactive = auto
