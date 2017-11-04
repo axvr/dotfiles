@@ -28,14 +28,30 @@ URxvt.url-launcher:   firefox
 ! ############## Styling ##############
 ! #####################################
 
-! Font  FIXME font issues
-URxvt*font:           xft:Hack:regular:pixelsize=14,xft:Monospace:regular:pixelsize=14
-URxvt*boldFont:       xft:Hack:bold:pixelsize=14,xft:Monospace:bold:pixelsize=14
-URxvt*italicFont:     xft:Hack:italic:pixelsize=14,xft:Monospace:italic:pixelsize=14
-URxvt*boldItalicFont: xft:Hack:italic:bold:pixelsize=14,xft:Monospace:bold:italic:pixelsize=14
-URxvt*allow_bold:     true
-URxvt*allow_italic:   true
-URxvt*letterSpace:    0
+! Font (second value is a fallback font)
+! --------------------------------------
+! TODO pick a font
+! * Tamsyn          (Misc\ Tamsyn)      (size: 16,18) (spacing: 0)  (fallback: Terminus)
+! * Hack            (Hack)              (size: 14,16) (spacing: 0)  (fallback: Monospace)
+! * Source Code Pro (Source\ Code\ Pro) (size: 14,16) (spacing: -1)
+! * Iosevka Term    (Iosevka\ Term)     (size: 14,16) (spacing: 1)
+! * Monospace       (Monospace)         (size: 14,16) (spacing: ?)  (fallback: NONE)
+
+! Smooth Font
+!URxvt*font:           xft:Hack:regular:pixelsize=14,xft:Monospace:regular:pixelsize=14
+!URxvt*boldFont:       xft:Hack:bold:pixelsize=14,xft:Monospace:bold:pixelsize=14
+!URxvt*italicFont:     xft:Hack:italic:pixelsize=14,xft:Monospace:italic:pixelsize=14
+!URxvt*boldItalicFont: xft:Hack:italic:bold:pixelsize=14,xft:Monospace:bold:italic:pixelsize=14
+!URxvt*allow_bold:     true
+!URxvt*allow_italic:   true
+!URxvt*letterSpace:    0
+
+! Bitmap Font
+URxvt*font:         xft:Misc\ Tamsyn:regular:pixelsize=16,xft:Terminus:regular:pixelsize=16
+URxvt*boldFont:     xft:Misc\ Tamsyn:bold:pixelsize=16,xft:Terminus:bold:pixelsize=16
+URxvt*allow_bold:   true
+URxvt*allow_italic: false
+URxvt*letterSpace:  0
 
 ! ScrollBar
 URxvt*scrollBar:          false

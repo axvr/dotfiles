@@ -43,7 +43,9 @@ export VISUAL EDITOR=vim
 export EDITOR
 
 # Set Man pager
-export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -"
+export PAGER="less"
+export MANPAGER="less"
+#export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -" # Vim as MANPAGER
 
 # Rust development
 #export PATH=$PATH:$HOME/.cargo/bin
@@ -75,7 +77,7 @@ export PS1="[\u@\h \W\[\e[32m\]\`parse_git_branch\`\[\e[m\]]\\$ "
 ##### Aliases and Functions #####
 #################################
 
-# Custom per project note management solution
+# FIXME Custom per project note management solution
 export NOTE_DIRECTORY="${HOME}/Documents/Notes"
 function Note() {
     if [[ ! -d "${NOTE_DIRECTORY}" ]]; then
@@ -83,6 +85,7 @@ function Note() {
     fi
 
     if [[ "$@" = "" ]]; then
+        # below is pointless
         if [[ parse_git_branch != "" ]]; then
             NOTE_PROJECT="${PWD##*/}"
         fi
@@ -102,6 +105,7 @@ alias Notes="ls -A ~/Documents/Notes/"
 
 
 alias startx='startx; vlock'
+alias vi="vim"
 alias nv="nvim -u ~/.vim/vimrc"
 alias em="emacs -nw"
 

@@ -50,20 +50,20 @@ let g:lion_squeeze_spaces = 1
 Plugin 'wellle/targets.vim',   { 'enabled': 1, } " :h targets.txt
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
 Plugin 'romainl/vim-qf',       { 'enabled': 1, } " :h qf.txt
+"Plugin 'tomtom/quickfixsigns_vim', { 'enabled': 1, }
 packadd matchit
 runtime ftplugin/man.vim
 
 " Git integration
 Plugin 'tpope/vim-fugitive'     " :h fugitive.txt
 Plugin 'rhysd/committia.vim'    " :h commitia.txt
-Plugin 'airblade/vim-gitgutter' " :h gitgutter.txt
-let g:gitgutter_map_keys = 0
-let g:gitgutter_sign_added = '•'
-let g:gitgutter_sign_modified = '•'
-let g:gitgutter_sign_removed = '⎽'
-let g:gitgutter_sign_removed_first_line = '⎺'
-let g:gitgutter_sign_modified_removed = '•⎽' " Works for 50% of cases
-let g:gitgutter_override_sign_column_highlight = 0
+Plugin 'mhinz/vim-signify'      " :h signify.txt
+let g:signify_vcs_list          = ['git', 'hg']
+let g:signify_realtime          = 1
+let g:signify_sign_add          = '+'  " Alternative sign: '•'
+let g:signify_sign_change       = '~'
+let g:signify_sign_changedelete = '•'
+let g:signify_sign_show_count   = 0
 
 " Syntax highlighting packs & code formatting
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -86,7 +86,7 @@ let g:netrw_winsize   = 20
 " Git Plugin Enabling
 function! s:enable_git_plugins() abort
     if system('git rev-parse --is-inside-work-tree') =~# '\m\C^true'
-        call vivid#enable('vim-fugitive', 'committia.vim', 'vim-gitgutter')
+        call vivid#enable('vim-fugitive', 'committia.vim', 'vim-signify')
     endif
 endfunction
 autocmd! BufReadPre * call s:enable_git_plugins()
@@ -236,6 +236,8 @@ else
         highlight Comment cterm=NONE
     endif
 endif
+highlight SpellBad   ctermbg=NONE
+highlight SpellLocal ctermbg=NONE
 
 " }}}
 
