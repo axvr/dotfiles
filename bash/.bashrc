@@ -58,16 +58,19 @@ export MANPAGER="less"
 # Default
 #export PS1="[\u@\h \W]\\$ "
 
-# Default with Git branch
-function parse_git_branch() {
-    BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/*\(.*\)/\1/')
-    if [[ ! "${BRANCH}" == "" ]]; then
-        echo "${BRANCH}"
+# Default with VCS branch
+function parse_vcs_branch() {
+    GIT_BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/*\(.*\)/\1/')
+    HG_BRANCH=$(hg branch 2> /dev/null | awk '{print " "$1""}')
+    if [[ ! "${GIT_BRANCH}" == "" ]]; then
+        echo "${GIT_BRANCH}"
+    elif [[ ! "${HG_BRANCH}" == "" ]]; then
+        echo "${HG_BRANCH}"
     else
         echo ""
     fi
 }
-export PS1="[\u@\h \W\[\e[32m\]\`parse_git_branch\`\[\e[m\]]\\$ "
+export PS1="[\u@\h \W\[\e[32m\]\`parse_vcs_branch\`\[\e[m\]]\\$ "
 
 # Termux (Android) version of default
 #export PS1="[\W]$ "
@@ -86,7 +89,7 @@ function Note() {
 
     if [[ "$@" = "" ]]; then
         # below is pointless
-        if [[ parse_git_branch != "" ]]; then
+        if [[ parse_vcs_branch != "" ]]; then
             NOTE_PROJECT="${PWD##*/}"
         fi
         $EDITOR "${NOTE_DIRECTORY}/Projects/${NOTE_PROJECT}.md"
