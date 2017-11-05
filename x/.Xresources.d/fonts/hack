@@ -30,7 +30,7 @@
 ! Either Font
 #define fontUseB    true
 #define fontUseI    true
-#define fontSpacing 0
+#define fontSpacing -1
 
 
 ! vim: ft=xdefaults
