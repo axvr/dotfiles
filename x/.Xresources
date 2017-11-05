@@ -1,175 +1,66 @@
 ! ~/.Xresources
 ! ---------------------------------------------------
 ! Configuration file for URxvt, and other X programs
-! Load this config file: xrdb ~/.Xresources
-! Packages: rxvt-unicode
+! Load this config file: xrdb -I$HOME ~/.Xresources
 ! ---------------------------------------------------
 
 
-
-! #####################################
-! ############ Extensions #############
-! #####################################
-
-! Extensions
-URxvt.perl-ext-common: default,matcher
-
-! Clickable URLs
-URxvt.matcher*button: 1
-URxvt.url-launcher:   firefox
-!URxvt.url-launcher:   qutebrowser
-
-! Changing Font Size
-! install urxvt-resize-font-git from AUR
+! Font selection
+#include ".Xresources.d/fonts/tamsyn"
+! Colour scheme selection
+#include ".Xresources.d/colours/space-vim-dark"
 
 
-
-! #####################################
-! ############## Styling ##############
-! #####################################
-
-! Font (second value is a fallback font)
-! --------------------------------------
-! TODO pick a font
-! * Tamsyn          (Misc\ Tamsyn)      (size: 16,18) (spacing: 0)  (fallback: Terminus)
-! * Hack            (Hack)              (size: 14,16) (spacing: 0)  (fallback: Monospace)
-! * Source Code Pro (Source\ Code\ Pro) (size: 14,16) (spacing: -1)
-! * Iosevka Term    (Iosevka\ Term)     (size: 14,16) (spacing: 1)
-! * Monospace       (Monospace)         (size: 14,16) (spacing: ?)  (fallback: NONE)
-
-! Smooth Font
-!URxvt*font:           xft:Hack:regular:pixelsize=14,xft:Monospace:regular:pixelsize=14
-!URxvt*boldFont:       xft:Hack:bold:pixelsize=14,xft:Monospace:bold:pixelsize=14
-!URxvt*italicFont:     xft:Hack:italic:pixelsize=14,xft:Monospace:italic:pixelsize=14
-!URxvt*boldItalicFont: xft:Hack:italic:bold:pixelsize=14,xft:Monospace:bold:italic:pixelsize=14
-!URxvt*allow_bold:     true
-!URxvt*allow_italic:   true
-!URxvt*letterSpace:    0
-
-! Bitmap Font
-URxvt*font:         xft:Misc\ Tamsyn:regular:pixelsize=16,xft:Terminus:regular:pixelsize=16
-URxvt*boldFont:     xft:Misc\ Tamsyn:bold:pixelsize=16,xft:Terminus:bold:pixelsize=16
-URxvt*allow_bold:   true
-URxvt*allow_italic: false
-URxvt*letterSpace:  0
-
-! ScrollBar
-URxvt*scrollBar:          false
-URxvt*scrollBar_right:    false
-URxvt*scrollBar_floating: false
-URxvt*scrollstyle:        plain
-
-! Border
-URxvt*internalBorder: 2
-
-! Geometry
-URxvt.geometry: 90x35
-
-! Focus fading
-!URxvt*fading: 20
-
-! Term Name
-!URxvt*termName:  screen-256color
-URxvt*title:     Terminal Emulator
-
-! Colours
-! -----------------------------
-! URxvt Colour Codes
-! 0,8  => Black
-! 1,9  => Red
-! 2,10 => Green
-! 3,11 => Yellow
-! 4,12 => Blue
-! 5,13 => Magenta
-! 6,14 => Cyan
-! 7,15 => White
-! -----------------------------
-! Colours can be set like
-! * magenta      -- Xterm
-! * yellow3      -- Xterm
-! * #21ff4c      -- Hex
-! * rgb:5c/21/ff -- RGB
-! Transparency
-! * rgba:0000/0000/0200/c800
-! -----------------------------
-! Transparency
-! set colour depth to 32 for transparency
-! change background colour to rgba format
-!URxvt*depth: 32
-! Pseudo-transparency
-!URxvt*transparent: true
-! -----------------------------
-! Background Colour
-URxvt*background:  rgb:1f/20/22
-! -----------------------------
-! Font/Foreground Colour
-URxvt*foreground:  rgb:a3/a3/a3
-! -----------------------------
-! Cursor Colour
-URxvt*cursorColor: rgb:a3/a3/a3
-! -----------------------------
-! Normal Colours
-URxvt*color0:  rgb:1f/20/22
-URxvt*color1:  rgb:f2/24/1f
-URxvt*color2:  rgb:67/b1/1d
-URxvt*color3:  rgb:b1/95/1d
-URxvt*color4:  rgb:4f/97/d7
-URxvt*color5:  rgb:a3/1d/b1
-URxvt*color6:  rgb:2d/95/74
-URxvt*color7:  rgb:a3/a3/a3
-! -----------------------------
-! Light Colours
-URxvt*color8:  rgb:58/58/58
-URxvt*color9:  rgb:f2/24/1f
-URxvt*color10: rgb:67/b1/1d
-URxvt*color11: rgb:b1/95/1d
-URxvt*color12: rgb:4f/97/9d
-URxvt*color13: rgb:a3/1d/b1
-URxvt*color14: rgb:2d/95/74
-URxvt*color15: rgb:f8/f8/f8
-! -----------------------------
-! Additional Colours
-URxvt*color16: rgb:ff/a5/00
-URxvt*color17: rgb:b0/30/60
-URxvt*color18: rgb:28/28/28
-URxvt*color19: rgb:44/41/55
-URxvt*color20: rgb:b8/b8/b8
-URxvt*color21: rgb:e8/e8/e8
+! General Configuration
+#define selectedPadding 2
 
 
+! Colours (using Base16)
+*.foreground:  base05
+#ifdef background_opacity
+*.background:  [background_opacity]base00
+#else
+*.background:  base00
+#endif
+*.cursorColor: base05
 
-! #####################################
-! ########### Interaction #############
-! #####################################
+*.color0:  base00
+*.color1:  base08
+*.color2:  base0B
+*.color3:  base0A
+*.color4:  base0D
+*.color5:  base0E
+*.color6:  base0C
+*.color7:  base05
 
-! Disable Bell
-URxvt.visualBell:   false
-URxvt.insecure:     false
-URxvt.urgentOnBell: true
+*.color8:  base03
+*.color9:  base09
+*.color10: base01
+*.color11: base02
+*.color12: base04
+*.color13: base06
+*.color14: base0F
+*.color15: base07
 
-! Cursor
-URxvt.cursorBlink:     true
-URxvt.cursorUnderline: false
+*.color16: base09
+*.color17: base0F
+*.color18: base01
+*.color19: base02
+*.color20: base04
+*.color21: base06
 
-! True: Start as a login shell (reload bash conf files)
-URxvt*loginShell:   false
 
-! Scrolling
-! Scroll back to the bottom on keypress
-URxvt*scrollTtyKeypress:    true
-! Do not scroll with output
-URxvt*scrollTtyOutput:      false
-! Scroll in relation to buffer
-URxvt*scrollWithBuffer:     true
-URxvt.secondaryScreen:      1
-URxvt.secondaryScroll:      0
-!URxvt.secondaryWheel:       1
-! ^install 'rxvt-unicode-better-wheel-scrolling' from AUR
-URxvt*jumpScroll:           false
-URxvt*skipScroll:           true
-URxvt*scrollWheelMousePage: false
+! URxvt Configuration
+#include ".Xresources.d/urxvt.conf"
+! Xterm Configuration
+!#include ".Xresources.d/xterm.conf"
+! Rofi Configuration
+!#include ".Xresources.d/rofi.conf"
 
-! Mouse Cursor
-URxvt*pointerBlank:         true
-URxvt*pointerBlankDelay:    4
 
+! TODO fonts
+! Source Code Pro (Source\ Code\ Pro) (size: 14,16) (spacing: -1) (fallback: )
+! Iosevka Term    (Iosevka\ Term)     (size: 14,16) (spacing: 1)  (fallback: )
+
+
+! vim: ft=xdefaults
