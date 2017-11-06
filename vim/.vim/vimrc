@@ -50,7 +50,6 @@ let g:lion_squeeze_spaces = 1
 Plugin 'wellle/targets.vim',   { 'enabled': 1, } " :h targets.txt
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
 Plugin 'romainl/vim-qf',       { 'enabled': 1, } " :h qf.txt
-"Plugin 'tomtom/quickfixsigns_vim', { 'enabled': 1, }
 packadd matchit
 runtime ftplugin/man.vim
 
@@ -58,12 +57,14 @@ runtime ftplugin/man.vim
 Plugin 'tpope/vim-fugitive'     " :h fugitive.txt
 Plugin 'rhysd/committia.vim'    " :h commitia.txt
 Plugin 'mhinz/vim-signify'      " :h signify.txt
-let g:signify_vcs_list          = ['git', 'hg']
-let g:signify_realtime          = 1
-let g:signify_sign_add          = '+'  " Alternative sign: '•'
-let g:signify_sign_change       = '~'
-let g:signify_sign_changedelete = '•'
-let g:signify_sign_show_count   = 0
+let g:signify_vcs_list               = ['git', 'hg']
+let g:signify_realtime               = 1
+let g:signify_sign_add               = '+' " Alternative sign: '•'
+let g:signify_sign_change            = '~'
+let g:signify_sign_changedelete      = '•'
+let g:signify_sign_delete            = '_'
+let g:signify_sign_delete_first_line = '‾'
+let g:signify_sign_show_count        = 0
 
 " Syntax highlighting packs & code formatting
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -84,12 +85,12 @@ let g:netrw_winsize   = 20
 
 
 " Git Plugin Enabling
-function! s:enable_git_plugins() abort
-    if system('git rev-parse --is-inside-work-tree') =~# '\m\C^true'
+function! s:enable_vcs_plugins() abort
+    if system('parse_vcs_branch') !=# ''
         call vivid#enable('vim-fugitive', 'committia.vim', 'vim-signify')
     endif
 endfunction
-autocmd! BufReadPre * call s:enable_git_plugins()
+autocmd! BufReadPre * call s:enable_vcs_plugins()
 
 " Clang Plugin Enabling
 autocmd! FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format',
@@ -178,24 +179,23 @@ set visualbell t_vb=    " Disable sound & visual alerts
 set laststatus=2        " Always display statusline
 
 " Configure the Vim status line {{{
-" Left:  [Git Branch][File name][Modified][Read-only][Help][Preview]
+" Left:  [VCS Branch][File name][Modified][Read-only][Help][Preview]
 "        [Block 1   ][Block 2                                      ]
 " Right: [File format][Encoding][File type][Position in file][Column number]
 "        [Block 3              ][Block 4  ][Block 5                        ]
 
-" Fetch the Git branch
-function! GitBranch() abort
-    if vivid#enabled('vim-fugitive') && fugitive#head() != ''
-        return '  ' . fugitive#head() . ' '
+" Fetch the VCS branch TODO improve the autocmd
+autocmd! BufEnter,CursorHold * let s:branch = system('parse_vcs_branch')
+function! GetVCSBranch() abort
+    "let l:branch = system('parse_vcs_branch')
+    if s:branch != ''
+        return ' ' . s:branch . ' '
     else | return ''
     endif
 endfunction
 
-" Git branch info
-"set statusline=%{vivid#enabled('vim-fugitive')==1&&fugitive#head()!=''?'\ \ '.fugitive#head().'\ ':''}
-
 function! ActiveStatus() abort
-    let l:statusline  = "%(%#LineNr#%{GitBranch()}%)"             " Block 1
+    let l:statusline  = "%(%#LineNr#%{GetVCSBranch()}%)"          " Block 1
     let l:statusline .= "%(%#StatusLine#\ %f%m%r%h%w\ %)"         " Block 2
     let l:statusline .= "%#StatusLine#%=%<"                       " Right side
     let l:statusline .= "%(%#StatusLine#%{&fileformat}\ \ " .
@@ -206,7 +206,7 @@ function! ActiveStatus() abort
 endfunction
 
 function! InactiveStatus() abort
-    let l:statusline  = "%(%#LineNr#%{GitBranch()}%)"             " Block 1
+    let l:statusline  = "%(%#LineNr#%{GetVCSBranch()}%)"          " Block 1
     let l:statusline .= "%(%#StatusLineNC#\ %f%m%r%h%w\ %)"       " Block 2
     let l:statusline .= "%#StatusLineNC#%=%<"                     " Right side
     let l:statusline .= "%(%#StatusLineNC#%{&fileformat}\ \ " .
@@ -330,7 +330,7 @@ augroup vim-make
     " LaTeX files
     autocmd FileType plaintex,tex setlocal makeprg=latexmk\ -pdf\ %
     " Xdefaults files
-    autocmd FileType xdefaults setlocal makeprg=xrdb\ %
+    autocmd FileType xdefaults setlocal makeprg=xrdb\ -merge\ -I$HOME\ %
 augroup END
 
 " Text Files (text, tex, markdown, org, gitcommit, diff)

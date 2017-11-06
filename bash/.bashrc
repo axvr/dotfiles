@@ -60,16 +60,15 @@ export MANPAGER="less"
 
 # Default with VCS branch
 function parse_vcs_branch() {
-    GIT_BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/*\(.*\)/\1/')
-    HG_BRANCH=$(hg branch 2> /dev/null | awk '{print " "$1""}')
-    if [[ ! "${GIT_BRANCH}" == "" ]]; then
-        echo "${GIT_BRANCH}"
-    elif [[ ! "${HG_BRANCH}" == "" ]]; then
-        echo "${HG_BRANCH}"
-    else
-        echo ""
+    # Check Git Branch
+    BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/*\(.*\)/\1/')
+    # Check HG Branch
+    if [[ "${BRANCH}" == "" ]]; then
+        BRANCH=$(hg branch 2> /dev/null | awk '{print " "$1""}')
     fi
+    printf "${BRANCH}"
 }
+export -f parse_vcs_branch
 export PS1="[\u@\h \W\[\e[32m\]\`parse_vcs_branch\`\[\e[m\]]\\$ "
 
 # Termux (Android) version of default
@@ -111,4 +110,6 @@ alias startx='startx; vlock'
 alias vi="vim"
 alias nv="nvim -u ~/.vim/vimrc"
 alias em="emacs -nw"
+alias ledger="ledger -f ~/.ledger/personal.dat"
+alias ledger-record="vim ~/.ledger/personal.dat"
 
