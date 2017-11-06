@@ -40,8 +40,8 @@ $endif
 # Color files by types
 set colored-stats On
 # Append char to indicate type
-set visible-stats On
-set mark-symlinked-directories On
+set visible-stats Off
+set mark-symlinked-directories Off
 # Color the common prefix
 set colored-completion-prefix On
 set menu-complete-display-prefix On

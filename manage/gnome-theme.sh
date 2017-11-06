@@ -6,7 +6,7 @@
 
 
 function setup_for_theme_switching() {    # ONLY RUN ONCE (using 'setup' as an option)
-    sudo wget https://raw.githubusercontent.com/cyberalex4life/gnome-shell-extension-cl/master/gnome-shell-extension-cl \
+    sudo wget https://raw.githubusercontent.com/axvr/gnome-shell-extension-cl/master/gnome-shell-extension-cl \
     -O /usr/local/bin/gnome-shell-extension-cl
     sudo chmod +x /usr/local/bin/gnome-shell-extension-cl
     gnome-shell-extension-cl -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
