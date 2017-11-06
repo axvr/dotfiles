@@ -1,0 +1,36 @@
+! Terminus Font Definitions
+! -----------------------------
+
+! Default Font
+#define fontName Terminus
+#define fontSize 16
+
+#define fontNameB Terminus
+#define fontSizeB 16
+
+#define fontNameI Terminus
+#define fontSizeI 16
+
+#define fontNameBI Terminus
+#define fontSizeBI 16
+
+! Fallback Font
+#define fontFbName Misc\ Tamsyn
+#define fontFbSize 16
+
+#define fontFbNameB Misc\ Tamsyn
+#define fontFbSizeB 16
+
+#define fontFbNameI Misc\ Tamsyn
+#define fontFbSizeI 16
+
+#define fontFbNameBI Misc\ Tamsyn
+#define fontFbSizeBI 16
+
+! Either Font
+#define fontUseB    true
+#define fontUseI    false
+#define fontSpacing 0
+
+
+! vim: ft=xdefaults

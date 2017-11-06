@@ -1,0 +1,25 @@
+! Autumn Colour scheme
+! -----------------------------
+! Autumn themed colour scheme
+! for X (xcolors.net/dl/autumn)
+! -----------------------------
+
+#define base00 #1b1b1b
+#define base01 #8af69c
+#define base02 #a8f470
+#define base03 #333333
+#define base04 #ead41f
+#define base05 #b3b3b3
+#define base06 #842e15
+#define base07 #d2d2d2
+#define base08 #2fcc93
+#define base09 #7eeec6
+#define base0A #7bba4d
+#define base0B #3ea24f
+#define base0C #b1b360
+#define base0D #92893d
+#define base0E #a65841
+#define base0F #4d4e21
+
+
+! vim: ft=xdefaults
