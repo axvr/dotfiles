@@ -19,7 +19,7 @@
 "   Tools:  ctags
 
 
-" Initial Config {{{
+" Initial Config
 
 " Make sure the file is readable
 if !1 | finish | endif
@@ -31,76 +31,13 @@ if &modifiable != 0
     set fileencoding=utf-8
 endif
 
-" }}}
-
-" Plugin Configuration {{{
-
-" Plugin Setup
-if has('vim_starting')
-    if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
-        silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/pack/vivid/opt/Vivid.vim
-    endif
-    packadd Vivid.vim
-endif
-
-" Vim enhancements
-Plugin 'jiangmiao/auto-pairs', { 'enabled': 1, } " :h AutoPairs.txt
-Plugin 'tommcdo/vim-lion',     { 'enabled': 1, } " :h lion.txt
-let g:lion_squeeze_spaces = 1
-Plugin 'wellle/targets.vim',   { 'enabled': 1, } " :h targets.txt
-Plugin 'romainl/vim-cool',     { 'enabled': 1, }
-Plugin 'romainl/vim-qf',       { 'enabled': 1, } " :h qf.txt
-packadd matchit
-runtime ftplugin/man.vim
-
-" Git integration
-Plugin 'tpope/vim-fugitive'     " :h fugitive.txt
-Plugin 'rhysd/committia.vim'    " :h commitia.txt
-Plugin 'mhinz/vim-signify'      " :h signify.txt
-let g:signify_vcs_list               = ['git', 'hg']
-let g:signify_realtime               = 1
-let g:signify_sign_add               = '+' " Alternative sign: '•'
-let g:signify_sign_change            = '~'
-let g:signify_sign_changedelete      = '•'
-let g:signify_sign_delete            = '_'
-let g:signify_sign_delete_first_line = '‾'
-let g:signify_sign_show_count        = 0
-
-" Syntax highlighting packs & code formatting
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'rust-lang/rust.vim'
-Plugin 'rhysd/vim-clang-format'
-let g:clang_format#code_style = 'google'
-let g:clang_format#detect_style_file = 1
-
-" Colour schemes and themes
-Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
-
-" CLI Tools Integration
-Plugin 'ledger/vim-ledger'
-
-" Netrw Configuration
-let g:netrw_banner    = 0
-let g:netrw_winsize   = 20
-
-
-" Git Plugin Enabling
-function! s:enable_vcs_plugins() abort
-    if system('parse_vcs_branch') !=# ''
-        call vivid#enable('vim-fugitive', 'committia.vim', 'vim-signify')
+" Simplify loading of Vim config files
+function! s:loadConfig(file) abort
+    let l:file = expand(a:file)
+    if filereadable(l:file)
+        execute 'source ' . l:file
     endif
 endfunction
-autocmd! BufReadPre * call s:enable_vcs_plugins()
-
-" Clang Plugin Enabling
-autocmd! FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format',
-            \ 'vim-cpp-enhanced-highlight')
-
-" Enable Ledger Plugin
-autocmd! FileType ledger if vivid#enabled('vim-ledger') == 0 | 
-            \ call vivid#enable('vim-ledger') | e % | endif
-
-" }}}
 
 " Basic Configuration {{{
 
@@ -109,10 +46,9 @@ filetype plugin indent on
 if !exists('g:syntax_on')
     syntax enable
 endif
-set hidden
+set hidden confirm
 set splitright splitbelow
 set autoread
-set confirm
 set fileformats=unix,mac,dos
 set mouse=a
 set backspace=indent,eol,start
@@ -120,10 +56,8 @@ set spelllang=en_gb
 set history=200
 set lazyredraw
 set showmatch
-set foldenable
-set foldmethod=marker
-set modeline
-set modelines=5
+set foldenable foldmethod=marker
+set modeline modelines=5
 
 " Searching
 set ignorecase      " Ignore case in searches
@@ -168,80 +102,11 @@ set path+=**
 
 " }}}
 
-" Vim & GVim styling {{{
-set number relativenumber
-set showmode showcmd
-set ruler
-set rulerformat=%.20(%=%<%(%{&filetype==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %2c%)%)
-set cursorline          " Highlight current line
-let &colorcolumn=join(range(81,335), ',')
-set visualbell t_vb=    " Disable sound & visual alerts
-set laststatus=2        " Always display statusline
+" Plugin Config
+call <SID>loadConfig('$HOME/.vim/config/plugins.vim')
 
-" Configure the Vim status line {{{
-" Left:  [VCS Branch][File name][Modified][Read-only][Help][Preview]
-"        [Block 1   ][Block 2                                      ]
-" Right: [File format][Encoding][File type][Position in file][Column number]
-"        [Block 3              ][Block 4  ][Block 5                        ]
-
-" Fetch the VCS branch TODO improve the autocmd
-autocmd! BufEnter,CursorHold * let s:branch = system('parse_vcs_branch')
-function! GetVCSBranch() abort
-    "let l:branch = system('parse_vcs_branch')
-    if s:branch != ''
-        return ' ' . s:branch . ' '
-    else | return ''
-    endif
-endfunction
-
-function! ActiveStatus() abort
-    let l:statusline  = "%(%#LineNr#%{GetVCSBranch()}%)"          " Block 1
-    let l:statusline .= "%(%#StatusLine#\ %f%m%r%h%w\ %)"         " Block 2
-    let l:statusline .= "%#StatusLine#%=%<"                       " Right side
-    let l:statusline .= "%(%#StatusLine#%{&fileformat}\ \ " .
-                \ "%{&fileencoding?&fileencoding:&encoding}\ %)"  " Block 3
-    let l:statusline .= "%(%#StatusLine#%{&filetype==''?'':'\ '.&ft.'\ '}%)"       " Block 4
-    let l:statusline .= "%(%#StatusLine#\ %P\ \ %2c\ %)"          " Block 5
-    return l:statusline
-endfunction
-
-function! InactiveStatus() abort
-    let l:statusline  = "%(%#LineNr#%{GetVCSBranch()}%)"          " Block 1
-    let l:statusline .= "%(%#StatusLineNC#\ %f%m%r%h%w\ %)"       " Block 2
-    let l:statusline .= "%#StatusLineNC#%=%<"                     " Right side
-    let l:statusline .= "%(%#StatusLineNC#%{&fileformat}\ \ " .
-                \ "%{&fileencoding?&fileencoding:&encoding}\ %)"  " Block 3
-    let l:statusline .= "%(%#StatusLineNC#%{&filetype==''?'':'\ '.&ft.'\ '}%)"     " Block 4
-    let l:statusline .= "%(%#StatusLineNC#\ %P\ \ %2c\ %)"        " Block 5
-    return l:statusline
-endfunction
-
-augroup theme
-    autocmd!
-    autocmd WinEnter,BufEnter * setlocal statusline=%!ActiveStatus()
-    autocmd WinLeave,BufLeave * setlocal statusline=%!InactiveStatus()
-augroup END " }}}
-
-set background=dark
-colorscheme space-vim-dark
-if has('gui_running')  " Just incase I ever use GVim (not likely)
-    set guifont=Monospace\ 11
-    set guioptions-=T guioptions-=m guioptions-=r guioptions+=c guioptions-=L
-else
-    if $TERM == 'xterm-256color'
-        set t_Co=256
-    endif
-    "set termguicolors
-    if system('printf "$TMUX"') =~# '\m\C^$'
-        highlight Comment cterm=italic
-    else
-        highlight Comment cterm=NONE
-    endif
-endif
-highlight SpellBad   ctermbg=NONE
-highlight SpellLocal ctermbg=NONE
-
-" }}}
+" Styling
+call <SID>loadConfig('$HOME/.vim/config/styling.vim')
 
 " Set Keymaps & Commands {{{
 

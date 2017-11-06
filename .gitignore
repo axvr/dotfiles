@@ -1,6 +1,7 @@
 # Vim config
 */.vim/*
 !*/.vim/vimrc
+!*/.vim/config/
 
 # Emacs config
 */.emacs.d/*
