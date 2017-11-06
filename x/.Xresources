@@ -58,9 +58,4 @@
 !#include ".Xresources.d/rofi.conf"
 
 
-! TODO fonts
-! Source Code Pro (Source\ Code\ Pro) (size: 14,16) (spacing: -1) (fallback: )
-! Iosevka Term    (Iosevka\ Term)     (size: 14,16) (spacing: 1)  (fallback: )
-
-
 ! vim: ft=xdefaults

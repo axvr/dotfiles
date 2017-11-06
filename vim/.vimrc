@@ -228,8 +228,10 @@ if has('gui_running')  " Just incase I ever use GVim (not likely)
     set guifont=Monospace\ 11
     set guioptions-=T guioptions-=m guioptions-=r guioptions+=c guioptions-=L
 else
-    set t_Co=256
-    set termguicolors
+    if $TERM == 'xterm-256color'
+        set t_Co=256
+    endif
+    "set termguicolors
     if system('printf "$TMUX"') =~# '\m\C^$'
         highlight Comment cterm=italic
     else
