@@ -2,8 +2,6 @@
 # -----------------------------
 # ~/.bashrc
 # -----------------------------
-# Bash Configuration File
-# -----------------------------
 
 
 #################################
@@ -111,5 +109,6 @@ alias vi="vim"
 alias nv="nvim -u ~/.vim/vimrc"
 alias em="emacs -nw"
 alias ledger="ledger -f ~/.ledger/personal.dat"
-alias ledger-record="vim ~/.ledger/personal.dat"
+alias ledger-record="${EDITOR} ~/.ledger/personal.dat"
+alias dl="youtube-dl"
 
