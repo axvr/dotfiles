@@ -7,7 +7,7 @@ set showmode showcmd
 set ruler
 set rulerformat=%.20(%=%<%(%{&filetype==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %2c%)%)
 set cursorline          " Highlight current line
-let &colorcolumn=join(range(81,335), ',')
+let &colorcolumn='+'.join(range(1,335), ',+')
 set visualbell t_vb=    " Disable sound & visual alerts
 set laststatus=2        " Always display statusline
 
@@ -17,7 +17,7 @@ if has('gui_running')  " Just incase I ever use GVim (not likely)
 else
     if $TERM == 'xterm-256color'
         set t_Co=256
-        "set termguicolors
+        set termguicolors
     endif
 endif
 

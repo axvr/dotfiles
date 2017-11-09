@@ -9,10 +9,16 @@
 
 # Just in case
 *.dat
+*.data
 .bash_history
 .lesshst
 *.swp
-*.gpg
+*.kdbx
+*.kdb
+*.pass
+*wallet*
 *.asc
+*.gpg
 *.pgp
+*.pub
 *.bin

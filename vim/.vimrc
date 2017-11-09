@@ -203,19 +203,9 @@ augroup END
 " Text Files (text, tex, markdown, org, gitcommit, diff)
 augroup text
     autocmd!
-    " Set soft wrap for text files
-    autocmd FileType text,plaintex,tex,markdown,gitcommit,html,css setlocal spell
-    autocmd FileType text,plaintex,tex,markdown,gitcommit,diff,man setlocal nofoldenable
-
-    if exists('+breakindent')
-        autocmd FileType text,plaintex,tex,markdown,gitcommit,diff,html,css
-                    \ setlocal breakindent
-    endif
-
-    autocmd FileType text,plaintex,tex,markdown,gitcommit,html,css,man let &l:colorcolumn=0
-    autocmd FileType diff let &l:colorcolumn=join(range(82,335), ',')
-    autocmd FileType text,plaintex,tex,markdown,diff setlocal number norelativenumber
-    autocmd FileType gitcommit,man setlocal nonumber norelativenumber
+    autocmd FileType text,plaintex,tex,markdown,gitcommit,html setlocal spell
+    autocmd FileType text,plaintex,tex,gitcommit,diff,man setlocal nofoldenable
+    autocmd FileType diff,man setlocal textwidth=0 norelativenumber
 augroup END
 
 " Binary Files

@@ -34,8 +34,7 @@ let g:signify_sign_delete            = '_'
 let g:signify_sign_delete_first_line = '‾'
 let g:signify_sign_show_count        = 0
 
-" Syntax highlighting packs & code formatting
-Plugin 'octol/vim-cpp-enhanced-highlight'
+" Syntax highlighting & formatting packs
 Plugin 'rust-lang/rust.vim'
 Plugin 'rhysd/vim-clang-format'
 let g:clang_format#code_style = 'google'
