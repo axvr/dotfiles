@@ -23,7 +23,6 @@ runtime ftplugin/man.vim
 
 " Git integration
 Plugin 'tpope/vim-fugitive'     " :h fugitive.txt
-Plugin 'rhysd/committia.vim'    " :h commitia.txt
 Plugin 'mhinz/vim-signify'      " :h signify.txt
 let g:signify_vcs_list               = ['git', 'hg']
 let g:signify_realtime               = 1
@@ -36,9 +35,6 @@ let g:signify_sign_show_count        = 0
 
 " Syntax highlighting & formatting packs
 Plugin 'rust-lang/rust.vim'
-Plugin 'rhysd/vim-clang-format'
-let g:clang_format#code_style = 'google'
-let g:clang_format#detect_style_file = 1
 Plugin 'ledger/vim-ledger'
 
 " Colour schemes and themes
@@ -47,22 +43,13 @@ Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
 " Netrw Configuration
 let g:netrw_banner    = 0
 let g:netrw_winsize   = 20
-let g:netrw_list_hide = &wildignore
 
 
 " Git Plugin Enabling
 function! s:enable_vcs_plugins() abort
     if system('parse_vcs_branch') !=# ''
-        call vivid#enable('vim-fugitive', 'committia.vim', 'vim-signify')
+        call vivid#enable('vim-fugitive', 'vim-signify')
     endif
 endfunction
 autocmd! BufReadPre * call s:enable_vcs_plugins()
-
-" Clang Plugin Enabling
-autocmd! FileType c,h,cpp,hpp,cc,objc call vivid#enable('vim-clang-format',
-            \ 'vim-cpp-enhanced-highlight')
-
-" Enable Ledger Plugin
-autocmd! FileType ledger if vivid#enabled('vim-ledger') == 0 | 
-            \ call vivid#enable('vim-ledger') | e % | endif
 

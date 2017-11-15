@@ -35,15 +35,18 @@ endfunction
 " Right: [File format][Encoding][File type][Position in file][Column number]
 "        [Block 3              ][Block 4  ][Block 5                        ]
 
-" Fetch the VCS branch 
-" FIXME breaks auto-pairs
-" FIXME slows down Vim significantly
-" TODO improve the autocmd
-"autocmd! BufEnter,CursorHold * let s:branch = system('parse_vcs_branch')
+" FIXME Fetch the VCS branch 
 function! GetVCSBranch() abort
-    let s:branch = ' unknown'
+    if executable('parse_vcs_branch') " <-- This doesn't work for some reason
+        let s:branch = system('parse_vcs_branch')
+    elseif vivid#enabled('vim-fugitive')
+        let s:branch = fugitive#head()
+    else
+        let s:branch = ''
+    endif
+
     if s:branch != ''
-        return ' ' . s:branch . ' '
+        return '  ' . s:branch . ' '
     else | return ''
     endif
 endfunction

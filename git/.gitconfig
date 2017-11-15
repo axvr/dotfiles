@@ -14,7 +14,6 @@
         tags = tag -l
         branches = branch -a
         remotes = remote -v
-        yolo = 'git commit -am "DEAL WITH IT" && git push -f origin master'
 
 
 ;  vim: set ts=8 sw=8 tw=80 et ft=gitconfig fdm=marker fmr={{{,}}} :

@@ -58,6 +58,7 @@ set lazyredraw
 set showmatch
 set foldenable foldmethod=marker
 set modeline modelines=5
+set clipboard^=unnamedplus,unnamed
 
 " Searching
 set ignorecase      " Ignore case in searches
@@ -110,21 +111,26 @@ call <SID>loadConfig('$HOME/.vim/config/styling.vim')
 
 " Set Keymaps & Commands {{{
 
+let mapleader = "\<space>"
+inoremap jk <ESC>
 " Git keybindings
 nnoremap <leader>gs :<C-u>Gstatus<CR>
 nnoremap <leader>gc :<C-u>Gcommit<CR>
 nnoremap <leader>gd :<C-u>Gdiff<CR>
 nnoremap <leader>gb :<C-u>Gblame<CR>
 nnoremap <leader>ga :<C-u>Gwrite<CR>
+nnoremap <leader>gg :<C-u>Git<space>
 " Spell check toggle
 nnoremap <F7> :<C-u>setlocal spell!<CR>
+nnoremap <buffer><leader>ss :<C-u>setlocal spell!<CR>
 " Make tags file using ctags
 command! -nargs=0 MakeTags !ctags -R .
+nnoremap <silent> <leader>mt :<C-u>!ctags -R .<CR>
 " Clang format
 autocmd FileType c,h,cpp,hpp,cc,objc
-            \ nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+            \ nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,h,cpp,hpp,cc,objc
-            \ vnoremap <buffer><Leader>cf :ClangFormat<CR>
+            \ vnoremap <buffer><leader>cf :ClangFormat<CR>
 
 " Remove trailing whitespace {{{
 function! s:trim(bang) abort
@@ -158,9 +164,8 @@ function! AppendModeline()
 endfunction
 nnoremap <silent> <Leader>ml :<C-u>call AppendModeline()<CR>
 
-" Custom notes solution integration
-
-"command! -bar -nargs=? Note call name#pending(<f-args>)
+" Allow quick changing of termguicolors
+nnoremap <leader>tc :<C-u>set termguicolors!<CR>
 
 " }}}
 
@@ -186,75 +191,16 @@ if exists('+breakindent')
 endif
 
 " Vim ':make' config
-augroup vim-make
-    autocmd!
-    " Perl files
-    autocmd FileType perl setlocal makeprg=perl\ -c\ %
-    autocmd FileType perl setlocal errorformat+=%m\ at\ %f\ line\ %l\.
-    autocmd FileType perl setlocal errorformat+=%m\ at\ %f\ line\ %l
-    " Shell files
-    autocmd FileType sh setlocal makeprg=shellcheck\ -f\ gcc\ %
-    " LaTeX files
-    autocmd FileType plaintex,tex setlocal makeprg=latexmk\ -pdf\ %
-    " Xdefaults files
-    autocmd FileType xdefaults setlocal makeprg=xrdb\ -merge\ -I$HOME\ %
-augroup END
+" LaTeX files
+autocmd! FileType plaintex,tex setlocal makeprg=latexmk\ -pdf\ %
 
 " Text Files (text, tex, markdown, org, gitcommit, diff)
 augroup text
     autocmd!
-    autocmd FileType text,plaintex,tex,markdown,gitcommit,html setlocal spell
+    " auto spell (text, gitcommit)
     autocmd FileType text,plaintex,tex,gitcommit,diff,man setlocal nofoldenable
     autocmd FileType diff,man setlocal textwidth=0 norelativenumber
 augroup END
-
-" Binary Files
-" Change Vim into a hex editor
-augroup binary " {{{
-    autocmd!
-    autocmd BufReadPre   *.bin let &bin=1
-    autocmd BufReadPost  *.bin if &bin | %!xxd
-    autocmd BufReadPost  *.bin set ft=xxd | endif
-    autocmd BufWritePre  *.bin if &bin | %!xxd -r
-    autocmd BufWritePre  *.bin endif
-    autocmd BufWritePost *.bin if &bin | %!xxd
-    autocmd BufWritePost *.bin set nomod | endif
-augroup END " }}}
-
-" GPG Encrypted Files
-" Transparent editing of gpg encrypted files. By Wouter Hanegraaff.
-augroup encrypted  " {{{
-    autocmd!
-
-    " First make sure nothing is written to ~/.viminfo while editing
-    " an encrypted file.
-    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set viminfo=
-    " We don't want a various options which write unencrypted data to disk
-    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp
-                \ set noswapfile noundofile nobackup
-
-    " Switch to binary mode to read the encrypted file
-    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp set bin
-    autocmd BufReadPre,FileReadPre *.gpg,*.asc,*.pgp let ch_save = &ch|set ch=2
-    " (If you use tcsh, you may need to alter this line.)
-    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp
-                \ '[,']!gpg --decrypt 2> /dev/null
-
-    " Switch to normal mode for editing
-    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp set nobin
-    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp
-                \ let &ch = ch_save|unlet ch_save
-    autocmd BufReadPost,FileReadPost *.gpg,*.asc,*.pgp
-                \ execute ':doautocmd BufReadPost ' . expand('%:r')
-
-    " Convert all text to encrypted text before writing
-    " (If you use tcsh, you may need to alter this line.)
-    autocmd BufWritePre,FileWritePre *.gpg,*.asc,*.pgp
-                \ '[,']!gpg --default-recipient-self -ae 2>/dev/null
-    " Undo the encryption so we are back in the normal text, directly
-    " after the file has been written.
-    autocmd BufWritePost,FileWritePost *.gpg,*.asc,*.pgp u
-augroup END  " }}}
 
 " }}}
 

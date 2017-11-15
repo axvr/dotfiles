@@ -46,7 +46,7 @@ function install_applications() {
     cargo install rustfmt
     cargo install racer # TODO set up rust racer
 
-    # TODO install GNU stow, ledger, taskwarrior, youtube-dl
+    # TODO install GNU stow, ledger, taskwarrior, youtube-dl, pandoc
 
     sudo dnf -y groupinstall "Development Tools" \
          "C Development Tools and Libraries" \

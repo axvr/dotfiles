@@ -1,11 +1,13 @@
 # Vim config
-*/.vim/*
-!*/.vim/vimrc
-!*/.vim/config/
+**/.vim/**
+!**/.vim/vimrc
+!**/.vim/config/
+!**/.vim/ftplugin/
+!**/.vim/ftdetect/
 
 # Emacs config
-*/.emacs.d/*
-!*/.emacs.d/init.el
+**/.emacs.d/**
+!**/.emacs.d/init.el
 
 # Just in case
 *.dat
