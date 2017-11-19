@@ -122,15 +122,10 @@ nnoremap <leader>ga :<C-u>Gwrite<CR>
 nnoremap <leader>gg :<C-u>Git<space>
 " Spell check toggle
 nnoremap <F7> :<C-u>setlocal spell!<CR>
-nnoremap <buffer><leader>ss :<C-u>setlocal spell!<CR>
+nnoremap <leader>ss :<C-u>setlocal spell!<CR>
 " Make tags file using ctags
 command! -nargs=0 MakeTags !ctags -R .
 nnoremap <silent> <leader>mt :<C-u>!ctags -R .<CR>
-" Clang format
-autocmd FileType c,h,cpp,hpp,cc,objc
-            \ nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,h,cpp,hpp,cc,objc
-            \ vnoremap <buffer><leader>cf :ClangFormat<CR>
 
 " Remove trailing whitespace {{{
 function! s:trim(bang) abort
@@ -152,6 +147,8 @@ function! s:syn_stack()
 endfunction
 nnoremap <leader>hg :call <SID>syn_stack()<CR>
 
+" TODO set up local leader?
+
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX files.
 function! AppendModeline()
@@ -162,14 +159,14 @@ function! AppendModeline()
     let l:modeline = substitute(&commentstring, '%s', l:modeline, '')
     call append(line('$'), l:modeline)
 endfunction
-nnoremap <silent> <Leader>ml :<C-u>call AppendModeline()<CR>
+nnoremap <Leader>ml :<C-u>call AppendModeline()<CR>
 
 " Allow quick changing of termguicolors
 nnoremap <leader>tc :<C-u>set termguicolors!<CR>
 
 " }}}
 
-" File Specific Config {{{
+" File Specific Config
 
 " Indentation Config (Spaces > Tabs)
 set tabstop=8       " ts  -- Don't change this value
@@ -190,19 +187,8 @@ if exists('+breakindent')
     set breakindent
 endif
 
-" Vim ':make' config
-" LaTeX files
-autocmd! FileType plaintex,tex setlocal makeprg=latexmk\ -pdf\ %
 
-" Text Files (text, tex, markdown, org, gitcommit, diff)
-augroup text
-    autocmd!
-    " auto spell (text, gitcommit)
-    autocmd FileType text,plaintex,tex,gitcommit,diff,man setlocal nofoldenable
-    autocmd FileType diff,man setlocal textwidth=0 norelativenumber
-augroup END
-
-" }}}
+let g:tex_flavor = "latex"
 
 
 " vim: set ts=8 sw=4 tw=80 et ft=vim fdm=marker fmr={{{,}}} :

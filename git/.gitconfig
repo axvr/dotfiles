@@ -1,19 +1,9 @@
 ; Git Configuration File
 
 [user]
-        name = Alex Vear
-        email = axvr@users.noreply.github.com
+    name = Alex Vear
+    email = axvr@users.noreply.github.com
 [core]
-        editor = vim
-        excludesfile = /home/axvr/.gitignore_global
-        pager = less -R
-[color]
-        ui = auto
-        interactive = auto
-[alias]
-        tags = tag -l
-        branches = branch -a
-        remotes = remote -v
+    editor = vim
+    excludesfile = /home/axvr/.gitignore_global
 
-
-;  vim: set ts=8 sw=8 tw=80 et ft=gitconfig fdm=marker fmr={{{,}}} :
