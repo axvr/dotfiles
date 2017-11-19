@@ -1,9 +1,9 @@
-" =======================================
-" File: ~/.vim/ftplugin/encrypted.vim
-"
-"
-" =======================================
+" =============================================================
+" Description:  Set up Vim for Editing Encrypted Files
+" File:         ~/.vim/ftplugin/encrypted.vim
+" =============================================================
 
+" | FIXME | FIXME | FIXME | FIXME | FIXME | FIXME | FIXME | FIXME |
 
 " GPG Encrypted Files
 " Transparent editing of gpg encrypted files. By Wouter Hanegraaff.
@@ -38,4 +38,3 @@ augroup encrypted
     " after the file has been written.
     autocmd BufWritePost,FileWritePost encrypted undo
 augroup END
-

@@ -44,6 +44,8 @@ Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
 let g:netrw_banner    = 0
 let g:netrw_winsize   = 20
 
+" Tex.vim Syntax plugin Config
+let g:tex_flavor = "latex"
 
 " Git Plugin Enabling
 function! s:enable_vcs_plugins() abort

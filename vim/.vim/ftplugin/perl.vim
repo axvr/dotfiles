@@ -1,11 +1,7 @@
-" =======================================
-" File: ~/.vim/ftplugin/perl.vim
-"
-"
-" =======================================
-
-
-
+" =============================================================
+" Description:  Set up Vim for Editing Perl Files
+" File:         ~/.vim/ftplugin/perl.vim
+" =============================================================
 
 " Set up Vim make and quickfix
 if executable('perl')
@@ -13,4 +9,3 @@ if executable('perl')
     setlocal errorformat+=%m\ at\ %f\ line\ %l\.
     setlocal errorformat+=%m\ at\ %f\ line\ %l
 endif
-

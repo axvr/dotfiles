@@ -1,9 +1,9 @@
-" =======================================
-" File: ~/.vim/ftplugin/binary.vim
-"
-"
-" =======================================
+" =============================================================
+" Description:  Set up Vim for Viewing and Editing Binary Files
+" File:         ~/.vim/ftplugin/binary.vim
+" =============================================================
 
+" | FIXME | FIXME | FIXME | FIXME | FIXME | FIXME | FIXME | FIXME |
 
 " ex command for toggling hex mode - define mapping if desired
 command -bar Hexmode call ToggleHex()
@@ -97,4 +97,3 @@ if has("autocmd")
           \ endif
   augroup END
 endif
-

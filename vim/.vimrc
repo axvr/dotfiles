@@ -1,6 +1,7 @@
-" Vim Configuration File (~/.vimrc)
-" =================================
-
+" =============================================================
+" Description:  Main Vim Configuration File
+" File:         ~/.vimrc
+" =============================================================
 " Brief Help:
 "   :PluginInstall      - Install new plugins
 "   :PluginUpgrade      - Update installed plugins
@@ -8,15 +9,16 @@
 "   :PluginClean        - Remove unused plugins
 "   :mks[ession] path   - Create a session
 "   :so[urce] path      - Load a session or Vim Script
-
+" =============================================================
 " Dependencies:
-"   LaTeX:  latexmk & pdflatex
-"   Perl:   perl
-"   Shell:  shellcheck
-"   Clangs: clang-tidy (-checks=* ???), clang, gcc, gcc-c++ (g++)
-"   Python: pylint
-"   Build:  make, cmake, etc
-"   Tools:  ctags
+"   LaTeX:      latexmk & pdflatex
+"   Perl:       perl
+"   Shell:      shellcheck
+"   C Based:    clang-tidy (-checks=*), clang, gcc, gcc-c++ (g++)
+"   Python:     pylint
+"   Build:      make, cmake, etc
+"   Tools:      ctags
+" =============================================================
 
 
 " Initial Config
@@ -109,9 +111,10 @@ call <SID>loadConfig('$HOME/.vim/config/plugins.vim')
 " Styling
 call <SID>loadConfig('$HOME/.vim/config/styling.vim')
 
-" Set Keymaps & Commands {{{
+" Set Keymaps & Commands
 
 let mapleader = "\<space>"
+let maplocalleader = ","
 inoremap jk <ESC>
 " Git keybindings
 nnoremap <leader>gs :<C-u>Gstatus<CR>
@@ -125,46 +128,10 @@ nnoremap <F7> :<C-u>setlocal spell!<CR>
 nnoremap <leader>ss :<C-u>setlocal spell!<CR>
 " Make tags file using ctags
 command! -nargs=0 MakeTags !ctags -R .
-nnoremap <silent> <leader>mt :<C-u>!ctags -R .<CR>
-
-" Remove trailing whitespace {{{
-function! s:trim(bang) abort
-    if a:bang || (!&binary && &filetype != 'diff')
-        normal! mz
-        normal! Hmy
-        %s/\m\C\s\+$//e
-        normal! 'yz<CR>
-        normal! `z
-    else | echoerr 'Warning! Not reccommended to trim whitespace in this file.'
-    endif
-endfunction
-command! -nargs=0 -bar -bang Trim call <SID>trim('!' == '<bang>') " }}}
-
-" Show Highlighting group for current word
-function! s:syn_stack()
-    if !exists('*synstack') | return | endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunction
-nnoremap <leader>hg :call <SID>syn_stack()<CR>
-
-" TODO set up local leader?
-
-" Append modeline after last line in buffer.
-" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX files.
-function! AppendModeline()
-    let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set ft=%s fdm=%s ' .
-                \ 'fmr=%s :',
-                \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no',
-                \ &filetype, &foldmethod, &foldmarker)
-    let l:modeline = substitute(&commentstring, '%s', l:modeline, '')
-    call append(line('$'), l:modeline)
-endfunction
-nnoremap <Leader>ml :<C-u>call AppendModeline()<CR>
-
+nnoremap <silent> <leader>mt :<C-u>MakeTags<CR>
 " Allow quick changing of termguicolors
 nnoremap <leader>tc :<C-u>set termguicolors!<CR>
 
-" }}}
 
 " File Specific Config
 
@@ -186,9 +153,6 @@ set nolist              " List disables linebreak
 if exists('+breakindent')
     set breakindent
 endif
-
-
-let g:tex_flavor = "latex"
 
 
 " vim: set ts=8 sw=4 tw=80 et ft=vim fdm=marker fmr={{{,}}} :

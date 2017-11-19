@@ -1,12 +1,12 @@
-" =======================================
-" File:
-"
-"
-" =======================================
+" =============================================================
+" Description:  Set up Vim for writing Git Commit Messsages
+" File:         ~/.vim/ftplugin/gitcommit.vim
+" =============================================================
 
-setlocal nofoldenable
 setlocal spell
+setlocal nofoldenable
 
+" | FIXME | FIXME | FIXME | FIXME | FIXME | FIXME | FIXME | FIXME |
 
 " Committia.vim lightweight replacement
 
@@ -21,12 +21,11 @@ setlocal spell
 "   - and more ...
 "   - don't open diff when using fugitive :Gstatus
 
-let gitDiff = system('git diff --cached')
+"let gitDiff = system('git diff --cached')
 
 " TODO check not already open in buffer
-botright split /tmp/gitdiff
-botright put =gitDiff
-botright setlocal filetype=diff
-botright setlocal nomodifiable
-unlet gitDiff
-
+"botright split /tmp/gitdiff
+"botright put =gitDiff
+"botright setlocal filetype=diff
+"botright setlocal nomodifiable
+"unlet gitDiff
