@@ -1,4 +1,7 @@
-" Vim & GVim styling
+" =============================================================
+" Description:  Configure Styling and Colours for Vim & GVim
+" File:         ~/.vim/config/styling.vim
+" =============================================================
 
 scriptencoding utf-8
 

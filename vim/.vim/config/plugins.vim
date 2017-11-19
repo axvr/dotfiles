@@ -1,5 +1,7 @@
-" Vim Plugin Configuration
-" ========================
+" =============================================================
+" Description:  Configure Plugins for Vim to use
+" File:         ~/.vim/config/plugins.vim
+" =============================================================
 
 scriptencoding utf-8
 

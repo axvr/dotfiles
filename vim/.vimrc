@@ -27,8 +27,8 @@
 if !1 | finish | endif
 
 " Encoding
-scriptencoding utf-8
 set encoding=utf-8
+scriptencoding utf-8
 if &modifiable != 0
     set fileencoding=utf-8
 endif
