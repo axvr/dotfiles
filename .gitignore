@@ -4,6 +4,7 @@
 !**/.vim/config/
 !**/.vim/ftplugin/
 !**/.vim/ftdetect/
+!**/.vim/plugin/
 
 # Emacs config
 **/.emacs.d/**
