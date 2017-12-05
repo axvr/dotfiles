@@ -19,13 +19,20 @@ endfunction
 
 function! s:unix() abort
     if &fileformat ==? 'dos'
+        update
         edit ++fileformat=dos
         setlocal fileformat=unix
+        write
+        edit
     endif
 endfunction
 
 function! s:dos() abort
     if &fileformat ==? 'unix'
+        update
         edit ++fileformat=dos
+        write
+        edit
     endif
 endfunction
+

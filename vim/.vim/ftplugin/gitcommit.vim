@@ -29,3 +29,4 @@ setlocal nofoldenable
 "botright setlocal filetype=diff
 "botright setlocal nomodifiable
 "unlet gitDiff
+"

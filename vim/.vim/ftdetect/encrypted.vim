@@ -4,3 +4,4 @@
 " =============================================================
 
 autocmd! BufRead,BufNewFile *.asc,*.gpg,*.pgp setfiletype encrypted
+

@@ -4,3 +4,4 @@
 " =============================================================
 
 autocmd! BufRead,BufNewFile *.bin  setfiletype binary
+

@@ -38,3 +38,4 @@ augroup encrypted
     " after the file has been written.
     autocmd BufWritePost,FileWritePost encrypted undo
 augroup END
+

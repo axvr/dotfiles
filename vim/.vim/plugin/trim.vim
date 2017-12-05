@@ -22,3 +22,4 @@ nnoremap <silent> <Plug>TrimWhitespace :<C-u>Trim<CR>
 if empty(maparg('<leader>tw', 'n'))
     nmap <leader>tw <Plug>TrimWhitespace
 endif
+

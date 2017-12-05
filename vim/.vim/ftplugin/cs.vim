@@ -25,3 +25,4 @@ function! s:DotnetRun(...) abort
 endfunction
 
 command! -bar -nargs=? Run :call <SID>DotnetRun(<f-args>)
+
