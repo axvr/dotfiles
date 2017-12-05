@@ -9,10 +9,10 @@ function! AppendModeline()
         " Allow setting modeline from another vim config file
         let l:modeline = g:modeline
     else
-        let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set ft=%s ' .
-                    \ 'fdm=%s fmr=%s :',
+        let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set ft=%s ' 
+                    \ . 'ff=%s fdm=%s fmr=%s :',
                     \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no',
-                    \ &filetype, &foldmethod, &foldmarker)
+                    \ &filetype, &fileformat, &foldmethod, &foldmarker)
     endif
     " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
     " files.
