@@ -47,6 +47,7 @@ function install_applications() {
     cargo install racer # TODO set up rust racer
 
     # TODO install GNU stow, ledger, taskwarrior, youtube-dl, pandoc, docker,
+    # evolution-ews (<-- Microsoft Exchange Server) 
     # dotnet, mono, etc...
 
     sudo dnf -y groupinstall "Development Tools" \

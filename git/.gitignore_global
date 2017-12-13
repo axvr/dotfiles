@@ -14,6 +14,8 @@
 *.o
 *.so
 *.pyc
+*.bin
+
 
 
 ##########################
@@ -41,6 +43,7 @@ cscope.po.out
 /tmp/
 
 
+
 ##########################
 ### Text editor files ####
 ##########################
@@ -62,6 +65,57 @@ Session.vim
 .netrwhist
 
 
+# ----------------------
+# Emacs
+# ----------------------
+
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+.org-id-locations
+*_archive
+
+# flymake-mode
+*_flymake.*
+
+# eshell files
+/eshell/history
+/eshell/lastdir
+
+# elpa packages
+/elpa/
+
+# reftex files
+*.rel
+
+# AUCTeX auto folder
+/auto/
+
+# cask packages
+.cask/
+dist/
+
+# Flycheck
+flycheck_*.el
+
+# server auth directory
+/server/
+
+# projectiles files
+.projectile
+
+# directory configuration
+.dir-locals.el
+
+
+
 ##########################
 ######## Packages ########
 ##########################
@@ -78,6 +132,7 @@ Session.vim
 *.zip
 
 
+
 ##########################
 ### Logs and databases ###
 ##########################
@@ -85,9 +140,22 @@ Session.vim
 *.log
 *.sql
 *.sqlite
+*.dat
+*.data
 
 # GPG files
 secring.*
+*.pgp
+*.gpg
+*.asc
+*.pub
+
+# Password DB & Wallets
+*.kdbx
+*.kdb
+*.pass
+*wallet*
+
 
 
 ##########################
@@ -177,3 +245,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+
+
+# -*- mode: gitignore; -*-
+# vim: ft=conf
