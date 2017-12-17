@@ -153,6 +153,7 @@ secring.*
 # Password DB & Wallets
 *.kdbx
 *.kdb
+*.key
 *.pass
 *wallet*
 
@@ -248,4 +249,4 @@ $RECYCLE.BIN/
 
 
 # -*- mode: gitignore; -*-
-# vim: ft=conf
+# vim: ft=conf :
