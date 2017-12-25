@@ -34,6 +34,7 @@ let g:signify_sign_changedelete      = '•'
 let g:signify_sign_delete            = '_'
 let g:signify_sign_delete_first_line = '‾'
 let g:signify_sign_show_count        = 0
+Plugin 'rhysd/committia.vim'
 
 " Syntax highlighting & formatting packs
 Plugin 'rust-lang/rust.vim'
@@ -41,6 +42,7 @@ Plugin 'ledger/vim-ledger'
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
+Plugin 'robertmeta/nofrils',        { 'enabled': 1, }
 
 " Netrw Configuration
 let g:netrw_banner    = 0
@@ -52,7 +54,7 @@ let g:tex_flavor = "latex"
 " Git Plugin Enabling
 function! s:enable_vcs_plugins() abort
     if system('parse_vcs_branch') !=# ''
-        call vivid#enable('vim-fugitive', 'vim-signify')
+        call vivid#enable('vim-fugitive', 'vim-signify', 'committia.vim')
     endif
 endfunction
 autocmd! BufReadPre * call s:enable_vcs_plugins()

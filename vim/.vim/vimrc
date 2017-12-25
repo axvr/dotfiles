@@ -51,16 +51,13 @@ endif
 set hidden confirm
 set splitright splitbelow
 set autoread
-set fileformats=unix,mac,dos
 set mouse=a
 set backspace=indent,eol,start
 set spelllang=en_gb
-set history=200
-set lazyredraw
+"set lazyredraw
 set showmatch
 set foldenable foldmethod=marker
 set modeline modelines=5
-set clipboard^=unnamedplus,unnamed
 
 " Searching
 set ignorecase      " Ignore case in searches
@@ -100,7 +97,7 @@ unlet s:dirs " }}}
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.tar*
 set path+=**
 
 " }}}
@@ -115,16 +112,14 @@ call <SID>loadConfig('$HOME/.vim/config/styling.vim')
 
 let mapleader = "\<space>"
 let maplocalleader = ","
-inoremap jk <ESC>
 " Git keybindings
-nnoremap <leader>gs :<C-u>Gstatus<CR>
-nnoremap <leader>gc :<C-u>Gcommit<CR>
-nnoremap <leader>gd :<C-u>Gdiff<CR>
-nnoremap <leader>gb :<C-u>Gblame<CR>
-nnoremap <leader>ga :<C-u>Gwrite<CR>
-nnoremap <leader>gg :<C-u>Git<space>
+nnoremap <Leader>gs :<C-u>Gstatus<CR>
+nnoremap <Leader>gc :<C-u>Gcommit<CR>
+nnoremap <Leader>gd :<C-u>Gdiff<CR>
+nnoremap <Leader>gb :<C-u>Gblame<CR>
+nnoremap <Leader>ga :<C-u>Gwrite<CR>
+nnoremap <Leader>gg :<C-u>Git<space>
 " Spell check toggle
-nnoremap <F7> :<C-u>setlocal spell!<CR>
 nnoremap <leader>ss :<C-u>setlocal spell!<CR>
 " Make tags file using ctags
 command! -nargs=0 MakeTags !ctags -R .
@@ -143,8 +138,8 @@ set expandtab       " et  -- Change tabs into spaces
 set shiftround      " sr  -- Round indent to multiple of sw
 set autoindent      " ai  -- Enable unintrusive auto-indentation
 
-" Line wrap config (Use soft wrap, and manually hard wrap text)
-let &showbreak='>>> '   " Prefix for soft wrapped line
+" Line wrap config (Use soft wrap for code, and hard wrap for comments and text)
+let &showbreak='+++ '   " Prefix for soft wrapped line
 set textwidth=80        " Maximum width of text
 set wrapmargin=0        " Set wrap margin on right of screen
 set wrap                " Enable line wrap

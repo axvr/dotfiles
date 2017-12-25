@@ -10,7 +10,7 @@ set showmode showcmd
 set ruler
 set rulerformat=%.20(%=%<%(%{&filetype==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %2c%)%)
 set cursorline          " Highlight current line
-let &colorcolumn='+'.join(range(1,335), ',+')
+let &colorcolumn='+'.join(range(1,256), ',+')
 set visualbell t_vb=    " Disable sound & visual alerts
 set laststatus=2        " Always display statusline
 
@@ -19,7 +19,6 @@ if has('gui_running')  " Just incase I ever use GVim (not likely)
     set guioptions-=T guioptions-=m guioptions-=r guioptions+=c guioptions-=L
 else
     if $TERM == 'xterm-256color'
-        set t_Co=256
         set termguicolors
     endif
 endif
@@ -85,6 +84,5 @@ augroup theming
     autocmd ColorScheme space-vim-dark call <SID>CheckTMUX()
 augroup END
 
-set background=dark
 colorscheme space-vim-dark
 
