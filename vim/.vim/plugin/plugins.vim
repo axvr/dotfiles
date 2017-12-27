@@ -3,8 +3,6 @@
 " File:         ~/.vim/config/plugins.vim
 " =============================================================
 
-scriptencoding utf-8
-
 " Plugin Setup
 if has('vim_starting')
     if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
@@ -14,7 +12,6 @@ if has('vim_starting')
 endif
 
 " Vim enhancements
-Plugin 'jiangmiao/auto-pairs', { 'enabled': 1, } " :h AutoPairs.txt
 Plugin 'tommcdo/vim-lion',     { 'enabled': 1, } " :h lion.txt
 let g:lion_squeeze_spaces = 1
 Plugin 'wellle/targets.vim',   { 'enabled': 1, } " :h targets.txt

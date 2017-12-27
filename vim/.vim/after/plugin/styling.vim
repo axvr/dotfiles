@@ -3,8 +3,6 @@
 " File:         ~/.vim/config/styling.vim
 " =============================================================
 
-scriptencoding utf-8
-
 set number relativenumber
 set showmode showcmd
 set ruler
@@ -24,10 +22,8 @@ else
 endif
 
 function! s:CheckTMUX() abort
-    if system('printf "$TMUX"') ==# ''
+    if executable('tmux') && system('printf "$TMUX"') ==# ''
         highlight Comment cterm=italic
-    else
-        highlight Comment cterm=NONE
     endif
 endfunction
 
@@ -37,18 +33,10 @@ endfunction
 " Right: [File format][Encoding][File type][Position in file][Column number]
 "        [Block 3              ][Block 4  ][Block 5                        ]
 
-" FIXME Fetch the VCS branch 
+" Fetch the VCS branch  TODO add Mercurial support
 function! GetVCSBranch() abort
-    if executable('parse_vcs_branch') " <-- This doesn't work for some reason
-        let s:branch = system('parse_vcs_branch')
-    elseif vivid#enabled('vim-fugitive')
-        let s:branch = fugitive#head()
-    else
-        let s:branch = ''
-    endif
-
-    if s:branch != ''
-        return '  ' . s:branch . ' '
+    if vivid#enabled('vim-fugitive') && fugitive#head() !=# ''
+        return '  ' . fugitive#head() . ' '
     else | return ''
     endif
 endfunction
