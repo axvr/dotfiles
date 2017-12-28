@@ -15,7 +15,8 @@
 "   Perl:       perl
 "   Shell:      shellcheck
 "   C Based:    clang-tidy (-checks=*), clang, gcc, gcc-c++ (g++)
-"   Python:     pylint
+"   CSharp:     dotnet, omnisharp
+"   Python:     pylint, python3, python2
 "   Build:      make, cmake, etc
 "   Tools:      ctags
 " =============================================================

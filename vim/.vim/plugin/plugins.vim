@@ -19,6 +19,7 @@ Plugin 'romainl/vim-cool',     { 'enabled': 1, }
 Plugin 'romainl/vim-qf',       { 'enabled': 1, } " :h qf.txt
 packadd matchit
 runtime ftplugin/man.vim
+autocmd! FileType man setlocal textwidth=0 nofoldenable
 
 " Git integration
 Plugin 'tpope/vim-fugitive'     " :h fugitive.txt
@@ -48,19 +49,18 @@ let g:netrw_winsize   = 20
 " Tex.vim Syntax plugin Config
 let g:tex_flavor = "latex"
 
-" Git Plugin Enabling
+" Git Plugin Enabling  TODO split into VCS Layer (Vivid.vim 2.0.0)
 function! s:enable_vcs_plugins() abort
+    " TODO create a vimscript version of `parse_vcs_branch`
     if system('parse_vcs_branch') !=# ''
         call vivid#enable('vim-fugitive', 'vim-signify', 'committia.vim')
-        if vivid#enabled('vim-fugitive')
-            " vim-fugitive keybindings
-            nnoremap <Leader>gs :<C-u>Gstatus<CR>
-            nnoremap <Leader>gc :<C-u>Gcommit<CR>
-            nnoremap <Leader>gd :<C-u>Gdiff<CR>
-            nnoremap <Leader>gb :<C-u>Gblame<CR>
-            nnoremap <Leader>ga :<C-u>Gwrite<CR>
-            nnoremap <Leader>gg :<C-u>Git<Space>
-        endif
+        " vim-fugitive keybindings
+        nnoremap <Leader>gs :<C-u>Gstatus<CR>
+        nnoremap <Leader>gc :<C-u>Gcommit<CR>
+        nnoremap <Leader>gd :<C-u>Gdiff<CR>
+        nnoremap <Leader>gb :<C-u>Gblame<CR>
+        nnoremap <Leader>ga :<C-u>Gwrite<CR>
+        nnoremap <Leader>gg :<C-u>Git<Space>
     endif
 endfunction
 autocmd! BufReadPre * call s:enable_vcs_plugins()
