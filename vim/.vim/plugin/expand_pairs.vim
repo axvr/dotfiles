@@ -3,15 +3,8 @@
 " File:         ~/.vim/plugin/expand_pairs.vim
 " =============================================================
 
-" Auto-expanding for closing of pairs
-inoremap (; (<CR>);<C-c>O
-inoremap (, (<CR>),<C-c>O
-inoremap {; {<CR>};<C-c>O
-inoremap {, {<CR>},<C-c>O
-inoremap [; [<CR>];<C-c>O
-inoremap [, [<CR>],<C-c>O
 
-" TODO improve this
+" Auto-close/expand brackets
 function! s:CloseBracket()
     let s:line = getline('.')
     if s:line =~# '^\s*\(struct\|class\|enum\) '

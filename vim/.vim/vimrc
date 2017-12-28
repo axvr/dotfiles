@@ -3,7 +3,7 @@
 " File:         ~/.vimrc
 " =============================================================
 " Brief Help:
-"   :PluginInstall      - Install new plugins
+"   :PluginInstall      - Install uninstalled plugins
 "   :PluginUpgrade      - Update installed plugins
 "   :PluginEnable       - Enable a named plugin
 "   :PluginClean        - Remove unused plugins
@@ -20,8 +20,6 @@
 "   Tools:      ctags
 " =============================================================
 
-
-" Basic Configuration {{{
 
 " Essentials
 set encoding=utf-8
@@ -81,11 +79,9 @@ set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.tar*
 set path+=**
 
-" }}}
 
 " Set Keymaps & Commands
-
-let mapleader = "\<space>"
+let mapleader = "\<Space>"
 let maplocalleader = ","
 " Git keybindings  TODO move to a separate Git layer
 nnoremap <Leader>gs :<C-u>Gstatus<CR>
@@ -102,8 +98,6 @@ nnoremap <silent> <Leader>mt :<C-u>MakeTags<CR>
 " Allow quick changing of termguicolors
 nnoremap <Leader>tc :<C-u>set termguicolors!<CR>
 
-
-" File Specific Config
 
 " Indentation Config (Spaces > Tabs)
 set tabstop=8       " ts  -- Don't change this value
