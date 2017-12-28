@@ -52,6 +52,15 @@ let g:tex_flavor = "latex"
 function! s:enable_vcs_plugins() abort
     if system('parse_vcs_branch') !=# ''
         call vivid#enable('vim-fugitive', 'vim-signify', 'committia.vim')
+        if vivid#enabled('vim-fugitive')
+            " vim-fugitive keybindings
+            nnoremap <Leader>gs :<C-u>Gstatus<CR>
+            nnoremap <Leader>gc :<C-u>Gcommit<CR>
+            nnoremap <Leader>gd :<C-u>Gdiff<CR>
+            nnoremap <Leader>gb :<C-u>Gblame<CR>
+            nnoremap <Leader>ga :<C-u>Gwrite<CR>
+            nnoremap <Leader>gg :<C-u>Git<Space>
+        endif
     endif
 endfunction
 autocmd! BufReadPre * call s:enable_vcs_plugins()

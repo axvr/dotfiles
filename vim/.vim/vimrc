@@ -79,17 +79,9 @@ set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.tar*
 set path+=**
 
-
 " Set Keymaps & Commands
 let mapleader = "\<Space>"
 let maplocalleader = ","
-" Git keybindings  TODO move to a separate Git layer
-nnoremap <Leader>gs :<C-u>Gstatus<CR>
-nnoremap <Leader>gc :<C-u>Gcommit<CR>
-nnoremap <Leader>gd :<C-u>Gdiff<CR>
-nnoremap <Leader>gb :<C-u>Gblame<CR>
-nnoremap <Leader>ga :<C-u>Gwrite<CR>
-nnoremap <Leader>gg :<C-u>Git<space>
 " Spell check toggle
 nnoremap <Leader>ss :<C-u>setlocal spell!<CR>
 " Make tags file using ctags
@@ -97,7 +89,6 @@ command! -nargs=0 MakeTags !ctags -R .
 nnoremap <silent> <Leader>mt :<C-u>MakeTags<CR>
 " Allow quick changing of termguicolors
 nnoremap <Leader>tc :<C-u>set termguicolors!<CR>
-
 
 " Indentation Config (Spaces > Tabs)
 set tabstop=8       " ts  -- Don't change this value
