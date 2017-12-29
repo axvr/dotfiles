@@ -21,7 +21,7 @@ packadd matchit
 runtime ftplugin/man.vim
 autocmd! FileType man setlocal textwidth=0 nofoldenable
 
-" Git integration
+" VCS integration
 Plugin 'itchyny/vim-gitbranch', { 'enabled': 1, }
 Plugin 'mhinz/vim-signify'      " :h signify.txt
 let g:signify_vcs_list               = ['git', 'hg']

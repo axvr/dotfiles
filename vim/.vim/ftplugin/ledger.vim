@@ -4,7 +4,6 @@
 " =============================================================
 
 if g:loaded_vivid == 1 && vivid#enabled('vim-ledger') != 1
-    call vivid#enable('vim-ledger')
-    edit
+    call vivid#enable('vim-ledger') | edit
 endif
 
