@@ -35,8 +35,8 @@ endfunction
 
 " Fetch the VCS branch  TODO add Mercurial support
 function! GetVCSBranch() abort
-    if vivid#enabled('vim-fugitive') && fugitive#head() !=# ''
-        return '  ' . fugitive#head() . ' '
+    if vivid#enabled('vim-gitbranch') && gitbranch#name() !=# ''
+        return '  ' . gitbranch#name() . ' '
     else | return ''
     endif
 endfunction

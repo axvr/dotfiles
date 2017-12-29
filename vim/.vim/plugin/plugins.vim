@@ -22,7 +22,7 @@ runtime ftplugin/man.vim
 autocmd! FileType man setlocal textwidth=0 nofoldenable
 
 " Git integration
-Plugin 'tpope/vim-fugitive'     " :h fugitive.txt
+Plugin 'itchyny/vim-gitbranch', { 'enabled': 1, }
 Plugin 'mhinz/vim-signify'      " :h signify.txt
 let g:signify_vcs_list               = ['git', 'hg']
 let g:signify_realtime               = 1
@@ -40,7 +40,6 @@ Plugin 'ledger/vim-ledger'
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
-Plugin 'robertmeta/nofrils',        { 'enabled': 1, }
 
 " Netrw Configuration
 let g:netrw_banner    = 0
@@ -49,18 +48,10 @@ let g:netrw_winsize   = 20
 " Tex.vim Syntax plugin Config
 let g:tex_flavor = "latex"
 
-" Git Plugin Enabling  TODO split into VCS Layer (Vivid.vim 2.0.0)
+" VCS Plugin Enabling
 function! s:enable_vcs_plugins() abort
-    " TODO create a vimscript version of `parse_vcs_branch`
-    if system('parse_vcs_branch') !=# ''
-        call vivid#enable('vim-fugitive', 'vim-signify', 'committia.vim')
-        " vim-fugitive keybindings
-        nnoremap <Leader>gs :<C-u>Gstatus<CR>
-        nnoremap <Leader>gc :<C-u>Gcommit<CR>
-        nnoremap <Leader>gd :<C-u>Gdiff<CR>
-        nnoremap <Leader>gb :<C-u>Gblame<CR>
-        nnoremap <Leader>ga :<C-u>Gwrite<CR>
-        nnoremap <Leader>gg :<C-u>Git<Space>
+    if gitbranch#name() !=# ''
+        call vivid#enable('vim-signify', 'committia.vim')
     endif
 endfunction
 autocmd! BufReadPre * call s:enable_vcs_plugins()

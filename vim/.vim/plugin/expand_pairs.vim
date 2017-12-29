@@ -3,7 +3,6 @@
 " File:         ~/.vim/plugin/expand_pairs.vim
 " =============================================================
 
-
 " Auto-close/expand brackets
 function! s:CloseBracket()
     let s:line = getline('.')
