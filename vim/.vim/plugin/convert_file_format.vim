@@ -13,5 +13,5 @@ function! s:Convert() abort
     write | edit
 endfunction
 
-command! -bar -nargs=0 ConvertFileType :call <SID>Convert()
+command! -bar -nargs=0 ConvertFileFormat :call <SID>Convert()
 

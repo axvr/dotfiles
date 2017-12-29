@@ -43,7 +43,6 @@ export EDITOR
 # Set Man pager
 export PAGER="less"
 export MANPAGER="less"
-#export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -" # Vim as MANPAGER
 
 # Rust development
 #export PATH=$PATH:$HOME/.cargo/bin
@@ -85,28 +84,16 @@ function Note() {
     fi
 
     if [[ "$@" = "" ]]; then
-        # below is pointless
-        if [[ parse_vcs_branch != "" ]]; then
-            NOTE_PROJECT="${PWD##*/}"
-        fi
+        NOTE_PROJECT="${PWD##*/}"
         $EDITOR "${NOTE_DIRECTORY}/Projects/${NOTE_PROJECT}.md"
     else
         $EDITOR "${NOTE_DIRECTORY}/${1}.md"
     fi
 }
+alias Notes="tree ~/Documents/Notes/"
 
-# TODO improve this
-#function Notes() {
-#    echo "~/Documents/Notes:"
-#    ls -Ac ~/Documents/Notes/ | grep "$*"
-#}
-
-alias Notes="ls -A ~/Documents/Notes/"
-
-
-alias startx='startx; vlock'
-alias vi="vim"
-alias nv="nvim -u ~/.vim/vimrc"
+alias startx="startx; vlock"
+alias nv="nvim"
 alias em="emacs -nw"
 alias ledger="ledger -f ~/.ledger/personal.dat"
 alias ledger-record="${EDITOR} ~/.ledger/personal.dat"
