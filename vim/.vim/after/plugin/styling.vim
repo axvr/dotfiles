@@ -41,32 +41,22 @@ function! GetVCSBranch() abort
     endif
 endfunction
 
-function! ActiveStatus() abort
+" TODO Improve this
+function! StatusLine(active) abort
     let l:statusline  = "%(%#LineNr#%{GetVCSBranch()}%)"          " Block 1
-    let l:statusline .= "%(%#StatusLine#\ %f%m%r%h%w\ %)"         " Block 2
-    let l:statusline .= "%#StatusLine#%=%<"                       " Right side
-    let l:statusline .= "%(%#StatusLine#%{&fileformat}\ \ " .
+    let l:statusline .= "%(%#".a:active."#\ %f%m%r%h%w\ %)"         " Block 2
+    let l:statusline .= "%#".a:active."#%=%<"                       " Right side
+    let l:statusline .= "%(%#".a:active."#%{&fileformat}\ \ " .
                 \ "%{&fileencoding?&fileencoding:&encoding}\ %)"  " Block 3
-    let l:statusline .= "%(%#StatusLine#%{&filetype==''?'':'\ '.&ft.'\ '}%)"    " Block 4
-    let l:statusline .= "%(%#StatusLine#\ %P\ \ %2c\ %)"          " Block 5
-    return l:statusline
-endfunction
-
-function! InactiveStatus() abort
-    let l:statusline  = "%(%#LineNr#%{GetVCSBranch()}%)"          " Block 1
-    let l:statusline .= "%(%#StatusLineNC#\ %f%m%r%h%w\ %)"       " Block 2
-    let l:statusline .= "%#StatusLineNC#%=%<"                     " Right side
-    let l:statusline .= "%(%#StatusLineNC#%{&fileformat}\ \ " .
-                \ "%{&fileencoding?&fileencoding:&encoding}\ %)"  " Block 3
-    let l:statusline .= "%(%#StatusLineNC#%{&filetype==''?'':'\ '.&ft.'\ '}%)"  " Block 4
-    let l:statusline .= "%(%#StatusLineNC#\ %P\ \ %2c\ %)"        " Block 5
+    let l:statusline .= "%(%#".a:active."#%{&filetype==''?'':'\ '.&ft.'\ '}%)"    " Block 4
+    let l:statusline .= "%(%#".a:active."#\ %P\ \ %2c\ %)"          " Block 5
     return l:statusline
 endfunction
 
 augroup theming
     autocmd!
-    autocmd WinEnter,BufEnter * setlocal statusline=%!ActiveStatus()
-    autocmd WinLeave,BufLeave * setlocal statusline=%!InactiveStatus()
+    autocmd WinEnter,BufEnter * setlocal statusline=%!StatusLine('StatusLine')
+    autocmd WinLeave,BufLeave * setlocal statusline=%!StatusLine('StatusLineNC')
     autocmd ColorScheme space-vim-dark highlight SpellBad   ctermbg=NONE
     autocmd ColorScheme space-vim-dark highlight SpellLocal ctermbg=NONE
     autocmd ColorScheme space-vim-dark call <SID>CheckTMUX()
