@@ -3,5 +3,5 @@
 " File:         ~/.vim/ftdetect/binary.vim
 " =============================================================
 
-autocmd! BufRead,BufNewFile *.bin  setfiletype binary
+autocmd! BufRead,BufNewFile *.bin,*.exe,*.dll,*.so,*.o  setfiletype binary
 
