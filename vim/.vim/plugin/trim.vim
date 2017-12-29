@@ -19,7 +19,7 @@ endfunction
 command! -nargs=0 -bar -bang Trim call <SID>trim('!' == '<bang>')
 nnoremap <silent> <Plug>TrimWhitespace :<C-u>Trim<CR>
 
-if empty(maparg('<leader>tw', 'n'))
-    nmap <leader>tw <Plug>TrimWhitespace
+if empty(maparg('<Leader>tw', 'n'))
+    nmap <Leader>tw <Plug>TrimWhitespace
 endif
 

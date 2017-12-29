@@ -24,7 +24,7 @@ endfunction
 
 nnoremap <silent> <Plug>AppendModeline :<C-u>call AppendModeline()<CR>
 
-if empty(maparg('<leader>ml', 'n'))
+if empty(maparg('<Leader>ml', 'n'))
     nmap <Leader>ml <Plug>AppendModeline
 endif
 
