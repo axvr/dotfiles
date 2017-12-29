@@ -4,31 +4,29 @@
 " =============================================================
 
 " For more powerful hex-editing use `bvi` or `bless`.
+if executable('xxd')
+    command! -nargs=0 -bar HexModeEnable call <SID>HexModeEnable()
+    command! -nargs=0 -bar HexModeDisable call <SID>HexModeDisable()
 
-command! -nargs=0 -bar HexModeEnable call <SID>HexModeEnable()
-command! -nargs=0 -bar HexModeDisable call <SID>HexModeDisable()
+    function! s:HexModeEnable() abort
+        setlocal binary
+        %!xxd
+        setlocal filetype=xxd
+    endfunction
 
-" TODO Possibly create a toggle HexMode
+    function! s:HexModeDisable() abort
+        setlocal binary
+        %!xxd -r
+        setlocal filetype=
+    endfunction
 
-function! s:HexModeEnable() abort
-    setlocal binary
-    %!xxd
-    setlocal filetype=xxd
-endfunction
+    nnoremap <Plug>HexRead  :call <SID>HexModeEnable()<CR>
+    nnoremap <Plug>HexWrite :call <SID>HexModeDisable()<CR>
 
-function! s:HexModeDisable() abort
-    setlocal binary
-    %!xxd -r
-    setlocal filetype=
-endfunction
-
-nnoremap <Plug>HexRead  :call <SID>HexModeEnable()<CR>
-nnoremap <Plug>HexWrite :call <SID>HexModeDisable()<CR>
-
-if empty(maparg('<Leader>hr', 'n'))
-    nmap <Leader>hr <Plug>HexRead
+    if empty(maparg('<Leader>hr', 'n'))
+        nmap <Leader>hr <Plug>HexRead
+    endif
+    if empty(maparg('<Leader>hw', 'n'))
+        nmap <Leader>hw <Plug>HexWrite
+    endif
 endif
-if empty(maparg('<Leader>hw', 'n'))
-    nmap <Leader>hw <Plug>HexWrite
-endif
-
