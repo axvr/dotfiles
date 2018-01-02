@@ -20,8 +20,8 @@ fi
 export TERM=xterm-256color
 
 # History config
-export HISTSIZE=10000
-export HISTFILESIZE=20000
+export HISTSIZE=1000
+export HISTFILESIZE=2000
 export HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
