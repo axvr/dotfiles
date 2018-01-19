@@ -19,6 +19,9 @@ set blink-matching-paren On
 
 # Fix history search and completion in readline
 $if mode=vi
+    # Jump by word
+    "\e[1;5D": backward-word
+    "\e[1;5C": forward-word
     set keymap vi-command
     # these are for vi-command mode
     "\e[A":history-search-backward
@@ -33,18 +36,9 @@ $if mode=vi
     "\C-p":menu-complete-backward
 $endif
 
-# Jump by word
-"\e[1;5D": backward-word
-"\e[1;5C": forward-word
-
 # Color files by types
 set colored-stats On
-# Append char to indicate type
-set visible-stats Off
-set mark-symlinked-directories Off
+
 # Color the common prefix
 set colored-completion-prefix On
-set menu-complete-display-prefix On
-# Tab displays all completion options
-set show-all-if-unmodified On
 

@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
-# -----------------------------
-# ~/.bashrc
-# -----------------------------
 
-
-#################################
-##### Initial Configuration #####
-#################################
+# ========================================
+# ------------- ~/.bashrc ----------------
+# ========================================
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -16,24 +12,20 @@ fi
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Use 256 Colour
-export TERM=xterm-256color
-
 # History config
 export HISTSIZE=1000
 export HISTFILESIZE=2000
 export HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # Locale
 export LANG=en_GB.UTF-8
 export XKB_DEFAULT_LAYOUT=gb
 
 
-#################################
-###### Development Config #######
-#################################
+# ========================================
+# --------- Development Config -----------
+# ========================================
 
 # Set default editor to Vim
 VISUAL=vim
@@ -47,15 +39,19 @@ export MANPAGER="less"
 # Rust development
 #export PATH=$PATH:$HOME/.cargo/bin
 
+# Microsoft VSTS-CLI Tool
+export PATH=$PATH:/home/axvr/.vsts-cli/bin
+source '/home/axvr/.vsts-cli/vsts.completion'
 
-#################################
-###### Custom Bash Prompts ######
-#################################
 
-# Default
+# ========================================
+# --------- Custom Bash Prompts ----------
+# ========================================
+
+# Fedora Default
 #export PS1="[\u@\h \W]\\$ "
 
-# Default with VCS branch
+# Fedora Default with VCS branch
 function parse_vcs_branch() {
     # Check Git Branch
     BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/*\(.*\)/\1/')
@@ -68,29 +64,13 @@ function parse_vcs_branch() {
 export -f parse_vcs_branch
 export PS1="[\u@\h \W\[\e[32m\]\`parse_vcs_branch\`\[\e[m\]]\\$ "
 
-# Termux (Android) version of default
+# Termux (Android) version of Fedora default
 #export PS1="[\W]$ "
 
 
-#################################
-##### Aliases and Functions #####
-#################################
-
-# FIXME Custom per project note management solution
-export NOTE_DIRECTORY="${HOME}/Documents/Notes"
-function Note() {
-    if [[ ! -d "${NOTE_DIRECTORY}" ]]; then
-        mkdir -p "${NOTE_DIRECTORY}"
-    fi
-
-    if [[ "$@" = "" ]]; then
-        NOTE_PROJECT="${PWD##*/}"
-        $EDITOR "${NOTE_DIRECTORY}/Projects/${NOTE_PROJECT}.md"
-    else
-        $EDITOR "${NOTE_DIRECTORY}/${1}.md"
-    fi
-}
-alias Notes="tree ~/Documents/Notes/"
+# ========================================
+# -------- Aliases and Functions ---------
+# ========================================
 
 alias startx="startx; vlock"
 alias nv="nvim"

@@ -90,6 +90,11 @@ command! -nargs=0 MakeTags !ctags -R .
 nnoremap <silent> <Leader>mt :<C-u>MakeTags<CR>
 " Allow quick changing of termguicolors
 nnoremap <Leader>tc :<C-u>set termguicolors!<CR>
+" Quick file navigation
+nnoremap <Leader>ff :<C-u>find<Space>
+nnoremap <Leader>fs :<C-u>write<CR>
+nnoremap <Leader>bb :<C-u>buffers<CR>:<C-u>buffer<Space>
+nnoremap <Leader>'  :<C-u>terminal<CR>
 
 " Indentation Config (Spaces > Tabs)
 set tabstop=8       " ts  -- Don't change this value
@@ -111,4 +116,4 @@ if exists('+breakindent')
 endif
 
 
-" vim: set ts=8 sw=4 tw=80 et ft=vim ff=unix fenc=utf-8 fdm=marker fmr={{{,}}} :
+" vim: set ts=8 sw=4 tw=80 et ft=vim ff=unix fenc=utf-8 :
