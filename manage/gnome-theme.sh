@@ -4,9 +4,12 @@
 #   setup  - Set up system to be able to use this script
 #   export - print current configuration (can be copied and pasted into this script)
 
+# NOTE: User installed Shell extensions are stored in:
+#       "~/.local/share/gnome-shell/extensions/"
+
 
 function setup_for_theme_switching() {    # ONLY RUN ONCE (using 'setup' as an option)
-    sudo wget https://raw.githubusercontent.com/axvr/gnome-shell-extension-cl/master/gnome-shell-extension-cl \
+    sudo wget https://raw.githubusercontent.com/cyberalex4life/gnome-shell-extension-cl/master/gnome-shell-extension-cl \
     -O /usr/local/bin/gnome-shell-extension-cl
     sudo chmod +x /usr/local/bin/gnome-shell-extension-cl
     gnome-shell-extension-cl -e 'user-theme@gnome-shell-extensions.gcampax.github.com'
@@ -88,10 +91,11 @@ function select_theme() {
     do
         printf "
 Select a theme to load:
-[1] : Default theme,
-[2] : Adapta theme,
-[3] : Adapta-Eta theme,
-[4] : Arc theme,
+[1] : Default GNOME theme
+[2] : Default Fedora theme,
+[3] : Adapta theme,
+[4] : Adapta-Eta theme,
+[5] : Arc theme,
 [0] : Back / Cancel.
 
 Selection: "
@@ -114,7 +118,30 @@ Selection: "
                 monospace_font="Monospace 11"
 
                 # Wallpaper Theming
-                fedora_version=26
+                desktop_wallpaper="file:///usr/share/backgrounds/gnome/adwaita-timed.xml"
+                lock_screen_wallpaper="file:///usr/share/backgrounds/gnome/adwaita-lock.jpg"
+
+                change_theme
+
+                # Extension Configuration
+                gnome-shell-extension-cl -da
+
+                ;;
+            2)
+                # GNOME Shell Theming
+                cursor_theme="Adwaita"
+                icon_theme="Adwaita"
+                gtk_theme="Adwaita"
+                shell_theme="Adwaita"
+
+                # GNOME Font Theming
+                window_titles_font="Cantarell 11"
+                interface_font="Cantarell Bold 11"
+                document_font="Sans 11"
+                monospace_font="Monospace 11"
+
+                # Wallpaper Theming
+                fedora_version=27
                 desktop_wallpaper="file:///usr/share/backgrounds/f$fedora_version/default/f$fedora_version.xml"
                 lock_screen_wallpaper="file:///usr/share/backgrounds/f$fedora_version/default/f$fedora_version.xml"
 
@@ -125,7 +152,7 @@ Selection: "
                 gnome-shell-extension-cl -e 'background-logo@fedorahosted.org'
 
                 ;;
-            2)
+            3)
                 # GNOME Shell Theming
                 cursor_theme="Breeze_Snow"
                 icon_theme="Arc"
@@ -146,11 +173,9 @@ Selection: "
 
                 # Extension Configuration
                 gnome-shell-extension-cl -da
-                gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
-                gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
 
                 ;;
-            3)
+            4)
                 # GNOME Shell Theming
                 cursor_theme="Breeze_Snow"
                 icon_theme="Arc"
@@ -171,11 +196,9 @@ Selection: "
 
                 # Extension Configuration
                 gnome-shell-extension-cl -da
-                gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
-                gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io' # twice to solve unknown bug
 
                 ;;
-            4)
+            5)
                 # GNOME Shell Theming
                 cursor_theme="Breeze_Snow"
                 icon_theme="Arc"
@@ -197,8 +220,9 @@ Selection: "
                 # Extension Configuration
                 gnome-shell-extension-cl -da
                 # enable twice to solve unknown bug
-                gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
-                gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
+                #gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
+                #gnome-shell-extension-cl -e 'dynamic-panel-transparency@rockon999.github.io'
+                # ^ disabled because now translucency is default in GNOME
 
                 ;;
             0)
