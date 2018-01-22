@@ -22,8 +22,14 @@ else
 endif
 
 function! s:CheckTMUX() abort
+    " Optimise & improve this
     if executable('tmux') && system('printf "$TMUX"') ==# ''
         highlight Comment cterm=italic
+    endif
+    if &term =~# '^screen'
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+        set termguicolors
     endif
 endfunction
 
