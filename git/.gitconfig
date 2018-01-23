@@ -5,5 +5,5 @@
     email = axvr@users.noreply.github.com
 [core]
     editor = vim
-    excludesfile = /home/axvr/.gitignore_global
+    excludesfile = ~/.gitignore_global
 

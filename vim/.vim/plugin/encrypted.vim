@@ -37,3 +37,5 @@ augroup encrypted
     autocmd BufWritePost,FileWritePost encrypted undo
 augroup END
 
+autocmd! BufRead,BufNewFile *.asc,*.gpg,*.pgp setfiletype encrypted
+
