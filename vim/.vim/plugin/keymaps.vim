@@ -17,5 +17,4 @@ nnoremap <Leader>tc :<C-u>set termguicolors!<CR>
 nnoremap <Leader>ff :<C-u>find<Space>
 nnoremap <Leader>fs :<C-u>write<CR>
 nnoremap <Leader>bb :<C-u>buffers<CR>:<C-u>buffer<Space>
-nnoremap <Leader>'  :<C-u>terminal<CR>
 

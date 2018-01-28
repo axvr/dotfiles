@@ -30,3 +30,4 @@ if executable('xxd')
         nmap <Leader>hw <Plug>HexWrite
     endif
 endif
+

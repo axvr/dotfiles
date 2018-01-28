@@ -10,7 +10,6 @@ function! s:Convert() abort
     if l:ff !=# 'unix'
         setlocal fileformat=unix
     endif
-    write | edit
 endfunction
 
 command! -bar -nargs=0 ConvertFileFormat :call <SID>Convert()
