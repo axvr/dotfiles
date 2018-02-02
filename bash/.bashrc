@@ -40,8 +40,24 @@ export MANPAGER="less"
 #export PATH=$PATH:$HOME/.cargo/bin
 
 # Microsoft VSTS-CLI Tool
-export PATH=$PATH:/home/axvr/.vsts-cli/bin
-source '/home/axvr/.vsts-cli/vsts.completion'
+if [ -d "$HOME/.vsts-cli/" ]; then
+    export PATH=$PATH:$HOME/.vsts-cli/bin
+    source "$HOME/.vsts-cli/vsts.completion"
+fi
+
+# TFVC (TEE-CLC)
+if [ -d "/home/axvr/.tee-clc/" ]; then
+    export PATH=$PATH:$HOME/.tee-clc/
+fi
+
+# Set default ASP.NET environment
+export ASPNETCORE_ENVIRONMENT=Development
+
+# Plan 9 User Space
+if [ -d "$HOME/Documents/Projects/plan9/" ]; then
+    export PLAN9=$HOME/Documents/Projects/plan9
+    export PATH=$PATH:$PLAN9/bin
+fi
 
 
 # ========================================
@@ -75,7 +91,7 @@ export PS1="[\u@\h \W\[\e[32m\]\`parse_vcs_branch\`\[\e[m\]]\\$ "
 alias startx="startx; vlock"
 alias nv="nvim"
 alias em="emacs -nw"
-alias ledger="ledger -f ~/.ledger/personal.dat"
-alias ledger-record="${EDITOR} ~/.ledger/personal.dat"
+alias ledger="ledger -f ${HOME}/.ledger/personal.dat"
+alias ledger-record="${EDITOR} ${HOME}/.ledger/personal.dat"
 alias dl="youtube-dl"
 

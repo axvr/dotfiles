@@ -80,6 +80,9 @@ curl -L https://aka.ms/install-vsts-cli | bash
 
 # C
 
+# Plan 9 User Space
+sudo dnf install libXt-devel
+
 
 # C++
 
