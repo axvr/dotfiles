@@ -12,18 +12,18 @@ if has('vim_starting')
 endif
 
 " Vim enhancements
-Plugin 'tommcdo/vim-lion',     { 'enabled': 1, } " :h lion.txt
+Plugin 'tommcdo/vim-lion',     { 'enabled': 1, }
 let g:lion_squeeze_spaces = 1
-Plugin 'wellle/targets.vim',   { 'enabled': 1, } " :h targets.txt
+Plugin 'wellle/targets.vim',   { 'enabled': 1, }
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
-Plugin 'romainl/vim-qf',       { 'enabled': 1, } " :h qf.txt
+Plugin 'romainl/vim-qf',       { 'enabled': 1, }
 packadd matchit
 runtime ftplugin/man.vim
 autocmd! FileType man setlocal textwidth=0 nofoldenable
 
 " VCS integration
 Plugin 'itchyny/vim-gitbranch', { 'enabled': 1, }
-Plugin 'mhinz/vim-signify'      " :h signify.txt
+Plugin 'mhinz/vim-signify'
 let g:signify_vcs_list               = ['git', 'hg']
 let g:signify_realtime               = 1
 let g:signify_sign_add               = '+'
@@ -37,6 +37,7 @@ Plugin 'rhysd/committia.vim'
 " Syntax highlighting & formatting packs
 Plugin 'rust-lang/rust.vim'
 Plugin 'ledger/vim-ledger'
+Plugin 'OrangeT/vim-csharp'
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }

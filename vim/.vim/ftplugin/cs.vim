@@ -3,26 +3,16 @@
 " File:         ~/.vim/ftplugin/cs.vim
 " =============================================================
 
-setlocal foldmarker={,}
-setlocal foldmethod=marker
-setlocal foldlevel=99
-
+" Setup dotnet build as the C# compiler for Vim Quickfix
 if executable('dotnet')
     setlocal makeprg=dotnet\ build\ .
     setlocal errorformat=\ %#%f(%l\\\,%c):\ %m
 endif
 
+" TODO find a better solution for syntax file loading with Vivid
+if g:loaded_vivid == 1 && vivid#enabled('vim-csharp') != 1
+    call vivid#enable('vim-csharp') | edit
+endif
 
-" TODO FIXME inprove this
-function! s:DotnetRun(...) abort
-    echo "0"
-    if exists('*.csproj')
-        echo "1"
-        "system(dotnet run .)
-        !dotnet run .
-    endif
-    echo "2"
-endfunction
-
-command! -bar -nargs=? Run :call <SID>DotnetRun(<f-args>)
+" TODO setup OmniSharp
 

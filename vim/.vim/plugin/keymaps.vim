@@ -3,9 +3,6 @@
 " File:         ~/.vim/plugin/keymappings.vim
 " =============================================================
 
-" Set Keymaps & Commands
-let mapleader = "\<Space>"
-let maplocalleader = ","
 " Spell check toggle
 nnoremap <Leader>ss :<C-u>setlocal spell!<CR>
 " Make tags file using ctags

@@ -13,7 +13,17 @@ set visualbell t_vb=    " Disable sound & visual alerts
 set laststatus=2        " Always display statusline
 
 if has('gui_running')  " Just incase I ever use GVim (not likely)
-    set guifont=Monospace\ 11
+    if has("gui_gtk2")
+        set guifont=Monospace\ 11
+    elseif has("gui_macvim")
+        set guifont=Menlo\ Regular:h14
+    elseif has("gui_win32")
+        au GUIEnter * simalt ~x
+        set guifont=Consolas:h11:cANSI
+    else
+        set guifont=Monospace\ 11
+    endif 
+    set novisualbell
     set guioptions-=T guioptions-=m guioptions-=r guioptions+=c guioptions-=L
 else
     if &term =~# '^.*256color$'
