@@ -1,20 +1,17 @@
 " =============================================================
-" Description:  Append Custom Modeline to Current File
+" Description:  Append Modeline Template to Current File
 " File:         ~/.vim/plugin/append_modeline.vim
 " =============================================================
 
-" Append modeline after last line in buffer.
+" Append (unobtrusive) modeline template after last line in buffer.
 function! AppendModeline()
     if exists('g:modeline')
         " Allow setting modeline from another vim config file
         let l:modeline = g:modeline
     else
-        " TODO Reduce the size of the modeline
-        let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set ft=%s ' 
-                    \ . 'ff=%s fenc=%s fdm=%s fmr=%s :',
-                    \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no',
-                    \ &filetype, &fileformat, &fileencoding, 
-                    \ &foldmethod, &foldmarker)
+        let l:modeline = printf(' vim: set %set ts=%d sts=%d sw=%d tw=%d '
+                    \ . 'ft=%s ff=%s fenc=%s :',
+                    \ &et?'':'no', &ts, &sts, &sw, &tw, &ft, &ff, &fenc)
     endif
     " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
     " files.

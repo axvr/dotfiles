@@ -8,6 +8,7 @@
 " * HexMode improve - try to stop data corruption
 " * HexMode <-- only command to toggle on and off
 " * HexMode make unmodifiable
+" * When 'binary' is set, &ff is ignored and set to Unix
 
 " For more powerful hex-editing use `bvi` or `bless`.
 if executable('xxd')

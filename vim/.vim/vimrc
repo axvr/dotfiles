@@ -83,7 +83,7 @@ set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.tar*
 set path+=**
 
-" Indentation Config (Spaces > Tabs)
+" Indentation config (spaces > tabs)
 set tabstop=8       " ts  -- Don't change this value
 set softtabstop=4   " sts -- Number of spaces = to a tab
 set shiftwidth=4    " sw  -- Number of spaces used for indenting
@@ -99,8 +99,6 @@ set wrap                " Enable line wrap
 set linebreak           " Breaks lines at words
 set nolist              " List disables linebreak
 if exists('+breakindent')
-    set breakindent
+    set breakindent     " Set wrapped text to visually indent
 endif
 
-
-" vim: set ts=8 sw=4 tw=80 et ft=vim ff=unix fenc=utf-8 :

@@ -12,19 +12,17 @@ let &colorcolumn='+'.join(range(1,256), ',+')
 set visualbell t_vb=    " Disable sound & visual alerts
 set laststatus=2        " Always display statusline
 
-if has('gui_running')  " Just incase I ever use GVim (not likely)
-    if has("gui_gtk2")
+if has('gui_running')   " Terminal Vim > GVim
+    if has('gui_gtk')
         set guifont=Monospace\ 11
-    elseif has("gui_macvim")
+    elseif has('gui_mac')
         set guifont=Menlo\ Regular:h14
-    elseif has("gui_win32")
+    elseif has('gui_win32')
         au GUIEnter * simalt ~x
         set guifont=Consolas:h11:cANSI
-    else
-        set guifont=Monospace\ 11
-    endif 
+    endif
     set novisualbell
-    set guioptions-=T guioptions-=m guioptions-=r guioptions+=c guioptions-=L
+    set guioptions-=T guioptions-=m guioptions-=r guioptions-=L guioptions+=c
 else
     if &term =~# '^.*256color$'
         set termguicolors
