@@ -1,6 +1,6 @@
 " =============================================================
 " Description:  Main Vim Configuration File
-" File:         ~/.vimrc
+" File:         ~/.vim/vimrc
 " =============================================================
 " Brief Help:
 "   :PluginInstall      - Install uninstalled plugins

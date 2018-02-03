@@ -3,42 +3,54 @@
 " File:         ~/.vim/plugin/hex_editor.vim
 " =============================================================
 
-" TODO Make sure that 'binary' is actually set
-" * HexMode is required to read bitcoin blocks
-" * HexMode improve - try to stop data corruption
-" * HexMode <-- only command to toggle on and off
-" * HexMode make unmodifiable
-" * When 'binary' is set, &ff is ignored and set to Unix
-
 " For more powerful hex-editing use `bvi` or `bless`.
 if executable('xxd')
-    command! -nargs=0 -bar HexModeEnable call <SID>HexModeEnable()
-    command! -nargs=0 -bar HexModeDisable call <SID>HexModeDisable()
+
+    function! s:ConvertLineEndings(ff) abort
+        if &l:ff != a:ff
+            try
+                ConvertFileFormat
+                write | edit
+            catch /^Vim\%((\a\+)\)\=:E492/
+                throw 'Failed to enable HexMode: Wrong file format'
+            catch /^Vim(write):/
+                throw 'Failed to enable HexMode: Could not change file format'
+            endtry
+        endif
+    endfunction
 
     function! s:HexModeEnable() abort
-        setlocal binary
-        "setlocal textwidth=0
-        "setlocal nomodeline
-        "setlocal noexpandtab
-        "setlocal nomodifiable
+        let s:prev_info = [&tw, &wm, &ml, &et, &ma, &bin, &ft, &ff]
+        call <SID>ConvertLineEndings('unix')
         %!xxd
-        setlocal filetype=xxd
+        setlocal tw=0 wm=0 noml noet noma binary ft=xxd
+        return 'Enabled HexMode'
     endfunction
 
     function! s:HexModeDisable() abort
-        setlocal binary
+        let &l:tw  = s:prev_info[0] | let &l:wm  = s:prev_info[1]
+        let &l:ml  = s:prev_info[2] | let &l:et  = s:prev_info[3]
+        let &l:ma  = s:prev_info[4] | let &l:bin = s:prev_info[5]
+        let &l:ft  = s:prev_info[6] | let &l:ff  = s:prev_info[7]
+        unlet s:prev_info
         %!xxd -r
-        setlocal filetype=
+        call <SID>ConvertLineEndings('dos')
+        return 'Disabled HexMode'
     endfunction
 
-    nnoremap <Plug>HexRead  :call <SID>HexModeEnable()<CR>
-    nnoremap <Plug>HexWrite :call <SID>HexModeDisable()<CR>
+    let s:HexModeState = 0
 
-    if empty(maparg('<Leader>hr', 'n'))
-        nmap <Leader>hr <Plug>HexRead
-    endif
-    if empty(maparg('<Leader>hw', 'n'))
-        nmap <Leader>hw <Plug>HexWrite
-    endif
+    function! s:HexModeToggle() abort
+        if s:HexModeState == 0
+            echomsg <SID>HexModeEnable()
+            let s:HexModeState = 1
+        elseif s:HexModeState == 1
+            echomsg <SID>HexModeDisable()
+            let s:HexModeState = 0
+        endif
+    endfunction
+
+    command! -nargs=0 -bar HexMode call <SID>HexModeToggle()
+
 endif
 
