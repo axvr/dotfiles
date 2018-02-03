@@ -48,7 +48,6 @@ function! GetVCSBranch() abort
     endif
 endfunction
 
-" TODO Improve this
 function! StatusLine(active) abort
     let l:statusline  = "%(%#LineNr#%{GetVCSBranch()}%)"            " Block 1
     let l:statusline .= "%(%#" . a:active . "#\ %f%m%r%h%w\ %)"     " Block 2

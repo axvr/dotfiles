@@ -20,33 +20,35 @@ if executable('xxd')
     endfunction
 
     function! s:HexModeEnable() abort
-        let s:prev_info = [&tw, &wm, &ml, &et, &ma, &bin, &ft, &ff]
+        let s:prev_info = [&tw, &wm, &ml, &et, &ma, &ro, &bin, &ft, &ff]
         call <SID>ConvertLineEndings('unix')
         %!xxd
-        setlocal tw=0 wm=0 noml noet noma binary ft=xxd
+        setlocal tw=0 wm=0 noml noet noma ro binary ft=xxd
         return 'Enabled HexMode'
     endfunction
 
     function! s:HexModeDisable() abort
-        let &l:tw  = s:prev_info[0] | let &l:wm  = s:prev_info[1]
-        let &l:ml  = s:prev_info[2] | let &l:et  = s:prev_info[3]
-        let &l:ma  = s:prev_info[4] | let &l:bin = s:prev_info[5]
-        let &l:ft  = s:prev_info[6] | let &l:ff  = s:prev_info[7]
-        unlet s:prev_info
+        let &l:tw  = s:prev_info[0] | let &l:wm = s:prev_info[1]
+        let &l:ml  = s:prev_info[2] | let &l:et = s:prev_info[3]
+        let &l:ma  = s:prev_info[4] | let &l:ro = s:prev_info[5]
+        let &l:bin = s:prev_info[6] | let &l:ft = s:prev_info[7]
+        let &l:ff  = s:prev_info[8]
         %!xxd -r
-        call <SID>ConvertLineEndings('dos')
+        call <SID>ConvertLineEndings(s:prev_info[7])
+        write | edit
+        unlet s:prev_info
         return 'Disabled HexMode'
     endfunction
 
     let s:HexModeState = 0
 
     function! s:HexModeToggle() abort
-        if s:HexModeState == 0
-            echomsg <SID>HexModeEnable()
-            let s:HexModeState = 1
-        elseif s:HexModeState == 1
+        if s:HexModeState == 1
             echomsg <SID>HexModeDisable()
             let s:HexModeState = 0
+        elseif s:HexModeState == 0
+            echomsg <SID>HexModeEnable()
+            let s:HexModeState = 1
         endif
     endfunction
 

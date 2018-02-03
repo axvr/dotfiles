@@ -3,6 +3,7 @@
 " File:         ~/.vim/plugin/convert_file_format.vim
 " =============================================================
 
+" Unix --> Dos, Dos --> Unix, Mac --> Unix
 function! s:Convert() abort
     let l:ff = &fileformat
     update
