@@ -7,16 +7,16 @@
 if executable('xxd')
 
     function! s:ConvertLineEndings(ff) abort
-        if &l:ff != a:ff
-            try
+        try
+            if &l:ff != a:ff
                 ConvertFileFormat
-                write | edit
-            catch /^Vim\%((\a\+)\)\=:E492/
-                throw 'Failed to enable HexMode: Wrong file format'
-            catch /^Vim(write):/
-                throw 'Failed to enable HexMode: Could not change file format'
-            endtry
-        endif
+            endif
+            write | edit
+        catch /^Vim\%((\a\+)\)\=:E492/
+            throw 'File format changin plugin is not enabled'
+        catch /^Vim(write):/
+            throw 'Could not change file format'
+        endtry
     endfunction
 
     function! s:HexModeEnable() abort
@@ -32,10 +32,8 @@ if executable('xxd')
         let &l:ml  = s:prev_info[2] | let &l:et = s:prev_info[3]
         let &l:ma  = s:prev_info[4] | let &l:ro = s:prev_info[5]
         let &l:bin = s:prev_info[6] | let &l:ft = s:prev_info[7]
-        let &l:ff  = s:prev_info[8]
         %!xxd -r
         call <SID>ConvertLineEndings(s:prev_info[8])
-        write | edit
         unlet s:prev_info
         return 'Disabled HexMode'
     endfunction
