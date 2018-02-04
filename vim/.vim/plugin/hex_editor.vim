@@ -34,7 +34,7 @@ if executable('xxd')
         let &l:bin = s:prev_info[6] | let &l:ft = s:prev_info[7]
         let &l:ff  = s:prev_info[8]
         %!xxd -r
-        call <SID>ConvertLineEndings(s:prev_info[7])
+        call <SID>ConvertLineEndings(s:prev_info[8])
         write | edit
         unlet s:prev_info
         return 'Disabled HexMode'
