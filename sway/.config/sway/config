@@ -4,8 +4,6 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-
-
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -16,24 +14,21 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term urxvt256c-ml
+set $term st
 # Your preferred application launcher
 set $menu dmenu_run
 
-
-
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/sway/)
-output * bg /home/axvr/Pictures/Wallpapers/tuxcomputer.png fill
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+output * bg "/home/axvr/Pictures/Wallpapers/Adapta GTK Theme Tealized.jpg" fill
 #
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-
-
+#output "eDP-1" resolution 1600x900
 
 ### Input configuration
 #
@@ -47,20 +42,32 @@ output * bg /home/axvr/Pictures/Wallpapers/tuxcomputer.png fill
 #   }
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
-# The escape symbol "\" has to be removed.
 # Read `man 5 sway-input` for more information about this section.
+input "1739:30383:DELL07E6:00_06CB:76AF_To" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+    scroll_method two_finger
+}
 
-# ------------------------------------------------------------------------------
+#
+# Media and volume controls, etc.
+#
+    # Screen brightness control
+    bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
+    # Volume controls
+    bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
+    bindsym XF86AudioLowerVolume exec amixer set Master 5%-
+    bindsym XF86AudioMute exec amixer set Master toggle
 
 
 ### Key bindings
-
-
 #
 # Basics:
 #
-
     # start a terminal
     bindsym $mod+Return exec $term
 
@@ -84,36 +91,13 @@ output * bg /home/axvr/Pictures/Wallpapers/tuxcomputer.png fill
     bindsym $mod+Shift+e exit
 
     # lock sway
-    bindsym $mod+Shift+x exec swaylock
+    bindsym $mod+Shift+x exec swaylock --color 212121
 
-    # Jump to urgent window
+    # jump to urgent window
     bindsym $mod+x [urgent=latest] focus
-
-# ------------------------------------------------------------------------------
-
-
-
-#
-# Media and volume controls, etc.
-#
-
-    # Screen brightness control
-    bindsym XF86MonBrightnessUp exec dsplight up 5
-    bindsym XF86MonBrightnessDown exec dsplight down 5
-
-    # Volume controls
-    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +5%
-    bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -5%
-    bindsym XF86AudioMute exec pactl set-sink-mute $(pacmd list-sinks |awk '/* index:/{print $3}') toggle
-
-# ------------------------------------------------------------------------------
-
-
-
 #
 # Moving around:
 #
-
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
@@ -135,16 +119,10 @@ output * bg /home/axvr/Pictures/Wallpapers/tuxcomputer.png fill
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
-
-# ------------------------------------------------------------------------------
-
-
-
 #
 # Workspaces:
 #
 
-    # workspace names
     set $workspace01 1
     set $workspace02 2
     set $workspace03 3
@@ -155,6 +133,7 @@ output * bg /home/axvr/Pictures/Wallpapers/tuxcomputer.png fill
     set $workspace08 8
     set $workspace09 9
     set $workspace10 10
+
 
     # switch to workspace
     bindsym $mod+1 workspace $workspace01
@@ -167,7 +146,6 @@ output * bg /home/axvr/Pictures/Wallpapers/tuxcomputer.png fill
     bindsym $mod+8 workspace $workspace08
     bindsym $mod+9 workspace $workspace09
     bindsym $mod+0 workspace $workspace10
-
     # move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace $workspace01
     bindsym $mod+Shift+2 move container to workspace $workspace02
@@ -181,15 +159,9 @@ output * bg /home/axvr/Pictures/Wallpapers/tuxcomputer.png fill
     bindsym $mod+Shift+0 move container to workspace $workspace10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-
-# ------------------------------------------------------------------------------
-
-
-
 #
 # Layout stuff:
 #
-
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -213,14 +185,12 @@ output * bg /home/axvr/Pictures/Wallpapers/tuxcomputer.png fill
     # move focus to the parent container
     bindsym $mod+a focus parent
 
-# ------------------------------------------------------------------------------
-
-
-
+    # window borders
+    new_window pixel 1
+    new_float pixel 1
 #
 # Scratchpad:
 #
-
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
 
@@ -230,15 +200,9 @@ output * bg /home/axvr/Pictures/Wallpapers/tuxcomputer.png fill
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-
-# ------------------------------------------------------------------------------
-
-
-
 #
 # Resizing containers:
 #
-
 mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
@@ -259,22 +223,14 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 bindsym $mod+r mode "resize"
-
-# ------------------------------------------------------------------------------
-
-
 
 #
 # Status Bar:
 #
-
 # Read `man 5 sway-bar` for more information about this section.
-
 bar {
-    position bottom
-
+    position top
     colors {
         statusline #ffffff
         background #323232
@@ -282,21 +238,4 @@ bar {
     }
 }
 
-# ------------------------------------------------------------------------------
-
-
-
-#
-# Sway style customisation
-#
-
-    # Window borders
-    new_window pixel 2
-    new_float pixel 2
-
-# ------------------------------------------------------------------------------
-
-
 include /etc/sway/config.d/*
-
-

@@ -75,6 +75,9 @@ sudo dnf copr enable @dotnet-sig/dotnet
 sudo dnf install dotnet-sdk-2.0
 # VSTS-CLI
 curl -L https://aka.ms/install-vsts-cli | bash
+# Install TEE-CLC
+# Install Mono-Devel (for omnisharp)
+sudo dnf install mono-devel
 
 
 
@@ -171,3 +174,10 @@ function install_games() {
   sudo dnf install dwarffortress
 
 }
+
+
+sudo dnf install emacs
+# install spacemacs
+sudo dnf install adobe-source-code-pro-fonts
+
+sudo dnf install brightnessctl

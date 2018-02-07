@@ -18,8 +18,8 @@ Plugin 'wellle/targets.vim',   { 'enabled': 1, }
 Plugin 'romainl/vim-cool',     { 'enabled': 1, }
 Plugin 'romainl/vim-qf',       { 'enabled': 1, }
 packadd matchit
-runtime ftplugin/man.vim
-autocmd! FileType man setlocal textwidth=0 nofoldenable
+"runtime ftplugin/man.vim
+"autocmd! FileType man setlocal textwidth=0 nofoldenable
 
 " VCS integration
 Plugin 'itchyny/vim-gitbranch', { 'enabled': 1, }
@@ -38,13 +38,10 @@ Plugin 'rhysd/committia.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'ledger/vim-ledger'
 Plugin 'OrangeT/vim-csharp'
+"Plugin 'file:///home/axvr/Documents/Projects/vim-plugins/Dotnet.vim/'
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
-
-" Netrw Configuration
-let g:netrw_banner    = 0
-let g:netrw_winsize   = 20
 
 " Tex.vim Syntax plugin Config
 let g:tex_flavor = "latex"

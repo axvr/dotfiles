@@ -29,15 +29,12 @@ if !exists('g:syntax_on')
     syntax enable
 endif
 set hidden confirm
-set splitright splitbelow
 set autoread
 set mouse=a
 set backspace=indent,eol,start
 set spelllang=en_gb
 set lazyredraw
 set showmatch
-set foldenable foldmethod=marker
-set modeline modelines=5
 
 " Searching
 set ignorecase      " Ignore case in searches
@@ -46,7 +43,7 @@ set hlsearch        " Highlight all search results
 set incsearch       " Searches for strings incrementally
 set wrapscan        " Wrap back to the start of the file
 
-" Backup, Swap & Undo files  {{{
+" Backup, Swap & Undo files
 let s:dirs = ['', '', '']
 if has('nvim')
     let s:dirs[0] = expand($HOME . '/.config/nvim/backup')
@@ -71,7 +68,7 @@ if has('persistent_undo')
 else
     set undolevels=1000
 endif
-unlet s:dirs " }}}
+unlet s:dirs
 
 " Set leader keymaps
 let mapleader = "\<Space>"

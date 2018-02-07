@@ -22,6 +22,9 @@ shopt -s histappend
 export LANG=en_GB.UTF-8
 export XKB_DEFAULT_LAYOUT=gb
 
+# Set Caps Lock to Ctrl
+export XKB_DEFAULT_OPTIONS=ctrl:nocaps
+
 
 # ========================================
 # --------- Development Config -----------
@@ -46,8 +49,16 @@ if [ -d "$HOME/.vsts-cli/" ]; then
 fi
 
 # TFVC (TEE-CLC)
-if [ -d "/home/axvr/.tee-clc/" ]; then
+if [ -d "$HOME/.tee-clc/" ]; then
     export PATH=$PATH:$HOME/.tee-clc/
+    export TF_AUTO_SAVE_CREDENTIALS="1"
+    export TF_DIFF_COMMAND="diff %1 %2"
+    #export TF_MERGE_COMMAND="vimdiff %1 %2 %4"
+fi
+
+# OmniSharp
+if [ -d "$HOME/.omnisharp/" ]; then
+    export PATH=$PATH:/home/axvr/.omnisharp/
 fi
 
 # Set default ASP.NET environment
