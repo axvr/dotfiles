@@ -45,15 +45,9 @@ set wrapscan        " Wrap back to the start of the file
 
 " Backup, Swap & Undo files
 let s:dirs = ['', '', '']
-if has('nvim')
-    let s:dirs[0] = expand($HOME . '/.config/nvim/backup')
-    let s:dirs[1] = expand($HOME . '/.config/nvim/swap')
-    let s:dirs[2] = expand($HOME . '/.config/nvim/undo')
-else
-    let s:dirs[0] = expand($HOME . '/.vim/backup')
-    let s:dirs[1] = expand($HOME . '/.vim/swap')
-    let s:dirs[2] = expand($HOME . '/.vim/undo')
-endif
+let s:dirs[0] = expand($HOME . '/.vim/backup')
+let s:dirs[1] = expand($HOME . '/.vim/swap')
+let s:dirs[2] = expand($HOME . '/.vim/undo')
 for s:dir in s:dirs
     if !isdirectory(s:dir)
         call mkdir(s:dir, 'p')

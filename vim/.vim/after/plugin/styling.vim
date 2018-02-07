@@ -4,7 +4,7 @@
 " =============================================================
 
 set number relativenumber
-set showmode showcmd
+set showcmd
 set ruler
 set rulerformat=%.20(%=%<%(%{&filetype==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %2c%)%)
 set cursorline          " Highlight current line

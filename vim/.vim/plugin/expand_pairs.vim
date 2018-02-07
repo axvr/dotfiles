@@ -6,7 +6,7 @@
 " Auto-close/expand brackets
 function! s:CloseBracket()
     let s:line = getline('.')
-    if s:line =~# '^\s*\(struct\|class\|enum\) '
+    if s:line =~# '^\s*\(struct\|enum\) '
         return "{\<CR>};\<Esc>O"
     elseif searchpair('(', '', ')', 'bmn', '', line('.'))
         " Probably inside a function call. Close it off.

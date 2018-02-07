@@ -12,6 +12,4 @@ nnoremap <silent> <Leader>mt :<C-u>MakeTags<CR>
 nnoremap <Leader>tc :<C-u>set termguicolors!<CR>
 " Quick file navigation
 nnoremap <Leader>ff :<C-u>find<Space>
-nnoremap <Leader>fs :<C-u>write<CR>
-nnoremap <Leader>bb :<C-u>buffers<CR>:<C-u>buffer<Space>
 
