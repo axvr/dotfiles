@@ -3,7 +3,6 @@
 " File:         ~/.vim/ftplugin/diff.vim
 " =============================================================
 
-setlocal nofoldenable
 setlocal textwidth=0
 setlocal nonumber norelativenumber
 setlocal nomodifiable

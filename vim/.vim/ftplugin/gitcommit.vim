@@ -4,5 +4,4 @@
 " =============================================================
 
 setlocal spell
-setlocal nofoldenable
 
