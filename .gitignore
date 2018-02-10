@@ -11,6 +11,7 @@
 # Emacs config
 **/.emacs.d/**
 !**/.emacs.d/init.el
+spacemacs/.emacs.d/
 
 # Just in case
 *.dat
