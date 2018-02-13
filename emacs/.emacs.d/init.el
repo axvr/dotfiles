@@ -1,40 +1,30 @@
-; Emacs Config
-; ~/.emacs.d/init.el
+;;;; Emacs Configuration
+;;;; `~/.emacs.d/init.el'
 
-;;; TODO improve line numbers (and set relative)
-;;; TODO highlight "TODO" and other parts of comments
-;;; TODO install Org-mode, Magit and others
-;;; TODO sort out package archives
-;;; TODO move this file to an org-mode file
 
-; Other config (organise and check)
-;; Disable UI elements in GUI Emacs
+;;; Disable UI elements in GUI Emacs
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-;; Line Numbers at right of buffer
+;; Enable line numbers
 (global-linum-mode 1)
-;;; Auto-indent
-;(define-key global-map (kbd "RET") 'newline-and-indent)
-;
-; TODO what is this?
-;(put 'scroll-left 'disabled nil)
+(setq display-line-numbers 'relative)
 
 
+;;; Packages Config
 (require 'package)
 
-;;(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+;;;(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+;;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+;;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
-;; Needed to work on Windows (no ssl support)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
+		    (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
   ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  ;;(add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t)
+  (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t)
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
@@ -45,9 +35,9 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-
 (eval-when-compile
   (require 'use-package))
+
 
 (use-package evil
   :ensure t
@@ -65,18 +55,10 @@
     :init (setq evil-escape-key-sequence "jk")
     :config (evil-escape-mode)))
 
-(use-package helm
-  :ensure t
-  :config (progn
-	    (setq helm-autoresize-max-height 0)
-	    (setq helm-autoresize-min-height 20)
-	    (helm-autoresize-mode 1)
-	    (helm-mode 1)))
+(use-package org
+  :ensure t)
 
 (use-package magit
-  :defer t)
-
-(use-package org
   :defer t)
 
 (use-package rainbow-delimiters
@@ -88,7 +70,8 @@
   :defer t
   :init (load-theme 'spacemacs-dark t))
 
-;; Set `ESC' to `C-g' (no more `ESC-ESC-ESC')
+
+;;; Set `ESC' to `C-g' (no more `ESC-ESC-ESC')
 ;;;(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
 
@@ -98,7 +81,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (use-package evil-visual-mark-mode))))
+ '(package-selected-packages
+   (quote
+    (use-package spacemacs-theme rainbow-delimiters helm evil-leader evil-escape))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
