@@ -105,4 +105,5 @@ alias em="emacs -nw"
 alias ledger="ledger -f ${HOME}/.ledger/personal.dat"
 alias ledger-record="${EDITOR} ${HOME}/.ledger/personal.dat"
 alias dl="youtube-dl"
+alias vi="vim -u NONE"
 
