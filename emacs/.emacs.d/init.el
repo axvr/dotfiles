@@ -2,15 +2,26 @@
 ;;;; `~/.emacs.d/init.el'
 
 
-;;; TODO Install Org-mode, Magit, Ledger-mode and others (maybe restclient)
+;;; TODO Install and configure Org-mode, Magit, Ledger-mode and others (maybe restclient, evil-org, evil-matchit)
 ;;; TODO Set up for programming (e.g. C#, VimL, Perl, Python, C, C++, Clojure, etc.)
 ;;; TODO Sort out package archive priority (https://emacs.stackexchange.com/questions/2969/is-it-possible-to-use-both-melpa-and-melpa-stable-at-the-same-time)
-;;; TODO Move this file to an org-mode file
+;;; TODO Move this file to an org-mode file?
 ;;; TODO Tidy up file & shorten comments
-;;; TODO Set fonts (Consolas on Windows, maybe Source-Code-Pro or Monospace on Linux)
+;;; TODO Set fonts (Consolas on Windows, maybe Source-Code-Pro, Tamsyn or Monospace on Linux)
 ;;; TODO Set location to store backup files
 ;;; TODO Try and set up unlimited undo
 ;;; TODO Set up Vim-like folding (https://github.com/mrkkrp/vimish-fold, https://github.com/alexmurray/evil-vimish-fold)
+;;; FIXME Work in terminal (just in case)
+;;; TODO Get `g$' working correctly (setq evil-move-beyond-eol nil does not work)
+;;; TODO Try to make config work in shell (terminal Emacs)
+;;; TODO Disable escape keymap when evil mode is disabled (may have to ask on /r/emacs [& check if the mapping can be improved])
+;;; TODO Check that evil-leader starts up correctly (`SPC-SPC')
+;;; TODO Improve scrolling in Emacs and Vim?
+;;; TODO Set up additional evil keybindings for different parts of Emacs (e.g. package.el & buffer list)?
+;;; TODO Improve Ivy config (ask on IRC or /r/emacs if there is a package or config to emulate wildmenu in emacs)
+;;; TODO Update Emacs packages
+;;; TODO Improve eshell (add evil ex command `:terminal')
+;;; TODO Set up ctags and/or etags
 
 
 ;; Disable UI elements in GUI Emacs
@@ -18,13 +29,15 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-;; Enable various minor modes
-(show-paren-mode 1)                           ; Highlight matching parens
-(column-number-mode 1)                        ; Display column number
-(setq column-number-indicator-zero-based nil) ; Start column number count at 1 (Emacs 26)
-(hl-line-mode)                                ; Hightlight current line
-(global-linum-mode 1)                         ; Enable line numbers
-(setq display-line-numbers 'relative)         ; Relative line numbers (Emacs 26)
+;; Enable & configure various minor modes
+(dolist (mode '(show-paren-mode     ; Highlight matching parens
+                column-number-mode  ; Display column number
+                hl-line-mode        ; Hightlight current line
+                global-linum-mode)) ; Enable line numbers
+  (funcall mode 1))
+(setq column-number-indicator-zero-based nil ; Start `column-number-mode' count at 1    (Emacs 26)
+      display-line-numbers 'relative         ; Relative line numbers for `hl-line-mode' (Emacs 26)
+      ring-bell-function 'ignore)            ; Disable bell
 ;; NOTE: May need: (setq display-line-numbers-current-absolute t) to enable hybrid line numbers
 
 ;; Auto-indent on new line
@@ -41,7 +54,6 @@
 (set-language-environment "UTF-8")
 
 ;; Highlight TODOs, NOTEs, FIXMEs etc. TODO: Hightlight only in comments
-;; Space-vim-dark: #d78700 | Old: #d7a3ad
 (defun axvr/highlight-todos () ; Source (modified): https://writequit.org/org/
   "Highlight FIXME, TODO and NOTE"
   (font-lock-add-keywords
@@ -74,7 +86,7 @@
 ;;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-		    (not (gnutls-available-p))))
+                    (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
   ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
@@ -95,12 +107,12 @@
   (require 'use-package))
 (require 'diminish)
 
-
+;; Evil-Mode Configuration
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-C-i-jump nil) ; http://stackoverflow.com/questions/22878668/emacs-org-mode-evil-mode-tab-key-not-working
+  (setq evil-want-C-u-scroll t
+        evil-want-C-i-jump nil) ; http://stackoverflow.com/questions/22878668/emacs-org-mode-evil-mode-tab-key-not-working
   :config
 
   (use-package evil-leader
