@@ -5,8 +5,6 @@
 " Brief Help:
 "   :PluginInstall      - Install uninstalled plugins
 "   :PluginUpgrade      - Update installed plugins
-"   :PluginEnable       - Enable a named plugin
-"   :PluginClean        - Remove unused plugins
 "   :mks[ession] path   - Create a session
 "   :so[urce] path      - Load a session or Vim Script
 " =============================================================

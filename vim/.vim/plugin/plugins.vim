@@ -33,7 +33,6 @@ let g:signify_sign_show_count        = 0
 Plugin 'rhysd/committia.vim'
 
 " Syntax highlighting & formatting packs
-Plugin 'rust-lang/rust.vim'
 Plugin 'ledger/vim-ledger'
 Plugin 'OrangeT/vim-csharp'
 
