@@ -28,7 +28,7 @@ filetype plugin indent on
 if !exists('g:syntax_on')
     syntax enable
 endif
-set hidden confirm
+set hidden
 set autoread
 set mouse=a
 set backspace=indent,eol,start
@@ -71,7 +71,7 @@ let maplocalleader = ","
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.tar*
+set wildignore+=*/tmp/*,*.so,*.pyc,*.db,*.sqlite
 set path+=**
 
 " Indentation config (spaces > tabs)
