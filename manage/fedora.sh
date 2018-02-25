@@ -23,14 +23,7 @@ mkdir -p ~/Documents/{Projects,Notes}
 # -------- Install Applications ----------
 # ========================================
 
-# Currently in use:
-#   KeePassXC       (keepassxc)
-#   Krita           (krita)
-#   TorBrowser      (torbrowser-launcher)
-#   Ledger-CLI      (ledger)
-#   GNOME Tweaks    (gnome-tweak-tool)
-#   TODO Terminal based IRC client: IRSSI or WeeChat
-
+# TODO Terminal based IRC client: IRSSI or WeeChat
 # Previously used:
 #   Asunder         (asunder)
 #   YouTube-Dl      (youtube-dl)
@@ -161,3 +154,4 @@ function install_games() {
 
 # Window manager brightness control
 #sudo dnf install brightnessctl
+
