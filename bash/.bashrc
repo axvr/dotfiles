@@ -43,9 +43,9 @@ export MANPAGER="less"
 #export PATH=$PATH:$HOME/.cargo/bin
 
 # Microsoft VSTS-CLI Tool
-if [ -d "$HOME/.vsts-cli/" ]; then
-    export PATH=$PATH:$HOME/.vsts-cli/bin
-    source "$HOME/.vsts-cli/vsts.completion"
+if [ -d "$HOME/.vsts/" ]; then
+    export PATH=$PATH:$HOME/.vsts/bin
+    source "$HOME/.vsts/vsts.completion"
 fi
 
 # TFVC (TEE-CLC)

@@ -34,7 +34,9 @@ Plugin 'rhysd/committia.vim'
 
 " Syntax highlighting & formatting packs
 Plugin 'ledger/vim-ledger'
+Plugin 'PProvost/vim-ps1'
 Plugin 'OrangeT/vim-csharp'
+Plugin 'OmniSharp/omnisharp-vim'
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }

@@ -2,12 +2,6 @@
 " Description:  Main Vim Configuration File
 " File:         ~/.vim/vimrc
 " =============================================================
-" Brief Help:
-"   :PluginInstall      - Install uninstalled plugins
-"   :PluginUpgrade      - Update installed plugins
-"   :mks[ession] path   - Create a session
-"   :so[urce] path      - Load a session or Vim Script
-" =============================================================
 " Dependencies:
 "   LaTeX:      latexmk & pdflatex
 "   Perl:       perl

@@ -74,7 +74,7 @@ sudo dnf copr enable @dotnet-sig/dotnet
 sudo dnf install dotnet-sdk-2.0
 
 # Microsoft VSTS-CLI Tool
-echo "Set install location to: '~/.vsts-cli'"
+echo "Set install location to: '~/.vsts'"
 curl -L https://aka.ms/install-vsts-cli | bash
 
 # TODO Team Explorer Everywhere (TFVC: TEE-CLC)
@@ -89,8 +89,6 @@ curl -L https://aka.ms/install-vsts-cli | bash
 # Install Mono-Devel (for omnisharp)
 # TODO get OmniSharp working without Mono
 sudo dnf install mono-devel
-
-# TODO Install OmniSharp
 
 # Visual Studio Code
 #sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc

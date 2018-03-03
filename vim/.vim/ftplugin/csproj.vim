@@ -1,7 +1,9 @@
 " =============================================================
 " Description:  Set up Vim for Editing C# *.csproj Files
-" File:         ~/.vim/ftdetect/csproj.vim
+" File:         ~/.vim/ftplugin/csproj.vim
 " =============================================================
 
-autocmd BufNewFile,BufRead *.csproj setlocal sw=2 sts=2 textwidth=0 filetype=xml
+setlocal shiftwidth=2
+setlocal softtabstop=2
+setlocal textwidth=0
 
