@@ -56,11 +56,6 @@ if [ -d "$HOME/.tee-clc/" ]; then
     #export TF_MERGE_COMMAND="vimdiff %1 %2 %4"
 fi
 
-# OmniSharp
-if [ -d "$HOME/.omnisharp/" ]; then
-    export PATH=$PATH:/home/axvr/.omnisharp/
-fi
-
 # Set default ASP.NET environment
 export ASPNETCORE_ENVIRONMENT=Development
 
@@ -100,7 +95,7 @@ export PS1="[\u@\h \W\[\e[32m\]\`parse_vcs_branch\`\[\e[m\]]\\$ "
 # ========================================
 
 alias startx="startx; vlock"
-alias nv="nvim"
+alias nv="nvi"
 alias em="emacs -nw"
 alias ledger="ledger -f ${HOME}/.ledger/personal.dat"
 alias ledger-record="${EDITOR} ${HOME}/.ledger/personal.dat"
