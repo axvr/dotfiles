@@ -58,7 +58,7 @@ unlet s:dirs
 
 " Set leader keymaps
 let mapleader = "\<Space>"
-let maplocalleader = ","
+let maplocalleader = "\\"
 
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
