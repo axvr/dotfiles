@@ -6,4 +6,3 @@
 if executable('latexmk') || executable('pdflatex')
     setlocal makeprg=latexmk\ -pdf\ %
 endif
-

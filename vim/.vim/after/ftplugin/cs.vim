@@ -3,13 +3,7 @@
 " File:         ~/.vim/after/ftplugin/cs.vim
 " =============================================================
 
-" Setup dotnet build as the C# compiler for Vim Quickfix
+" FIXME Gets overwritten if another C# file is opened
 " NOTE: Done in `after` to overwrite `vim-csharp` plugin settings
-if executable('dotnet')
-    setlocal makeprg=dotnet\ build\ .
-    setlocal errorformat=\ %#%f(%l\\\,%c):\ %m
-    "setlocal keywordprg=
-endif
-
+compiler dotnet
 setlocal completeopt& completeopt-=preview
-

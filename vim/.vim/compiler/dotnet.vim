@@ -1,0 +1,20 @@
+" =============================================================
+" Description:  .NET Core CLI (dotnet-cli) Compiler Interface
+" File:         ~/.vim/compiler/dotnet.vim
+" =============================================================
+
+"if exists('current_compiler')
+"  finish
+"endif
+let current_compiler = 'dotnet'
+let s:cpo_save = &cpo
+set cpo&vim
+
+if executable('dotnet')
+    setlocal makeprg=dotnet\ build\ .
+    setlocal errorformat=\ %#%f(%l\\\,%c):\ %m
+    "setlocal keywordprg=
+endif
+
+let &cpo = s:cpo_save
+unlet s:cpo_save

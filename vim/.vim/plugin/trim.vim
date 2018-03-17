@@ -17,4 +17,3 @@ function! s:trim(bang) abort
 endfunction
 
 command! -nargs=0 -bar -bang Trim call <SID>trim('!' == '<bang>')
-

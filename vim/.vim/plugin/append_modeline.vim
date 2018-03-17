@@ -18,4 +18,3 @@ nnoremap <silent> <Plug>AppendModeline :<C-u>call <SID>AppendModeline()<CR>
 if empty(maparg('<Leader>ml', 'n'))
     nmap <Leader>ml <Plug>AppendModeline
 endif
-

@@ -1,11 +1,10 @@
 " =============================================================
-" Description:  Set up Vim for Editing PowerShell files
+" Description:  Set up Vim for Editing PowerShell Scripts
 " File:         ~/.vim/ftdetect/ps1.vim
 " =============================================================
 
 augroup PowerShell
     autocmd!
-    autocmd FileType ps1 call vivid#enable('vim-ps1')
-    autocmd BufRead,BufNewFile *.ps1,*.psc1,*.ps1xml setfiletype ps1
+    autocmd BufRead,BufNewFile *.ps1,*.psd1,*.psm1,*.pssc setfiletype powershell
+    autocmd BufRead,BufNewFile *.ps1xml,*.psc1,*.cdxml setfiletype xml
 augroup END
-

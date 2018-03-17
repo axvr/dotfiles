@@ -14,4 +14,3 @@ function! s:Convert() abort
 endfunction
 
 command! -bar -nargs=0 ConvertFileFormat :call <SID>Convert()
-

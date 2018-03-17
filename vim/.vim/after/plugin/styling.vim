@@ -63,4 +63,3 @@ augroup theming
 augroup END
 
 colorscheme space-vim-dark
-
