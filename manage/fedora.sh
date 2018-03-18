@@ -64,6 +64,10 @@ sudo dnf -y install texlive-scheme-basic latexmk \
     texlive-titling texlive-titlesec \
     texlive-roboto texlive-noto
 
+# Angular
+sudo dnf install nodejs npm
+sudo npm install -g @angular/cli
+
 
 # ========================================
 # -------- Install .NET Dev Tools --------

@@ -35,9 +35,9 @@ syn region ps1Comment start="<#" end="#>" contains=ps1CommentTodo,ps1CommentDoc,
 " Language keywords and elements
 syn keyword ps1Conditional if else elseif switch default
 syn keyword ps1Repeat while for do until break continue foreach in
-syn match ps1Repeat /\<foreach\>/ nextgroup=ps1Block skipwhite
-syn match ps1Keyword /\<while\>/ nextgroup=ps1Block skipwhite
-syn match ps1Keyword /\<where\>/ nextgroup=ps1Block skipwhite
+syn match ps1Repeat  /\<foreach\>/ nextgroup=ps1Block skipwhite
+syn match ps1Keyword /\<while\>/   nextgroup=ps1Block skipwhite
+syn match ps1Keyword /\<where\>/   nextgroup=ps1Block skipwhite
 
 syn keyword ps1Exception begin process end exit inlinescript parallel sequence
 syn keyword ps1Keyword   try catch finally throw
