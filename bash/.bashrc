@@ -56,8 +56,9 @@ if [ -d "$HOME/.tee-clc/" ]; then
     #export TF_MERGE_COMMAND="vimdiff %1 %2 %4"
 fi
 
-# Set default ASP.NET environment
+# Set .NET Core environment variables
 export ASPNETCORE_ENVIRONMENT=Development
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # Plan 9 User Space
 if [ -d "$HOME/Documents/Projects/plan9/" ]; then
@@ -94,6 +95,7 @@ export PS1="[\u@\h \W\[\e[32m\]\`parse_vcs_branch\`\[\e[m\]]\\$ "
 # -------- Aliases and Functions ---------
 # ========================================
 
+# TODO note and todo command
 alias startx="startx; vlock"
 alias nv="nvi"
 alias em="emacs -nw"

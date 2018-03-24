@@ -12,15 +12,15 @@ if has('vim_starting')
 endif
 
 " Vim enhancements
-Plugin 'tommcdo/vim-lion',     { 'enabled': 1, }
+Plugin 'tommcdo/vim-lion',     { 'enabled': 1 }
 let g:lion_squeeze_spaces = 1
-Plugin 'wellle/targets.vim',   { 'enabled': 1, }
-Plugin 'romainl/vim-cool',     { 'enabled': 1, }
-Plugin 'romainl/vim-qf',       { 'enabled': 1, }
+Plugin 'wellle/targets.vim',   { 'enabled': 1 }
+Plugin 'romainl/vim-cool',     { 'enabled': 1 }
+Plugin 'romainl/vim-qf',       { 'enabled': 1 }
 packadd matchit
 
 " VCS integration
-Plugin 'itchyny/vim-gitbranch', { 'enabled': 1, }
+Plugin 'itchyny/vim-gitbranch', { 'enabled': 1 }
 Plugin 'mhinz/vim-signify'
 let g:signify_vcs_list               = ['git', 'hg']
 let g:signify_realtime               = 1
@@ -33,6 +33,7 @@ let g:signify_sign_show_count        = 0
 Plugin 'rhysd/committia.vim'
 
 " Syntax highlighting & formatting packs
+Plugin 'editorconfig/editorconfig-vim', { 'enabled': 1 }
 Plugin 'ledger/vim-ledger'
 Plugin 'OrangeT/vim-csharp'
 Plugin 'OmniSharp/omnisharp-vim'
@@ -40,7 +41,7 @@ Plugin 'leafgarland/typescript-vim'
 Plugin 'Quramy/tsuquyomi'
 
 " Colour schemes and themes
-Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1, }
+Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
 
 " Tex.vim Syntax plugin Config
 let g:tex_flavor = "latex"
