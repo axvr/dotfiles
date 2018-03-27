@@ -159,3 +159,4 @@ let b:current_syntax = "ps1"
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
+

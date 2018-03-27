@@ -3,9 +3,6 @@
 " File:         ~/.vim/compiler/dotnet.vim
 " =============================================================
 
-"if exists('current_compiler')
-"  finish
-"endif
 let current_compiler = 'dotnet'
 let s:cpo_save = &cpo
 set cpo&vim
@@ -18,3 +15,4 @@ endif
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
+

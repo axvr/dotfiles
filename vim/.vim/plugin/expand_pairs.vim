@@ -17,3 +17,4 @@ function! s:CloseBracket()
 endfunction
 
 inoremap <expr> {<CR> <SID>CloseBracket()
+

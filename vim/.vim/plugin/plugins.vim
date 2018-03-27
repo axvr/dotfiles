@@ -53,3 +53,4 @@ function! s:enable_vcs_plugins() abort
     endif
 endfunction
 autocmd! BufReadPre * call s:enable_vcs_plugins()
+

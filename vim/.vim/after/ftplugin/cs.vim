@@ -7,3 +7,4 @@
 " NOTE: Done in `after` to overwrite `vim-csharp` plugin settings
 compiler dotnet
 setlocal completeopt& completeopt-=preview
+

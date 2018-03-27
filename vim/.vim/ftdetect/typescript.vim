@@ -10,3 +10,4 @@ augroup TypeScript
     autocmd FileType typescript call vivid#enable('typescript-vim', 'tsuquyomi')
     autocmd BufRead,BufNewFile *.ts setlocal filetype=typescript
 augroup END
+
