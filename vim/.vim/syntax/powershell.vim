@@ -155,7 +155,7 @@ hi def link ps1Operator               Operator
 hi def link ps1Repeat                 Repeat
 hi def link ps1Keyword                Keyword
 
-let b:current_syntax = "ps1"
+let b:current_syntax = "powershell"
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
