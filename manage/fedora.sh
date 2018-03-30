@@ -24,11 +24,12 @@ mkdir -p ~/Documents/{Projects,Notes}
 # ========================================
 
 # TODO Terminal based IRC client: IRSSI or WeeChat
-# Previously used:
-#   Asunder         (asunder)
-#   YouTube-Dl      (youtube-dl)
 
 sudo dnf -y install keepassxc krita torbrowser-launcher ledger gnome-tweak-tool
+sudo dnf -y install asunder youtube-dl
+
+sudo dnf copr enable fszymanski/newsboat
+sudo dnf install newsboat
 
 
 # ========================================
@@ -40,10 +41,6 @@ sudo dnf -y install stow tmux vim ctags nvi
 
 # Optional Tools
 sudo dnf -y install emacs
-# Install Spacemacs
-#sudo dnf install adobe-source-code-pro-fonts
-#rm -r ~/.emacs.d/
-#git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 # Development Package Groups
 sudo dnf -y groupinstall "Development Tools" \
@@ -75,7 +72,7 @@ sudo npm install -g @angular/cli
 
 # .NET Core SDK
 sudo dnf copr enable @dotnet-sig/dotnet
-sudo dnf install dotnet-sdk-2.0
+sudo dnf install dotnet-sdk-2.1
 
 # Microsoft VSTS-CLI Tool
 echo "Set install location to: '~/.vsts'"
@@ -88,11 +85,14 @@ curl -L https://aka.ms/install-vsts-cli | bash
 # mv TEE-CLC-XX-XXX-X ~/.tee-clc
 # rm TEE-CLC-XX-XXX-X.zip
 # Restart shell
-# run and accept: tf eula
+# tf eula -accept
 
-# Install Mono-Devel (for omnisharp)
-# TODO get OmniSharp working without Mono
-sudo dnf install mono-devel
+# OmniSharp
+sudo rpm --import "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
+sudo su -c 'curl https://download.mono-project.com/repo/centos7-stable.repo | tee /etc/yum.repos.d/mono-centos7-stable.repo'
+sudo dnf update
+sudo dnf install mono-devel msbuild
+# TODO download omnisharp-http for linux x64
 
 # Visual Studio Code
 #sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -134,7 +134,7 @@ sudo dnf -y install google-roboto-fonts google-roboto-mono-fonts \
 
 
 # Generate SSH keys
-function ssh_key_gen() {
+ssh_key_gen() {
     echo "Creating SSH Key Pair"
     printf "Input Email address: "
     read -r email
@@ -147,7 +147,7 @@ function ssh_key_gen() {
 }
 
 
-function install_games() {
+install_games() {
     # Install Dwarf Fortress - https://www.acm.jhu.edu/~bjr/pages/dwarf-fortress-for-fedora.html
     wget -P /etc/yum.repos.d/ https://www.acm.jhu.edu/~bjr/fedora/dwarffortress/dwarffortress.repo
     sudo dnf install dwarffortress

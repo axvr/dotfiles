@@ -1,0 +1,17 @@
+# Newsboat Configuration File
+
+# TODO Use environment variables
+
+# Add vi-like keybindings
+bind-key k  up
+bind-key j  down
+bind-key ^B pageup
+bind-key ^F pagedown
+
+# Newsboat specific config
+browser "firefox %u"
+
+# Podboat specific config
+download-path   "~/Downloads/%h/%n"
+player          "" # TODO
+
