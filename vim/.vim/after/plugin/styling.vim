@@ -1,30 +1,24 @@
 " =============================================================
 " Description:  Configure Styling and Colours for Vim & GVim
-" File:         ~/.vim/config/styling.vim
+" File:         ~/.vim/after/plugin/styling.vim
 " =============================================================
 
 set number relativenumber
 set showcmd
 set ruler
+" TODO redo the ruler format, add more useful information
 set rulerformat=%.20(%=%<%(%{&filetype==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %2c%)%)
 set cursorline          " Highlight current line
 let &colorcolumn='+'.join(range(1,256), ',+')
 set visualbell t_vb=    " Disable sound & visual alerts
 set laststatus=2        " Always display statusline
 
-if has('gui_running')   " Terminal Vim > GVim
-    au GUIEnter * simalt ~x
-    set guifont=Consolas:h11:cANSI
-    set novisualbell
-    set guioptions-=T guioptions-=m guioptions-=r guioptions-=L guioptions+=c
-else
-    if &term =~# '^.*256color$'
-        set termguicolors
-    endif
-    if &term =~# '^screen'
-        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    endif
+if &term =~# '^.*256color$'
+    set termguicolors
+endif
+if &term =~# '^screen'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
 

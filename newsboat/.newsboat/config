@@ -10,6 +10,7 @@ bind-key ^F pagedown
 
 # Newsboat specific config
 browser "firefox %u"
+text-width 80
 
 # Podboat specific config
 download-path   "~/Downloads/%h/%n"

@@ -4,6 +4,7 @@
 " =============================================================
 
 " Remove trailing whitespace
+" FIXME don't remove a whitespace character after a backslash
 function! s:trim(bang) abort
     if a:bang || (!&binary && &filetype != 'diff')
         normal! mz

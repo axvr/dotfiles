@@ -38,6 +38,13 @@ export EDITOR
 # Set Man pager
 export PAGER="less"
 export MANPAGER="less"
+export MANWIDTH=80
+
+# Plan 9 User Space
+if [ -d "$HOME/Documents/Projects/plan9/" ]; then
+    export PLAN9=$HOME/Documents/Projects/plan9
+    export PATH=$PATH:$PLAN9/bin
+fi
 
 # Rust development
 #export PATH=$PATH:$HOME/.cargo/bin
@@ -59,12 +66,6 @@ fi
 # Set .NET Core environment variables
 export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
-# Plan 9 User Space
-if [ -d "$HOME/Documents/Projects/plan9/" ]; then
-    export PLAN9=$HOME/Documents/Projects/plan9
-    export PATH=$PATH:$PLAN9/bin
-fi
 
 
 # ========================================

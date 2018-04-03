@@ -35,8 +35,10 @@ Plugin 'rhysd/committia.vim'
 " Syntax highlighting & formatting packs
 Plugin 'editorconfig/editorconfig-vim', { 'enabled': 1 }
 Plugin 'ledger/vim-ledger'
+" C#
 Plugin 'OrangeT/vim-csharp'
 Plugin 'OmniSharp/omnisharp-vim'
+" TypeScript
 Plugin 'leafgarland/typescript-vim'
 Plugin 'Quramy/tsuquyomi'
 

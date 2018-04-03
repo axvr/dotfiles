@@ -29,17 +29,16 @@ set lazyredraw
 set showmatch
 
 " Searching
-set ignorecase      " Ignore case in searches
-set smartcase       " Enables smart case mode
-set hlsearch        " Highlight all search results
-set incsearch       " Searches for strings incrementally
-set wrapscan        " Wrap back to the start of the file
+set ignorecase  " Ignore case in searches
+set smartcase   " Enables smart case mode
+set hlsearch    " Highlight all search results
+set incsearch   " Searches for strings incrementally
+set wrapscan    " Wrap back to the start of the file
 
 " Backup, Swap & Undo files
-let s:dirs = ['', '', '']
-let s:dirs[0] = expand($HOME . '/.vim/backup')
-let s:dirs[1] = expand($HOME . '/.vim/swap')
-let s:dirs[2] = expand($HOME . '/.vim/undo')
+let s:dirs = [expand($HOME.'/.vim/backup'),
+            \ expand($HOME.'/.vim/swap'),
+            \ expand($HOME.'/.vim/undo')]
 for s:dir in s:dirs
     if !isdirectory(s:dir)
         call mkdir(s:dir, 'p')
@@ -51,8 +50,6 @@ let &directory = s:dirs[1]
 if has('persistent_undo')
     let &undodir = s:dirs[2]
     set undofile
-else
-    set undolevels=1000
 endif
 unlet s:dirs
 
@@ -67,12 +64,12 @@ set wildignore+=*/tmp/*,*.so,*.pyc,*.db,*.sqlite
 set path+=**
 
 " Indentation config (spaces > tabs)
-set tabstop=8       " ts  -- Don't change this value
-set softtabstop=4   " sts -- Number of spaces = to a tab
-set shiftwidth=4    " sw  -- Number of spaces used for indenting
-set expandtab       " et  -- Change tabs into spaces
-set shiftround      " sr  -- Round indent to multiple of sw
-set autoindent      " ai  -- Enable unobtrusive auto-indentation
+set tabstop=8
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set shiftround
+set autoindent
 
 " Line wrap config (Use soft wrap for code, and hard wrap for comments and text)
 let &showbreak='+++ '   " Prefix for soft wrapped line
