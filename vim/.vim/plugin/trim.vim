@@ -6,16 +6,12 @@
 " Remove trailing whitespace
 " FIXME don't remove a whitespace character after a backslash
 function! s:trim(bang) abort
-    if a:bang || (!&binary && &filetype != 'diff')
-        normal! mz
-        normal! Hmy
-        %s/\m\C\s\+$//e
-        normal! 'yz<CR>
-        normal! `z
-    else
-        echomsg 'Warning! Not reccommended to trim whitespace in this file.'
-    endif
+    normal! mz
+    normal! Hmy
+    %s/\m\C\s\+$//e
+    normal! 'yz<CR>
+    normal! `z
 endfunction
 
-command! -nargs=0 -bar -bang Trim call <SID>trim('!' == '<bang>')
+command! -nargs=0 -bar Trim call <SID>trim()
 

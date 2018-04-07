@@ -10,6 +10,4 @@ command! -nargs=0 MakeTags !ctags -R .
 nnoremap <silent> <Leader>mt :<C-u>MakeTags<CR>
 " Allow quick changing of termguicolors
 nnoremap <Leader>tc :<C-u>set termguicolors!<CR>
-" Quick file navigation
-nnoremap <Leader>ff :<C-u>find<Space>
 

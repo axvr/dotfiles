@@ -77,7 +77,7 @@ export -f parse_vcs_branch
 export PS1="[\u@\h \W\[\e[32m\]\`parse_vcs_branch\`\[\e[m\]]\\$ "
 
 # Termux (Android) version of Fedora default
-#export PS1="[\W]$ "
+[ "$(uname -o)" == "Android" ] && export PS1="[\W]\\$ "
 
 
 # ========================================
