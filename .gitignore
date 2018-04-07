@@ -1,26 +1,10 @@
-# Vim config
-**/.vim/*
-!**/.vim/vimrc
-!**/.vim/config/
-!**/.vim/ftplugin/
-!**/.vim/ftdetect/
-!**/.vim/plugin/
-!**/.vim/after/
-!**/.vim/compiler/
-!**/.vim/syntax/
-
-# Emacs config
+**/.vim/**
 **/.emacs.d/**
-!**/.emacs.d/init.el
-spacemacs/.emacs.d/
-
-# Newsboat
 **/.newsboat/**
-!**/.newsboat/config
 
-# Just in case
 *.dat
 *.data
+*.bak
 .bash_history
 .lesshst
 *.swp

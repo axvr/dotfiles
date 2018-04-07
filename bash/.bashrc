@@ -18,11 +18,9 @@ export HISTFILESIZE=2000
 export HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 
-# Locale
+# Locale & keyboard config
 export LANG=en_GB.UTF-8
 export XKB_DEFAULT_LAYOUT=gb
-
-# Set Caps Lock to Ctrl
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
 
@@ -46,26 +44,16 @@ if [ -d "$HOME/Documents/Projects/plan9/" ]; then
     export PATH=$PATH:$PLAN9/bin
 fi
 
-# Rust development
-#export PATH=$PATH:$HOME/.cargo/bin
-
-# Microsoft VSTS-CLI Tool
-if [ -d "$HOME/.vsts/" ]; then
-    export PATH=$PATH:$HOME/.vsts/bin
-    source "$HOME/.vsts/vsts.completion"
-fi
+# .NET Core development
+export ASPNETCORE_ENVIRONMENT=Development
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # TFVC (TEE-CLC)
 if [ -d "$HOME/.tee-clc/" ]; then
     export PATH=$PATH:$HOME/.tee-clc/
     export TF_AUTO_SAVE_CREDENTIALS="1"
     export TF_DIFF_COMMAND="diff %1 %2"
-    #export TF_MERGE_COMMAND="vimdiff %1 %2 %4"
 fi
-
-# Set .NET Core environment variables
-export ASPNETCORE_ENVIRONMENT=Development
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 
 # ========================================
@@ -96,13 +84,10 @@ export PS1="[\u@\h \W\[\e[32m\]\`parse_vcs_branch\`\[\e[m\]]\\$ "
 # -------- Aliases and Functions ---------
 # ========================================
 
-# TODO note and todo command
+alias ls="ls --color=auto"
 alias startx="startx; vlock"
+alias vi="nvi"
 alias nv="nvi"
-alias em="emacs -nw"
-alias irc="irssi"
 alias ledger="ledger -f ${HOME}/.ledger/personal.dat"
 alias ledger-record="${EDITOR} ${HOME}/.ledger/personal.dat"
-alias dl="youtube-dl"
-alias vi="vim -u NONE"
 

@@ -1,5 +1,5 @@
 " =============================================================
-" Description:  Set up Vim for Editing C# (.NET Core) Projects
+" Description:  Set up Vim for C# (.NET Core) Projects
 " File:         ~/.vim/ftdetect/cs.vim
 " =============================================================
 

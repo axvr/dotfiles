@@ -23,7 +23,7 @@ packadd matchit
 Plugin 'itchyny/vim-gitbranch', { 'enabled': 1 }
 Plugin 'mhinz/vim-signify'
 let g:signify_vcs_list               = ['git', 'hg']
-let g:signify_realtime               = 1
+let g:signify_realtime               = 0
 let g:signify_sign_add               = '+'
 let g:signify_sign_change            = '~'
 let g:signify_sign_changedelete      = '•'
@@ -44,6 +44,7 @@ Plugin 'Quramy/tsuquyomi'
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
+Plugin 'robertmeta/nofrils'
 
 " Tex.vim Syntax plugin Config
 let g:tex_flavor = "latex"

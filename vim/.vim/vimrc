@@ -51,7 +51,6 @@ if has('persistent_undo')
     let &undodir = s:dirs[2]
     set undofile
 endif
-unlet s:dirs
 
 " Set leader keymaps
 let mapleader = "\<Space>"
