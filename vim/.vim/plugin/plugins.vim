@@ -57,3 +57,26 @@ function! s:enable_vcs_plugins() abort
 endfunction
 autocmd! BufReadPre * call s:enable_vcs_plugins()
 
+
+" Single file plugin manager (will be greatly extended to become FileMan.vim)
+
+" TODO provide a default path (~/.vim/pack/fileman/opt/<dir>/<filename>.vim)
+" TODO handle vim docs
+" TODO windows support
+" TODO allow shorter urls
+" TODO many more features (e.g. lazy loading, vivid integration, updating)
+
+function! s:FileMan(url, local) abort
+    if !filereadable(expand(a:local))
+        let l:cmd = 'curl --create-dirs "'.a:url.'" -o "'.expand(a:local).'"'
+        call system(l:cmd)
+        echomsg "Installed" a:local
+    endif
+endfunction
+
+command! -nargs=+ -bar File call s:FileMan(<args>)
+
+" PowerShell Syntax highlighting
+File 'https://raw.githubusercontent.com/PProvost/vim-ps1/master/syntax/ps1.vim',
+            \ '~/.vim/syntax/powershell.vim'
+

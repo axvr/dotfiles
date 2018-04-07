@@ -5,7 +5,7 @@
 
 " Remove trailing whitespace
 " FIXME don't remove a whitespace character after a backslash
-function! s:trim(bang) abort
+function! s:trim() abort
     normal! mz
     normal! Hmy
     %s/\m\C\s\+$//e
