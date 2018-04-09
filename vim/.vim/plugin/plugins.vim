@@ -62,8 +62,9 @@ autocmd! BufReadPre * call s:enable_vcs_plugins()
 
 " TODO provide a default path (~/.vim/pack/fileman/opt/<dir>/<filename>.vim)
 " TODO handle vim docs
-" TODO windows support
+" TODO windows support, and check if curl is installed (maybe replace curl)
 " TODO allow shorter urls
+" TODO allow performing regex actions on the file
 " TODO many more features (e.g. lazy loading, vivid integration, updating)
 
 function! s:FileMan(url, local) abort

@@ -48,13 +48,6 @@ fi
 export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
-# TFVC (TEE-CLC)
-if [ -d "$HOME/.tee-clc/" ]; then
-    export PATH=$PATH:$HOME/.tee-clc/
-    export TF_AUTO_SAVE_CREDENTIALS="1"
-    export TF_DIFF_COMMAND="diff %1 %2"
-fi
-
 
 # ========================================
 # --------- Custom Bash Prompts ----------

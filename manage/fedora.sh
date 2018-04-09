@@ -74,19 +74,6 @@ sudo npm install -g @angular/cli
 sudo dnf copr enable @dotnet-sig/dotnet
 sudo dnf install dotnet-sdk-2.1
 
-# Microsoft VSTS-CLI Tool
-echo "Set install location to: '~/.vsts'"
-curl -L https://aka.ms/install-vsts-cli | bash
-
-# TODO Team Explorer Everywhere (TFVC: TEE-CLC)
-# Download (wget or curl) latest TEE-CLC-XX-XXX-X.zip from:
-# https://github.com/Microsoft/team-explorer-everywhere/releases
-# unzip TEE-CLC-XX-XXX-X.zip
-# mv TEE-CLC-XX-XXX-X ~/.tee-clc
-# rm TEE-CLC-XX-XXX-X.zip
-# Restart shell
-# tf eula -accept
-
 # OmniSharp
 sudo rpm --import "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
 sudo su -c 'curl https://download.mono-project.com/repo/centos7-stable.repo | tee /etc/yum.repos.d/mono-centos7-stable.repo'
