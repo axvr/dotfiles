@@ -155,6 +155,10 @@
   :ensure t
   :config (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
+; TODO improve C# set up
+(use-package omnisharp
+  :config (add-hook 'csharp-mode-hook 'omnisharp-mode))
+
 (use-package spacemacs-theme
   :ensure t
   :defer t
@@ -168,7 +172,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (diminish evil-numbers ivy use-package spacemacs-theme rainbow-delimiters evil-leader evil-escape))))
+    (omnisharp diminish evil-numbers ivy use-package spacemacs-theme rainbow-delimiters evil-leader evil-escape))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

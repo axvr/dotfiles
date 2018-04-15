@@ -1,9 +1,10 @@
 ; Git Configuration File
 
 [user]
-    name = Alex Vear
-    email = axvr@users.noreply.github.com
+	name = Alex Vear
+	email = axvr@users.noreply.github.com
 [core]
-    editor = vim
-    excludesfile = ~/.gitignore_global
-
+	editor = vim
+	excludesfile = ~/.gitignore_global
+[alias]
+	logtree = log --graph --oneline --all
