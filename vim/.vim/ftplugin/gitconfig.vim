@@ -1,6 +1,6 @@
 " =============================================================
 " Description:  More consistent git config editing
-" File:         ~/.vim/ftplugin/cs.vim
+" File:         ~/.vim/ftplugin/gitconfig.vim
 " =============================================================
 
 setlocal noexpandtab
