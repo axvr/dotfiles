@@ -4,14 +4,19 @@
 " =============================================================
 
 " Remove trailing whitespace
-" FIXME don't remove a whitespace character after a backslash
 function! s:trim() abort
     normal! mz
     normal! Hmy
-    %s/\m\C\s\+$//e
+    %s/\m\C\(\\\)\@<!\s\+$//e
     normal! 'yz<CR>
     normal! `z
 endfunction
 
 command! -nargs=0 -bar Trim call <SID>trim()
+
+nnoremap <silent> <Plug>Trim :<C-u>call <SID>trim()<CR>
+
+if empty(maparg('<Leader>xdw', 'n'))
+    nmap <Leader>xdw <Plug>Trim
+endif
 
