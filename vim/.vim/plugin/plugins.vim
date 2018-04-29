@@ -17,11 +17,14 @@ let g:lion_squeeze_spaces = 1
 Plugin 'wellle/targets.vim',   { 'enabled': 1 }
 Plugin 'romainl/vim-cool',     { 'enabled': 1 }
 Plugin 'romainl/vim-qf',       { 'enabled': 1 }
+Plugin 'tpope/vim-commentary', { 'enabled': 1 }
+Plugin 'mbbill/undotree'
 packadd matchit
 
 " VCS integration
 Plugin 'itchyny/vim-gitbranch', { 'enabled': 1 }
-Plugin 'mhinz/vim-signify'
+Plugin 'tpope/vim-fugitive',    { 'enabled': 1 }
+Plugin 'mhinz/vim-signify',     { 'enabled': 1 }
 let g:signify_vcs_list               = ['git', 'hg']
 let g:signify_realtime               = 0
 let g:signify_sign_add               = '+'
@@ -49,35 +52,50 @@ Plugin 'robertmeta/nofrils'
 " Tex.vim Syntax plugin Config
 let g:tex_flavor = "latex"
 
-" VCS Plugin Enabling
+" FIXME VCS Plugin Enabling
 function! s:enable_vcs_plugins() abort
-    if gitbranch#name() !=# ''
-        call vivid#enable('vim-signify', 'committia.vim')
+    if exists('b:git_dir')
+        call vivid#enable('vim-signify')
     endif
 endfunction
-autocmd! BufReadPre * call s:enable_vcs_plugins()
+" autocmd! DirChanged,BufReadPre * call s:enable_vcs_plugins()
+" autocmd! BufNewFile,BufReadPost,BufEnter * call s:enable_vcs_plugins()
+
+
+" Enable plugins on Commands (TODO move to Vivid)
+function! VividCommand(plugin, ...) abort
+    for l:cmd in a:000
+        execute 'command '.l:cmd.' :call vivid#enable("'.a:plugin.'") | '.l:cmd
+    endfor
+endfunction
+
+call VividCommand('undotree',
+            \ 'UndotreeToggle', 'UndotreeShow', 'UndotreeHide', 'UndotreeFocus')
 
 
 " Single file plugin manager (will be greatly extended to become FileMan.vim)
 
-" TODO provide a default path (~/.vim/pack/fileman/opt/<dir>/<filename>.vim)
-" TODO handle vim docs
+" TODO provide a default path (~/.vim/pack/fileman/start/<dir>/<filename>.vim)
+" TODO handle vim docs?
 " TODO windows support, and check if curl is installed (maybe replace curl)
-" TODO allow shorter urls
 " TODO allow performing regex actions on the file
 " TODO many more features (e.g. lazy loading, vivid integration, updating)
 
 function! s:FileMan(url, local) abort
+    " let s:default_install_dir = expand('~/.vim/pack/fileman/start/fileman/')
+    let l:url = a:url
+    if l:url !~? '\m\C^\w\+:\/\/.*$'
+        let l:url = 'https://raw.githubusercontent.com/'.l:url
+    endif
     if !filereadable(expand(a:local))
-        let l:cmd = 'curl --create-dirs "'.a:url.'" -o "'.expand(a:local).'"'
+        let l:cmd = 'curl --create-dirs "'.l:url.'" -o "'.expand(a:local).'"'
         call system(l:cmd)
         echomsg "Installed" a:local
     endif
 endfunction
 
-command! -nargs=+ -bar File call s:FileMan(<args>)
+command! -nargs=+ -bar File :call s:FileMan(<args>)
 
 " PowerShell Syntax highlighting
-File 'https://raw.githubusercontent.com/PProvost/vim-ps1/master/syntax/ps1.vim',
-            \ '~/.vim/syntax/powershell.vim'
+File 'PProvost/vim-ps1/master/syntax/ps1.vim', '~/.vim/syntax/powershell.vim'
 

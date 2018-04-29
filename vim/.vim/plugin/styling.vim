@@ -21,9 +21,10 @@ endif
 
 
 " Fetch the VCS branch  TODO add support for other VCSs
+" TODO improve
 function! GetVCSBranch()
-    if vivid#enabled('vim-gitbranch') && gitbranch#name() !=# ''
-        return '  ' . gitbranch#name() . ' '
+    if vivid#enabled('vim-fugitive') && fugitive#head() !=# ''
+        return '  ' . fugitive#head() . ' '
     else | return ''
     endif
 endfunction

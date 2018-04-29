@@ -23,6 +23,10 @@ export LANG=en_GB.UTF-8
 export XKB_DEFAULT_LAYOUT=gb
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
+# Bash Inprovements
+shopt -s globstar
+shopt -s checkwinsize
+
 
 # ========================================
 # --------- Development Config -----------
@@ -78,6 +82,10 @@ export PS1="[\u@\h \W\[\e[32m\]\`parse_vcs_branch\`\[\e[m\]]\\$ "
 # ========================================
 
 alias ls="ls --color=auto"
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+
 alias startx="startx; vlock"
 alias vi="nvi"
 alias nv="nvi"
