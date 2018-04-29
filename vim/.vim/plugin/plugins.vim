@@ -22,7 +22,6 @@ Plugin 'mbbill/undotree'
 packadd matchit
 
 " VCS integration
-Plugin 'itchyny/vim-gitbranch', { 'enabled': 1 }
 Plugin 'tpope/vim-fugitive',    { 'enabled': 1 }
 Plugin 'mhinz/vim-signify',     { 'enabled': 1 }
 let g:signify_vcs_list               = ['git', 'hg']
@@ -98,4 +97,3 @@ command! -nargs=+ -bar File :call s:FileMan(<args>)
 
 " PowerShell Syntax highlighting
 File 'PProvost/vim-ps1/master/syntax/ps1.vim', '~/.vim/syntax/powershell.vim'
-

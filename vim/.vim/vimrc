@@ -80,4 +80,3 @@ set nolist              " List disables linebreak
 if exists('+breakindent')
     set breakindent     " Set wrapped text to visually indent
 endif
-

@@ -19,4 +19,3 @@ nnoremap <silent> <Plug>Trim :<C-u>call <SID>trim()<CR>
 if empty(maparg('<Leader>tw', 'n'))
     nmap <Leader>tw <Plug>Trim
 endif
-

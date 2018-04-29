@@ -16,4 +16,3 @@ nnoremap <silent> <Plug>HighlightGroups :<C-u>call <SID>SynStack()<CR>
 if empty(maparg('<Leader>hg', 'n'))
     nmap <leader>hg <Plug>HighlightGroups
 endif
-

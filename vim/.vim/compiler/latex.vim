@@ -8,4 +8,3 @@ if executable('latexmk')
 elseif executable('pdflatex')
     setlocal makeprg=pdflatex\ %\ &&\ pdflatex\ %
 endif
-

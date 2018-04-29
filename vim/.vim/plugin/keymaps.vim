@@ -12,4 +12,3 @@ nnoremap <silent> <Leader>mt :<C-u>MakeTags<CR>
 nnoremap <Leader>tc :<C-u>set termguicolors!<CR>
 " Toggle the Undotree
 nnoremap <leader>ut :<C-u>UndotreeToggle<CR>
-

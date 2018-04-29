@@ -12,4 +12,3 @@ autocmd FileType cs call vivid#enable('omnisharp-vim')
 autocmd BufRead,BufNewFile *.cshtml setfiletype cshtml.html
 autocmd BufRead,BufNewFile *.aspx   setfiletype aspx.html
 autocmd BufRead,BufNewFile *.csproj setlocal filetype=csproj.xml
-

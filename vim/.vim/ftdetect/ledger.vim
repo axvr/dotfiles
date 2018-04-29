@@ -4,4 +4,3 @@
 " =============================================================
 
 autocmd FileType ledger call vivid#enable('vim-ledger')
-
