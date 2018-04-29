@@ -15,4 +15,3 @@ text-width 80
 # Podboat specific config
 download-path   "~/Downloads/%h/%n"
 player          "totem" # TODO replace with terminal player
-

@@ -6,4 +6,3 @@ fi
 
 setxkbmap gb
 exec dwm
-

@@ -41,4 +41,3 @@ set colored-stats On
 
 # Color the common prefix
 set colored-completion-prefix On
-

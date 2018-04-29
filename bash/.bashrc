@@ -91,4 +91,3 @@ alias vi="nvi"
 alias nv="nvi"
 alias ledger="ledger -f ${HOME}/.ledger/personal.dat"
 alias ledger-record="${EDITOR} ${HOME}/.ledger/personal.dat"
-
