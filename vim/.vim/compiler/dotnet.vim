@@ -8,8 +8,8 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 if executable('dotnet')
-    setlocal makeprg=dotnet\ build\ -v\ q\ .\ /nologo\ /p:GenerateFullPaths=true
-    setlocal errorformat=\ %#%f(%l\\\,%c):\ %m
+    setlocal makeprg=dotnet\ build\ -v\ q\ .\ /nologo\ /p:GenerateFullPaths=true\ \\\|\ sort\ \\\|\ uniq\ \\\|\ grep\ \"^/\"
+    setlocal errorformat=%f(%l\\\,%v):\ %t%*[^:]:%m
 endif
 
 let &cpo = s:cpo_save

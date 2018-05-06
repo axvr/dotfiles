@@ -38,7 +38,6 @@ Plugin 'rhysd/committia.vim'
 Plugin 'editorconfig/editorconfig-vim', { 'enabled': 1 }
 Plugin 'ledger/vim-ledger'
 " C#
-Plugin 'OrangeT/vim-csharp'
 Plugin 'OmniSharp/omnisharp-vim'
 " TypeScript
 Plugin 'leafgarland/typescript-vim'
@@ -97,3 +96,8 @@ command! -nargs=+ -bar File :call s:FileMan(<args>)
 
 " PowerShell Syntax highlighting
 File 'PProvost/vim-ps1/master/syntax/ps1.vim', '~/.vim/syntax/powershell.vim'
+" C# Stuff
+File 'OrangeT/vim-csharp/master/syntax/cs.vim', '~/.vim/syntax/cs.vim'
+File 'OrangeT/vim-csharp/master/syntax/cshtml.vim', '~/.vim/syntax/cshtml.vim'
+File 'OrangeT/vim-csharp/master/syntax/aspx.vim', '~/.vim/syntax/aspx.vim'
+File 'OrangeT/vim-csharp/master/compiler/msbuild.vim', '~/.vim/compiler/msbuild.cs'
