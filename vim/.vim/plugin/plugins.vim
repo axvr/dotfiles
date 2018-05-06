@@ -86,7 +86,7 @@ function! s:FileMan(url, local) abort
     if l:url !~? '\m\C^\w\+:\/\/.*$'
         let l:url = 'https://raw.githubusercontent.com/'.l:url
     endif
-    if !filereadable(expand(a:local))
+    if !filereadable(expand(a:local)) && executable('curl')
         let l:cmd = 'curl --create-dirs "'.l:url.'" -o "'.expand(a:local).'"'
         call system(l:cmd)
         echomsg "Installed" a:local

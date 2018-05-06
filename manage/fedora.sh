@@ -75,11 +75,8 @@ sudo dnf copr enable @dotnet-sig/dotnet
 sudo dnf install dotnet-sdk-2.1
 
 # OmniSharp
-sudo rpm --import "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
-sudo su -c 'curl https://download.mono-project.com/repo/centos7-stable.repo | tee /etc/yum.repos.d/mono-centos7-stable.repo'
-sudo dnf update
-sudo dnf install mono-devel msbuild
-# TODO download omnisharp-http for linux x64
+# TODO download omnisharp-http for linux x64 (Vim)
+# TODO download omnisharp for linux x64 (Emacs)
 
 # Visual Studio Code
 #sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -143,4 +140,3 @@ install_games() {
 
 # Window manager brightness control
 #sudo dnf install brightnessctl
-

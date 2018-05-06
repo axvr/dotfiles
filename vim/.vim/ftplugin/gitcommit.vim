@@ -3,4 +3,4 @@
 " File:         ~/.vim/ftplugin/gitcommit.vim
 " =============================================================
 
-setlocal spell
+setlocal spell norelativenumber

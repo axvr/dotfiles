@@ -3,4 +3,4 @@
 " File:         ~/.vim/ftplugin/qf.vim
 " =============================================================
 
-setlocal textwidth=0
+setlocal textwidth=0 norelativenumber

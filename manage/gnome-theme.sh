@@ -245,4 +245,3 @@ case ${1,,} in
     *)
         select_theme ;;
 esac
-

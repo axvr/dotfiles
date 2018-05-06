@@ -10,7 +10,6 @@ set cpo&vim
 if executable('dotnet')
     setlocal makeprg=dotnet\ build\ -v\ q\ .\ /nologo\ /p:GenerateFullPaths=true
     setlocal errorformat=\ %#%f(%l\\\,%c):\ %m
-    "setlocal keywordprg=
 endif
 
 let &cpo = s:cpo_save
