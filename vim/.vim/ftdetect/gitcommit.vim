@@ -3,5 +3,12 @@
 " File:         ~/.vim/ftdetect/gitcommit.vim
 " =============================================================
 
+function! s:configure_committia() abort
+    if vivid#enabled('committia.vim') &&
+                \ expand('%:t') =~# '\m\C__committia_\(diff\|status\)__'
+        setlocal nocursorline colorcolumn=
+    endif
+endfunction
+
 autocmd BufReadPre COMMIT_EDITMSG call vivid#enable('committia.vim')
-autocmd BufFilePre,BufFilePost __committia_status__ setlocal nocursorline tw=0
+autocmd FileType diff,gitcommit call <SID>configure_committia()

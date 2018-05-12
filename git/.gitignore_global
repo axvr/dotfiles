@@ -58,6 +58,9 @@ cscope.po.out
 [._]s[a-v][a-z]
 [._]sw[a-p]
 
+# Persistent undo
+[._]*.un~
+
 # Session
 Session.vim
 
