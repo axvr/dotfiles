@@ -1,6 +1,6 @@
 " =============================================================
 " Description:  Configure Plugins for Vim to use
-" File:         ~/.vim/config/plugins.vim
+" File:         ~/.vim/plugin/plugins.vim
 " =============================================================
 
 " Plugin Setup
