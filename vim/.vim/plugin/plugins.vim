@@ -14,7 +14,6 @@ endif
 " Vim enhancements
 Plugin 'tommcdo/vim-lion',     { 'enabled': 1 }
 let g:lion_squeeze_spaces = 1
-Plugin 'wellle/targets.vim',   { 'enabled': 1 }
 Plugin 'romainl/vim-cool',     { 'enabled': 1 }
 Plugin 'romainl/vim-qf',       { 'enabled': 1 }
 Plugin 'tpope/vim-commentary', { 'enabled': 1 }
