@@ -9,6 +9,7 @@ set ruler
 set rulerformat=%30(%=%(%{&ff}\ \ %{&fenc?&fenc:&enc}\ %)%<%(%{&ft==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %2c%)%)
 set cursorline
 let &colorcolumn='+'.join(range(1,256), ',+')
+set synmaxcol=256
 set belloff=all
 
 if &term =~# '^.*256color$'

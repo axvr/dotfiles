@@ -21,6 +21,7 @@ Plugin 'mbbill/undotree'
 packadd matchit
 
 " VCS integration
+" TODO replace fugitive (I only use :Gblame and fugitive#head)
 Plugin 'tpope/vim-fugitive',    { 'enabled': 1 }
 Plugin 'mhinz/vim-signify',     { 'enabled': 1 }
 let g:signify_vcs_list               = ['git', 'hg']

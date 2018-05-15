@@ -3,4 +3,4 @@
 " File:         ~/.vim/ftplugin/html.vim
 " =============================================================
 
-inoremap </ </<C-x><C-o>
+inoremap <buffer> </ </<C-x><C-o>
