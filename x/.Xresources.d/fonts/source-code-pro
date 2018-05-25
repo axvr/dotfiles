@@ -1,0 +1,36 @@
+! Source Code Pro Font Definitions
+! --------------------------------
+
+! Default Font
+#define fontName Source\ Code\ Pro
+#define fontSize 14
+
+#define fontNameB Source\ Code\ Pro
+#define fontSizeB 14
+
+#define fontNameI Source\ Code\ Pro
+#define fontSizeI 14
+
+#define fontNameBI Source\ Code\ Pro
+#define fontSizeBI 14
+
+! Fallback Font
+#define fontFbName Monospace
+#define fontFbSize 14
+
+#define fontFbNameB Monospace
+#define fontFbSizeB 14
+
+#define fontFbNameI Monospace
+#define fontFbSizeI 14
+
+#define fontFbNameBI Monospace
+#define fontFbSizeBI 14
+
+! Either Font
+#define fontUseB    true
+#define fontUseI    true
+#define fontSpacing -1
+
+
+! vim: ft=xdefaults :

@@ -8,3 +8,6 @@
 	excludesfile = ~/.gitignore_global
 [alias]
 	logtree = log --graph --oneline --all
+	; authors = !git log --all --format='%cN <%cE>' | sort | uniq
+	authors = shortlog -nes
+	stats = !~/bin/git-stats ; TODO: Replace this

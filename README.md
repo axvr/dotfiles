@@ -20,4 +20,4 @@ My editors of choice:
 
 
 These config files are all dedicated to the Public Domain, without any
-conditions whatsoever.
+conditions whatsoever (unless stated otherwise).

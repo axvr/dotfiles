@@ -1,0 +1,36 @@
+! Hack Font Definitions
+! -----------------------------
+
+! Default Font
+#define fontName Liberation\ Mono
+#define fontSize 14
+
+#define fontNameB Liberation\ Mono
+#define fontSizeB 14
+
+#define fontNameI Liberation\ Mono
+#define fontSizeI 14
+
+#define fontNameBI Liberation\ Mono
+#define fontSizeBI 14
+
+! Fallback Font
+#define fontFbName Monospace
+#define fontFbSize 14
+
+#define fontFbNameB Monospace
+#define fontFbSizeB 14
+
+#define fontFbNameI Monospace
+#define fontFbSizeI 14
+
+#define fontFbNameBI Monospace
+#define fontFbSizeBI 14
+
+! Either Font
+#define fontUseB    true
+#define fontUseI    true
+#define fontSpacing -1
+
+
+! vim: ft=xdefaults :

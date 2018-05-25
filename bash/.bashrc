@@ -61,6 +61,7 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 #export PS1="[\u@\h \W]\\$ "
 
 # Fedora Default with VCS branch
+# TODO move function to separate executable script
 function parse_vcs_branch() {
     # Check Git Branch
     BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/*\(.*\)/\1/')

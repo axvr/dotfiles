@@ -3,6 +3,8 @@
 " File:         ~/.vim/plugin/expand_pairs.vim
 " =============================================================
 
+" FIXME: Causes issues when pasting from system clipboard
+
 " Auto-close/expand brackets
 function! s:CloseBracket()
     let s:line = getline('.')

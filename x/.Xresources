@@ -1,0 +1,61 @@
+! ~/.Xresources
+! ---------------------------------------------------
+! Configuration file for URxvt, and other X programs
+! Load this config file: xrdb -I$HOME ~/.Xresources
+! ---------------------------------------------------
+
+
+! Font selection
+#include ".Xresources.d/fonts/tamsyn"
+! Colour scheme selection
+#include ".Xresources.d/colours/space-vim-dark"
+
+
+! General Configuration
+#define selectedPadding 0
+
+
+! Colours (using Base16)
+*.foreground:  base05
+#ifdef background_opacity
+*.background:  [background_opacity]base00
+#else
+*.background:  base00
+#endif
+*.cursorColor: base05
+
+*.color0:  base00
+*.color1:  base08
+*.color2:  base0B
+*.color3:  base0A
+*.color4:  base0D
+*.color5:  base0E
+*.color6:  base0C
+*.color7:  base05
+
+*.color8:  base03
+*.color9:  base09
+*.color10: base01
+*.color11: base02
+*.color12: base04
+*.color13: base06
+*.color14: base0F
+*.color15: base07
+
+*.color16: base09
+*.color17: base0F
+*.color18: base01
+*.color19: base02
+*.color20: base04
+*.color21: base06
+
+
+! URxvt Configuration
+#include ".Xresources.d/urxvt.conf"
+! Xterm Configuration
+!#include ".Xresources.d/xterm.conf"
+! Rofi Configuration
+!#include ".Xresources.d/rofi.conf"
+
+
+! vim: ft=xdefaults :

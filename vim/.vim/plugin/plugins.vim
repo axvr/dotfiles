@@ -21,9 +21,7 @@ Plugin 'mbbill/undotree'
 packadd matchit
 
 " VCS integration
-" TODO replace fugitive (I only use :Gblame and fugitive#head)
-Plugin 'tpope/vim-fugitive',    { 'enabled': 1 }
-Plugin 'mhinz/vim-signify',     { 'enabled': 1 }
+Plugin 'mhinz/vim-signify', { 'enabled': 1 }
 let g:signify_vcs_list               = ['git', 'hg']
 let g:signify_realtime               = 0
 let g:signify_sign_add               = '+'
@@ -49,16 +47,6 @@ Plugin 'robertmeta/nofrils'
 " Tex.vim Syntax plugin Config
 let g:tex_flavor = "latex"
 
-" FIXME VCS Plugin Enabling
-" function! s:enable_vcs_plugins() abort
-"     if exists('b:git_dir')
-"         call vivid#enable('vim-signify')
-"     endif
-" endfunction
-" autocmd! DirChanged,BufReadPre * call s:enable_vcs_plugins()
-" autocmd! BufNewFile,BufReadPost,BufEnter * call s:enable_vcs_plugins()
-
-
 " Enable plugins on Commands (TODO move to Vivid)
 function! VividCommand(plugin, ...) abort
     for l:cmd in a:000
@@ -66,8 +54,7 @@ function! VividCommand(plugin, ...) abort
     endfor
 endfunction
 
-call VividCommand('undotree',
-            \ 'UndotreeToggle', 'UndotreeShow', 'UndotreeHide', 'UndotreeFocus')
+call VividCommand('undotree', 'UndotreeToggle', 'UndotreeShow', 'UndotreeFocus')
 
 
 " PowerShell Syntax highlighting
