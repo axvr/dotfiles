@@ -22,11 +22,15 @@ if &term =~# '^screen'
 endif
 
 " Fetch the VCS branch
-let b:vcs_branch = ''
-if has('unix') "&& executable('parse_vcs_branch')
-    autocmd! BufReadPre,BufWritePost,FileWritePost *
-                \ let b:vcs_branch = ' '.system('parse_vcs_branch').' '
+if has('unix') && executable('vcs-branch')
+    autocmd! BufReadPre,BufWritePost,FileWritePost,DirChanged,ShellCmdPost *
+                \ let b:vcs_branch = system('vcs-branch')
 endif
+function! VCSBranch()
+    if exists('b:vcs_branch') && b:vcs_branch != ''
+        return '  '.b:vcs_branch.' '
+    endif | return ''
+endfunction
 
 " Left:  [VCS Branch][File name][Modified][Read-only][Help][Preview]
 "        [Block 1   ][Block 2                                      ]
@@ -34,7 +38,7 @@ endif
 "        [Block 3              ][Block 4  ][Block 5                        ]
 
 function! StatusLine(active)
-    return "%(%#LineNr#%{b:vcs_branch}%)".
+    return "%(%#LineNr#%{VCSBranch()}%)".
                 \ "%(%#".a:active."#\ %f%m%r%h%w\ %)".
                 \ "%#".a:active."#%=%<".&rulerformat."\ "
 endfunction

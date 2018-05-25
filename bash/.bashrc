@@ -61,18 +61,16 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 #export PS1="[\u@\h \W]\\$ "
 
 # Fedora Default with VCS branch
-# TODO move function to separate executable script
-function parse_vcs_branch() {
-    # Check Git Branch
-    BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/*\(.*\)/\1/')
-    # Check HG Branch
-    if [[ "${BRANCH}" == "" ]]; then
-        BRANCH=$(hg branch 2> /dev/null | awk '{print " "$1""}')
+function get_vcs_branch() {
+    if [ "$(command -v vcs-branch)" ]; then
+        VCS_BRANCH=$(vcs-branch)
+        if [ "$VCS_BRANCH" != "" ]; then
+            printf " %s" "$VCS_BRANCH"
+        fi
     fi
-    printf "${BRANCH}"
+    printf ""
 }
-export -f parse_vcs_branch
-export PS1="[\u@\h \W\[\e[32m\]\`parse_vcs_branch\`\[\e[m\]]\\$ "
+export PS1="[\u@\h \W\[\e[32m\]\`get_vcs_branch\`\[\e[m\]]\\$ "
 
 # Termux (Android) version of Fedora default
 [ "$(uname -o)" == "Android" ] && export PS1="[\W]\\$ "
