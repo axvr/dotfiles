@@ -66,3 +66,5 @@ fi
 BASE_URL="https://github.com/OmniSharp/omnisharp-roslyn/releases/download"
 FULL_URL="${BASE_URL}/${VERSION}/${FILE_NAME}"
 echo "$FULL_URL"
+
+# TODO Finish this
