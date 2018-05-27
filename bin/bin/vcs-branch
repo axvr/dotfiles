@@ -7,7 +7,7 @@ BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/[* ]\+\(.*\)/\1/')
 VCS="git"
 # Check HG Branch
 if [ "${BRANCH}" = "" ]; then
-    BRANCH=$(hg branch 2> /dev/null | awk '{print ""$1""}')
+    BRANCH=$(hg branch 2> /dev/null | awk '{ print $1 }')
     VCS="hg"
 fi
 

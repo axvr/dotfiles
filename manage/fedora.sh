@@ -4,7 +4,7 @@
 # -----------------------------
 
 # Run install script using this command
-# wget https://raw.githubusercontent.com/axvr/dotfiles/master/manage/fedora.sh && bash fedora.sh
+# curl https://raw.githubusercontent.com/axvr/dotfiles/master/manage/fedora.sh | bash
 
 # Fedora Broadcom WiFi drivers
 # https://ashhar24.wordpress.com/2012/06/15/setting-up-wireless-driver-fedora/
@@ -15,7 +15,7 @@
 # Upgrade Fedora System
 sudo dnf -y upgrade
 
-# TODO Create Directory Structure
+# Create basic directory structure
 mkdir -p ~/Documents/{Projects,Notes}
 
 
@@ -23,10 +23,12 @@ mkdir -p ~/Documents/{Projects,Notes}
 # -------- Install Applications ----------
 # ========================================
 
-# TODO Terminal based IRC client: IRSSI or WeeChat
+# TODO setup RPMFusion repos
+# TODO install ffmpeg and cmus
+# TODO install abcde & cdparanoia
 
-sudo dnf -y install keepassxc krita torbrowser-launcher ledger gnome-tweak-tool
-sudo dnf -y install asunder youtube-dl
+sudo dnf -y install keepassxc krita torbrowser-launcher ledger gnome-tweaks
+sudo dnf -y install youtube-dl weechat
 
 sudo dnf copr enable fszymanski/newsboat
 sudo dnf install newsboat
@@ -39,9 +41,6 @@ sudo dnf install newsboat
 # Main Tools
 sudo dnf -y install stow tmux vim ctags nvi
 
-# Optional Tools
-sudo dnf -y install emacs
-
 # Development Package Groups
 sudo dnf -y groupinstall "Development Tools" \
     "C Development Tools and Libraries" \
@@ -51,8 +50,8 @@ sudo dnf -y groupinstall "Development Tools" \
 #   ShellCheck  (ShellCheck)
 sudo dnf -y install ShellCheck
 
-# Perl Scripting
-sudo dnf -y install perl perl-CPAN
+# Perl & Ruby Scripting
+sudo dnf -y install perl perl-CPAN ruby
 
 # LaTeX Typesetting
 #   PDFLaTeX    (texlive-scheme-basic)
@@ -61,7 +60,7 @@ sudo dnf -y install texlive-scheme-basic latexmk \
     texlive-titling texlive-titlesec \
     texlive-roboto texlive-noto
 
-# Angular
+# Angular & Node.JS
 sudo dnf install nodejs npm
 sudo npm install -g @angular/cli
 

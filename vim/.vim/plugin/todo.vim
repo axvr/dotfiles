@@ -12,11 +12,12 @@
 
 function! s:TODOs()
     let l:vcs = system('vcs-branch -v')
+    let l:files = ''
     if l:vcs == 'git'
         let l:files = '$(git ls-files)'
     elseif l:vcs == 'hg'
         let l:files = '$(hg status -An)'
-    else
+    elseif filereadable(expand('%'))
         let l:files = '%'
     endif
 
