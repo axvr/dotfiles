@@ -3,4 +3,4 @@
 " File:         ~/.vim/ftdetect/tex.vim
 " =============================================================
 
-autocmd BufNewFile *.tex %d|r ~/.vim/skeleton/skeleton.tex|1d
+autocmd BufNewFile *.tex %d|r ~/.vim/skeleton/skel.tex|1d

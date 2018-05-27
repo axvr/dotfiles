@@ -32,17 +32,14 @@ let g:signify_sign_delete_first_line = '‾'
 let g:signify_sign_show_count        = 0
 Plugin 'rhysd/committia.vim'
 
-Plugin 'axvr/dotnet.vim', { 'enabled': 1 }
 " Syntax highlighting & formatting packs
-Plugin 'editorconfig/editorconfig-vim', { 'enabled': 1 }
 Plugin 'ledger/vim-ledger'
-" TypeScript
+Plugin 'axvr/dotnet.vim', { 'enabled': 1 }
 Plugin 'leafgarland/typescript-vim'
 Plugin 'Quramy/tsuquyomi'
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
-Plugin 'robertmeta/nofrils'
 
 " Tex.vim Syntax plugin Config
 let g:tex_flavor = "latex"
