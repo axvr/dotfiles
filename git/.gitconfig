@@ -9,4 +9,4 @@
 [alias]
 	logtree = log --graph --oneline --all
 	authors = shortlog -nes
-	stats = !~/bin/git-stats ; TODO: Replace this
+	stats = !git-stats ; TODO: Replace this

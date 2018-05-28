@@ -1,14 +1,6 @@
 # dotfiles
 
-My dotfiles are managed using GNU Stow.
-
-My editors of choice:
-* [Vim](https://www.vim.org/) (& [Tmux](https://tmux.github.io/)) - My
-  main/favourite editor.
-* [Spacemacs](http://spacemacs.org/) - For when more power is required.
-* [VS Code](https://code.visualstudio.com/) - Backup editor (using
-  [VSCodeVim](https://github.com/VSCodeVim/Vim)).
-
+My dotfiles are managed using GNU Stow (`stow(8)`).
 
 ![Vim Config](https://raw.githubusercontent.com/axvr/codedump/master/project-assets/Vivid.vim/vivid-update.png)
 
@@ -18,6 +10,7 @@ My editors of choice:
 [Vivid.vim]:https://github.com/axvr/Vivid.vim
 [space-vim-dark]:https://github.com/liuchengxu/space-vim-dark
 
+<!-- TODO: Dependencies and programs information -->
 
 These config files are all dedicated to the Public Domain, without any
 conditions whatsoever (unless stated otherwise).

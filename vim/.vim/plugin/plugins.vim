@@ -47,11 +47,11 @@ let g:tex_flavor = "latex"
 " Enable plugins on Commands (TODO move to Vivid)
 function! VividCommand(plugin, ...) abort
     for l:cmd in a:000
-        execute 'command '.l:cmd.' :call vivid#enable("'.a:plugin.'") | '.l:cmd
+        execute 'command '.l:cmd.' :call vivid#enable("'.a:plugin.'") | silent! '.l:cmd
     endfor
 endfunction
 
-call VividCommand('undotree', 'UndotreeToggle', 'UndotreeShow', 'UndotreeFocus')
+call VividCommand('undotree', 'UndotreeToggle', 'UndotreeShow')
 
 
 " PowerShell Syntax highlighting
