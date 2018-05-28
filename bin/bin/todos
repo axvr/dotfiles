@@ -1,6 +1,4 @@
 #!/bin/sh
 
 # NOTE: This is a temporary solution
-if [ "$(command -v vim)" ]; then
-    vim +'TODOs | q' "$@"
-fi
+[ "$(command -v vim)" ] && vim +'TODOs|q' "$@"

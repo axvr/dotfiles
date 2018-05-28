@@ -1,0 +1,69 @@
+#!/usr/bin/perl
+
+# Whitespace Fixer
+# ----------------
+#
+# Does these things:
+# * Remove trailing whitespace
+# * TODO Add missing new line characters at EOF
+# * TODO Convert tabs to spaces (and vice versa)
+# * TODO Respond to VCS in use to create file list
+# * TODO Provide a list of file wildcards to ignore
+
+use strict;
+use warnings;
+use Getopt::Std;
+
+
+# Parameters:
+# * t - remove trailing whitespace
+# * b - convert tabs to spaces (need to know how many spaces to tab characters)
+# * B - convert spaces to tabs
+# * n - add missing new line char to EOF
+# * l - list issues with file(s)
+# * u - print usage information
+# * h - print help
+
+our($opt_u, $opt_t);
+getopts("ut");
+
+# Check that all user given files exist
+foreach (@ARGV) {
+    if (! -f $_) {
+        die "Error: \"$_\" is not a valid file\n";
+    }
+}
+
+my @file_list = ();
+
+if (@ARGV) {
+    @file_list = @ARGV;
+} else {
+    # Get Version Control System
+    my $vcs = `vcs-branch -v`;
+    if ($? != 0) { die $? }
+
+    # TODO use VCS to collect list of files
+    # else, return error message to user
+    # TODO remove ignored files from the list
+}
+
+
+if ($opt_u) {
+    printf "usage: %s [-tu] [file ...]\n", "$0";
+    exit 1;
+}
+
+if ($opt_t) {
+    remove_trailing_whitespace(@file_list);
+}
+
+sub remove_trailing_whitespace {
+    my @files = @_;
+    foreach (@files) {
+        # TODO open file
+        # remove trailing whitespace
+        # close file
+        print "$_\n";
+    }
+}

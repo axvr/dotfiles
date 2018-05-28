@@ -2,7 +2,7 @@
 # OmniSharp-roslyn Management tool
 
 usage() {
-    printf "usage: %s [-i] [-r] [-v version] [-V] [-l location] [-H] [-u]\\n" "$0"
+    printf "usage: %s [-irVHu] [-v version] [-l location]\\n" "$0"
 }
 
 # From: https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c
