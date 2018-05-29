@@ -61,9 +61,16 @@ if ($opt_t) {
 sub remove_trailing_whitespace {
     my @files = @_;
     foreach (@files) {
-        # TODO open file
-        # remove trailing whitespace
-        # close file
-        print "$_\n";
+        my $file = $_; 
+        open(my $in,  '<', $file)       or die "Can't read file \"$file\": $!";
+        open(my $out, '>', "$file.new") or die "Can't write to \"$file\": $!";
+
+        while (<$in>) {
+            s/\h+$//;
+            print $out $_;
+        }
+
+        close($out);
+        rename("$file.new", "$file");
     }
 }
