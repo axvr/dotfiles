@@ -13,6 +13,8 @@
 use strict;
 use warnings;
 use Getopt::Std;
+use File::Find;
+use File::Copy qw(copy);
 
 
 # Parameters:
@@ -49,21 +51,26 @@ if (@ARGV) {
 }
 
 
+# TODO ignore files (also allow reading from an ignore file). Use: File::Find
+# my @ignored_files = ('.git/*', '*.jpg', '*.png', '*.svg', '*.rsa', '*.asc');
+# foreach (@ignored_files) {
+#     print(glob($_));
+# }
+
+
 if ($opt_u) {
     printf "usage: %s [-tu] [file ...]\n", "$0";
     exit 1;
 }
 
-if ($opt_t) {
-    remove_trailing_whitespace(@file_list);
-}
-
 sub remove_trailing_whitespace {
     my @files = @_;
     foreach (@files) {
-        my $file = $_; 
-        open(my $in,  '<', $file)       or die "Can't read file \"$file\": $!";
-        open(my $out, '>', "$file.new") or die "Can't write to \"$file\": $!";
+        my $file = $_;
+        copy($file, "$file.new");
+
+        open(my $in,  '<', "$file.new") or die "Can't read file \"$file\": $!";
+        open(my $out, '>', "$file")     or die "Can't write to \"$file\": $!";
 
         while (<$in>) {
             s/\h+$//;
@@ -71,6 +78,10 @@ sub remove_trailing_whitespace {
         }
 
         close($out);
-        rename("$file.new", "$file");
+        unlink "$file.new"
     }
+}
+
+if ($opt_t) {
+    remove_trailing_whitespace(@file_list);
 }
