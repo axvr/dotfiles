@@ -7,7 +7,6 @@ set number relativenumber
 set showcmd
 set ruler
 set rulerformat=%32(%=%(%{&ff}\ \ %{&fenc?&fenc:&enc}\ %)%<%(%{&ft==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %2c%)%)
-" TODO fix rulerformat sizing (^above)
 set cursorline
 let &colorcolumn='+'.join(range(1,256), ',+')
 set synmaxcol=256

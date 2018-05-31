@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-using System.Collection.Generic;
+using System.Collections.Generic;
 
 namespace MyNamespace
 {
