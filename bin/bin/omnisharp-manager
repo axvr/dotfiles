@@ -1,5 +1,7 @@
 #!/bin/sh
 # OmniSharp-roslyn Management tool
+#
+# Works on: Linux, macOS & Cygwin/WSL
 
 usage() {
     printf "usage: %s [-irVHu] [-v version] [-l location]\\n" "$0"
@@ -28,43 +30,53 @@ get_current_version() {
 # * M :: type of server: mono or regular
 # * S :: start the server (takes a solution file)
 
-LOCATION="$HOME/.omnisharp/"
+location="$HOME/.omnisharp/"
 
 while getopts irv:Vl:uH o "$@"
 do
     case "$o" in
         i)      install;;
         r)      remove;;
-        v)      VERSION="$OPTARG";;
+        v)      version="$OPTARG";;
         V)
             printf "Latest version:    %s\\n" "$(get_latest_version)"
             printf "Installed version: %s\\n" "$(get_current_version)"
             exit 0
             ;;
-        l)      LOCATION="$OPTARG";;
-        H)      HTTP=".http";;
+        l)      location="$OPTARG";;
+        H)      http=".http";;
         u)      usage && exit 0;;
         [?])    usage && exit 1;;
     esac
 done
 
+ext="tar.gz"
+
 case "$(uname -s)" in
-    "Linux")    OS="linux";;
-    "Darwin")   OS="osx";;
-    *)          exit 1;;
+    "Linux")    os="linux";;
+    "Darwin")   os="osx";;
+    *)
+        if [ "$(uname -o)" = "Cygwin" ]; then
+            os="win"
+            ext="zip"
+            # TODO run post install: chmod +x $(find . -name '*' -type f)
+        else
+            exit 1
+        fi
+        ;;
 esac
 case "$(uname -m)" in
-    "x86_64")   MACHINE="x64";;
-    "i368")     MACHINE="x86";;
+    "x86_64")   machine="x64";;
+    "i368")     machine="x86";;
     *)          exit 1;;
 esac
-FILE_NAME=$(printf "omnisharp%s-%s-%s.tar.gz" "$HTTP" "$OS" "$MACHINE")
+file_name=$(printf "omnisharp%s-%s-%s.%s" "$http" "$os" "$machine" "$ext")
 
-if [ -z "$VERSION" ]; then
-    VERSION="$(get_latest_version)"
+if [ -z "$version" ]; then
+    version="$(get_latest_version)"
 fi
-BASE_URL="https://github.com/OmniSharp/omnisharp-roslyn/releases/download"
-FULL_URL="${BASE_URL}/${VERSION}/${FILE_NAME}"
-echo "$FULL_URL"
+base_url="https://github.com/OmniSharp/omnisharp-roslyn/releases/download"
+full_url="${base_url}/${version}/${file_name}"
+echo "$full_url"
 
 # TODO Finish this

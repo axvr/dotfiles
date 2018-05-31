@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# A more minimal version of t (http://stevelosh.com/projects/t/)
+
+export TODO_FILE="$HOME/.todo.txt"
+if [ ! -f "$TODO_FILE" ]; then
+    > "$TODO_FILE"
+fi
+
+# TODO allow changing the task file used
+# TODO close multiple tasks at once
+
+function t() {
+    if [ "$#" -eq 0 ]; then
+        cat "$TODO_FILE"
+    elif [ "$1" == "-h" ]; then
+        # Help message
+        printf "Usage: t [-h] [-e ID] [-f ID] [-m] [TEXT]\n"
+    elif [ "$1" == "-e" ]; then
+        # Edit a task
+        echo "-e was passed"
+    elif [ "$1" == "-f" ]; then
+        # Complete a task
+        shift
+        ARGS="$@"
+        PATTERN=$(printf "/%s/d" "$ARGS")
+        sed -i "$PATTERN" "$TODO_FILE"
+    elif [ "$1" == "-m" ]; then
+        # Open the task file in a text editor
+        "$EDITOR" "$TODO_FILE"
+    else
+        # Add a task to the task file
+        ID=$(echo $(date +'%Y-%m-%d %T.%N %s') | sha1sum | cut -c 37-40)
+        echo $ID - "$@" >> $TODO_FILE
+    fi
+}
+export -f t
+

@@ -1,5 +1,9 @@
-#!/usr/bin/perl
+#!/bin/bash
+# Update all pachages in a .NET Core project
 
-use strict;
-use warnings;
-use Getopt::Long;
+# TODO replace with a better version (written in Perl)
+mapfile -t ARRAY < <(sed -n 's/^\s*<PackageReference Include="\(.*\)" Version="\(.*\)" \/\?>/\1/p' \
+    $(find . -name '*.csproj' -type f))
+for i in ${ARRAY[*]}; do
+    dotnet add package $i
+done
