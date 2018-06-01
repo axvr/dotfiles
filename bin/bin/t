@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# A more minimal version of t (http://stevelosh.com/projects/t/)
+
+todo_file="$HOME/.todo.txt"
+[ ! -f "$todo_file" ] && touch "$todo_file"
+
+# TODO allow changing the task file used
+# TODO close multiple tasks at once
+
+if [ "$#" -eq 0 ]; then
+    cat "$todo_file"
+elif [ "$1" == "-h" ]; then
+    printf "usage: %s [-hm] [-e ID] [-f ID] [text]\\n" "$0"
+elif [ "$1" == "-e" ]; then
+    # Edit a task
+    echo "-e was passed"
+elif [ "$1" == "-f" ]; then
+    # Complete a task
+    shift
+    args="$@"
+    PATTERN=$(printf "/%s/d" "$args")
+    sed -i "$PATTERN" "$todo_file"
+elif [ "$1" == "-m" ]; then
+    # Open the task file in a text editor
+    "$EDITOR" "$todo_file"
+else
+    # Add a task to the task file
+    id=$(date +'%Y-%m-%d %T.%N %s' | sha1sum | cut -c 37-40)
+    echo "$id" - "$@" >> "$todo_file"
+fi

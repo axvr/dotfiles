@@ -11,14 +11,7 @@ fi
 
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin
-
-export PATH
-
-# Load ~/.Xresources
-#if [ -f "$HOME/.Xresources" ]; then
-#    xrdb "$HOME/.Xresources"
-#fi
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 # Start window manager on login
 if [[ -z "$DISPLAY" ]] && [[ "$(tty)" = /dev/tty1 ]]; then

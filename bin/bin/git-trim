@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# TODO replace me
-
-for i in $(git ls-files | grep -v "\.\(jpg\|png\|svg\|rsa\|asc\)$")
-do
-    vim -e "$i" +'Trim | wq'
-done
