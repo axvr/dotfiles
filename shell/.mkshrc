@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# TODO extend this config
+
+get_vcs_branch() {
+    if [ "$(command -v vcs-branch)" ]; then
+        VCS_BRANCH=$(vcs-branch)
+        if [ "$VCS_BRANCH" != "" ]; then
+            printf " %s" "$VCS_BRANCH"
+        fi
+    fi
+    printf ""
+}
+export PS1="[${USER}@${HOSTNAME} ${PWD##*/}[32m$(get_vcs_branch)[00m]\\$ "
+# FIXME does not show '~' when in home dir

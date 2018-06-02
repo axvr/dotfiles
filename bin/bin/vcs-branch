@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # TODO create a perl version of this and time each (use fastest)
+# TODO add the option to pad branch with whitespace (in perl version)
 
 # Check Git Branch
 BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/[* ]\+\(.*\)/\1/')
