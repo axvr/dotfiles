@@ -1,5 +1,5 @@
 --- config.def.h	2018-05-29 23:03:59.912247435 +0100
-+++ config.h	2018-06-02 11:05:48.632629888 +0100
++++ config.h	2018-06-02 11:40:24.700925237 +0100
 @@ -5,8 +5,8 @@
   *
   * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
@@ -7,7 +7,7 @@
 -static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
 -static int borderpx = 2;
 +static char *font = "Tamsyn:pixelsize=16";
-+static int borderpx = 0; // Default: 2px
++static int borderpx = 0;
  
  /*
   * What program is execed by st depends of these precedence rules:

@@ -1,0 +1,45 @@
+--- config.def.h	2018-05-30 20:47:12.052807247 +0100
++++ config.h	2018-05-31 22:30:10.382024018 +0100
+@@ -44,6 +44,11 @@
+ };
+ 
+ /* key definitions */
++#define XF86MonBrightnessDown		0x1008ff03
++#define XF86MonBrightnessUp		0x1008ff02
++#define XF86AudioMute			0x1008ff12
++#define XF86AudioLowerVolume		0x1008ff11
++#define XF86AudioRaiseVolume		0x1008ff13
+ #define MODKEY Mod1Mask
+ #define TAGKEYS(KEY,TAG) \
+ 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+@@ -57,7 +62,12 @@
+ /* commands */
+ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+-static const char *termcmd[]  = { "st", NULL };
++static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
++static const char *cmdbrightnessup[]  = { "sudo", "brightness", "up", NULL };
++static const char *cmdbrightnessdown[]  = { "sudo", "brightness", "down", NULL };
++static const char *cmdsoundup[]  = { "amixer", "-q", "sset", "Master", "5%+", NULL };
++static const char *cmdsounddown[]  = { "amixer", "-q", "sset", "Master", "5%-", NULL };
++static const char *cmdsoundtoggle[]  = { "amixer", "-q", "sset", "Master", "toggle", NULL };
+ 
+ static Key keys[] = {
+ 	/* modifier                     key        function        argument */
+@@ -94,10 +104,15 @@
+ 	TAGKEYS(                        XK_8,                      7)
+ 	TAGKEYS(                        XK_9,                      8)
+ 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
++	{ 0,                            XF86MonBrightnessDown,     spawn,         {.v = cmdbrightnessdown } },
++	{ 0,                            XF86MonBrightnessUp,       spawn,         {.v = cmdbrightnessup } },
++	{ 0,                            XF86AudioMute,             spawn,         {.v = cmdsoundtoggle } },
++	{ 0,                            XF86AudioRaiseVolume,      spawn,         {.v = cmdsoundup } },
++	{ 0,                            XF86AudioLowerVolume,      spawn,         {.v = cmdsounddown } },
+ };
+ 
+ /* button definitions */
+-/* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
++/* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
+ static Button buttons[] = {
+ 	/* click                event mask      button          function        argument */
+ 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
