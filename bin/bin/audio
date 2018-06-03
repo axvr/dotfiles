@@ -1,0 +1,62 @@
+#!/bin/sh
+
+# Audio control script to provide a consistent interface for window managers
+
+usage() {
+    printf "usage: %s [-mhpfb] [-u vol] [-d vol]\\n" "$0"
+}
+
+volume() {
+    if [ "$(command -v amixer)" ]; then
+        vol_cmd="amixer -q sset 'Master'"
+        case "$1" in
+            up)     ${vol_cmd} "${2}%+";;
+            down)   ${vol_cmd} "${2}%-";;
+            mute)   ${vol_cmd} "toggle";;
+        esac
+    else
+        printf "Error: no valid audio controller is installed\\n"
+        exit 1
+    fi
+}
+
+music() {
+    # TODO check if the music player/daemon is running
+    # TODO get music info
+    if [ "$(command -v cmus-remote)" ]; then
+        case "$1" in
+            play)  cmus-remote -u;;
+            forward) cmus-remote -n;;
+            back) cmus-remote -r;;
+        esac
+    elif [ "$(command -v mpd)" ]; then
+        exit 1
+    else
+        exit 1
+    fi
+}
+
+
+# Volume Controls
+# -m | toggle mute
+# -u | up $OPTARG %
+# -d | down $OPTARG %
+#
+# Music controls
+# -p | play/pause
+# -f | forward a track
+# -b | back a track
+
+while getopts mu:d:hpfb o "$@"
+do
+    case "$o" in
+        m)      volume "mute";;
+        u)      volume "up" "$OPTARG";;
+        d)      volume "down" "$OPTARG";;
+        h)      usage ; exit 0;;
+        p)      music "play";;
+        f)      music "forward";;
+        b)      music "back";;
+        [?])    usage ; exit 1;;
+    esac
+done

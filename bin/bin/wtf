@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
-# Whitespace Fixer
-# ----------------
+# Whitespace & Text Fixer
+# -----------------------
 #
 # Does these things:
 # * Remove trailing whitespace

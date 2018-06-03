@@ -1,14 +1,25 @@
 --- config.def.h	2018-05-30 20:47:12.052807247 +0100
-+++ config.h	2018-06-02 11:47:19.657246190 +0100
++++ config.h	2018-06-03 14:19:55.249356108 +0100
+@@ -5,8 +5,8 @@
+ static const unsigned int snap      = 32;       /* snap pixel */
+ static const int showbar            = 1;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
+-static const char *fonts[]          = { "monospace:size=10" };
+-static const char dmenufont[]       = "monospace:size=10";
++static const char *fonts[]          = { "Tamsyn:size=16" };
++static const char dmenufont[]       = "Tamsyn:size=16";
+ static const char col_gray1[]       = "#222222";
+ static const char col_gray2[]       = "#444444";
+ static const char col_gray3[]       = "#bbbbbb";
 @@ -44,6 +44,11 @@
  };
  
  /* key definitions */
-+#define XF86MonBrightnessDown		0x1008ff03
-+#define XF86MonBrightnessUp		0x1008ff02
-+#define XF86AudioMute			0x1008ff12
-+#define XF86AudioLowerVolume		0x1008ff11
-+#define XF86AudioRaiseVolume		0x1008ff13
++#define XF86MonBrightnessDown           0x1008ff03
++#define XF86MonBrightnessUp             0x1008ff02
++#define XF86AudioMute                   0x1008ff12
++#define XF86AudioLowerVolume            0x1008ff11
++#define XF86AudioRaiseVolume            0x1008ff13
  #define MODKEY Mod1Mask
  #define TAGKEYS(KEY,TAG) \
  	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -18,11 +29,11 @@
  static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 -static const char *termcmd[]  = { "st", NULL };
 +static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
-+static const char *cmdbrightnessup[]  = { "sudo", "brightness", "up", NULL };
++static const char *cmdbrightnessup[]    = { "sudo", "brightness", "up",   NULL };
 +static const char *cmdbrightnessdown[]  = { "sudo", "brightness", "down", NULL };
-+static const char *cmdsoundup[]  = { "amixer", "-q", "sset", "Master", "5%+", NULL };
-+static const char *cmdsounddown[]  = { "amixer", "-q", "sset", "Master", "5%-", NULL };
-+static const char *cmdsoundtoggle[]  = { "amixer", "-q", "sset", "Master", "toggle", NULL };
++static const char *cmdsoundup[]     = { "audio", "-u", "5", NULL };
++static const char *cmdsounddown[]   = { "audio", "-d", "5", NULL };
++static const char *cmdsoundtoggle[] = { "audio", "-m",      NULL };
  
  static Key keys[] = {
  	/* modifier                     key        function        argument */
