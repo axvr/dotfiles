@@ -50,7 +50,7 @@ music() {
 }
 
 
-# Volume Controls
+# Volume controls
 # -m | toggle mute
 # -u | up $OPTARG %
 # -d | down $OPTARG %

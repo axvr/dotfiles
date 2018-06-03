@@ -1,20 +1,66 @@
 #!/usr/bin/env bash
 
-# TODO try to make this POSIX
-# TODO better interface (work using percentages)
-# TODO check if run using OpenBSD's 'doas'
+# Script to modify screen brightness from the terminal & window managers
 
-if [ "$EUID" -ne 0 ]; then
-    printf "Error: \"%s\" must be run as root\\n" "$0"
+# TODO try to make this POSIX
+
+usage() {
+    printf "usage: %s [-gh] [-u percent] [-d percent]\\n" "$0"
+}
+
+# Attempt to find the correct location of the brightness files
+if [ -d "/sys/class/backlight/intel_backlight" ]; then
+    location="/sys/class/backlight/intel_backlight"
+elif [ -d "/sys/class/backlight/acpi_video0" ]; then
+    location="/sys/class/backlight/acpi_video0"
+else
+    printf "Error: could not find a brightness file\\n"
     exit 1
 fi
 
-# TODO better detection of the correct brightness file
-bd=/sys/devices/pci0000:00/0000:00:02.0/drm/card*/card*-eDP-1/intel_backlight/brightness
-bdv="$(cat ${bd})"
+brightness_file="${location}/brightness"
+brightness="$(cat ${brightness_file})"
+brightness_max="$(cat "${location}/max_brightness")"
 
-case "$1" in
-    up)     echo "$((bdv + 300))" > $bd;;
-    down)   echo "$((bdv - 300))" > $bd;;
-    *)      echo "$bdv"
-esac
+let "one_percent = brightness_max / 100"
+let "brightness_percent = (brightness * 100) / brightness_max"
+
+
+# Calculate what to add or substract (based on the max and min)
+set_brightness() {
+    num="$2"
+    let "num = one_percent * num"
+    if [ "$1" = "up" ]; then
+        let "result = num + brightness"
+        [ "$result" -ge "$brightness_max" ] && let "num = brightness_max - brightness"
+        let "result = brightness + num"
+    elif [ "$1" = "down" ]; then
+        let "result = brightness - num"
+        [ "$result" -le 0 ] && let "num = brightness - (one_percent)"
+        let "result = brightness - num"
+    else
+        let "result = brightness"
+    fi
+    let "brightness = result"
+    let "brightness_percent = (brightness * 100) / brightness_max"
+    echo "$result" > "$brightness_file"
+}
+
+
+# Options:
+# -u | increace brightness by $OPTARG (%)
+# -d | decreace brightness by $OPTARG (%)
+# -g | get current brightness (%)
+# -s | TODO change file permissions for non root write access
+
+while getopts u:d:gsh o "$@"
+do
+    case "$o" in
+        u)      set_brightness "up" "$OPTARG";;
+        d)      set_brightness "down" "$OPTARG";;
+        g)      echo "$brightness_percent";;
+        s)      ;;
+        h)      usage && exit 0;;
+        [?])    usage && exit 1;;
+    esac
+done

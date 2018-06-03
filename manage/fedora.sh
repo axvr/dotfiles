@@ -136,6 +136,3 @@ install_games() {
     sudo dnf install dwarffortress
     # TODO Install Nethack
 }
-
-# Window manager brightness control
-#sudo dnf install brightnessctl

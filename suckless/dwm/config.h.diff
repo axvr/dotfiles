@@ -1,5 +1,5 @@
 --- config.def.h	2018-05-30 20:47:12.052807247 +0100
-+++ config.h	2018-06-03 15:43:28.956874898 +0100
++++ config.h	2018-06-03 23:40:20.554599484 +0100
 @@ -5,8 +5,8 @@
  static const unsigned int snap      = 32;       /* snap pixel */
  static const int showbar            = 1;        /* 0 means no bar */
@@ -29,8 +29,8 @@
  static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 -static const char *termcmd[]  = { "st", NULL };
 +static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
-+static const char *cmdbrightnessup[]    = { "sudo", "$HOME/bin/bright", "up",   NULL };
-+static const char *cmdbrightnessdown[]  = { "sudo", "$HOME/bin/bright", "down", NULL };
++static const char *cmdbrightnessup[]    = { "sudo", "$HOME/bin/bright", "-u", "5", NULL };
++static const char *cmdbrightnessdown[]  = { "sudo", "$HOME/bin/bright", "-d", "5", NULL };
 +static const char *cmdsoundup[]     = { "audio", "-u", "5", NULL };
 +static const char *cmdsounddown[]   = { "audio", "-d", "5", NULL };
 +static const char *cmdsoundtoggle[] = { "audio", "-m",      NULL };

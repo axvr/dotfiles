@@ -54,14 +54,14 @@ input "1739:30383:DELL07E6:00_06CB:76AF_To" {
 #
 # Media and volume controls, etc.
 #
-    # Screen brightness control
-    bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+    # FIXME Screen brightness control
+    bindsym XF86MonBrightnessUp exec sudo $HOME/bin/bright -u 5
+    bindsym XF86MonBrightnessDown exec sudo $HOME/bin/bright -d 5
 
     # Volume controls
-    bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
-    bindsym XF86AudioLowerVolume exec amixer set Master 5%-
-    bindsym XF86AudioMute exec amixer set Master toggle
+    bindsym XF86AudioRaiseVolume exec audio -u 5
+    bindsym XF86AudioLowerVolume exec audio -d 5
+    bindsym XF86AudioMute exec audio -m
 
 
 ### Key bindings
