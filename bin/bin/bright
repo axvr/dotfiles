@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# TODO try to make this POSIX
+# TODO better interface (work using percentages)
+# TODO check if run using OpenBSD's 'doas'
+
+if [ "$EUID" -ne 0 ]; then
+    printf "Error: \"%s\" must be run as root\\n" "$0"
+    exit 1
+fi
+
+# TODO better detection of the correct brightness file
+bd=/sys/devices/pci0000:00/0000:00:02.0/drm/card*/card*-eDP-1/intel_backlight/brightness
+bdv="$(cat ${bd})"
+
+case "$1" in
+    up)     echo "$((bdv + 300))" > $bd;;
+    down)   echo "$((bdv - 300))" > $bd;;
+    *)      echo "$bdv"
+esac
