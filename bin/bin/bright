@@ -5,7 +5,7 @@
 # TODO try to make this POSIX
 
 usage() {
-    printf "usage: %s [-gh] [-u percent] [-d percent]\\n" "$0"
+    printf "usage: %s [-gh] [-u percent] [-d percent] [-s percent]\\n" "$0"
 }
 
 # Attempt to find the correct location of the brightness files
@@ -38,6 +38,14 @@ set_brightness() {
         let "result = brightness - num"
         [ "$result" -le 0 ] && let "num = brightness - (one_percent)"
         let "result = brightness - num"
+    elif [ "$1" = "set" ]; then
+        if [ "$num" -ge 0 ] && [ "$num" -le "$brightness_max" ]; then
+            echo $num
+        else
+            usage
+            exit 1
+        fi
+        let "result = num"
     else
         let "result = brightness"
     fi
@@ -51,15 +59,16 @@ set_brightness() {
 # -u | increace brightness by $OPTARG (%)
 # -d | decreace brightness by $OPTARG (%)
 # -g | get current brightness (%)
-# -s | TODO change file permissions for non root write access
+# -s | set brightness to $OPTARG (%)
+# -c | TODO configure system for non-root writing to $brightness_file
 
-while getopts u:d:gsh o "$@"
+while getopts u:d:gs:h o "$@"
 do
     case "$o" in
         u)      set_brightness "up" "$OPTARG";;
         d)      set_brightness "down" "$OPTARG";;
         g)      echo "$brightness_percent";;
-        s)      ;;
+        s)      set_brightness "set" "$OPTARG";;
         h)      usage && exit 0;;
         [?])    usage && exit 1;;
     esac

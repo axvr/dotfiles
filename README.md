@@ -1,6 +1,6 @@
 # dotfiles
 
-My dotfiles are managed using GNU Stow (`stow(8)`).
+My dotfiles are managed using [GNU Stow (`stow(8)`)](https://www.gnu.org/software/stow/).
 
 ![Vim Config](https://raw.githubusercontent.com/axvr/codedump/master/project-assets/Vivid.vim/vivid-update.png)
 
