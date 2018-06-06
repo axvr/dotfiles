@@ -2,7 +2,7 @@
 
 # Script to modify screen brightness from the terminal & window managers
 
-# TODO try to make this POSIX
+# TODO try to make this more POSIX
 
 usage() {
     printf "usage: %s [-gh] [-u percent] [-d percent] [-s percent]\\n" "$0"
@@ -40,12 +40,11 @@ set_brightness() {
         let "result = brightness - num"
     elif [ "$1" = "set" ]; then
         if [ "$num" -ge 0 ] && [ "$num" -le "$brightness_max" ]; then
-            echo $num
+            let "result = num"
         else
             usage
             exit 1
         fi
-        let "result = num"
     else
         let "result = brightness"
     fi
@@ -62,13 +61,18 @@ set_brightness() {
 # -s | set brightness to $OPTARG (%)
 # -c | TODO configure system for non-root writing to $brightness_file
 
-while getopts u:d:gs:h o "$@"
+while getopts u:d:gs:ch o "$@"
 do
     case "$o" in
         u)      set_brightness "up" "$OPTARG";;
         d)      set_brightness "down" "$OPTARG";;
         g)      echo "$brightness_percent";;
         s)      set_brightness "set" "$OPTARG";;
+        c)
+            # TODO find a better solution than modifying /etc/sudoers
+            user=$(printf "$0" | sed 's/^\/home\/\(\w\+\)\/.*/\1/')
+            printf "\\n$user ALL = (root) NOPASSWD: $0\\n" \
+                >> /etc/sudoers;;
         h)      usage && exit 0;;
         [?])    usage && exit 1;;
     esac

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Simple battery/power interface
+
+ac="/sys/class/power_supply/AC"
+battery="/sys/class/power_supply/BAT0"
+
+
+# Power information
+# c | Current battery level (%)
+# s | Current battery charging status
+
+while getopts cs o "$@"
+do
+    case "$o" in
+        c)  cat "$battery/capacity";;
+        s)  cat "$battery/status"
+    esac
+done
