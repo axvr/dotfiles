@@ -59,7 +59,7 @@ set_brightness() {
 # -d | decreace brightness by $OPTARG (%)
 # -g | get current brightness (%)
 # -s | set brightness to $OPTARG (%)
-# -c | TODO configure system for non-root writing to $brightness_file
+# -c | configure system for non-root writing to $brightness_file
 
 while getopts u:d:gs:ch o "$@"
 do

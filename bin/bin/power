@@ -7,8 +7,8 @@ battery="/sys/class/power_supply/BAT0"
 
 
 # Power information
-# c | Current battery level (%)
-# s | Current battery charging status
+# -c | Current battery level (%)
+# -s | Current battery charging status
 
 while getopts cs o "$@"
 do
