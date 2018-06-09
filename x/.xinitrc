@@ -10,10 +10,9 @@ do
         | grep -vi "default" | sed 's/^.*(\([0-9]\+\)).*$/\1/')
     natural=$(xinput list-props $i | grep -i "natural scrolling enabled" \
         | grep -vi "default" | sed 's/^.*(\([0-9]\+\)).*$/\1/')
-    echo "xinput set-prop $i $tapping 1"
-    echo "xinput set-prop $i $natural 1"
+    xinput set-prop $i $tapping 1
+    xinput set-prop $i $natural 1
 done
-exit
 
 # All options for 'setxkbmap' are here: '/usr/share/X11/xkb/rules/base.lst'
 setxkbmap -layout 'gb,us' -option 'ctrl:nocaps,grp:win_space_toggle'

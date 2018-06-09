@@ -23,7 +23,7 @@ mkdir -p ~/Documents/{Projects,Notes}
 sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 
 sudo dnf -y install keepassxc krita torbrowser-launcher ledger gnome-tweaks
-sudo dnf -y install youtube-dl weechat abcde ffmpeg cdparanoia cmus
+sudo dnf -y install youtube-dl weechat abcde ffmpeg cdparanoia cmus unzip
 
 # FIXME for F28
 sudo dnf copr enable fszymanski/newsboat
