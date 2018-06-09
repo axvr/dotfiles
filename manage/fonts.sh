@@ -5,6 +5,8 @@
 # Author:  Alex Vear (axvr)
 # Licence: Unlicence
 
+[ ! $(command -v curl) ] && printf "Error: cURL is not installed\\n"
+
 font_dir="$HOME/.fonts"
 mkdir -p "$font_dir"
 
@@ -35,85 +37,37 @@ font_list=$(cat <<EOF
 EOF
 )
 
-[ ! $(command -v curl)] && printf "Error: cURL is not installed\\n"
-
-# XXX Capitalise the first letter of each word in a string (fully POSIX)
-capitalise() {
-    for i in $(printf "$1" | tr ' ' '_' | sed -e 's/^/_&/' -e 's/[^_]/& /g')
-    do
-        if [ "$(printf "$i" | grep "^_")" ]; then
-            printf "$i" | tr '[:lower:]' '[:upper:]'
-        else
-            printf "$i"
-        fi | sed 's/^_/ /'
-    done | sed -e 's/^ *//' -e 's/ *$//'
-}
-
-# Simplify installiing fonts from Google Fonts
+# Simplify installing fonts from Google Fonts
 google_fonts() {
-    name="$(capitalise "$1" | sed -e 'y/-_/  /')"
-    url="https://fonts.google.com/download?family=$(printf "$name" | sed 's/\s/%20/g')"
-    printf "Installing font: %s\\n" "$name"
-    rm -r "${font_dir:?}/${1}/"
-    curl -L "$url" -o "$font_dir/$1/$1.zip" --create-dirs
-    unzip "$font_dir/$1/$1.zip" -d "$font_dir/$1/"
-}
-
-general_tar_gz() {
-    true
-}
-
-general_zip() {
-    true
-}
-
-tamsyn() {
-    printf "Installing font: Tamsyn\\n"
-    rm -r "$font_dir/tamsyn-font-1.11/"
-    tamsyn="http://www.fial.com/~scott/tamsyn-font/download/tamsyn-font-1.11.tar.gz"
-    curl -L "$tamsyn" -o "$font_dir/tamsyn-font-1.11/tamsyn.tar.gz" --create-dirs
-    tar -zxvf "$font_dir/tamsyn-font-1.11/tamsyn.tar.gz" -C "$font_dir/"
-}
-
-roboto() {
-    google_fonts "$f"
-}
-
-roboto_mono() {
-    google_fonts "$f"
-}
-
-roboto_slab() {
-    google_fonts "$f"
-}
-
-roboto_condensed() {
-    google_fonts "$f"
-}
-
-source_code_pro() {
-    google_fonts "$f"
-}
-
-noto_sans() {
-    google_fonts "$f"
-}
-
-noto_serif() {
-    google_fonts "$f"
-}
-
-inconsolata() {
-    google_fonts "$f"
-}
-
-fira_sans() {
-    google_fonts "$f"
-}
-
-fira_mono() {
-    google_fonts "$f"
+    url="https://fonts.google.com/download?family=$(printf "$1" | sed 's/\s/%20/g')"
+    printf "Installing font: %s\\n" "$1"
+    rm -r "${font_dir:?}/${f}/"
+    curl -L "$url" -o "$font_dir/$f/$f.zip" --create-dirs
+    unzip "$font_dir/$f/$f.zip" -d "$font_dir/$f/"
 }
 
 [ ! -n "$1" ] && printf "%s\\n" "$font_list"
-for f in "$@"; do "${f,,}"; done
+for f in "$@"
+do 
+    f="$(printf "${f,,}" | tr -s ' _-' '_')"
+    case "$f" in
+        roboto)             google_fonts "Roboto";;
+        roboto_mono)        google_fonts "Roboto Mono";;
+        roboto_slab)        google_fonts "Roboto Slab";;
+        roboto_condensed)   google_fonts "Roboto Condensed";;
+        source_code_pro)    google_fonts "Source Code Pro";;
+        noto_sans)          google_fonts "Noto Sans";;
+        noto_serif)         google_fonts "Noto Serif";;
+        inconsolata)        google_fonts "Inconsolata";;
+        fira_sans)          google_fonts "Fira Sans";;
+        fira_mono)          google_fonts "Fira Mono";;
+        tamsyn)
+            printf "Installing font: Tamsyn\\n"
+            rm -r "$font_dir/tamsyn-font-1.11/"
+            url="http://www.fial.com/~scott/tamsyn-font/download/tamsyn-font-1.11.tar.gz"
+            curl -L "$url" -o "$font_dir/tamsyn-font-1.11/tamsyn.tar.gz" --create-dirs
+            tar -zxvf "$font_dir/tamsyn-font-1.11/tamsyn.tar.gz" -C "$font_dir/"
+            ;;
+        *)                  printf "Error: Invalid font '%s'\\n" "$f"
+    esac
+done
