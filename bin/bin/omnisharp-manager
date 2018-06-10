@@ -19,16 +19,16 @@ get_current_version() {
 
 
 # Options:
-# * i :: install (will also update if already installed)
-# * r :: remove
-# * v :: version to use (otherwise use latest)
-# * V :: print the version information
-# * l :: where to install the server
-# * u :: help / usage info
-# * H :: install the HTTP version of the server
+# -i | install (will also update if already installed)
+# -r | remove
+# -v | version to use (otherwise use latest)
+# -V | print the version information
+# -l | where to install the server
+# -u | help / usage info
+# -H | install the HTTP version of the server
 # Options to add later:
-# * M :: type of server: mono or regular
-# * S :: start the server (takes a solution file)
+# -M | type of server: mono or regular
+# -S | start the server (takes a solution file)
 
 location="$HOME/.omnisharp/"
 

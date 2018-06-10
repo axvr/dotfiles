@@ -7,81 +7,76 @@
 # * Remove trailing whitespace
 # * TODO Add missing new line characters at EOF
 # * TODO Convert tabs to spaces (and vice versa)
-# * TODO Respond to VCS in use to create file list
-# * TODO Provide a list of file wildcards to ignore
+# * TODO Alignment (replace vim-lion)
 
 use strict;
 use warnings;
 use Getopt::Std;
-use File::Find;
-use File::Copy qw(copy);
+use File::Copy qw(copy move);
 
 
 # Parameters:
-# * t - remove trailing whitespace
-# * b - convert tabs to spaces (need to know how many spaces to tab characters)
-# * B - convert spaces to tabs
-# * n - add missing new line char to EOF
-# * l - list issues with file(s)
-# * u - print usage information
-# * h - print help
+# -t | remove trailing whitespace
+# -b | convert tabs to spaces (need to know how many spaces to tab characters)
+# -B | convert spaces to tabs
+# -n | add missing new line char to EOF
+# -l | list issues with file(s)
+# -i | edit files in place (TODO add backup option, like in 'sed')
+# -u | print usage information
+# -h | print help
 
-our($opt_u, $opt_t);
-getopts("ut");
-
-# Check that all user given files exist
-foreach (@ARGV) {
-    if (! -f $_) {
-        die "Error: \"$_\" is not a valid file\n";
-    }
-}
-
-my @file_list = ();
-
-if (@ARGV) {
-    @file_list = @ARGV;
-} else {
-    # Get Version Control System
-    my $vcs = `vcs-branch -v`;
-    if ($? != 0) { die $? }
-
-    # TODO use VCS to collect list of files
-    # else, return error message to user
-    # TODO remove ignored files from the list
-}
-
-
-# TODO ignore files (also allow reading from an ignore file). Use: File::Find
-# my @ignored_files = ('.git/*', '*.jpg', '*.png', '*.svg', '*.rsa', '*.asc');
-# foreach (@ignored_files) {
-#     print(glob($_));
-# }
-
+our($opt_u, $opt_t, $opt_i);
+getopts("uti");
 
 if ($opt_u) {
-    printf "usage: %s [-tu] [file ...]\n", "$0";
+    printf "usage: %s [-tui] [file ...]\n", "$0";
     exit 1;
 }
 
-sub remove_trailing_whitespace {
-    my @files = @_;
-    foreach (@files) {
+if (@ARGV) {
+    foreach (@ARGV) {
+        # Use file list
         my $file = $_;
-        copy($file, "$file.new");
 
-        open(my $in,  '<', "$file.new") or die "Can't read file \"$file\": $!";
-        open(my $out, '>', "$file")     or die "Can't write to \"$file\": $!";
-
-        while (<$in>) {
-            s/\h+$//;
-            print $out $_;
+        if (! -e -f -T $file) {
+            print(STDERR "wtf: \"$file\" is not a valid file\n");
+            next;
         }
 
-        close($out);
-        unlink "$file.new"
+        open(my $in, '<', "$file") or die "wtf: unable to read from \"$file\"";
+
+        if ($opt_i) {
+            # Write to file
+            open(my $out, '>', "$file.wtf_tmp")
+                or die "wtf: unable to write to \"$file\": $!";
+            my $mode = (stat $file)[2];
+            copy($file, "$file.wtf_tmp");
+            while (<$in>) {
+                main($_);
+                print($out $_);
+            }
+            close($out);
+            move("$file.wtf_tmp", $file);
+            chmod($mode, $file);
+        } else {
+            while (<$in>) {
+                main($_);
+                print(STDOUT $_);
+            }
+        }
+        close($in);
+    }
+} else {
+    # Use pipeline
+    while (<>) {
+        main($_);
+        print STDOUT "$_";
     }
 }
 
-if ($opt_t) {
-    remove_trailing_whitespace(@file_list);
+sub main {
+    # Trim trailing whitespace
+    if ($opt_t) {
+        s/\h+$//;
+    }
 }
