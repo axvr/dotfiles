@@ -6,6 +6,7 @@
 " BUG    - A known bug that should be corrected.
 " FIXME  - Should be corrected.
 " HACK   - A workaround.
+" NOTE   - Useful information about a particular piece of code
 " TODO   - Something to be done.
 " UNDONE - A reversal or 'roll back' of previous code.
 " XXX    - Warn other programmers of problematic or misguiding code.

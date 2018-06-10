@@ -18,4 +18,4 @@ function! s:CloseBracket()
     endif
 endfunction
 
-inoremap <expr> {<CR> <SID>CloseBracket()
+" inoremap <expr> {<CR> <SID>CloseBracket()

@@ -73,6 +73,7 @@ sudo dnf -y install make cmake autoconf automake gcc
 sudo dnf -y install libXt-devel
 
 # C++
+# g++ clang-tidy
 sudo dnf -y install gcc-c++ clang gtkmm30-devel clang-tools-extra cppcheck
 
 # Bitcoin (& C++)

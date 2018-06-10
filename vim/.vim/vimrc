@@ -2,17 +2,6 @@
 " Description:  Main Vim Configuration File
 " File:         ~/.vim/vimrc
 " =============================================================
-" Dependencies:
-"   LaTeX:      latexmk & pdflatex
-"   Perl:       perl
-"   Shell:      ShellCheck
-"   C Based:    clang-tidy (-checks=*), clang, gcc, gcc-c++ (g++)
-"   CSharp:     dotnet, omnisharp
-"   Python:     pylint, python3, python2
-"   Build:      make, cmake, etc
-"   Tools:      ctags
-" =============================================================
-
 
 " Essentials
 set encoding=utf-8
@@ -59,7 +48,7 @@ let maplocalleader = "\\"
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
-set wildignore+=*/tmp/*,*.so,*.pyc,*.db,*.sqlite
+set wildignore+=*/tmp/*,*.so,*.pyc,*.db,*.sqlite,*/node_modules/*
 set path+=**
 
 " Indentation config (spaces > tabs)

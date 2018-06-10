@@ -11,13 +11,20 @@ if has('vim_starting')
     packadd Vivid.vim
 endif
 
+" Enable plugins on Commands (TODO move to Vivid)
+function! VividCommand(plugin, ...) abort
+    for l:cmd in a:000
+        execute 'command '.l:cmd.' :call vivid#enable("'.a:plugin.'") | silent! '.l:cmd
+    endfor
+endfunction
+
 " Vim enhancements
-Plugin 'tommcdo/vim-lion',     { 'enabled': 1 }
+Plugin 'tommcdo/vim-lion',     { 'enabled': 1 } " TODO implement these features in wtf
 let g:lion_squeeze_spaces = 1
-Plugin 'romainl/vim-cool',     { 'enabled': 1 }
-Plugin 'romainl/vim-qf',       { 'enabled': 1 }
-Plugin 'tpope/vim-commentary', { 'enabled': 1 }
-Plugin 'mbbill/undotree'
+Plugin 'romainl/vim-cool',     { 'enabled': 0 } " TODO maybe remove
+Plugin 'romainl/vim-qf',       { 'enabled': 1 } " TODO maybe write custom version
+Plugin 'tpope/vim-commentary', { 'enabled': 1 } " TODO write my own version
+Plugin 'mbbill/undotree' | call VividCommand('undotree', 'UndotreeToggle', 'UndotreeShow')
 packadd matchit
 
 " VCS integration
@@ -36,23 +43,13 @@ Plugin 'rhysd/committia.vim'
 Plugin 'ledger/vim-ledger'
 Plugin 'axvr/dotnet.vim', { 'enabled': 1 }
 Plugin 'leafgarland/typescript-vim'
-Plugin 'Quramy/tsuquyomi'
+Plugin 'Quramy/tsuquyomi' " TODO maybe remove
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
 
 " Tex.vim Syntax plugin Config
 let g:tex_flavor = "latex"
-
-" Enable plugins on Commands (TODO move to Vivid)
-function! VividCommand(plugin, ...) abort
-    for l:cmd in a:000
-        execute 'command '.l:cmd.' :call vivid#enable("'.a:plugin.'") | silent! '.l:cmd
-    endfor
-endfunction
-
-call VividCommand('undotree', 'UndotreeToggle', 'UndotreeShow')
-
 
 " PowerShell Syntax highlighting
 File 'PProvost/vim-ps1/master/syntax/ps1.vim', '~/.vim/syntax/powershell.vim'
