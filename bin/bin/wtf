@@ -4,9 +4,10 @@
 # -----------------------
 #
 # Does these things:
-# * Remove trailing whitespace
+# * Remove trailing and/or leading whitespace
+# * Compress all lines into a single line
+# * Convert tabs to spaces (and vice versa)
 # * TODO Add missing new line characters at EOF
-# * TODO Convert tabs to spaces (and vice versa)
 # * TODO Alignment (replace vim-lion)
 
 use strict;
@@ -17,22 +18,31 @@ use File::Copy qw(copy move);
 
 # Parameters:
 # -t | remove trailing whitespace
-# -b | convert tabs to spaces (need to know how many spaces to tab characters)
-# -B | convert spaces to tabs
-# -n | add missing new line char to EOF
-# -l | list issues with file(s)
+# -l | remove leading whitespace
+# -c | compress all lines into one
+# -b | convert tabs to spaces
+# -B | convert leading whitespace to tabs
+# -f | force (e.g. when supplied with the '-B' option convert all spaces to tabs)
+# -n | TODO add missing new line char to EOF
+# -p | TODO list issues with file(s)
 # -i | edit files in place (TODO add backup option, like in 'sed')
 # -u | print usage information
-# -h | print help
+# -h | TODO print help
 
-our($opt_u, $opt_t, $opt_i);
-getopts("uti");
+our($opt_u, $opt_h, $opt_t, $opt_l, $opt_c, $opt_i, $opt_b, $opt_B, $opt_f);
+getopts("utlcib:B:f");
 
 if ($opt_u) {
-    printf "usage: %s [-tui] [file ...]\n", "$0";
+    printf("usage: %s [-tlcufi] [file ...]\n", "$0");
     exit 1;
 }
 
+if ($opt_h) {
+    print("Help me");
+    exit 1;
+}
+
+# TODO reduce indentation levels
 if (@ARGV) {
     foreach (@ARGV) {
         # Use file list
@@ -70,13 +80,24 @@ if (@ARGV) {
     # Use pipeline
     while (<>) {
         main($_);
-        print STDOUT "$_";
+        print(STDOUT "$_");
     }
 }
 
 sub main {
+    # Compress into a single line
+    if ($opt_c) { s/\v+/ /; }
     # Trim trailing whitespace
-    if ($opt_t) {
-        s/\h+$//;
+    if ($opt_t) { s/\h+$//; }
+    # Remove leading whitespace
+    if ($opt_l) { s/^\h+//; }
+
+    # Convert tabs to spaces
+    if ($opt_b) { s/\t/' 'x$opt_b/ge; }
+    # Replace spaces with tabs (only leading spaces unless forced)
+    if ($opt_B && $opt_f) {
+        s/ {$opt_B}/\t/g;
+    } elsif ($opt_B) {
+        s/^(\h*?)? {$opt_B}/$1\t/g; # FIXME
     }
 }
