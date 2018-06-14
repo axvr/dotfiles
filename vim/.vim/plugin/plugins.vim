@@ -19,11 +19,10 @@ function! VividCommand(plugin, ...) abort
 endfunction
 
 " Vim enhancements
-Plugin 'tommcdo/vim-lion',     { 'enabled': 1 } " TODO implement these features in wtf
-let g:lion_squeeze_spaces = 1
 Plugin 'romainl/vim-cool',     { 'enabled': 0 } " TODO maybe remove
-Plugin 'romainl/vim-qf',       { 'enabled': 1 } " TODO maybe write custom version
+Plugin 'romainl/vim-qf',       { 'enabled': 1 }
 Plugin 'tpope/vim-commentary', { 'enabled': 1 } " TODO write my own version
+" call setline(num, substitute(&commentstring, '%s', getline('.'), ''))
 Plugin 'mbbill/undotree' | call VividCommand('undotree', 'UndotreeToggle', 'UndotreeShow')
 packadd matchit
 
@@ -43,7 +42,6 @@ Plugin 'rhysd/committia.vim'
 Plugin 'ledger/vim-ledger'
 Plugin 'axvr/dotnet.vim', { 'enabled': 1 }
 Plugin 'leafgarland/typescript-vim'
-Plugin 'Quramy/tsuquyomi' " TODO maybe remove
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }

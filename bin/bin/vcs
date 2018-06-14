@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# TODO create a perl version of this and time each (use fastest)
-# TODO add the option to pad branch with whitespace (in perl version)
-
 # Check Git Branch
 BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/[* ]\+\(.*\)/\1/')
 VCS="git"
@@ -17,6 +14,8 @@ if [ "$1" = "-v" ]; then
     [ "${BRANCH}" = "" ] && VCS=""
     printf "%s" "$VCS"
     exit 0
+elif [ "$1" = "-b" ]; then
+    printf "%s" "${BRANCH}"
+else
+    printf "usage: %s [-bv]\\n" "$0"
 fi
-
-printf "%s" "${BRANCH}"

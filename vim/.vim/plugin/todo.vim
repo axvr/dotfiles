@@ -12,7 +12,7 @@
 " XXX    - Warn other programmers of problematic or misguiding code.
 
 function! s:TODOs()
-    let l:vcs = system('vcs-branch -v')
+    let l:vcs = system('vcs -v')
     let l:files = ''
     if l:vcs == 'git'
         let l:files = '$(git ls-files)'
@@ -22,6 +22,7 @@ function! s:TODOs()
         let l:files = '%'
     endif
 
+    call setqflist([])
     for l:item in ['TO[-_ ]\?DO', 'FIX[-_ ]\?ME', 'NOTE', 'XXX', 'BUG', 'HACK', 'UNDONE']
         execute 'silent grepadd "'.l:item.'" '.l:files
     endfor

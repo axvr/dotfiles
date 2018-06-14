@@ -2,6 +2,8 @@
 
 # A more minimal version of t (http://stevelosh.com/projects/t/)
 
+# NOTE: 50 LOC maximum
+
 todo_file="$HOME/.todo.txt"
 [ ! -f "$todo_file" ] && touch "$todo_file"
 

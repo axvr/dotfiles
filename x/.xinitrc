@@ -20,12 +20,23 @@ setxkbmap -layout 'gb,us' -option 'ctrl:nocaps,grp:win_space_toggle'
 # TODO improve this (also create the 1600x900 resolution if it doesn't exist)
 xrandr --output eDP-1 --mode 1600x900
 
+
+battery() {
+    state="$(power -s)"
+    case "$state" in
+        Charging)       state="+";;
+        Discharging)    state="-";;
+        Full)           state="" ;;
+        *)              state="?";;
+    esac
+    printf "BAT %s%s%%" "$state" "$(power -c)"
+}
+
 while true
 do
-    VOLUME="Vol: $(audio -v)%"
-    DATETIME="$(date +%Y-%m-%d\ %H:%M)"
-    BATTERY="$(power -s): $(power -c)%"
-    xsetroot -name " $VOLUME | $DATETIME | $BATTERY "
+    volume="VOL $(audio -v)%"
+    datetime="$(date +%Y-%m-%d\ %H:%M)"
+    xsetroot -name " [$volume] [$(battery)] [$datetime] "
     sleep 1s
 done &
 

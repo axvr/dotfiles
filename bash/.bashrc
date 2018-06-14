@@ -62,8 +62,8 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # Fedora Default with VCS branch
 function get_vcs_branch() {
-    if [ "$(command -v vcs-branch)" ]; then
-        VCS_BRANCH=$(vcs-branch)
+    if [ "$(command -v vcs)" ]; then
+        VCS_BRANCH=$(vcs -b)
         if [ "$VCS_BRANCH" != "" ]; then
             printf " %s" "$VCS_BRANCH"
         fi

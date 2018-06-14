@@ -21,9 +21,9 @@ if &term =~# '^screen'
 endif
 
 " Fetch the VCS branch
-if has('unix') && executable('vcs-branch')
+if has('unix') && executable('vcs')
     autocmd! BufReadPre,BufWritePost,FileWritePost,DirChanged,ShellCmdPost *
-                \ let b:vcs_branch = system('vcs-branch')
+                \ let b:vcs_branch = system('vcs -b')
 endif
 function! VCSBranch()
     if exists('b:vcs_branch') && b:vcs_branch != ''

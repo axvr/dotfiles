@@ -41,14 +41,10 @@ if has('persistent_undo')
     set undofile
 endif
 
-" Set leader keymaps
-let mapleader = "\<Space>"
-let maplocalleader = "\\"
-
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
-set wildignore+=*/tmp/*,*.so,*.pyc,*.db,*.sqlite,*/node_modules/*
+set wildignore+=*/tmp/*,*.so,*.pyc,*.db,*.sqlite,*/node_modules/*,*/.git/*,*/.hg/*,*.dll,*.exe,*.cache,*.o
 set path+=**
 
 " Indentation config (spaces > tabs)

@@ -59,7 +59,7 @@ case "$(uname -s)" in
         if [ "$(uname -o)" = "Cygwin" ]; then
             os="win"
             ext="zip"
-            # TODO run post install: chmod +x $(find . -name '*' -type f)
+            # TODO run post install: chmod +x $(find . -type f)
         else
             exit 1
         fi
