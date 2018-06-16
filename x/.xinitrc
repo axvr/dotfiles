@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# TODO check an environment variable to determine what WM to use.
+# TODO improve ssh start up
 
 # Start ssh-agent
 [ "$(command -v ssh-agent)" ] && eval "$(ssh-agent)"
@@ -23,26 +23,33 @@ setxkbmap -layout 'gb,us' -option 'ctrl:nocaps,grp:win_space_toggle'
 xrandr --output eDP-1 --mode 1600x900
 
 
-battery() {
-    state="$(power -s)"
-    case "$state" in
-        Charging)       state="+";;
-        Discharging)    state="-";;
-        Full)           state="" ;;
-        *)              state="?";;
-    esac
-    printf "BAT %s%s%%" "$state" "$(power -c)"
-}
+[ -z "$DESKTOP" ] && DESKTOP="dwm"
+case "$DESKTOP" in
+    dwm)
+        battery() {
+            state="$(power -s)"
+            case "$state" in
+                Charging)       state="+";;
+                Discharging)    state="-";;
+                Full)           state="" ;;
+                *)              state="?";;
+            esac
+            printf "BAT %s%s%%" "$state" "$(power -c)"
+        }
 
-while true
-do
-    volume="VOL $(audio -v)%"
-    datetime="$(date +%Y-%m-%d\ %H:%M)"
-    xsetroot -name " [$volume] [$(battery)] [$datetime] "
-    sleep 1s
-done &
+        while true
+        do
+            volume="VOL $(audio -v)%"
+            datetime="$(date +%Y-%m-%d\ %H:%M)"
+            xsetroot -name " [$volume] [$(battery)] [$datetime] "
+            sleep 1s
+        done &
 
-# FIXME get slock working
-xautolock -time 10 -locker slock
+        # FIXME get slock working
+        xautolock -time 10 -locker slock
 
-exec dwm
+        exec dwm 
+        ;;
+    i3)     ;;
+    bspwm)  ;;
+esac

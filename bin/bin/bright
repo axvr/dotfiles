@@ -70,9 +70,8 @@ do
         s)      set_brightness "set" "$OPTARG";;
         c)
             # TODO find a better solution than modifying /etc/sudoers
-            user=$(printf "$0" | sed 's/^\/home\/\(\w\+\)\/.*/\1/')
-            printf "\\n$user ALL = (root) NOPASSWD: $0\\n" \
-                >> /etc/sudoers;;
+            printf "\\n%wheel ALL=(ALL) NOPASSWD: $0\\n" >> /etc/sudoers
+            ;;
         h)      usage && exit 0;;
         [?])    usage && exit 1;;
     esac
