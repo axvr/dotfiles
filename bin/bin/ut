@@ -1,34 +1,28 @@
 #!/bin/sh
 
 # A more minimal version of t (http://stevelosh.com/projects/t/)
+# ut is 4 times faster than t and 1/10th the size
 
-# NOTE: 50 LOC maximum
-
-todo_file="$HOME/.todo.txt"
-[ ! -f "$todo_file" ] && touch "$todo_file"
-
-# TODO maybe use getopts?
-# TODO if there is a TODO file use that?
+[ -z "$TODO_FILE" ] && TODO_FILE="$HOME/.todo.txt"
+[ ! -f "$TODO_FILE" ] && touch "$TODO_FILE"
 
 if [ "$#" -eq 0 ]; then
-    cat "$todo_file"
-elif [ "$1" == "-u" ]; then
-    printf "usage: %s [-mu] [-e id] [-f pattern] [text]\\n" "$0"
-elif [ "$1" == "-e" ]; then
-    # TODO Edit a task
+    cat "$TODO_FILE"
+elif [ "$1" = "-u" ]; then
+    printf "usage: %s [-u] [-e id] [-f id] [text]\\n" "$0"
+elif [ "$1" = "-e" ]; then
+    # Open the todo file in a text editor
+    [ ! -n "$2" ] && "$EDITOR" "$TODO_FILE" && exit 0
+    id="$2"
+    shift 2
+    # Edit a specific task
+    sed -i "s/^\\(${id} - \\).*$/\\1${*}/" "$TODO_FILE"
+elif [ "$1" = "-f" ]; then
+    # Finish/remove a task
     shift
-    echo "-e was passed"
-elif [ "$1" == "-f" ]; then
-    # Complete/remove a task
-    shift
-    args="$@"
-    pattern=$(printf "/%s/d" "$args")
-    sed -i "$pattern" "$todo_file"
-elif [ "$1" == "-m" ]; then
-    # Open the task file in a text editor
-    "$EDITOR" "$todo_file"
+    sed -i "/^${*} /d" "$TODO_FILE" # TODO make POSIX
 else
     # Add a task to the task file
-    id=$(date +'%Y-%m-%d %T.%N %s' | sha1sum | cut -c 38-40)
-    echo "$id" - "$@" >> "$todo_file"
+    id=$(printf "%s" "$*" | sha1sum | cut -c 38-40)
+    printf "%s - %s\\n" "$id" "$*" >> "$TODO_FILE"
 fi

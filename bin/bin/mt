@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# An exended version of ut to provide a simpler user interface
+# ut is 3 times faster than t and 1/10th the size
+
+usage="$(printf "usage: %s [-uE] [-e id] [-f id] [-l file] [text]" "$0")"
+todo_file="$HOME/.todo.txt"
+while getopts uEe:f:l: o "$@"
+do
+    case "$o" in
+        l)      todo_file="$OPTARG";;
+        f)      id="$OPTARG" && opt=f;;
+        e)      id="$OPTARG" && opt=e;;
+        E)      opt=E;;
+        u)      printf "%s\\n" "$usage" && exit 0;;
+        [?])    printf "%s\\n" "$usage" && exit 1;;
+    esac
+done
+shift $((OPTIND -1))
+[ ! -f "$todo_file" ] && touch "$todo_file"
+
+if [ -z "$opt" ] && [ -n "$*" ]; then
+    id=$(printf "%s" "$*" | sha1sum | cut -c 38-40)
+    printf "%s - %s\\n" "$id" "$*" >> "$todo_file"
+else
+    case "$opt" in
+        E)  "$EDITOR" "$todo_file";;
+        e)  sed -i "s/^\\(${id} - \\).*$/\\1${*}/" "$todo_file";;
+        f)  sed -i "/^${id} /d" "$todo_file";; # TODO make POSIX
+        *)  cat "$todo_file";;
+    esac
+fi

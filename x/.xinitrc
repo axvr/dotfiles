@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TODO check an environment variable to determine what WM to use.
+
 # Start ssh-agent
 [ "$(command -v ssh-agent)" ] && eval "$(ssh-agent)"
 
@@ -39,5 +41,8 @@ do
     xsetroot -name " [$volume] [$(battery)] [$datetime] "
     sleep 1s
 done &
+
+# FIXME get slock working
+xautolock -time 10 -locker slock
 
 exec dwm

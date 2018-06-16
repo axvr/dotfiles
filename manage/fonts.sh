@@ -49,7 +49,7 @@ google_fonts() {
 [ ! -n "$1" ] && printf "%s\\n" "$font_list"
 for f in "$@"
 do 
-    f="$(printf "${f,,}" | tr -s ' _-' '_')"
+    f="$(printf "$f" | tr '[:upper:]' '[:lower:]' | tr -s ' _-' '_')"
     case "$f" in
         roboto)             google_fonts "Roboto";;
         roboto_mono)        google_fonts "Roboto Mono";;
