@@ -10,6 +10,8 @@ sudo xbps-install -S alsa-utils abcde cdparanoia cmus
 sudo xbps-install -S scrot dunst newsboat ledger weechat ffmpeg flac unzip wget
 sudo xbps-install -S firefox
 
+# TODO install fontconfig & dbus
+
 # TODO set up LFVS https://fwupd.org/
 sudo xbps-install -S fwupd fwupdate
 

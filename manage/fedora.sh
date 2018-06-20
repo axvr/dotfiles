@@ -24,6 +24,7 @@ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-rele
 
 sudo dnf -y install keepassxc krita torbrowser-launcher ledger gnome-tweaks
 sudo dnf -y install youtube-dl weechat abcde ffmpeg cdparanoia cmus unzip
+sudo dnf -y install fontconfig
 
 # FIXME for F28
 sudo dnf copr enable fszymanski/newsboat

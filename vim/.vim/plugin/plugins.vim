@@ -6,7 +6,7 @@
 " Plugin Setup
 if has('vim_starting')
     if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
-        silent !git clone https://github.com/axvr/Vivid.vim.git ~/.vim/pack/vivid/opt/Vivid.vim
+        silent !git clone "https://github.com/axvr/Vivid.vim.git" "$HOME/.vim/pack/vivid/opt/Vivid.vim"
     endif
     packadd Vivid.vim
 endif
@@ -19,11 +19,14 @@ function! VividCommand(plugin, ...) abort
 endfunction
 
 " Vim enhancements
-Plugin 'romainl/vim-cool',     { 'enabled': 0 } " TODO maybe remove
+Plugin 'tommcdo/vim-lion',     { 'enabled': 0 }
+let b:lion_squeeze_spaces = 1
+Plugin 'romainl/vim-cool',     { 'enabled': 1 }
 Plugin 'romainl/vim-qf',       { 'enabled': 1 }
-Plugin 'tpope/vim-commentary', { 'enabled': 1 } " TODO write my own version
-" call setline(num, substitute(&commentstring, '%s', getline('.'), ''))
-Plugin 'mbbill/undotree' | call VividCommand('undotree', 'UndotreeToggle', 'UndotreeShow')
+Plugin 'tpope/vim-commentary', { 'enabled': 1 }
+Plugin 'tpope/vim-vinegar',    { 'enabled': 1 }
+Plugin 'mbbill/undotree',      { 'command': ['UndotreeToggle', 'UndotreeShow'] }
+call VividCommand('undotree', 'UndotreeToggle', 'UndotreeShow')
 packadd matchit
 
 " VCS integration
