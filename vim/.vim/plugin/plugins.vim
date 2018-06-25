@@ -11,13 +11,6 @@ if has('vim_starting')
     packadd Vivid.vim
 endif
 
-" Enable plugins on Commands (TODO move to Vivid)
-function! VividCommand(plugin, ...) abort
-    for l:cmd in a:000
-        execute 'command '.l:cmd.' :call vivid#enable("'.a:plugin.'") | silent! '.l:cmd
-    endfor
-endfunction
-
 " Vim enhancements
 Plugin 'tommcdo/vim-lion',     { 'enabled': 0 }
 let b:lion_squeeze_spaces = 1
@@ -26,7 +19,6 @@ Plugin 'romainl/vim-qf',       { 'enabled': 1 }
 Plugin 'tpope/vim-commentary', { 'enabled': 1 }
 Plugin 'tpope/vim-vinegar',    { 'enabled': 1 }
 Plugin 'mbbill/undotree',      { 'command': ['UndotreeToggle', 'UndotreeShow'] }
-call VividCommand('undotree', 'UndotreeToggle', 'UndotreeShow')
 packadd matchit
 
 " VCS integration

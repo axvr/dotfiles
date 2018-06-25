@@ -2,9 +2,6 @@
 
 # TODO improve ssh start up
 
-# Start ssh-agent
-[ "$(command -v ssh-agent)" ] && eval "$(ssh-agent)"
-
 # Set up touchpad
 for i in $(xinput list | grep -i "\(touch\|track\) \?pad" | sed 's/^.*id=\([0-9]\+\).*$/\1/')
 do

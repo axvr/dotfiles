@@ -8,6 +8,3 @@
 	excludesfile = ~/.gitignore_global
 [alias]
 	logtree = log --graph --oneline --all
-	stash-unapply = !git stash show -p | git apply -R
-	authors = shortlog -nes
-	stats = !git-stats ; TODO: Replace this

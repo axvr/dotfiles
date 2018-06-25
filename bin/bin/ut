@@ -17,10 +17,10 @@ elif [ "$1" = "-e" ]; then
     shift 2
     # Edit a specific task
     sed -i "s/^\\(${id} - \\).*$/\\1${*}/" "$TODO_FILE"
-elif [ "$1" = "-f" ]; then
+elif [ "$1" = "-f" ]; then # TODO itterate over arguments
     # Finish/remove a task
     shift
-    sed -i "/^${*} /d" "$TODO_FILE" # TODO make POSIX
+    sed -i "/^${*} - /d" "$TODO_FILE" # TODO make POSIX
 else
     # Add a task to the task file
     id=$(printf "%s" "$*" | sha1sum | cut -c 38-40)

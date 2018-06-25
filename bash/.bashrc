@@ -65,12 +65,12 @@ function get_vcs_branch() {
     if [ "$(command -v vcs)" ]; then
         VCS_BRANCH=$(vcs -b)
         if [ "$VCS_BRANCH" != "" ]; then
-            printf " %s" "$VCS_BRANCH"
+            printf " [32m%s[00m" "$VCS_BRANCH"
         fi
     fi
     printf ""
 }
-export PS1="[\u@\h \W\[\e[32m\]\`get_vcs_branch\`\[\e[m\]]\\$ "
+export PS1="[\u@\h \W\`get_vcs_branch\`]\\$ "
 
 # Termux (Android) version of Fedora default
 [ "$(uname -o)" == "Android" ] && export PS1="[\W]\\$ "
@@ -86,7 +86,5 @@ alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 
 alias startx="startx; vlock"
-alias vi="nvi"
-alias nv="nvi"
 alias ledger="ledger -f ${HOME}/.ledger/personal.dat"
 alias ledger-record="${EDITOR} ${HOME}/.ledger/personal.dat"

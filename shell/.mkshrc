@@ -3,13 +3,13 @@
 # TODO extend this config
 
 get_vcs_branch() {
-    if [ "$(command -v vcs-branch)" ]; then
-        VCS_BRANCH=$(vcs-branch)
+    if [ "$(command -v vcs)" ]; then
+        VCS_BRANCH=$(vcs -b)
         if [ "$VCS_BRANCH" != "" ]; then
-            printf " %s" "$VCS_BRANCH"
+            printf " [32m%s[00m" "$VCS_BRANCH"
         fi
     fi
     printf ""
 }
-export PS1="[${USER}@${HOSTNAME} ${PWD##*/}[32m$(get_vcs_branch)[00m]\\$ "
+export PS1="[${USER}@${HOSTNAME} ${PWD##*/}$(get_vcs_branch)]\\$ "
 # FIXME does not show '~' when in home dir

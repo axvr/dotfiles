@@ -11,11 +11,19 @@ fi
 
 # User specific environment and startup programs
 
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+export PATH
+
+# Start ssh-agent
+[ "$(command -v ssh-agent)" ] && eval "$(ssh-agent -s)"
+
+# Set keyboard layout to UK
+[ "$(command -v loadkeys)" ] && loadkeys gb
 
 # Start window manager on login
-if [[ -z "$DISPLAY" ]] && [[ "$(tty)" = /dev/tty1 ]]; then
+if [ -z "$DISPLAY" ] && [[ "$(tty)" = /dev/tty1 ]]; then
     #exec sway
     exec startx
+    vlock
     true
 fi
