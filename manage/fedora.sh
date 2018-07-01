@@ -67,6 +67,12 @@ sudo dnf -y install dotnet-sdk-2.1
 # Python
 sudo dnf -y install python python3 python2-devel python3-devel
 
+# Haskell
+sudo dnf -y install ghc-compiler
+
+# Clojure
+# TODO
+
 # C
 sudo dnf -y install make cmake autoconf automake gcc
 
