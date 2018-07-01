@@ -35,9 +35,6 @@ VISUAL=vim
 export VISUAL EDITOR=vim
 export EDITOR
 
-# Set Man pager
-export PAGER="less"
-export MANPAGER="less"
 export MANWIDTH=80
 
 # .NET Core development
@@ -48,9 +45,6 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 # ========================================
 # --------- Custom Bash Prompts ----------
 # ========================================
-
-# Fedora Default
-#export PS1="[\u@\h \W]\\$ "
 
 # Fedora Default with VCS branch
 function get_vcs_branch() {
