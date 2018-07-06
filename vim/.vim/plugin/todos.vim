@@ -1,6 +1,6 @@
 " =============================================================
 " Description:  List all TODOs in a project
-" File:         ~/.vim/plugin/todo.vim
+" File:         ~/.vim/plugin/todos.vim
 " =============================================================
 
 " BUG    - A known bug that should be corrected.

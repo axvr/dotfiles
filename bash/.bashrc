@@ -12,15 +12,6 @@ fi
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# History config
-export HISTSIZE=1000
-export HISTFILESIZE=2000
-export HISTCONTROL=ignoredups:erasedups
-shopt -s histappend
-
-# Locale & keyboard config
-export LANG=en_GB.UTF-8
-
 # Bash Inprovements
 shopt -s globstar
 shopt -s checkwinsize
@@ -34,8 +25,6 @@ shopt -s checkwinsize
 VISUAL=vim
 export VISUAL EDITOR=vim
 export EDITOR
-
-export MANWIDTH=80
 
 # .NET Core development
 export ASPNETCORE_ENVIRONMENT=Development
@@ -65,11 +54,6 @@ export PS1="[\u@\h \W\`get_vcs_branch\`]\\$ "
 # ========================================
 # -------- Aliases and Functions ---------
 # ========================================
-
-alias ls="ls --color=auto"
-alias grep="grep --color=auto"
-alias egrep="egrep --color=auto"
-alias fgrep="fgrep --color=auto"
 
 alias ledger="ledger -f ${HOME}/.ledger/personal.dat"
 alias ledger-record="${EDITOR} ${HOME}/.ledger/personal.dat"

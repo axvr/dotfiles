@@ -17,11 +17,11 @@ elif [ "$1" = "-e" ]; then
     shift 2
     # Edit a specific task
     sed -i "s/^\\(${id} - \\).*$/\\1${*}/" "$TODO_FILE"
-elif [ "$1" = "-f" ]; then # TODO itterate over arguments
+elif [ "$1" = "-f" ]; then
     # Finish/remove a task
     shift
     for i in "$@"; do
-        sed -i "/^${i} - /d" "$TODO_FILE" # TODO make POSIX
+        sed -i "/^${i} - /d" "$TODO_FILE"
     done
 else
     # Add a task to the task file
