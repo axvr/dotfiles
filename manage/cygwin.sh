@@ -85,6 +85,11 @@ if [ "$(y_n "Install dotfiles?")" ]; then
     cat << EOF >> ~/dotfiles/bash/.bashrc
 
 if [ "\$(uname -o)" == "Cygwin" ]; then
+    alias ls="ls --colour=auto"
+    alias grep="grep --color=auto"
+    alias egrep="egrep --color=auto"
+    alias fgrep="fgrep --color=auto"
+    alias pgrep="pgrep --color=auto"
     alias dotnet="winpty dotnet"
     alias node="winpty node"
     alias npm="winpty npm.cmd"
