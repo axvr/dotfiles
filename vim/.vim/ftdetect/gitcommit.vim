@@ -11,4 +11,4 @@ function! s:configure_committia() abort
 endfunction
 
 autocmd BufReadPre COMMIT_EDITMSG call vivid#enable('committia.vim')
-autocmd FileType diff,gitcommit call <SID>configure_committia()
+autocmd FileType git,gitcommit call <SID>configure_committia()

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Set up a new Fedora Linux install
-# Update system before running
+#
+# Fully update system before running this script
 
 # ------------------------------------------------------------------------------
 # Fedora Broadcom WiFi drivers:
@@ -17,6 +18,16 @@ y_n() {
         *)      return 0;;
     esac
 }
+
+
+# TODO use `$DESKTOP_SESSION` to detect if running GNOME or KDE Plasma
+# TODO create alternative set up path for KDE Plasma
+# * Browser integration
+# * KDE connect
+# * Nextcloud support
+# * Latte dock
+# * Virtual box
+# * Set to defaults/auto-customise desktop
 
 
 echo "========================================"
@@ -56,7 +67,7 @@ fi
 
 # Install other development tools
 if [ "$(y_n "Install other development tools?")" ]; then
-    sudo dnf -y install gettext doxygen subversion cvs mercurial diff patch
+    sudo dnf -y install gettext doxygen subversion cvs mercurial diff #patch
     sudo dnf -y groupinstall "Development Tools"
 fi
 
@@ -65,6 +76,7 @@ if [ "$(y_n "Install \"modern\" editors?")" ]; then
     # Install VS Code
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+    sudo dnf -y install code
 fi
 
 if [ "$(y_n "Install language specific tools?")" ]; then
@@ -133,12 +145,14 @@ if [ "$(y_n "Install language specific tools?")" ]; then
         sudo dnf -y install gcc-c++ clang gtkmm30-devel clang-tools-extra cppcheck
 
         # Bitcoin Core
-        sudo dnf install libtool openssl-devel \
+        sudo dnf -y install libtool openssl-devel \
             libevent-devel boost-devel libdb4-devel libdb4-cxx-devel
         # Bitcoin Qt
-        sudo dnf install miniupnpc-devel qt5-qttools-devel qt5-qtbase-devel \
+        sudo dnf -y install miniupnpc-devel qt5-qttools-devel qt5-qtbase-devel \
             protobuf-devel qrencode-devel
     fi
+
+    # TODO Ethereum
 
     # TODO Other tools
     # docker gtk+ qt (split from Bitcoin) libvtemm-devel
