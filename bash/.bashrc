@@ -40,12 +40,12 @@ function get_vcs_branch() {
     if [ "$(command -v vcs)" ]; then
         VCS_BRANCH=$(vcs -b)
         if [ "$VCS_BRANCH" != "" ]; then
-            printf " [32m%s[00m" "$VCS_BRANCH"
+            echo " $VCS_BRANCH"
         fi
     fi
     printf ""
 }
-export PS1="[\u@\h \W\`get_vcs_branch\`]\\$ "
+export PS1="[\u@\h \W\[\e[0;32m\]\`get_vcs_branch\`\[\e[0;00m\]]\\$ "
 
 # Termux (Android) version of Fedora default
 [ "$(uname -o)" == "Android" ] && export PS1="[\W]\\$ "

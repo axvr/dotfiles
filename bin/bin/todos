@@ -28,5 +28,5 @@ else
             exit 1
             ;;
     esac
-    grep $colour "$pattern" $($command)
+    grep -n $colour "$pattern" $($command)
 fi

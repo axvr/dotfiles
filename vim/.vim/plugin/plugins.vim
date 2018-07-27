@@ -35,7 +35,8 @@ Plugin 'rhysd/committia.vim'
 
 " Syntax highlighting & formatting packs
 Plugin 'ledger/vim-ledger'
-Plugin 'axvr/dotnet.vim', { 'enabled': 1 }
+Plugin 'OmniSharp/omnisharp-vim'
+Plugin 'OrangeT/vim-csharp'
 Plugin 'leafgarland/typescript-vim'
 
 " Colour schemes and themes
