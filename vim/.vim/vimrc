@@ -41,6 +41,10 @@ if has('persistent_undo')
     set undofile
 endif
 
+" Set leader and localleader keys
+let mapleader = " "
+let maplocalleader = "\\"
+
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
 set wildmenu

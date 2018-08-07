@@ -40,7 +40,7 @@ function get_vcs_branch() {
     if [ "$(command -v vcs)" ]; then
         VCS_BRANCH=$(vcs -b)
         if [ "$VCS_BRANCH" != "" ]; then
-            echo " $VCS_BRANCH"
+            printf " $VCS_BRANCH"
         fi
     fi
     printf ""
