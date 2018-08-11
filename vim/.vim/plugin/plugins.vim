@@ -12,7 +12,7 @@ if has('vim_starting')
 endif
 
 " Vim enhancements
-Plugin 'tommcdo/vim-lion',     { 'enabled': 0 }
+Plugin 'tommcdo/vim-lion',     { 'enabled': 1 }
 let b:lion_squeeze_spaces = 1
 Plugin 'romainl/vim-cool',     { 'enabled': 1 }
 Plugin 'romainl/vim-qf',       { 'enabled': 1 }

@@ -54,9 +54,9 @@ fi
 
 # Set Hostname
 if [ "$(y_n "Set hostname?")" ]; then
-    read -p "New Hostname (arctic):" hostname
+    read -rp "New Hostname (arctic):" hostname
     hostname="$(echo "$hostname" | sed 's/^$/arctic/')"
-    hostnamectl set-hostname "$hostname"
+    hostname "$hostname"
 fi
 
 
@@ -66,7 +66,7 @@ echo "========================================"
 
 # Add RPMFusion free repo
 if [ ! -f "/etc/yum.repos.d/rpmfusion-free.repo" ] && [ "$(y_n "Configure RPMFusion?")" ]; then
-    sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+    sudo dnf install -y "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
     if [ "$(y_n "Install additional media codecs?")" ]; then
         sudo dnf install -y ffmpeg flac
         # TODO add more media codecs (e.g. mp4)

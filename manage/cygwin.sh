@@ -85,7 +85,7 @@ if [ "$(y_n "Install dotfiles?")" ]; then
     cat << EOF >> ~/dotfiles/bash/.bashrc
 
 if [ "\$(uname -o)" == "Cygwin" ]; then
-    alias ls="ls --colour=auto"
+    alias ls="ls --color=auto"
     alias grep="grep --color=auto"
     alias egrep="egrep --color=auto"
     alias fgrep="fgrep --color=auto"

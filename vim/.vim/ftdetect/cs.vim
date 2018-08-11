@@ -5,6 +5,8 @@
 
 " TODO create a function which will select a compiler
 
+let g:OmniSharp_timeout = 5
+
 autocmd FileType cs call vivid#enable('omnisharp-vim')
 autocmd FileType cs,aspx.html,cshtml.html call vivid#enable('vim-csharp')
 
