@@ -152,8 +152,11 @@ if [ "$(y_n "Install language specific tools?")" ]; then
     # .NET Core SDK
     if [ "$(y_n ".NET Core")" ]; then
         sudo dnf copr enable @dotnet-sig/dotnet
-        sudo dnf install -y dotnet-sdk-2.1 libuv libuv-devel
-        dotnet tool install -g dotnet-watch dotnet-dev-certs dotnet-ef
+        sudo dnf install -y dotnet libuv libuv-devel
+        for tool in "dotnet-watch" "dotnet-dev-certs" "dotnet-ef" "dotnet-outdated"
+        do
+            dotnet tool install -g $tool
+        done
     fi
 
     # Python

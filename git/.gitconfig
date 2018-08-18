@@ -2,7 +2,7 @@
 
 [user]
 	name = Alex Vear
-	email = axvr@users.noreply.github.com
+	email = av@axvr.io
 [core]
 	editor = vim
 	excludesfile = ~/.gitignore_global

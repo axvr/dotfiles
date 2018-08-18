@@ -34,6 +34,8 @@ font_list=$(cat <<EOF
 [ ] Fira Code           (https://github.com/tonsky/FiraCode)
 [ ] Font Awesome        (https://fontawesome.com/)
 [ ] Anonymous Pro       (https://www.marksimonson.com/fonts/view/anonymous-pro)
+[x] Share Tech Mono     (https://fonts.google.com/specimen/Share+Tech+Mono)
+[x] Dijkstra            (http://lucacardelli.name/indexartifacts.html)
 EOF
 )
 
@@ -61,12 +63,19 @@ do
         inconsolata)        google_fonts "Inconsolata";;
         fira_sans)          google_fonts "Fira Sans";;
         fira_mono)          google_fonts "Fira Mono";;
+        share_tech_mono)    google_fonts "Share Tech Mono";;
         tamsyn)
             printf "Installing font: Tamsyn\\n"
             rm -r "$font_dir/tamsyn-font-1.11/"
             url="http://www.fial.com/~scott/tamsyn-font/download/tamsyn-font-1.11.tar.gz"
             curl -L "$url" -o "$font_dir/tamsyn-font-1.11/tamsyn.tar.gz" --create-dirs
             tar -zxvf "$font_dir/tamsyn-font-1.11/tamsyn.tar.gz" -C "$font_dir/"
+            ;;
+        dijkstra)
+            printf "Installing font: Dijkstra\\n"
+            rm -r "$font_dir/dijkstra/"
+            url="http://lucacardelli.name/Artifacts/Fonts/Pc/dijkstra.ttf"
+            curl -L "$url" -o "$font_dir/dijkstra/dijkstra.ttf" --create-dirs
             ;;
         *)                  printf "Error: Invalid font '%s'\\n" "$f"
     esac
