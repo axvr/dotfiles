@@ -6,6 +6,7 @@
 # Licence: Unlicence
 
 # TODO: Simplify this, and attempt to reduce code duplication
+# TODO: Provide a mechanism to install the fonts to system directories
 
 requires() {
     for i in "$@"
