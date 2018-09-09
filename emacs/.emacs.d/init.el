@@ -1,28 +1,18 @@
 ;;;; Emacs Configuration
 ;;;; `~/.emacs.d/init.el'
 
+;;; Initially this config will be primarily used for Lisp development.
 
-;;; TODO Install and configure Org-mode, Magit, Ledger-mode and others (maybe restclient, evil-org, evil-matchit)
-;;; TODO Set up for programming (e.g. C#, VimL, Perl, Python, C, C++, Clojure, etc.)
-;;; TODO Sort out package archive priority (https://emacs.stackexchange.com/questions/2969/is-it-possible-to-use-both-melpa-and-melpa-stable-at-the-same-time)
-;;; TODO Move this file to an org-mode file?
-;;; TODO Tidy up file & shorten comments
-;;; TODO Set fonts (Consolas on Windows, maybe Source-Code-Pro, Tamsyn or Monospace on Linux)
-;;; TODO Set location to store backup files
-;;; TODO Try and set up unlimited undo
-;;; TODO Set up Vim-like folding (https://github.com/mrkkrp/vimish-fold, https://github.com/alexmurray/evil-vimish-fold)
-;;; FIXME Work in terminal (just in case)
-;;; TODO Get `g$' working correctly (setq evil-move-beyond-eol nil does not work)
-;;; TODO Try to make config work in shell (terminal Emacs)
-;;; TODO Disable escape keymap when evil mode is disabled (may have to ask on /r/emacs [& check if the mapping can be improved])
-;;; TODO Check that evil-leader starts up correctly (`SPC-SPC')
-;;; TODO Improve scrolling in Emacs and Vim?
-;;; TODO Set up additional evil keybindings for different parts of Emacs (e.g. package.el & buffer list)?
-;;; TODO Improve Ivy config (ask on IRC or /r/emacs if there is a package or config to emulate wildmenu in emacs)
-;;; TODO Update Emacs packages
-;;; TODO Improve eshell (add evil ex command `:terminal')
+;;; TODO Install and configure: magit, restclient, ivy, projectile, a paren package
+;;; TODO Set fonts (Consolas on Windows, maybe Source-Code-Pro, Tamsyn or DejaVu Sans Mono on Linux)
+;;; TODO Make this config work exactly the same in terminal as it does in GUI Emacs
 ;;; TODO Set up ctags and/or etags
+;;; TODO Tab and indentation
+;;; TODO Clean this file and remove unused packages and settings
+;;; FIXME Esc in minibuffer needs to be pressed twice
 
+
+(setq user-mail-address "av@axvr.io")
 
 ;; Disable UI elements in GUI Emacs
 (menu-bar-mode -1)
@@ -31,46 +21,57 @@
 
 ;; Enable & configure various minor modes
 (dolist (mode '(show-paren-mode     ; Highlight matching parens
-                column-number-mode  ; Display column number
-                ;hl-line-mode        ; Hightlight current line
-                global-display-line-numbers-mode)) ; Enable line numbers
+		column-number-mode))  ; Display column number
+		;; global-hl-line-mode)) ; Hightlight current line
+		;; global-display-line-numbers-mode)) ; Enable line numbers
   (funcall mode 1))
-(setq column-number-indicator-zero-based nil ; Start `column-number-mode' count at 1    (Emacs 26)
-      ;display-line-numbers 'relative         ; Relative line numbers for `hl-line-mode' (Emacs 26)
-      ring-bell-function 'ignore)            ; Disable bell
-;; NOTE: May need: (setq display-line-numbers-current-absolute t) to enable hybrid line numbers
+
+(setq column-number-indicator-zero-based nil
+      ring-bell-function 'ignore
+      require-final-newline t
+      show-trailing-whitespace t)
+
+(add-hook 'prog-mode-hook 'hl-line-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'prettify-symbols-mode)
 
 ;; Auto-indent on new line
 (define-key global-map (kbd "RET") 'newline-and-indent)
-
-;; Set `ESC' to `C-g' (no more `ESC-ESC-ESC')
-;;(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(define-key key-translation-map (kbd "ESC") (kbd "C-g"))
 
 ;; Allow using `y' or `n' instead of `yes' & `no'
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Set UTF-8 encoding
 (set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
 
-;; Highlight TODOs, NOTEs, FIXMEs etc. TODO: Hightlight only in comments
-;; TODO: add more tags to highlight and better regex
-(defun axvr/highlight-todos () ; Source (modified): https://writequit.org/org/
-  "Highlight FIXME, TODO and NOTE"
+;; Highlight TODOs, NOTEs, FIXMEs etc.
+;; TODO: Allow separation characters in some of the keywords (e.g. `[-_ ]')
+(define-minor-mode highlight-todos-mode
+  "Highlight TODO and other comment keywords"
+  nil
+  :lighter " TODOs"
   (font-lock-add-keywords
-   nil '(("\\<\\(FIXME:?\\|TODO:?\\|NOTE:?\\)\\>"
-          1 '((:foreground "#d78700") (:weight bold)) t))))
-(add-hook 'prog-mode-hook #'axvr/highlight-todos)
+   nil '(("\\<\\(TODO\\|FIXME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\):?\\>"
+	  1 '((:foreground "#d78700") (:weight bold)) t))))
 
-;; Vim-like tilde on empty lines.
+(add-hook 'prog-mode-hook 'highlight-todos-mode)
+
+;; Vi-like tilde on empty lines.
 ;; Source: http://www.reddit.com/r/emacs/comments/2kdztw/emacs_in_evil_mode_show_tildes_for_blank_lines/
-(setq-default indicate-empty-lines t)
-(define-fringe-bitmap 'tilde [0 0 0 113 219 142 0 0] nil nil 'center)
-(setcdr (assq 'empty-line fringe-indicator-alist) 'tilde)
-(set-fringe-bitmap-face 'tilde 'font-lock-function-name-face)
+(define-minor-mode vi-tilde-mode
+  "Add vi-like tilde on empty lines"
+  nil
+  :lighter ""
+  (setq-default indicate-empty-lines t)
+  (define-fringe-bitmap 'tilde [0 0 0 113 219 142 0 0] nil nil 'center)
+  (setcdr (assq 'empty-line fringe-indicator-alist) 'tilde)
+  (set-fringe-bitmap-face 'tilde 'font-lock-function-name-face))
+
+(vi-tilde-mode 1)
 
 ;; Better scrolling
-;; TODO Test and research: https://www.reddit.com/r/vim/comments/16w481/what_is_your_vimrc_and_why_do_you_like_it/c7zxdkl/
+;; TODO Test and improve this
 (setq scroll-margin 0
       scroll-conservatively 10000
       scroll-step 1)
@@ -79,23 +80,40 @@
 (put 'scroll-left 'disabled nil)
 
 
+;; Improve the backup, undo and cursor placement defaults
+(require 'saveplace)
+(setq-default save-place t)
+(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backup")))
+      backup-by-copying t
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t
+      undo-tree-auto-save-history 1
+      save-place-file (concat user-emacs-directory "places"))
+
+(setq frame-title-format
+      '((buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+
+
+
 ;;; Packages Config
 (require 'package)
 
-;;;(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-;;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-;;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
+       (proto (if no-ssl "http://" "https://")))
   ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t)
+  (add-to-list 'package-archives (cons "melpa" (concat proto "melpa.org/packages/")) t)
+  (add-to-list 'package-archives (cons "melpa-stable" (concat proto "stable.melpa.org/packages/")) t)
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
+    (add-to-list 'package-archives '("gnu" . (concat proto "elpa.gnu.org/packages/")))))
+
+(setq package-archive-priorities
+      '(("gnu" . 10)
+	("melpa-stable" . 5)
+	("melpa" . 0)))
 
 (setq package-enable-at-startup nil)
 (package-initialize)
@@ -104,17 +122,31 @@
   (package-refresh-contents)
   (package-install 'use-package)
   (package-install 'diminish))
+
 (eval-when-compile
   (require 'use-package))
 (require 'diminish)
+
+
 
 ;; Evil-Mode Configuration
 (use-package evil
   :ensure t
   :init
   (setq evil-want-C-u-scroll t
-        evil-want-C-i-jump nil) ; https://stackoverflow.com/q/22878668
+	evil-want-integration nil
+	evil-want-C-i-jump nil) ; https://stackoverflow.com/q/22878668
   :config
+
+  (define-key evil-insert-state-map (kbd "C-U") 'insert-char)
+
+  (evil-define-command vi-find-file (file)
+    (interactive "<a>")
+    (find-file (car (file-expand-wildcards file))))
+
+  (evil-ex-define-cmd "fin[d]"     'vi-find-file)
+  (evil-ex-define-cmd "ter[minal]" 'ansi-term)
+  (evil-ex-define-cmd "pack[age]"  'package-list-packages)
 
   (use-package evil-collection
     :ensure t
@@ -124,26 +156,27 @@
   (use-package evil-leader
     :ensure t
     :config
-    (setq evil-leader/in-all-states t)
+    (global-evil-leader-mode)
     (evil-leader/set-leader "SPC")
     (evil-leader/set-key
       "SPC" 'execute-extended-command
       "ff"  'find-file
-      "fs"  'save-buffer
-      "qq"  'save-buffers-kill-terminal)
-    (global-evil-leader-mode))
-
-  (use-package evil-escape
-    :ensure t
-    :diminish evil-escape-mode
-    :init (setq evil-escape-key-sequence "jk")
-    :config (evil-escape-mode))
+      "ut"  'undo-tree-visualize))
 
   (use-package evil-numbers
     :ensure t
     :config
     (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
     (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt))
+
+  ;; TODO: Is folding really needed?
+  (use-package vimish-fold
+    :ensure t
+    :config
+
+    (use-package evil-vimish-fold
+      :ensure t
+      :config (evil-vimish-fold-mode)))
 
   (use-package evil-commentary
     :ensure t
@@ -157,18 +190,11 @@
     :ensure t
     :config (evil-goggles-mode))
 
-  ; (use-package evil-org
-  ;   :ensure t
-  ;   :after org
-  ;   :config
-  ;   (add-hook 'org-mode-hook 'evil-org-mode)
-  ;   (add-hook 'evil-org-mode-hook
-  ;     (lambda ()
-  ;       (evil-org-set-key-theme)))
-  ;   (require 'evil-org-agenda)
-  ;   (evil-org-agenda-set-keys))
-
   (evil-mode 1))
+
+
+
+(use-package markdown-mode :ensure t)
 
 (use-package ivy
   :ensure t
@@ -176,6 +202,8 @@
   :config (ivy-mode 1))
 
 (use-package org :ensure t)
+
+(use-package restclient :ensure t)
 
 (use-package magit
   :defer t
@@ -186,23 +214,26 @@
     :config
     (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)))
 
-(use-package ledger-mode
-  :ensure t)
+(use-package company
+  :ensure t
+  :hook (after-init . global-company-mode))
 
-; TODO enable only for Lisps
+;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
+;; TODO automatically run `ledger-mode-clean-buffer' on save
+(use-package ledger-mode :ensure t)
+
 (use-package rainbow-delimiters
   :ensure t
-  :config (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  :hook (prog-mode . rainbow-delimiters-mode))
 
-; TODO improve C# set up
-;(use-package omnisharp
-;  :config (add-hook 'csharp-mode-hook 'omnisharp-mode))
+;; TODO improve C# set up
+;; (use-package omnisharp
+;;   :hook (csharp-mode . omnisharp-mode))
 
 (use-package spacemacs-theme
   :ensure t
   :defer t
   :init (load-theme 'spacemacs-dark t))
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -212,7 +243,7 @@
  '(evil-collection-setup-minibuffer t)
  '(package-selected-packages
    (quote
-    (omnisharp diminish evil-numbers ivy use-package spacemacs-theme rainbow-delimiters evil-leader evil-escape))))
+    (company evil-vimish-fold vimish-fold restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode evil-goggles evil-lion evil-commentary evil-numbers evil-leader evil-collection evil diminish use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

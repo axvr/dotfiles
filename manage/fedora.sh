@@ -68,21 +68,29 @@ echo "========================================"
 if [ ! -f "/etc/yum.repos.d/rpmfusion-free.repo" ] && [ "$(y_n "Configure RPMFusion?")" ]; then
     sudo dnf install -y "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
     if [ "$(y_n "Install additional media codecs?")" ]; then
-        sudo dnf install -y ffmpeg flac
+        sudo dnf install -y ffmpeg
         # TODO add more media codecs (e.g. mp4)
     fi
 fi
 
 # Install core applications
 if [ "$(y_n "Install core applications?")" ]; then
-    sudo dnf install -y keepassxc krita ledger unzip asunder firefox
+    sudo dnf install -y keepassxc krita ledger unzip firefox pandoc
 fi
 
 # Install other applications
 if [ "$(y_n "Install other applications?")" ]; then
     sudo dnf install -y remmina electrum torbrowser-launcher gnome-usage \
-        logisim youtube-dl pandoc seahorse
+        logisim youtube-dl seahorse asunder
 fi
+
+# Audio tools
+if [ "$(Y_n "Install audio/music tools?")" ]; then
+    sudo dnf install -y abcde cdparanoia flac lame oggenc
+    sudo dnf install -y cmus mpd
+    [ "$(command -v pip)" ] && sudo pip install eyeD3 # FIXME: will need pip installed
+fi
+
 
 
 echo "========================================"
