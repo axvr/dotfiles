@@ -5,7 +5,7 @@
 
 set number relativenumber
 set showcmd
-set ruler
+set ruler ls=2
 set rulerformat=%32(%=%(%{&ff}\ \ %{&fenc?&fenc:&enc}\ %)%<%(%{&ft==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %2c%)%)
 set cursorline
 let &colorcolumn='+'.join(range(1,256), ',+')

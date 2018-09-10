@@ -81,8 +81,9 @@
 
 
 ;; Improve the backup, undo and cursor placement defaults
-(require 'saveplace)
+(require 'saveplace) ; FIXME, this is not working
 (setq-default save-place t)
+
 (setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backup")))
       backup-by-copying t
       delete-old-versions t

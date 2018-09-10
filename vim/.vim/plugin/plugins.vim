@@ -42,8 +42,14 @@ Plugin 'leafgarland/typescript-vim'
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
 
-" Tex.vim Syntax plugin Config
-let g:tex_flavor = "latex"
-
 " PowerShell Syntax highlighting
 File 'PProvost/vim-ps1/master/syntax/ps1.vim', '~/.vim/syntax/powershell.vim'
+
+" Simple way to test out plugins
+" TODO integrate into Vivid, or create a separate extension plugin for it
+command -nargs=1 -bar PluginTest call <SID>test_plugin(<args>)
+function! s:test_plugin(url) abort
+    call vivid#add(a:url, { 'enabled': 1 })
+    let l:name = substitute(split(a:url, '/')[-1], '\m\C\.git$', '', '')
+    exec 'autocmd VimLeavePre * call vivid#clean("'.l:name.'")'
+endfunction
