@@ -35,6 +35,8 @@ Install these tools first:
 * mingw64-x86_64-gcc-g++ or mingw64-i386-gcc-g++
 * openssh
 * tree
+* emacs
+* emacs-w32
 EOF
 
 [ ! "$(y_n "Have you installed the above tools?")" ] && exit 0
