@@ -17,8 +17,10 @@ let b:lion_squeeze_spaces = 1
 Plugin 'romainl/vim-cool',     { 'enabled': 1 }
 Plugin 'romainl/vim-qf',       { 'enabled': 1 }
 Plugin 'tpope/vim-commentary', { 'enabled': 1 }
+Plugin 'tpope/vim-surround',   { 'enabled': 1 }
 Plugin 'tpope/vim-vinegar',    { 'enabled': 1 }
 Plugin 'mbbill/undotree',      { 'command': ['UndotreeToggle', 'UndotreeShow'] }
+Plugin 'markonm/traces.vim',   { 'enabled': 1 }
 packadd matchit
 
 " VCS integration
@@ -38,6 +40,9 @@ Plugin 'ledger/vim-ledger'
 Plugin 'OmniSharp/omnisharp-vim'
 Plugin 'OrangeT/vim-csharp'
 Plugin 'leafgarland/typescript-vim'
+
+" Lisp development
+Plugin 'guns/vim-sexp'
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
