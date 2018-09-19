@@ -4,9 +4,10 @@
 ;;; Initially this config will be primarily used for Lisp development.
 
 ;;; TODO Install and configure: projectile, auto-paren package
-;;; TODO Set fonts (Consolas:11 on Windows, maybe Source Code Pro, Tamsyn or DejaVu Sans Mono on Linux)
 ;;; TODO Set up ctags and/or etags
 ;;; TODO Templates for REST Client?
+;;; TODO Set up insert mode completion key bindings for evil mode
+;;; TODO Re-learn what the different number of `;' chars in lisp comments means
 
 
 (menu-bar-mode -1)
@@ -15,6 +16,10 @@
       (tool-bar-mode -1)
       (scroll-bar-mode -1))
   (xterm-mouse-mode 1))
+
+(when (< emacs-major-version 25)
+  (require 'saveplace)
+  (setq-default save-place t))
 
 ;; Enable & configure various minor modes
 (dolist (mode '(show-paren-mode    ; Highlight matching parens
@@ -35,8 +40,9 @@
 (add-hook 'prog-mode-hook 'prettify-symbols-mode)
 
 ;; TODO: improve default indentation settings
+;; TODO: set indentation per major-mode (if default is not correct)
 (setq-default indent-tabs-mode nil)
-(setq tab-width 4)
+;; (setq tab-width 4)
 
 ;; Auto-indent on new line
 (define-key global-map (kbd "RET") 'newline-and-indent)
@@ -95,6 +101,10 @@
 (setq frame-title-format
       '((buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
+;; Set default fonts
+(when (memq system-type '(cygwin windows-nt ms-dos))
+  (set-face-attribute 'default nil :family "Consolas" :height 110))
+
 
 ;;; Packages Config
 (require 'package)
@@ -137,9 +147,16 @@
 
   (define-key evil-insert-state-map (kbd "C-U") 'insert-char)
 
+  ;; TODO allow picking between found files
   (evil-define-command av/find-file (file)
     (interactive "<a>")
     (find-file (car (file-expand-wildcards file))))
+
+  (evil-define-command av/retab (start end)
+    (interactive "<r>")
+    (if indent-tabs-mode
+        (progn (tabify start end))
+      (untabify start end)))
 
   ;; TODO Improve this
   (defun av/restclient-temp-open ()
@@ -158,6 +175,7 @@
       (undo-tree-visualize)))
 
   (evil-ex-define-cmd "fin[d]"     'av/find-file)
+  (evil-ex-define-cmd "ret[ab]"    'av/retab)
   (evil-ex-define-cmd "ter[minal]" 'ansi-term)
   (evil-ex-define-cmd "pack[age]"  'package-list-packages)
 
@@ -198,6 +216,7 @@
 
 (use-package general
   :ensure t
+  :after which-key
   :config
   (general-evil-setup t)
 
@@ -304,7 +323,25 @@
 
 (use-package company
   :ensure t
-  :hook (after-init . global-company-mode))
+  :hook (after-init . global-company-mode)
+  :config
+  (setq company-idle-delay nil
+        company-selection-wrap-around t)
+
+  ;; Add Vim insert mode completion to Emacs
+  ;; (I find auto-complete to be annoying and distracting)
+  ;; TODO add more insert mode completion options
+  ;; FIXME `C-e' shouldn't undo once company mode is closed (and shouldn't redo)
+  (general-define-key
+   :states 'insert
+   :prefix "C-x"
+   "C-o" 'company-complete-common-or-cycle
+   "C-f" 'company-files) ; FIXME doesn't select first item
+  (general-define-key
+   :states 'insert
+   :keymaps 'company-mode-map
+   "C-e" 'undo
+   "C-y" 'nil))
 
 ;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
 (use-package ledger-mode

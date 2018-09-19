@@ -32,7 +32,7 @@ endif
 if vivid#enabled('omnisharp-vim')
     setlocal signcolumn=yes
     setlocal updatetime=500
-    " TODO: Use yellow highlight
+    " TODO: Use yellow highlight?
     sign define OmniSharpCodeActions text=> texthl=SignifySignChangeDelete
     autocmd CursorHold <buffer> call <SID>OmniSharpSignColumn()
 endif
@@ -40,7 +40,6 @@ endif
 function! s:OmniSharpSignColumn() abort
     if OmniSharp#CountCodeActions({-> execute('sign unplace 99')})
         let l:line = getpos('.')[1]
-        let l:file = expand('%:p')
-        execute 'sign place 99 line='.l:line.' name=OmniSharpCodeActions file='.l:file
+        execute 'sign place 99 line='.l:line.' name=OmniSharpCodeActions buffer='.bufnr('%')
     endif
 endfunction

@@ -37,6 +37,8 @@ Install these tools first:
 * tree
 * emacs
 * emacs-w32
+* gnupg2
+* gnutls
 EOF
 
 [ ! "$(y_n "Have you installed the above tools?")" ] && exit 0
@@ -80,7 +82,7 @@ if [ "$(y_n "Install dotfiles?")" ]; then
     rm ~/.bash_profile ~/.bashrc ~/.inputrc
     git clone https://github.com/axvr/dotfiles.git ~/dotfiles
     cd ~/dotfiles/
-    stow -t ~ bin/ bash/ git/ tmux/ vim/
+    stow -t ~ bin/ bash/ git/ tmux/ vim/ emacs/
     cd "$HOME"
 
     # Improve dotfiles for Cygwin
