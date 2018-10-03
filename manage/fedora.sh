@@ -99,7 +99,7 @@ echo "========================================"
 
 # Install core development tools
 if [ "$(y_n "Install core development tools?")" ]; then
-    sudo dnf install -y git stow tmux vim ctags mercurial bash
+    sudo dnf install -y git stow tmux vim ctags bash
 fi
 
 # Install other development tools
@@ -212,7 +212,7 @@ if [ "$(y_n "Install language specific tools?")" ]; then
     # docker gtk+ qt (split from Bitcoin) libvtemm-devel
     #
     # Plan 9 User Space & Suckless tools
-    # sudo dnf install -y libXt-devel
+    sudo dnf install -y libXt-devel
 
 fi
 

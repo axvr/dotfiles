@@ -41,9 +41,6 @@ Plugin 'OmniSharp/omnisharp-vim'
 Plugin 'OrangeT/vim-csharp'
 Plugin 'leafgarland/typescript-vim'
 
-" Lisp development
-Plugin 'guns/vim-sexp'
-
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
 

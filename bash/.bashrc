@@ -38,8 +38,8 @@ export VISUAL EDITOR=vim
 export EDITOR
 
 # Plan 9 User Space
-if [ -d "$HOME/Documents/Projects/plan9/" ]; then
-    export PLAN9=$HOME/Documents/Projects/plan9
+if [ -d "$HOME/Documents/Projects/plan9port/" ]; then
+    export PLAN9=$HOME/Documents/Projects/plan9port
     export PATH=$PATH:$PLAN9/bin
 fi
 

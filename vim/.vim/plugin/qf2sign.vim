@@ -1,12 +1,12 @@
 " TODO if moved into plugin, assign better names
 
-sign define QfWarning text=>> texthl=WarningMsg
-sign define QfError text=>> texthl=ErrorMsg
-sign define QfOther text=>>
+sign define QfWarning text=> texthl=WarningMsg
+sign define QfError text=> texthl=ErrorMsg
+sign define QfOther text=>
 
-autocmd BufEnter,BufWritePost,CmdlineLeave * call <SID>main()
+autocmd! BufEnter,BufWritePost,CmdlineLeave * call <SID>main()
 
-function s:main()
+function! s:main()
     let l:bufnr = bufnr('%')
     let l:signs = []
 

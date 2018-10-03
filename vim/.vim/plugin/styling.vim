@@ -3,10 +3,10 @@
 " File:         ~/.vim/plugin/styling.vim
 " =============================================================
 
-set number relativenumber
+" set number relativenumber
 set showcmd
-set ruler ls=2
-set rulerformat=%32(%=%(%{&ff}\ \ %{&fenc?&fenc:&enc}\ %)%<%(%{&ft==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %2c%)%)
+set ruler "ls=2
+set rulerformat=%32(%=%(%{&ff}\ \ %{&fenc?&fenc:&enc}\ %)%(%{&ft==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %6{!&nu?line('.').'\ :\ ':''}%2c%)%)
 set cursorline
 let &colorcolumn='+'.join(range(1,256), ',+')
 set belloff=all
@@ -36,9 +36,9 @@ endfunction
 "        [Block 3              ][Block 4  ][Block 5                        ]
 
 function! StatusLine(active)
-    return "%(%#LineNr#%{VCSBranch()}%)".
+    return "%(%#LineNr#%{&co>85?VCSBranch():''}%)".
                 \ "%(%#".a:active."#\ %f%m%r%h%w\ %)".
-                \ "%#".a:active."#%=%<".&rulerformat."\ "
+                \ "%#".a:active."#%=".&rulerformat."\ "
 endfunction
 
 augroup theming
