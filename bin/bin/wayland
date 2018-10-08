@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Start and configure a Wayland session
+
+
+export XDG_SESSION_TYPE=wayland
+
+export XKB_DEFAULT_LAYOUT=gb,us
+export XKB_DEFAULT_OPTIONS=ctrl:nocaps,grp:win_space_toggle
+
+if test -z "${XDG_RUNTIME_DIR}"; then
+    export XDG_RUNTIME_DIR=/tmp/${UID}-runtime-dir
+    if ! test -d "${XDG_RUNTIME_DIR}"; then
+        mkdir "${XDG_RUNTIME_DIR}"
+        chmod 0700 "${XDG_RUNTIME_DIR}"
+    fi
+fi
+
+
+[ -z "$DESKTOP" ] && DESKTOP="sway"
+case "$DESKTOP" in
+    plasma) export $(dbus-launch) && startplasmacompositor;; # FIXME
+    gnome)  exec dbus-run-session gnome-session;;            # FIXME
+    sway)   exec sway;;                                      # FIXME
+esac

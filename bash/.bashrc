@@ -18,10 +18,8 @@ export HISTFILESIZE=2000
 export HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 
-# Locale & keyboard config
+# Set locale and language
 export LANG=en_GB.UTF-8
-export XKB_DEFAULT_LAYOUT=gb,us
-export XKB_DEFAULT_OPTIONS=ctrl:nocaps,grp:win_space_toggle
 
 # Bash Inprovements
 shopt -s globstar
@@ -36,12 +34,6 @@ shopt -s checkwinsize
 VISUAL=vim
 export VISUAL EDITOR=vim
 export EDITOR
-
-# Plan 9 User Space
-if [ -d "$HOME/Documents/Projects/plan9port/" ]; then
-    export PLAN9=$HOME/Documents/Projects/plan9port
-    export PATH=$PATH:$PLAN9/bin
-fi
 
 # .NET Core development
 export ASPNETCORE_ENVIRONMENT=Development
@@ -78,6 +70,5 @@ alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias pgrep="pgrep --color=auto"
 
-alias startx="startx; vlock"
 alias ledger="ledger -f ${HOME}/.ledger/personal.dat"
 alias ledger-record="${EDITOR} ${HOME}/.ledger/personal.dat"
