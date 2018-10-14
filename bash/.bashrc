@@ -20,6 +20,8 @@ shopt -s histappend
 
 # Set locale and language
 export LANG=en_GB.UTF-8
+# export LANG=en_US.UTF-8
+# export LC_ALL=POSIX
 
 # Bash Inprovements
 shopt -s globstar
@@ -39,10 +41,16 @@ export EDITOR
 export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
+# Default applications
+export BROWSER="firefox"
+
 
 # ========================================
 # --------- Custom Bash Prompts ----------
 # ========================================
+
+# Simple prompt
+#export PS1="[\u@\h \W]\$ "
 
 # Prompt displaying VCS branch
 function get_vcs_branch() {
@@ -69,6 +77,7 @@ alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias pgrep="pgrep --color=auto"
+alias ip="ip -color"
 
 alias ledger="ledger -f ${HOME}/.ledger/personal.dat"
 alias ledger-record="${EDITOR} ${HOME}/.ledger/personal.dat"

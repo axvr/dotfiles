@@ -3,15 +3,17 @@
 # ~/.bash_profile
 
 # Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-fi
+[ -f $HOME/.bashrc ] && . $HOME/.bashrc
 
 # User specific environment and startup programs
 
-# Plan 9 User Space
-export PLAN9=$HOME/Documents/Projects/plan9port
-# export PLAN9=$HOME/code/plan9port
+# Plan 9 from User Space
+if [ -d "$HOME/Documents/Projects/plan9port/" ]
+then
+    export PLAN9=$HOME/Documents/Projects/plan9port
+else
+    export PLAN9=$HOME/code/plan9port
+fi
 
 PATH=$PATH:$HOME/.local/bin:$HOME/bin:$PLAN9/bin:$HOME/.dotnet/tools
 export PATH
