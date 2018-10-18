@@ -13,14 +13,13 @@ endif
 
 " Vim enhancements
 Plugin 'tommcdo/vim-lion',     { 'enabled': 1 }
-let b:lion_squeeze_spaces = 1
+let g:lion_squeeze_spaces = 1
 Plugin 'romainl/vim-cool',     { 'enabled': 1 }
 Plugin 'romainl/vim-qf',       { 'enabled': 1 }
 Plugin 'tpope/vim-commentary', { 'enabled': 1 }
 Plugin 'tpope/vim-surround',   { 'enabled': 1 }
 Plugin 'tpope/vim-vinegar',    { 'enabled': 1 }
 Plugin 'mbbill/undotree',      { 'command': ['UndotreeToggle', 'UndotreeShow'] }
-Plugin 'markonm/traces.vim',   { 'enabled': 1 }
 packadd matchit
 
 " VCS integration
@@ -38,18 +37,14 @@ Plugin 'rhysd/committia.vim'
 " Syntax highlighting & formatting packs
 Plugin 'ledger/vim-ledger'
 Plugin 'OmniSharp/omnisharp-vim'
-Plugin 'OrangeT/vim-csharp'
 Plugin 'leafgarland/typescript-vim'
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
 
-" PowerShell Syntax highlighting
-File 'PProvost/vim-ps1/master/syntax/ps1.vim', '~/.vim/syntax/powershell.vim'
-
 " Simple way to test out plugins
-" TODO integrate into Vivid, or create a separate extension plugin for it
-command -nargs=1 -bar PluginTest call <SID>test_plugin(<args>)
+" TODO integrate into Vivid, or add to the docs
+command! -nargs=1 -bar PluginTest call <SID>test_plugin(<args>)
 function! s:test_plugin(url) abort
     call vivid#add(a:url, { 'enabled': 1 })
     let l:name = substitute(split(a:url, '/')[-1], '\m\C\.git$', '', '')

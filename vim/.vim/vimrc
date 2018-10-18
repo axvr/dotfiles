@@ -43,12 +43,13 @@ endif
 
 " Set leader and localleader keys
 let mapleader = " "
-let maplocalleader = "\\"
+" let maplocalleader = "\\"
+let maplocalleader = " m"
 
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
-set wildignore+=*/tmp/*,*.so,*.pyc,*.db,*.sqlite,*/node_modules/*,*/.git/*,*/.hg/*,*.dll,*.exe,*.cache,*.o
+set wildignore+=*/tmp/*,*.so,*.pyc,*.db,*.sqlite,*/node_modules/*,*/.git/*,*.dll,*.exe,*.cache,*.o
 set path+=**
 
 " Indentation config (spaces > tabs)

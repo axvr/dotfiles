@@ -8,14 +8,26 @@ set cpo&vim
 
 if executable('dotnet')
     let current_compiler = 'dotnet'
-    let s:make = 'dotnet\ build\ -v\ q\ .\ /nologo\ /p:GenerateFullPaths=true'
-    if has('unix') && executable('grep') && executable('sort')
-                \ && executable('uniq')
-        execute 'setlocal makeprg=' . s:make .
-                    \ '\ \\\|\ sort\ \\\|\ uniq\ \\\|\ grep\ \"^/\"'
+
+    if has('win32') && executable('winpty')
+        let s:compiler = "winpty dotnet"
     else
-        execute 'setlocal makeprg=' . s:make
+        let s:compiler = "dotnet"
     endif
+
+    let s:make = s:compiler . "\ build\ -v\ q\ .\ /nologo\ /p:GenerateFullPaths=true"
+
+    if has('unix')
+        let s:make = s:make . "\ \\\|\ grep\ \"^/\"\ \\\|\ sort\ \\\|\ uniq"
+    endif
+
+    " TODO fix file paths for Cygwin (e.g. 'C:\' --> '/c/')
+    if has('unix') && has('win32')
+        let s:make = s:make . "\ \\\|\ sed\ 's/^C:\\\\/\\/c\\//'"
+    endif
+
+    let &l:makeprg = s:make
+
     setlocal errorformat=%f(%l\\\,%v):\ %t%*[^:]:%m
 elseif executable('msbuild')
     compiler msbuild

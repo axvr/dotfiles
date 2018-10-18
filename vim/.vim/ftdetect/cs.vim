@@ -3,12 +3,9 @@
 " File:         ~/.vim/ftdetect/cs.vim
 " =============================================================
 
-" TODO create a function which will select a compiler
-
 let g:OmniSharp_timeout = 5
 
 autocmd FileType cs call vivid#enable('omnisharp-vim')
-autocmd FileType cs,aspx.html,cshtml.html call vivid#enable('vim-csharp')
 
 autocmd BufReadPre,BufNewFile *.cs setfiletype cs
 autocmd BufRead,BufNewFile *.cs,*.cshtml,*.csproj,*.aspx,*.sln compiler dotnet

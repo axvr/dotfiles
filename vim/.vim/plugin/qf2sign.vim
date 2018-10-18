@@ -1,10 +1,15 @@
-" TODO if moved into plugin, assign better names
+" =============================================================
+" Description:  Show quickfix items in the sign column
+" File:         ~/.vim/plugin/qf2sign.vim
+" =============================================================
+
+" TODO diff to sign column (use DiffAdd DiffChange, DiffRemove)
 
 sign define QfWarning text=> texthl=WarningMsg
 sign define QfError text=> texthl=ErrorMsg
 sign define QfOther text=>
 
-autocmd! BufEnter,BufWritePost,CmdlineLeave * call <SID>main()
+autocmd! BufEnter,QuickFixCmdPost * call <SID>main()
 
 function! s:main()
     let l:bufnr = bufnr('%')
@@ -31,7 +36,7 @@ function! s:main()
         endif
     endfor
 
-    " Remove old signs afterwards to avoid screen refresh slow downs
+    " Remove old signs after placing new ones to avoid screen refresh slow downs
     if exists('b:signs')
         for i in b:signs
             exec 'sign unplace '.i.' buffer='.l:bufnr
@@ -41,5 +46,3 @@ function! s:main()
     let b:signs = l:signs
 
 endfunction
-
-" TODO diff to sign column (use DiffAdd DiffChange, DiffRemove)
