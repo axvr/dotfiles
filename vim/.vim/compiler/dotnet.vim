@@ -8,30 +8,18 @@ set cpo&vim
 
 if executable('dotnet')
     let current_compiler = 'dotnet'
-
-    if has('win32') && executable('winpty')
-        let s:compiler = "winpty dotnet"
-    else
-        let s:compiler = "dotnet"
-    endif
-
-    let s:make = s:compiler . "\ build\ -v\ q\ .\ /nologo\ /p:GenerateFullPaths=true"
-
-    if has('unix')
-        let s:make = s:make . "\ \\\|\ grep\ \"^/\"\ \\\|\ sort\ \\\|\ uniq"
-    endif
-
-    " TODO fix file paths for Cygwin (e.g. 'C:\' --> '/c/')
-    if has('unix') && has('win32')
-        let s:make = s:make . "\ \\\|\ sed\ 's/^C:\\\\/\\/c\\//'"
-    endif
-
-    let &l:makeprg = s:make
-
-    setlocal errorformat=%f(%l\\\,%v):\ %t%*[^:]:%m
-elseif executable('msbuild')
-    compiler msbuild
+    let s:make = "dotnet\ build\ .\ -clp:NoSummary\ -v\ q\ /nologo\ /p:GenerateFullPaths=true"
 endif
+
+" Fix file paths for Cygwin (e.g. 'C:\' --> '/cygdrive/c/')
+if has('win32unix')
+    let s:make = s:make . "\ \\\|\ tr\ '\\\\' '/' \\\|\ sed\ 's/^\\([A-Z]\\):\\//\\/cygdrive\\/\\1\\//'"
+endif
+
+let &l:makeprg = s:make
+
+setlocal errorformat=%f(%l\\\,%v):\ %t%*[^:]:%m
+setlocal errorformat+=%f\ :\ %t%*[^:]:\ %m
 
 let &cpo = s:cpo_save
 unlet s:cpo_save

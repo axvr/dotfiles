@@ -10,7 +10,6 @@ setlocal commentstring=<!--%s-->
 function! MarkdownFold()
   let line = getline(v:lnum)
 
-  " TODO optimise this (rewrite the entire logic in this function)
   if synIDattr(synID(v:lnum, 1, 1), 'name') !=# 'markdownHeadingDelimiter'
       return "="
   endif

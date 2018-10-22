@@ -14,16 +14,16 @@ if vivid#enabled('omnisharp-vim')
     " C# documentation (use OmniSharp instead of '&keywordprg')
     nnoremap <buffer><silent> K :<C-u>OmniSharpDocumentation<CR>:wincmd P<CR>
 
-    nnoremap <buffer> <localleader>oa :<C-u>OmniSharpGetCodeActions<CR>
-    nnoremap <buffer> <localleader>ou :<C-u>OmniSharpFixUsings<CR>
-    nnoremap <buffer> <localleader>ot :<C-u>OmniSharpTypeLookup<CR>
+    nnoremap <buffer> <localleader>a :<C-u>OmniSharpGetCodeActions<CR>
+    nnoremap <buffer> <localleader>u :<C-u>OmniSharpFixUsings<CR>
+    nnoremap <buffer> <localleader>t :<C-u>OmniSharpTypeLookup<CR>
 
     nnoremap <buffer><silent> <C-]> :<C-u>OmniSharpGotoDefinition<CR>
 
-    nnoremap <buffer> <localleader>os :<C-u>OmniSharpStartServer<CR>
-    nnoremap <buffer> <localleader>oS :<C-u>OmniSharpStopServer<CR>
-    nnoremap <buffer> <localleader>or :<C-u>OmniSharpRestartServer<CR>
-    nnoremap <buffer> <localleader>oR :<C-u>OmniSharpRestartAllServers<CR>
+    nnoremap <buffer> <localleader>s :<C-u>OmniSharpStartServer<CR>
+    nnoremap <buffer> <localleader>S :<C-u>OmniSharpStopServer<CR>
+    nnoremap <buffer> <localleader>r :<C-u>OmniSharpRestartServer<CR>
+    nnoremap <buffer> <localleader>R :<C-u>OmniSharpRestartAllServers<CR>
 endif
 
 if vivid#enabled('omnisharp-vim')

@@ -11,6 +11,9 @@ sign define QfOther text=>
 
 autocmd! BufEnter,QuickFixCmdPost * call <SID>main()
 
+" Sometimes the screen doesn't get correctly redrawn
+autocmd! QuickFixCmdPost * redraw!
+
 function! s:main()
     let l:bufnr = bufnr('%')
     let l:signs = []
@@ -20,6 +23,10 @@ function! s:main()
     endif
 
     for i in getqflist()
+        if i.lnum == ''
+            continue
+        endif
+
         if i.bufnr == l:bufnr
             if i.type ==? 'e'
                 let type = 'QfError'

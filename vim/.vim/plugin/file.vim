@@ -1,12 +1,11 @@
-" Single file plugin manager (will be greatly extended to become FileMan.vim)
+" Single file plugin manager
 
 " TODO provide a default path (~/.vim/pack/fileman/start/<dir>/<filename>.vim)
-" TODO handle vim docs?
 " TODO windows support, and check if curl is installed (maybe replace curl)
-" TODO allow performing regex actions on the file
-" TODO many more features (e.g. lazy loading, vivid integration, updating)
+" TODO allow performing regex actions on the file?
+" TODO FileClean (removes the pack/file/start/ directory)
 
-function! s:FileMan(url, local) abort
+function! s:File(url, local) abort
     " let s:default_install_dir = expand('~/.vim/pack/fileman/start/fileman/')
     let l:url = a:url
     if l:url !~? '\m\C^\w\+:\/\/.*$'
@@ -19,4 +18,4 @@ function! s:FileMan(url, local) abort
     endif
 endfunction
 
-command! -nargs=+ -bar File :call s:FileMan(<args>)
+command! -nargs=+ -bar File :call s:File(<args>)
