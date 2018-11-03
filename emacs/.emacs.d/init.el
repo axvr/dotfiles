@@ -1,7 +1,7 @@
 ;;;; Emacs Configuration
 ;;;; `~/.emacs.d/init.el'
 
-;;; Initially this config will be primarily used for Lisp development.
+;;; Initially this config will be primarily used for Lisp development, and editing Org-mode docs.
 
 ;;; TODO Install and configure: projectile, auto-paren package
 ;;; TODO Set up ctags and/or etags
@@ -269,6 +269,7 @@
 (use-package org
   :ensure t
   :defer t
+  :hook (org-mode . org-indent-mode)
   :config
 
   (local-leader
@@ -378,7 +379,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (general which-key org-bullets vimrc-mode evil-surround evil-magit magit company restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode evil-goggles evil-lion evil-commentary evil-numbers evil-collection evil diminish use-package))))
+    (general which-key vimrc-mode evil-surround evil-magit magit company restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode evil-goggles evil-lion evil-commentary evil-numbers evil-collection evil diminish use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

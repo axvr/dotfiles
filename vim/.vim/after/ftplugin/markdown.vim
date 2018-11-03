@@ -39,3 +39,8 @@ setlocal foldlevel=1
 
 " Don't enable folding by default, as it can make the file difficult to read.
 setlocal nofoldenable
+
+" Make folds more readable
+setlocal foldtext=getline(v:foldstart)
+setlocal fillchars-=fold:-
+setlocal fillchars+=fold:\ 
