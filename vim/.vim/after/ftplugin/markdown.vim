@@ -8,29 +8,29 @@ setlocal commentstring=<!--%s-->
 " Modified version of the default `MarkdownFold()` function, to not react to `#`
 " characters in code blocks.
 function! MarkdownFold()
-  let line = getline(v:lnum)
+    let line = getline(v:lnum)
 
-  if synIDattr(synID(v:lnum, 1, 1), 'name') !=# 'markdownHeadingDelimiter'
-      return "="
-  endif
+    if synIDattr(synID(v:lnum, 1, 1), 'name') !=# 'markdownHeadingDelimiter'
+        return "="
+    endif
 
-  " Regular headers
-  let depth = match(line, '\(^#\+\)\@<=\( .*$\)\@=')
-  if depth > 0
-    return ">" . depth
-  endif
+    " Regular headers
+    let depth = match(line, '\(^#\+\)\@<=\( .*$\)\@=')
+    if depth > 0
+        return ">" . depth
+    endif
 
-  " Setext style headings
-  let nextline = getline(v:lnum + 1)
-  if (line =~ '^.\+$') && (nextline =~ '^=\+$')
-    return ">1"
-  endif
+    " Setext style headings
+    let nextline = getline(v:lnum + 1)
+    if (line =~ '^.\+$') && (nextline =~ '^=\+$')
+        return ">1"
+    endif
 
-  if (line =~ '^.\+$') && (nextline =~ '^-\+$')
-    return ">2"
-  endif
+    if (line =~ '^.\+$') && (nextline =~ '^-\+$')
+        return ">2"
+    endif
 
-  return "="
+    return "="
 endfunction
 
 setlocal foldexpr=MarkdownFold()
