@@ -36,10 +36,8 @@ endfor
 let &backupdir = s:dirs[0]
 set backup
 let &directory = s:dirs[1]
-if has('persistent_undo')
-    let &undodir = s:dirs[2]
-    set undofile
-endif
+let &undodir = s:dirs[2]
+set undofile
 
 " Dictionary file
 if filereadable('/usr/dict/words')
@@ -50,7 +48,6 @@ endif
 
 " Set leader and localleader keys
 let mapleader = " "
-" let maplocalleader = "\\"
 let maplocalleader = " m"
 
 " Vim Omnicomplete, Ins-complete & Wild menu
@@ -59,7 +56,7 @@ set wildmenu
 set wildignore+=*/tmp/*,*.so,*.pyc,*.db,*.sqlite,*/node_modules/*,*/.git/*,*.dll,*.exe,*.cache,*.o
 set path+=**
 
-" Indentation config (spaces > tabs)
+" Indentation config
 set tabstop=8
 set softtabstop=4
 set shiftwidth=4
@@ -69,11 +66,7 @@ set autoindent
 
 " Line wrap config (Use soft wrap for code, and hard wrap for comments and text)
 let &showbreak='+++ '   " Prefix for soft wrapped line
-set textwidth=0         " Maximum width of text
-set wrapmargin=0        " Set wrap margin on right of screen
 set wrap                " Enable line wrap
 set linebreak           " Breaks lines at words
 set nolist              " List disables linebreak
-if exists('+breakindent')
-    set breakindent     " Set wrapped text to visually indent
-endif
+set breakindent         " Set wrapped text to visually indent

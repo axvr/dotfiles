@@ -3,4 +3,8 @@
 " File:         ~/.vim/ftplugin/tex.vim
 " =============================================================
 
-compiler latex
+if executable('latexmk')
+    setlocal makeprg=latexmk\ -pdf\ %
+elseif executable('pdflatex')
+    setlocal makeprg=pdflatex\ %\ &&\ pdflatex\ %
+endif

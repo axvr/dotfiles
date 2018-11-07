@@ -1,5 +1,5 @@
 " =============================================================
-" Description:  Configure Styling and Colours for Vim & GVim
+" Description:  Configure styling for Vim
 " File:         ~/.vim/plugin/styling.vim
 " =============================================================
 

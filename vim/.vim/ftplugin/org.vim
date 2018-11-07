@@ -4,21 +4,13 @@
 " =============================================================
 
 setlocal conceallevel=2
-
 setlocal commentstring=#%s
 
 function! OrgFold()
-    let l:line = getline(v:lnum)
-
-    if synIDattr(synID(v:lnum, 1, 1), 'name') !~=# 'orgHeading'
-        return "="
-    endif
-
-    let l:depth = match(l:line, '\(^\*\+\)\@<=\( .*$\)\@=')
-    if l:depth > 0
+    let l:depth = match(getline(v:lnum), '\(^\*\+\)\@<=\( .*$\)\@=')
+    if l:depth > 0 && synIDattr(synID(v:lnum, 1, 1), 'name') ~=# 'orgHeading'
         return ">" . l:depth
     endif
-
     return "="
 endfunction
 
