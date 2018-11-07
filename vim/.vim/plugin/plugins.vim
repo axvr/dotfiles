@@ -6,7 +6,7 @@
 " Plugin Setup
 if has('vim_starting')
     if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
-        silent !git clone "https://github.com/axvr/Vivid.vim.git" "$HOME/.vim/pack/vivid/opt/Vivid.vim"
+        silent !git clone "https://github.com/axvr/vivid.vim" "$HOME/.vim/pack/vivid/opt/Vivid.vim"
     endif
     packadd Vivid.vim
 endif
@@ -44,9 +44,8 @@ Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
 
 " Simple way to test out plugins
 " TODO integrate into Vivid, or add to the docs
-command! -nargs=1 -bar PluginTest call <SID>test_plugin(<args>)
-function! s:test_plugin(url) abort
-    call vivid#add(a:url, { 'enabled': 1 })
-    let l:name = substitute(split(a:url, '/')[-1], '\m\C\.git$', '', '')
+command! -nargs=1 -bar PluginTest call <SID>vivid_test(<args>)
+function! s:vivid_test(url) abort
+    let l:name = vivid#add(a:url, { 'enabled': 1 })
     exec 'autocmd VimLeavePre * call vivid#clean("'.l:name.'")'
 endfunction

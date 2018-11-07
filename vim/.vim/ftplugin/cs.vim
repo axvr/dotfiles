@@ -5,7 +5,6 @@
 
 setlocal commentstring=//%s
 setlocal completeopt& completeopt-=preview
-setlocal textwidth=0
 
 syn region csAttribute start="^\s*\[" end="\]\s*" contains=csString, csVerbatimString, csCharacter, csNumber, csType
 hi def link csAttribute PreProc

@@ -13,39 +13,6 @@ y_n() {
     esac
 }
 
-cat << EOF 
-Install these tools first:
-* vim
-* tmux
-* ctags
-* stow
-* git
-* perl
-* python2
-* python3
-* bash
-* curl
-* bash-completion
-* unzip
-* wget
-* less
-* make
-* gcc-core
-* gcc-g++
-* mingw64-x86_64-gcc-g++ or mingw64-i386-gcc-g++
-* openssh
-* tree
-
-Optional tools to install:
-* emacs
-* emacs-w32
-* gnupg2
-* gnutls
-EOF
-
-[ ! "$(y_n "Have you installed the above tools?")" ] && exit 0
-
-
 # Set up mintty
 if [ "$(y_n "Configure MinTTY?")" ]; then
     cat << EOF > .minttyrc

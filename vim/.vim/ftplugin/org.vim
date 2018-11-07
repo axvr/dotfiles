@@ -4,7 +4,6 @@
 " =============================================================
 
 setlocal conceallevel=2
-setlocal textwidth=0
 
 setlocal commentstring=#%s
 
@@ -30,3 +29,5 @@ setlocal foldmethod=expr
 setlocal foldtext=getline(v:foldstart)
 setlocal fillchars-=fold:-
 setlocal fillchars+=fold:\ 
+
+" TODO add working links?

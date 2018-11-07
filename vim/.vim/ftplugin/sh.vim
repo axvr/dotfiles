@@ -3,6 +3,8 @@
 " File:         ~/.vim/ftplugin/sh.vim
 " =============================================================
 
+setlocal textwidth=80
+
 " Set up Vim make and quickfix
 setlocal makeprg=shellcheck\ -f\ gcc\ %
 setlocal errorformat=%f:%l:%c:\ %trror:\ %m

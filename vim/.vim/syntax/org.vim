@@ -7,6 +7,7 @@ if exists("b:current_syntax")
     finish
 endif
 
+" FIXME spell checking does not work on standard lines.
 
 syntax region orgItalic matchgroup=orgItalicDelimiter start="\S\@<=\/\|\/\S\@=" end="\S\@<=\/\|\/\S\@=" keepend contains=@Spell concealends oneline
 syntax region orgBold   matchgroup=orgBoldDelimiter   start="\S\@<=\*\|\*\S\@=" end="\S\@<=\*\|\*\S\@=" keepend contains=@Spell concealends oneline
@@ -37,8 +38,8 @@ syntax match orgHeading3 /^\s*\*\{3}\s\+.*$/ keepend contains=@Spell,orgTag,orgT
 syntax match orgHeading4 /^\s*\*\{4}\s\+.*$/ keepend contains=@Spell,orgTag,orgTodo
 syntax match orgHeading5 /^\s*\*\{5}\s\+.*$/ keepend contains=@Spell,orgTag,orgTodo
 syntax match orgHeading6 /^\s*\*\{6}\s\+.*$/ keepend contains=@Spell,orgTag,orgTodo
-syntax match  orgTag /:\w\{-}:/ keepend contained
-syntax keyword orgTodo contained TODO DONE NOTE
+syntax match orgTag /:\w\{-}:/ contained contains=orgTag
+syntax keyword orgTodo contained TODO NEXT DONE
 
 
 " Timestamp

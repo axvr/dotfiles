@@ -3,5 +3,4 @@
 " File:         ~/.vim/ftplugin/git.vim
 " =============================================================
 
-setlocal textwidth=0
 setlocal number norelativenumber

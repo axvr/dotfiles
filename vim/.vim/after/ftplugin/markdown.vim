@@ -4,29 +4,30 @@
 " =============================================================
 
 setlocal commentstring=<!--%s-->
+" setlocal commentstring=[//]:\ #\ (%s)
 
 " Modified version of the default `MarkdownFold()` function, to not react to `#`
 " characters in code blocks.
 function! MarkdownFold()
-    let line = getline(v:lnum)
+    let l:line = getline(v:lnum)
 
     if synIDattr(synID(v:lnum, 1, 1), 'name') !=# 'markdownHeadingDelimiter'
         return "="
     endif
 
     " Regular headers
-    let depth = match(line, '\(^#\+\)\@<=\( .*$\)\@=')
-    if depth > 0
-        return ">" . depth
+    let l:depth = match(l:line, '\(^#\+\)\@<=\( .*$\)\@=')
+    if l:depth > 0
+        return ">" . l:depth
     endif
 
     " Setext style headings
-    let nextline = getline(v:lnum + 1)
-    if (line =~ '^.\+$') && (nextline =~ '^=\+$')
+    let l:nextline = getline(v:lnum + 1)
+    if (l:line =~ '^.\+$') && (l:nextline =~ '^=\+$')
         return ">1"
     endif
 
-    if (line =~ '^.\+$') && (nextline =~ '^-\+$')
+    if (l:line =~ '^.\+$') && (l:nextline =~ '^-\+$')
         return ">2"
     endif
 
