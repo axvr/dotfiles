@@ -12,6 +12,7 @@ if has('vim_starting')
 endif
 
 " Vim enhancements
+let g:netrw_banner = 0
 Plugin 'tommcdo/vim-lion',     { 'enabled': 1 }
 let g:lion_squeeze_spaces = 1
 Plugin 'romainl/vim-cool',     { 'enabled': 1 }
@@ -26,6 +27,7 @@ Plugin 'rhysd/committia.vim'
 " Syntax highlighting & formatting packs
 Plugin 'ledger/vim-ledger'
 Plugin 'OmniSharp/omnisharp-vim'
+let g:tex_flavor = "latex"
 
 " Colour schemes and themes
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }

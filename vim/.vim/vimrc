@@ -39,13 +39,6 @@ let &directory = s:dirs[1]
 let &undodir = s:dirs[2]
 set undofile
 
-" Dictionary file
-if filereadable('/usr/dict/words')
-    set dictionary=/usr/dict/words
-elseif filereadable('/usr/share/dict/words')
-    set dictionary=/usr/share/dict/words
-endif
-
 " Set leader and localleader keys
 let mapleader = " "
 let maplocalleader = " m"
