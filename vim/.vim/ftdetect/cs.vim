@@ -12,3 +12,4 @@ autocmd BufRead,BufNewFile *.cs,*.cshtml,*.csproj,*.aspx,*.sln compiler dotnet
 autocmd BufRead,BufNewFile *.cshtml setfiletype cshtml.html
 autocmd BufRead,BufNewFile *.aspx   setfiletype aspx.html
 autocmd BufRead,BufNewFile *.csproj setlocal filetype=csproj.xml
+autocmd FileType csproj.xml setlocal shiftwidth=2 softtabstop=2

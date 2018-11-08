@@ -6,10 +6,8 @@
 let s:cpo_save = &cpo
 set cpo&vim
 
-if executable('dotnet')
-    let current_compiler = 'dotnet'
-    let s:make = "dotnet\ build\ .\ -clp:NoSummary\ -v\ q\ /nologo\ /p:GenerateFullPaths=true"
-endif
+let current_compiler = 'dotnet'
+let s:make = "dotnet\ build\ .\ -clp:NoSummary\ -v\ q\ /nologo\ /p:GenerateFullPaths=true"
 
 " Fix file paths for Cygwin (e.g. 'C:\' --> '/cygdrive/c/')
 if has('win32unix')

@@ -3,7 +3,4 @@
 " File:         ~/.vim/ftplugin/gitconfig.vim
 " =============================================================
 
-setlocal noexpandtab
-setlocal tabstop=8
-setlocal softtabstop=8
-setlocal shiftwidth=8
+setlocal noet ts=8 sts=8 sw=8
