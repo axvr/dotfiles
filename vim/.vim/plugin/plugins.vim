@@ -18,7 +18,6 @@ let g:lion_squeeze_spaces = 1
 Plugin 'romainl/vim-cool',     { 'enabled': 1 }
 Plugin 'romainl/vim-qf',       { 'enabled': 1 }
 Plugin 'tpope/vim-commentary', { 'enabled': 1 }
-Plugin 'mbbill/undotree',      { 'command': ['UndotreeToggle', 'UndotreeShow'] }
 packadd matchit
 
 " Syntax highlighting & formatting packs
