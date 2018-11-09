@@ -5,7 +5,7 @@
 
 setlocal textwidth=80
 
-" Set up Vim make and quickfix
+" Set up quickfix
 setlocal makeprg=shellcheck\ -f\ gcc\ %
 setlocal errorformat=%f:%l:%c:\ %trror:\ %m
 setlocal errorformat+=%f:%l:%c:\ %tarning:\ %m

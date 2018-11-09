@@ -11,17 +11,6 @@ nnoremap <Leader>tc :<C-u>set termguicolors!<CR>
 nnoremap <Leader>ut :<C-u>UndotreeToggle<CR>
 " Display additional file information
 nnoremap <Leader>fi :<C-u>echo &fenc?&fenc:&enc '' &ff '' &ft<CR>
-" Display current VCS branch
-nnoremap <Leader>gb :<C-u>echo system('vcs -b')<CR>
-
-" Add custom text objects
-" https://www.reddit.com/r/vim/comments/8iwuyq/substituting_vimsurround_snippet_plugins_with/dyvz96k/
-for s:char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>' ]
-    execute 'xnoremap i'.s:char.' :<C-u>normal! T'.s:char.'vt'.s:char.'<CR>'
-    execute 'onoremap i'.s:char.' :normal vi'.s:char.'<CR>'
-    execute 'xnoremap a'.s:char.' :<C-u>normal! F'.s:char.'vf'.s:char.'<CR>'
-    execute 'onoremap a'.s:char.' :normal va'.s:char.'<CR>'
-endfor
 
 " Easily convert file formats
 " Unix --> Dos, Dos --> Unix, Mac --> Unix
@@ -33,7 +22,7 @@ function! s:Convert() abort
         setlocal fileformat=unix
     endif
 endfunction
-command! -bar -nargs=0 ConvertFileFormat :call <SID>Convert()
+command! -nargs=0 -bar ConvertFileFormat :call <SID>Convert()
 
 " Find all TODOs in current repository
 function! s:TODOs()
