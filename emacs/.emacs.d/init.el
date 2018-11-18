@@ -1,14 +1,8 @@
 ;;;; Emacs Configuration
 ;;;; `~/.emacs.d/init.el'
 
-;;; Initially this config will be primarily used for Lisp development, and editing Org-mode docs.
-
-;;; TODO Install and configure: projectile, auto-paren package
 ;;; TODO Set up ctags and/or etags
-;;; TODO Templates for REST Client?
-;;; TODO Set up insert mode completion key bindings for evil mode
-;;; TODO Re-learn what the different number of `;' chars in lisp comments means
-
+;;; TODO Configure Projectile
 
 (menu-bar-mode -1)
 (if (display-graphic-p)
@@ -36,11 +30,9 @@
       show-trailing-whitespace t)
 
 (add-hook 'prog-mode-hook 'hl-line-mode)
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'prettify-symbols-mode)
 
 ;; TODO: improve default indentation settings
-;; TODO: set indentation per major-mode (if default is not correct)
 (setq-default indent-tabs-mode nil)
 ;; (setq tab-width 4)
 
@@ -265,12 +257,12 @@
   :diminish ivy-mode
   :config (ivy-mode 1))
 
-;; TODO set up org directory for org-agenda
 (use-package org
   :ensure t
   :defer t
   :hook (org-mode . org-indent-mode)
   :config
+  ;; TODO set org directory for org-agenda
 
   (local-leader
     :keymaps 'org-mode-map
@@ -288,10 +280,6 @@
 (use-package markdown-mode
   :ensure t
   :defer t)
-
-(use-package vimrc-mode
-  :ensure t
-  :mode ("\\.?vim\\(rc\\)?\\'" . vimrc-mode))
 
 (use-package restclient
   :ensure t
@@ -332,23 +320,24 @@
   ;; Add Vim insert mode completion to Emacs
   ;; (I find auto-complete to be annoying and distracting)
   ;; TODO add more insert mode completion options
-  ;; FIXME `C-e' shouldn't undo once company mode is closed (and shouldn't redo)
+  ;; FIXME when opening completion list auto-select the first item
+  ;; FIXME `C-e' and `C-y' mappings
   (general-define-key
    :states 'insert
    :prefix "C-x"
    "C-o" 'company-complete-common-or-cycle
-   "C-f" 'company-files) ; FIXME doesn't select first item
-  (general-define-key
-   :states 'insert
-   :keymaps 'company-mode-map
-   "C-e" 'undo
-   "C-y" 'nil))
+   "C-f" 'company-files))
+  ;; (general-define-key
+  ;;  :states 'insert
+  ;;  :keymaps 'company-mode-map
+  ;;  "C-e" 'undo
+  ;;  "C-y" 'nil))
 
-;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
 (use-package ledger-mode
   :ensure t
   :defer t
   :config
+  ;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
 
   (local-leader
     :keymaps 'ledger-mode-map
@@ -363,10 +352,6 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;; TODO improve C# set up
-;; (use-package omnisharp
-;;   :hook (csharp-mode . omnisharp-mode))
-
 (use-package spacemacs-theme
   :ensure t
   :defer t
@@ -379,7 +364,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (general which-key vimrc-mode evil-surround evil-magit magit company restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode evil-goggles evil-lion evil-commentary evil-numbers evil-collection evil diminish use-package))))
+    (general which-key evil-surround evil-magit magit company restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode evil-goggles evil-lion evil-commentary evil-numbers evil-collection evil diminish use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

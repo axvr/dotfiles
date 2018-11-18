@@ -41,9 +41,6 @@ export EDITOR
 export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
-# Default applications
-export BROWSER="firefox"
-
 
 # ========================================
 # --------- Custom Bash Prompts ----------
@@ -52,17 +49,17 @@ export BROWSER="firefox"
 # Simple prompt
 #export PS1="[\u@\h \W]\$ "
 
-# Prompt displaying VCS branch
-function get_vcs_branch() {
-    if [ "$(command -v vcs)" ]; then
-        VCS_BRANCH=$(vcs -b)
-        if [ "$VCS_BRANCH" != "" ]; then
-            printf " $VCS_BRANCH"
+# Prompt displaying Git branch
+function git_branch() {
+    if [ "$(command -v git)" ]; then
+        BRANCH=$(git branch 2> /dev/null | grep "^\*" | sed 's/\* \(.*\)/\1/')
+        if [ "$BRANCH" != "" ]; then
+            printf " $BRANCH"
         fi
     fi
     printf ""
 }
-export PS1="[\u@\h \W\[\e[0;32m\]\`get_vcs_branch\`\[\e[0;00m\]]\\$ "
+export PS1="[\u@\h \W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\\$ "
 
 # Simplified prompt for Termux (Android)
 [ "$(uname -o)" == "Android" ] && export PS1="[\W]\\$ "

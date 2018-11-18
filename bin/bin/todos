@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# List TODOs and other comment tags in a project
+# List TODOs and other comment tags in named files or a git repo
 
 # BUG    - A known bug that should be corrected.
 # FIXME  - Should be corrected.
@@ -12,21 +12,19 @@
 
 pattern="\(TO[-_ ]\?DO\|FIX[-_ ]\?ME\|NOTE\|XXX\|BUG\|HACK\|UNDONE\):\?"
 
-if [ -n "$1" ] && [ "$1" = "-c" ]; then
+if [ -n "$1" ] && [ "$1" = "-c" ]
+then
     shift
     colour="--color=auto"
 fi
 
-if [ -n "$1" ]; then
+if [ -n "$1" ]
+then
     grep -n $colour "$pattern" $*
+elif [ $(git ls-files 2> /dev/null | wc -l) != 0 ]
+then
+    grep -n $colour "$pattern" $(git ls-files)
 else
-    case "$(vcs -v)" in
-        git)  command="git ls-files";;
-        hg)   command="hg status -An";;
-        *)
-            printf "No files given\\n"
-            exit 1
-            ;;
-    esac
-    grep -n $colour "$pattern" $($command)
+    printf "No files given\\n"
+    exit 1
 fi
