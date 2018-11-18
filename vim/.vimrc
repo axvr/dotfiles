@@ -71,7 +71,6 @@ set linebreak
 set nolist
 set breakindent
 
-
 " Plugin setup
 if has('vim_starting')
     if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
@@ -83,9 +82,12 @@ endif
 let g:netrw_banner = 0
 let g:tex_flavor = "latex"
 
-Plugin 'romainl/vim-qf', { 'enabled': 0 }
+packadd matchit
 Plugin 'ledger/vim-ledger'
 Plugin 'OmniSharp/omnisharp-vim'
+if v:version <= 800
+    Plugin 'nickspoons/vim-cs'
+endif
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
 
 " Simple way to test out plugins
@@ -96,7 +98,6 @@ function! s:vivid_test(url) abort
     exec 'autocmd VimLeavePre * call vivid#clean("'.l:name.'")'
 endfunction
 
-
 " Fix displaying of colours in terminal
 if &term =~# '^.*256color$'
     set termguicolors
@@ -106,16 +107,8 @@ if &term =~# '^screen'
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-autocmd! ColorScheme space-vim-dark highlight SpellBad   ctermbg=NONE
-autocmd! ColorScheme space-vim-dark highlight SpellLocal ctermbg=NONE
-
 colorscheme space-vim-dark
 
-
-" Spell check toggle
-nnoremap <Leader>ss :<C-u>setlocal spell!<CR>
-" Allow quick changing of termguicolors
-nnoremap <Leader>tc :<C-u>set termguicolors!<CR>
 " Display additional file information
 nnoremap <Leader>fi :<C-u>echo &fenc?&fenc:&enc '' &ff '' &ft<CR>
 
@@ -140,18 +133,18 @@ function! s:TODOs()
 endfunction
 command! -nargs=0 -bar TODOs :call <SID>TODOs()
 
-
 augroup filetypes
     autocmd!
     autocmd FileType ledger call vivid#enable('vim-ledger')
-    autocmd FileType gitconfig,help,make setlocal noet sts=8 sw=8 ts=8
-    autocmd FileType lisp,json setlocal et sts=2 sw=2 ts=8
+    autocmd FileType c,make,go,gitconfig,help setlocal noet sts=8 sw=8 ts=8
+    autocmd FileType lisp,json,ruby setlocal et sts=2 sw=2 ts=8
+    autocmd FileType perl,sh,python,haskell,javascript setlocal tw=79
+    autocmd FileType gitcommit setlocal spell
     autocmd FileType tex setlocal mp=latexmk\ -pdf\ %
-    autocmd FileType perl,sh setlocal tw=80
     autocmd FileType perl compiler perl
     autocmd FileType sh setlocal mp=shellcheck\ -f\ gcc\ %
-    autocmd FileType sh setlocal efm=%f:%l:%c:\ %trror:\ %m
-    autocmd FileType sh setlocal efm+=%f:%l:%c:\ %tarning:\ %m
-    autocmd FileType sh setlocal efm+=%f:%l:%c:\ note:\ %m
-    autocmd FileType sh setlocal efm+=%f:%l:%c:\ %m
+    autocmd FileType sh setlocal efm=%f:%l:%c:\ %trror:\ %m,
+                \%f:%l:%c:\ %tarning:\ %m,
+                \%f:%l:%c:\ note:\ %m,
+                \%f:%l:%c:\ %m
 augroup END

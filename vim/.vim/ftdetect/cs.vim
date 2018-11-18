@@ -5,7 +5,7 @@
 
 let g:OmniSharp_timeout = 5
 
-autocmd FileType cs call vivid#enable('omnisharp-vim')
+autocmd FileType cs call vivid#enable('omnisharp-vim', 'vim-cs')
 
 autocmd BufReadPre,BufNewFile *.cs setfiletype cs
 autocmd BufRead,BufNewFile *.cs,*.cshtml,*.csproj,*.aspx,*.sln compiler dotnet
