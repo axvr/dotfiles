@@ -47,7 +47,7 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 # ========================================
 
 # Simple prompt
-#export PS1="[\u@\h \W]\$ "
+#PS1="[\u@\h \W]\$ "
 
 # Prompt displaying Git branch
 function git_branch() {
@@ -59,10 +59,10 @@ function git_branch() {
     fi
     printf ""
 }
-export PS1="[\u@\h \W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\\$ "
+PS1="[\u@\h \W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\\$ "
 
 # Simplified prompt for Termux (Android)
-[ "$(uname -o)" == "Android" ] && export PS1="[\W]\\$ "
+[ "$(uname -o)" == "Android" ] && PS1="[\W]\\$ "
 
 
 # ========================================
