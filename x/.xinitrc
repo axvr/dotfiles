@@ -4,6 +4,7 @@
 
 
 # Set up touchpad
+# TODO configure horizontal scrolling
 for i in $(xinput list | grep -i "\(touch\|track\) \?pad" | sed 's/^.*id=\([0-9]\+\).*$/\1/')
 do
     tapping=$(xinput list-props "$i" | grep -i "tapping enabled" \

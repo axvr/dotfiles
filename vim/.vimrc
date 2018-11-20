@@ -4,7 +4,6 @@
 " =============================================================
 
 " Essentials
-set encoding=utf-8
 filetype plugin indent on
 if !exists('g:syntax_on')
     syntax enable
@@ -13,23 +12,20 @@ set hidden
 set autoread
 set mouse=a
 set backspace=indent,eol,start
+set encoding=utf-8
 set spelllang=en_gb
 
 " Styling
 set showcmd
 set ruler
 set cursorline
-let &colorcolumn='+'.join(range(1,256), ',+')
+let &colorcolumn='+'.join(range(1,256),',+')
 set belloff=all
 set showmatch
-set lazyredraw
 
 " Searching
-set ignorecase
-set smartcase
 set hlsearch
 set incsearch
-set wrapscan
 
 " Backup, Swap & Undo files
 let s:dirs = [expand($HOME.'/.vim/backup'),
@@ -46,9 +42,8 @@ let &directory = s:dirs[1]
 let &undodir = s:dirs[2]
 set undofile
 
-" Set leader and localleader keys
-let mapleader = " "
-let maplocalleader = " m"
+" LocalLeader prefix to double leader key
+let maplocalleader = "\\\\"
 
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
@@ -68,7 +63,6 @@ set autoindent
 let &showbreak='+++ '
 set wrap
 set linebreak
-set nolist
 set breakindent
 
 " Plugin setup
@@ -80,7 +74,6 @@ if has('vim_starting')
 endif
 
 let g:netrw_banner = 0
-let g:tex_flavor = "latex"
 
 packadd matchit
 Plugin 'ledger/vim-ledger'
@@ -89,14 +82,6 @@ if v:version <= 800
     Plugin 'nickspoons/vim-cs'
 endif
 Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
-
-" Simple way to test out plugins
-" TODO move to vivid documentation
-command! -nargs=1 -bar PluginTest call <SID>vivid_test(<args>)
-function! s:vivid_test(url) abort
-    let l:name = vivid#add(a:url, { 'enabled': 1 })
-    exec 'autocmd VimLeavePre * call vivid#clean("'.l:name.'")'
-endfunction
 
 " Fix displaying of colours in terminal
 if &term =~# '^.*256color$'
@@ -109,29 +94,8 @@ endif
 
 colorscheme space-vim-dark
 
-" Display additional file information
-nnoremap <Leader>fi :<C-u>echo &fenc?&fenc:&enc '' &ff '' &ft<CR>
-
-" Easily convert file formats
-" Unix --> Dos, Dos --> Unix, Mac --> Unix
-function! s:Convert() abort
-    let l:ff = &fileformat
-    update
-    edit ++fileformat=dos
-    if l:ff !=# 'unix'
-        setlocal fileformat=unix
-    endif
-endfunction
-command! -nargs=0 -bar ConvertFileFormat :call <SID>Convert()
-
 " Find all TODOs in current repository
-function! s:TODOs()
-    let l:old_grepprg = &l:grepprg
-    setlocal grepprg=todos
-    silent grep
-    let &l:grepprg = l:old_grepprg
-endfunction
-command! -nargs=0 -bar TODOs :call <SID>TODOs()
+command! -nargs=0 -bar TODOs setl gp=todos | sil gr | setl gp&
 
 augroup filetypes
     autocmd!
