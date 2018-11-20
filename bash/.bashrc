@@ -33,9 +33,8 @@ shopt -s checkwinsize
 # ========================================
 
 # Set default editor to Vim
-VISUAL=vim
-export VISUAL EDITOR=vim
-export EDITOR
+export VISUAL=vim
+export EDITOR=vim
 
 # .NET Core development
 export ASPNETCORE_ENVIRONMENT=Development
