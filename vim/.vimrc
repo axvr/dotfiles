@@ -18,8 +18,6 @@ set spelllang=en_gb
 " Styling
 set showcmd
 set ruler
-set cursorline
-let &colorcolumn='+'.join(range(1,256),',+')
 set belloff=all
 set showmatch
 
@@ -65,41 +63,28 @@ set wrap
 set linebreak
 set breakindent
 
-" Plugin setup
-if has('vim_starting')
-    if !filereadable(expand($HOME . '/.vim/pack/vivid/opt/Vivid.vim/autoload/vivid.vim'))
-        silent !git clone "https://github.com/axvr/vivid.vim" "$HOME/.vim/pack/vivid/opt/Vivid.vim"
-    endif
-    packadd Vivid.vim
-endif
-
 let g:netrw_banner = 0
-
 packadd matchit
-Plugin 'ledger/vim-ledger'
-Plugin 'OmniSharp/omnisharp-vim'
-if v:version <= 800
-    Plugin 'nickspoons/vim-cs'
-endif
-Plugin 'liuchengxu/space-vim-dark', { 'enabled': 1 }
 
-" Fix displaying of colours in terminal
+" Set colour scheme
 if &term =~# '^.*256color$'
     set termguicolors
+    set cursorline
+    let &colorcolumn='+'.join(range(1,256),',+')
+    colorscheme space-vim-dark
 endif
+
+" Fix colours when using Vim with Tmux
 if &term =~# '^screen'
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-colorscheme space-vim-dark
-
-" Find all TODOs in current repository
-command! -nargs=0 -bar TODOs setl gp=todos | sil gr | setl gp&
+com! -nargs=+ GitGrep setl gp=git\ grep\ -n|gr <args>|setl gp&
+com! -nargs=* -complete=file -bar TODOs setl gp=todos|gr <args>|setl gp&
 
 augroup filetypes
     autocmd!
-    autocmd FileType ledger call vivid#enable('vim-ledger')
     autocmd FileType c,make,go,gitconfig,help setlocal noet sts=8 sw=8 ts=8
     autocmd FileType lisp,json,ruby setlocal et sts=2 sw=2 ts=8
     autocmd FileType perl,sh,python,haskell,javascript setlocal tw=79
@@ -107,8 +92,9 @@ augroup filetypes
     autocmd FileType tex setlocal mp=latexmk\ -pdf\ %
     autocmd FileType perl compiler perl
     autocmd FileType sh setlocal mp=shellcheck\ -f\ gcc\ %
-    autocmd FileType sh setlocal efm=%f:%l:%c:\ %trror:\ %m,
+                \efm=%f:%l:%c:\ %trror:\ %m,
                 \%f:%l:%c:\ %tarning:\ %m,
                 \%f:%l:%c:\ note:\ %m,
                 \%f:%l:%c:\ %m
+    autocmd FileType markdown setlocal commentstring=<!--%s-->
 augroup END

@@ -6,15 +6,13 @@
 setlocal commentstring=//%s
 setlocal completeopt& completeopt-=preview
 
-if vivid#enabled('omnisharp-vim')
-    " C# documentation (use OmniSharp instead of '&keywordprg')
-    nnoremap <buffer><silent> K :<C-u>OmniSharpDocumentation<CR>:wincmd P<CR>
-    nnoremap <buffer><silent> <C-]> :<C-u>OmniSharpGotoDefinition<CR>
+" C# documentation (use OmniSharp instead of '&keywordprg')
+nnoremap <buffer><silent> K :<C-u>OmniSharpDocumentation<CR>:wincmd P<CR>
+nnoremap <buffer><silent> <C-]> :<C-u>OmniSharpGotoDefinition<CR>
 
-    nnoremap <buffer> <localleader>a :<C-u>OmniSharpGetCodeActions<CR>
-    nnoremap <buffer> <localleader>u :<C-u>OmniSharpFixUsings<CR>
-    nnoremap <buffer> <localleader>t :<C-u>OmniSharpTypeLookup<CR>
-endif
+nnoremap <buffer> <localleader>a :<C-u>OmniSharpGetCodeActions<CR>
+nnoremap <buffer> <localleader>u :<C-u>OmniSharpFixUsings<CR>
+nnoremap <buffer> <localleader>t :<C-u>OmniSharpTypeLookup<CR>
 
 function! s:OmniSharpSignColumn() abort
     if OmniSharp#CountCodeActions({-> execute('sign unplace 99')})
@@ -22,8 +20,6 @@ function! s:OmniSharpSignColumn() abort
     endif
 endfunction
 
-if vivid#enabled('omnisharp-vim')
-    setlocal signcolumn=yes updatetime=500
-    sign define OmniSharpCodeActions text=> texthl=Special
-    autocmd! CursorHold <buffer> call <SID>OmniSharpSignColumn()
-endif
+setlocal signcolumn=yes updatetime=500
+sign define OmniSharpCodeActions text=> texthl=Special
+autocmd! CursorHold <buffer> call <SID>OmniSharpSignColumn()

@@ -3,9 +3,11 @@
 " File:         ~/.vim/ftdetect/cs.vim
 " =============================================================
 
-let g:OmniSharp_timeout = 5
+if v:version <= 800
+    packadd vim-cs
+endif
 
-autocmd FileType cs call vivid#enable('omnisharp-vim', 'vim-cs')
+let g:OmniSharp_timeout = 5
 
 autocmd BufReadPre,BufNewFile *.cs setfiletype cs
 autocmd BufRead,BufNewFile *.cs,*.cshtml,*.csproj,*.aspx,*.sln compiler dotnet

@@ -1,0 +1,12 @@
+[submodule "vim/.vim/pack/core/start/ledger"]
+	path = vim/.vim/pack/core/start/ledger
+	url = https://github.com/ledger/vim-ledger
+[submodule "vim/.vim/pack/core/start/space-vim-dark"]
+	path = vim/.vim/pack/core/start/space-vim-dark
+	url = https://github.com/liuchengxu/space-vim-dark
+[submodule "vim/.vim/pack/core/start/omnisharp"]
+	path = vim/.vim/pack/core/start/omnisharp
+	url = https://github.com/OmniSharp/omnisharp-vim
+[submodule "vim/.vim/pack/core/opt/vim-cs"]
+	path = vim/.vim/pack/core/opt/vim-cs
+	url = https://github.com/nickspoons/vim-cs
