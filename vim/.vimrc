@@ -40,7 +40,8 @@ let &directory = s:dirs[1]
 let &undodir = s:dirs[2]
 set undofile
 
-" LocalLeader prefix to double leader key
+" Set <Leader> and <LocalLeader> prefixes
+let mapleader = "\\"
 let maplocalleader = "\\\\"
 
 " Vim Omnicomplete, Ins-complete & Wild menu
@@ -82,6 +83,8 @@ endif
 
 com! -nargs=+ GitGrep setl gp=git\ grep\ -n|gr <args>|setl gp&
 com! -nargs=* -complete=file -bar TODOs setl gp=todos|gr <args>|setl gp&
+com! -nargs=0 -bar Helptags for p in glob('~/.vim/pack/*/*/*/doc',1,1)|exe 'helpt '.p|endfo
+com! -nargs=0 -bar Scratch enew|setl bh=hide bt=nofile noswf
 
 augroup filetypes
     autocmd!

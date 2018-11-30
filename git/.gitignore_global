@@ -1,12 +1,14 @@
-# ~/.gitignore_global
-# -------------------------------------
 # Global gitignore file
-# -------------------------------------
+# ---------------------
+# vim: ft=conf :
+# -*- mode: gitignore; -*-
+# ---------------------
 
-#########################
-#### Compiled source ####
-#########################
 
+# General files
+# -------------
+
+# Compiled source
 *.com
 *.class
 *.dll
@@ -16,13 +18,7 @@
 *.pyc
 *.bin
 
-
-
-##########################
-###### Syntax files ######
-##########################
-
-# Ignore tags created by etags, ctags, gtags (GNU global) and cscope
+# Tag/syntax files
 TAGS
 .TAGS
 !TAGS/
@@ -42,100 +38,7 @@ cscope.po.out
 # Temporary files
 /tmp/
 
-
-
-##########################
-### Text editor files ####
-##########################
-
-# ----------------------
-# Vim
-# ----------------------
-
-# Swap
-[._]*.s[a-v][a-z]
-[._]*.sw[a-p]
-[._]s[a-v][a-z]
-[._]sw[a-p]
-
-# Persistent undo
-[._]*.un~
-
-# Session
-Session.vim
-
-# Temporary
-.netrwhist
-
-
-# ----------------------
-# Emacs
-# ----------------------
-
-*~
-\#*\#
-/.emacs.desktop
-/.emacs.desktop.lock
-*.elc
-auto-save-list
-tramp
-.\#*
-
-# Org-mode
-.org-id-locations
-*_archive
-
-# flymake-mode
-*_flymake.*
-
-# eshell files
-/eshell/history
-/eshell/lastdir
-
-# elpa packages
-/elpa/
-
-# reftex files
-*.rel
-
-# AUCTeX auto folder
-/auto/
-
-# cask packages
-.cask/
-dist/
-
-# Flycheck
-flycheck_*.el
-
-# server auth directory
-/server/
-
-# projectiles files
-.projectile
-
-# directory configuration
-.dir-locals.el
-
-
-# ----------------------
-# Visual Studio Code
-# ----------------------
-
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-
-
-##########################
-######## Packages ########
-##########################
-
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
+# Archives and packages
 *.7z
 *.dmg
 *.gz
@@ -145,12 +48,7 @@ flycheck_*.el
 *.tar
 *.zip
 
-
-
-##########################
-### Logs and databases ###
-##########################
-
+# Logs and databases
 *.log
 *.sql
 *.sqlite
@@ -172,50 +70,91 @@ secring.*
 *wallet*
 
 
+# Text editor files
+# -----------------
 
-##########################
-### OS generated files ###
-##########################
+# == Vim ==
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+# Persistent undo
+[._]*.un~
+# Session files
+Session.vim
+# Temporary
+.netrwhist
 
-
-# ----------------------
-# Linux
-# ----------------------
-
+# == Emacs ==
 *~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+# Org-mode
+.org-id-locations
+*_archive
+# flymake-mode
+*_flymake.*
+# eshell files
+/eshell/history
+/eshell/lastdir
+# elpa packages
+/elpa/
+# reftex files
+*.rel
+# AUCTeX auto folder
+/auto/
+# cask packages
+.cask/
+dist/
+# Flycheck
+flycheck_*.el
+# server auth directory
+/server/
+# projectiles files
+.projectile
+# directory configuration
+.dir-locals.el
 
-# temporary files which can be created if a process still has a handle open of a
-# deleted file
+# == Visual Studio Code ==
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+
+# OS generated files
+# ------------------
+
+# == Linux ==
+*~
+# temporary files which can be created if a process still has a handle open of
+# a deleted file
 .fuse_hidden*
-
 # KDE directory preferences
 .directory
-
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
-
 # .nfs files are created when an open file is removed but is still being
 # accessed
 .nfs*
 
-
-# ----------------------
-# Apple macOS
-# ----------------------
-
+# == Apple macOS ==
 # General
 .DS_Store
 .DS_Store?
 .AppleDouble
 .LSOverride
-
 # Icon must end with two \r
 Icon
-
-
 # Thumbnails
 ._*
-
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
@@ -224,7 +163,6 @@ Icon
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-
 # Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
@@ -232,35 +170,21 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-
-# ----------------------
-# Microsoft Windows
-# ----------------------
-
+# == Microsoft Windows ==
 # Windows thumbnail cache files
 Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db
-
 # Dump file
 *.stackdump
-
 # Folder config file
 Desktop.ini
-
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
-
 # Windows Installer files
 *.cab
 *.msi
 *.msm
 *.msp
-
 # Windows shortcuts
 *.lnk
-
-
-
-# -*- mode: gitignore; -*-
-# vim: ft=conf :
