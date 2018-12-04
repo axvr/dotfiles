@@ -6,3 +6,5 @@
 	excludesfile = ~/.gitignore_global
 [alias]
 	logtree = log --graph --oneline --all
+[merge]
+	tool = vimdiff
