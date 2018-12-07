@@ -66,6 +66,8 @@ set breakindent
 
 let g:netrw_banner = 0
 packadd matchit
+packadd commentary
+packadd lion
 
 " Set colour scheme
 if &term =~# '^.*256color$'

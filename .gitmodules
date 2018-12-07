@@ -10,3 +10,9 @@
 [submodule "vim/.vim/pack/core/opt/vim-cs"]
 	path = vim/.vim/pack/core/opt/vim-cs
 	url = https://github.com/nickspoons/vim-cs
+[submodule "vim/.vim/pack/core/opt/commentary"]
+	path = vim/.vim/pack/core/opt/commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "vim/.vim/pack/core/opt/lion"]
+	path = vim/.vim/pack/core/opt/lion
+	url = https://github.com/tommcdo/vim-lion

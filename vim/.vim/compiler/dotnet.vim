@@ -14,6 +14,11 @@ if has('win32unix')
     let s:make = s:make . "\ \\\|\ tr\ '\\\\' '/' \\\|\ sed\ 's/^\\([A-Z]\\):\\//\\/cygdrive\\/\\1\\//'"
 endif
 
+" Remove garbage from the compiler messages
+if has('unix')
+    let s:make = s:make . "\ \\\|\ sed\ 's/\\s*\\[.*\\?\\]\\s*$//'"
+endif
+
 let &l:makeprg = s:make
 
 setlocal errorformat=%f(%l\\\,%v):\ %t%*[^:]:%m
