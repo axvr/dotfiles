@@ -1,114 +1,72 @@
 ;;;; Emacs Configuration
 ;;;; `~/.emacs.d/init.el'
 
-;;; TODO Set up ctags and/or etags
-;;; TODO Configure Projectile
-
 (menu-bar-mode -1)
 (if (display-graphic-p)
-    (progn
-      (tool-bar-mode -1)
-      (scroll-bar-mode -1))
+    (progn (tool-bar-mode -1)
+           (scroll-bar-mode -1))
   (xterm-mouse-mode 1))
 
-(when (< emacs-major-version 25)
-  (require 'saveplace)
-  (setq-default save-place t))
+(show-paren-mode 1)
 
-;; Enable & configure various minor modes
-(dolist (mode '(show-paren-mode    ; Highlight matching parens
-                column-number-mode ; Display column number
-                save-place-mode    ; Save position in file
-                global-visual-line-mode)) ; Always soft-wrap lines
-  (funcall mode 1))
+(column-number-mode 1)
+(setq column-number-indicator-zero-based nil)
+
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8-unix)
+
+(setq ring-bell-function 'ignore)
 
 (setq user-mail-address "av@axvr.io"
-      user-full-name "Alex Vear"
-      column-number-indicator-zero-based nil
-      ring-bell-function 'ignore
-      require-final-newline t
-      show-trailing-whitespace t)
+      user-full-name "Alex Vear")
+
+;; TODO Indentation settings
+(setq-default indent-tabs-mode nil)
+
+(setq require-final-newline 'ask)
+(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
+(define-key global-map (kbd "RET") 'newline-and-indent)
+
+(setq scroll-step 1
+      scroll-conservatively 10000)
+(put 'scroll-left 'disabled nil) ; Horizontal scrolling (`C-PgUp' & `C-PgDn')
 
 (add-hook 'prog-mode-hook 'hl-line-mode)
 (add-hook 'prog-mode-hook 'prettify-symbols-mode)
 
-;; TODO: improve default indentation settings
-(setq-default indent-tabs-mode nil)
-;; (setq tab-width 4)
-
-;; Auto-indent on new line
-(define-key global-map (kbd "RET") 'newline-and-indent)
-
-;; Allow using `y' or `n' instead of `yes' & `no'
 (fset 'yes-or-no-p 'y-or-n-p)
-
-;; Set UTF-8 encoding
-(set-language-environment "UTF-8")
-(set-default-coding-systems 'utf-8)
 
 ;; Highlight TODOs, NOTEs, FIXMEs etc.
 (define-minor-mode highlight-todos-mode
   "Highlight TODO and other comment keywords"
   nil
-  :lighter " TODOs"
+  :lighter ""
   (font-lock-add-keywords
    nil '(("\\<\\(TO[-_ ]?DO\\|FIX[-_ ]?ME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\)\\>"
           1 '((:foreground "#d78700") (:weight bold)) t))))
-
 (add-hook 'prog-mode-hook 'highlight-todos-mode)
 
-;; Vi-like tilde on empty lines.
-;; Source: http://www.reddit.com/r/emacs/comments/2kdztw/emacs_in_evil_mode_show_tildes_for_blank_lines/
-(define-minor-mode vi-tilde-mode
-  "Add vi-like tilde on empty lines"
-  nil
-  :lighter ""
-  (setq-default indicate-empty-lines t)
-  (define-fringe-bitmap 'tilde [0 0 0 113 219 142 0 0] nil nil 'center)
-  (setcdr (assq 'empty-line fringe-indicator-alist) 'tilde)
-  (set-fringe-bitmap-face 'tilde 'font-lock-function-name-face))
-
-(when (display-graphic-p)
-  (vi-tilde-mode 1))
-
-;; Better scrolling
-(setq scroll-margin 0
-      scroll-conservatively 10000
-      scroll-step 1)
-
-;; Enable horizontal scrolling using C-PgUp and C-PgDn
-(put 'scroll-left 'disabled nil)
-
-;; Improve the backup, undo and cursor placement defaults
-(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backup")))
-      backup-by-copying t
-      delete-old-versions t
-      kept-new-versions 6
-      kept-old-versions 2
-      version-control t
-      undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo")))
-      undo-tree-auto-save-history t
-      save-place-file (concat user-emacs-directory "places"))
-
-(setq frame-title-format
-      '((buffer-file-name "%f" (dired-directory dired-directory "%b"))))
-
-;; Set default fonts
 (when (memq system-type '(cygwin windows-nt ms-dos))
   (set-face-attribute 'default nil :family "Consolas" :height 110))
 
+(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backup")))
+      backup-by-copying t
+      delete-old-versions t
+      version-control t
+      undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo"))) ; FIXME
+      undo-tree-auto-save-history t
+      save-place-file (concat user-emacs-directory "places"))
+(save-place-mode 1)
 
-;;; Packages Config
+
+;;; Packages
 (require 'package)
 
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
        (proto (if no-ssl "http://" "https://")))
   (add-to-list 'package-archives (cons "melpa" (concat proto "melpa.org/packages/")) t)
-  (add-to-list 'package-archives (cons "melpa-stable" (concat proto "stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives '("gnu" . (concat proto "elpa.gnu.org/packages/")))))
+  (add-to-list 'package-archives (cons "melpa-stable" (concat proto "stable.melpa.org/packages/")) t))
 
 (setq package-archive-priorities
       '(("gnu" . 10)
@@ -133,57 +91,21 @@
   :ensure t
   :init
   (setq evil-want-C-u-scroll t
-        evil-want-keybinding nil
-        evil-want-C-i-jump nil) ; https://stackoverflow.com/q/22878668
+        evil-want-keybinding nil)
   :config
 
-  (define-key evil-insert-state-map (kbd "C-U") 'insert-char)
-
-  ;; TODO allow picking between found files
-  (evil-define-command av/find-file (file)
-    (interactive "<a>")
-    (find-file (car (file-expand-wildcards file))))
-
-  (evil-define-command av/retab (start end)
+  (evil-define-command retab (start end)
     (interactive "<r>")
     (if indent-tabs-mode
-        (progn (tabify start end))
+        (tabify start end)
       (untabify start end)))
 
-  ;; TODO Improve this
-  (defun av/restclient-temp-open ()
-    "Create a new REST Client window"
-    (interactive)
-    ;; (split-window-below)
-    (switch-to-buffer "*REST Client*")
-    (restclient-mode))
-
-  (defun av/undo-tree-visualizer-toggle ()
-    "Toggle the Undo-Tree"
-    (interactive)
-    (if (get-buffer undo-tree-visualizer-buffer-name)
-        (undo-tree-visualizer-quit)
-      (setq undo-tree-visualizer-diff t)
-      (undo-tree-visualize)))
-
-  (evil-ex-define-cmd "fin[d]"     'av/find-file)
-  (evil-ex-define-cmd "ret[ab]"    'av/retab)
+  (evil-ex-define-cmd "ret[ab]"    'retab)
   (evil-ex-define-cmd "ter[minal]" 'ansi-term)
-  (evil-ex-define-cmd "pack[age]"  'package-list-packages)
 
   (use-package evil-collection
     :ensure t
     :init (evil-collection-init))
-
-  (use-package evil-numbers
-    :ensure t
-    :config
-    (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-    (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt))
-
-  (use-package evil-surround
-    :ensure t
-    :config (global-evil-surround-mode))
 
   (use-package evil-commentary
     :ensure t
@@ -198,7 +120,6 @@
     :config (evil-goggles-mode))
 
   (evil-mode 1))
-
 
 (use-package which-key
   :ensure t
@@ -222,24 +143,16 @@
   (leader "m" '(:ignore t :which-key "major-mode"))
 
   (general-define-key
-   :states '(normal visual)
-   :prefix "SPC SPC"
-   "" 'execute-extended-command)
+    :prefix "SPC SPC"
+    :states '(normal visual)
+    "" 'execute-extended-command)
 
   ;; File
   (leader
     "f" '(:ignore t :which-key "file")
     "ff" 'find-file
     "ft" 'dired
-    "fc" '(:ignore t :which-key "config")
-    "fce" '((lambda () "" (interactive) (find-file (concat user-emacs-directory "init.el"))) :which-key "edit-config")
-    "fcl" '((lambda () "" (interactive) (load-file (concat user-emacs-directory "init.el"))) :which-key "load-config"))
-
-  ;; Tools
-  (leader
-    "t" '(:ignore t :which-key "tools")
-    "tu" 'av/undo-tree-visualizer-toggle ; FIXME leader not available in undo-tree-mode
-    "tr" 'av/restclient-temp-open)
+    "fc" '((lambda () (interactive) (find-file (concat user-emacs-directory "init.el"))) :which-key "edit-config"))
 
   ;; Emacs Lisp
   (local-leader
@@ -256,6 +169,8 @@
   :ensure t
   :diminish ivy-mode
   :config (ivy-mode 1))
+
+(use-package markdown-mode :ensure t :defer t)
 
 (use-package org
   :ensure t
@@ -277,10 +192,6 @@
     "s" 'org-edit-src-code
     "t" 'org-todo))
 
-(use-package markdown-mode
-  :ensure t
-  :defer t)
-
 (use-package restclient
   :ensure t
   :mode ("\\.restclient\\'" . restclient-mode)
@@ -301,6 +212,7 @@
 
   (use-package evil-magit
     :ensure t
+    :after evil
     :config
     (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward))
 
@@ -309,29 +221,6 @@
     "gs" 'magit-status
     "gd" 'magit-diff
     "gb" 'magit-blame))
-
-(use-package company
-  :ensure t
-  :hook (after-init . global-company-mode)
-  :config
-  (setq company-idle-delay nil
-        company-selection-wrap-around t)
-
-  ;; Add Vim insert mode completion to Emacs
-  ;; (I find auto-complete to be annoying and distracting)
-  ;; TODO add more insert mode completion options
-  ;; FIXME when opening completion list auto-select the first item
-  ;; FIXME `C-e' and `C-y' mappings
-  (general-define-key
-   :states 'insert
-   :prefix "C-x"
-   "C-o" 'company-complete-common-or-cycle
-   "C-f" 'company-files))
-  ;; (general-define-key
-  ;;  :states 'insert
-  ;;  :keymaps 'company-mode-map
-  ;;  "C-e" 'undo
-  ;;  "C-y" 'nil))
 
 (use-package ledger-mode
   :ensure t
@@ -364,7 +253,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (general which-key evil-surround evil-magit magit company restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode evil-goggles evil-lion evil-commentary evil-numbers evil-collection evil diminish use-package))))
+    (general which-key evil-magit magit restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode evil-goggles evil-lion evil-commentary evil-collection evil diminish use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
