@@ -4,6 +4,19 @@ My dotfiles are managed using [GNU Stow (`stow(8)`)](https://www.gnu.org/softwar
 
 ---
 
+### Clone this repo
+
+```sh
+git clone <url> --recurse-submodules
+```
+
+### Restore Vim plugins
+
+```sh
+git submodule init
+git submodule update
+```
+
 ### Add Vim plugins
 
 ```sh

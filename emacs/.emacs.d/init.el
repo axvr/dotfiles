@@ -86,7 +86,7 @@
 (require 'diminish)
 
 
-;; Evil-mode Configuration
+;;; Evil-mode Configuration
 (use-package evil
   :ensure t
   :init
@@ -94,13 +94,13 @@
         evil-want-keybinding nil)
   :config
 
-  (evil-define-command retab (start end)
+  (evil-define-command av/retab (start end)
     (interactive "<r>")
     (if indent-tabs-mode
         (tabify start end)
       (untabify start end)))
 
-  (evil-ex-define-cmd "ret[ab]"    'retab)
+  (evil-ex-define-cmd "ret[ab]"    'av/retab)
   (evil-ex-define-cmd "ter[minal]" 'ansi-term)
 
   (use-package evil-collection

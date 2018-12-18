@@ -8,6 +8,7 @@ if v:version <= 800
 endif
 
 let g:OmniSharp_timeout = 5
+let g:OmniSharp_highlight_types = 1
 
 autocmd BufReadPre,BufNewFile *.cs setfiletype cs
 autocmd BufRead,BufNewFile *.cs,*.cshtml,*.csproj,*.aspx,*.sln compiler dotnet

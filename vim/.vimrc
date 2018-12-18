@@ -14,6 +14,7 @@ set mouse=a
 set backspace=indent,eol,start
 set encoding=utf-8
 set spelllang=en_gb
+set nrformats-=octal
 
 " Styling
 set showcmd
@@ -67,6 +68,7 @@ set breakindent
 let g:netrw_banner = 0
 packadd matchit
 packadd commentary
+let g:lion_squeeze_spaces = 1
 packadd lion
 
 " Set colour scheme
@@ -102,4 +104,5 @@ augroup filetypes
                 \%f:%l:%c:\ note:\ %m,
                 \%f:%l:%c:\ %m
     autocmd FileType markdown setlocal commentstring=<!--%s-->
+    autocmd FileType lisp setlocal commentstring=;;%s
 augroup END
