@@ -33,6 +33,7 @@
 
 (add-hook 'prog-mode-hook 'hl-line-mode)
 (add-hook 'prog-mode-hook 'prettify-symbols-mode)
+;; (add-hook 'prog-mode-hook #'electric-pair-mode)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -53,7 +54,7 @@
       backup-by-copying t
       delete-old-versions t
       version-control t
-      undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo"))) ; FIXME
+      undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo")))
       undo-tree-auto-save-history t
       save-place-file (concat user-emacs-directory "places"))
 (save-place-mode 1)
@@ -94,38 +95,38 @@
         evil-want-keybinding nil)
   :config
 
-  (evil-define-command av/retab (start end)
+  (evil-define-command av/evil-retab (start end)
+    "Emacs implementation of the `:retab' ex command in Vim"
     (interactive "<r>")
     (if indent-tabs-mode
         (tabify start end)
       (untabify start end)))
 
-  (evil-ex-define-cmd "ret[ab]"    'av/retab)
+  (evil-ex-define-cmd "ret[ab]"    'av/evil-retab)
   (evil-ex-define-cmd "ter[minal]" 'ansi-term)
 
   (use-package evil-collection
     :ensure t
     :init (evil-collection-init))
 
-  (use-package evil-commentary
-    :ensure t
-    :config (evil-commentary-mode))
+  (evil-define-operator av/evil-commentary (beg end)
+    "Emacs implementation of `vim-commentary'"
+    :move-point nil
+    (interactive "<r>")
+    (comment-or-uncomment-region beg end))
+
+  (evil-define-key 'normal 'global "gc" 'av/evil-commentary)
 
   (use-package evil-lion
     :ensure t
     :config (evil-lion-mode))
-
-  (use-package evil-goggles
-    :ensure t
-    :config (evil-goggles-mode))
 
   (evil-mode 1))
 
 (use-package which-key
   :ensure t
   :diminish which-key-mode
-  :config (which-key-mode 1)
-  (define-key evil-normal-state-map (kbd "SPC g") '("git-prefix")))
+  :config (which-key-mode 1))
 
 (use-package general
   :ensure t
@@ -136,6 +137,7 @@
   (general-create-definer leader
     :prefix "SPC"
     :states '(normal visual))
+
   (general-create-definer local-leader
     :prefix "SPC m"
     :states '(normal visual))
@@ -208,15 +210,10 @@
 
 (use-package magit
   :ensure t
+  :defer t
   :config
 
-  (use-package evil-magit
-    :ensure t
-    :after evil
-    :config
-    (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward))
-
-  (leader
+  (leader ; FIXME: doesn't work with `:defer'
     "g"  '(:ignore t :which-key "git/vcs")
     "gs" 'magit-status
     "gd" 'magit-diff
@@ -253,7 +250,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (general which-key evil-magit magit restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode evil-goggles evil-lion evil-commentary evil-collection evil diminish use-package))))
+    (general which-key magit restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode evil-lion evil-collection evil diminish use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
