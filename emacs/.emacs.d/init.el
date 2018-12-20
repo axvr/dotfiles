@@ -86,86 +86,12 @@
   (require 'use-package))
 (require 'diminish)
 
-
-;;; Evil-mode Configuration
-(use-package evil
-  :ensure t
-  :init
-  (setq evil-want-C-u-scroll t
-        evil-want-keybinding nil)
-  :config
-
-  (evil-define-command av/evil-retab (start end)
-    "Emacs implementation of the `:retab' ex command in Vim"
-    (interactive "<r>")
-    (if indent-tabs-mode
-        (tabify start end)
-      (untabify start end)))
-
-  (evil-ex-define-cmd "ret[ab]"    'av/evil-retab)
-  (evil-ex-define-cmd "ter[minal]" 'ansi-term)
-
-  (use-package evil-collection
-    :ensure t
-    :init (evil-collection-init))
-
-  (evil-define-operator av/evil-commentary (beg end)
-    "Emacs implementation of `vim-commentary'"
-    :move-point nil
-    (interactive "<r>")
-    (comment-or-uncomment-region beg end))
-
-  (evil-define-key 'normal 'global "gc" 'av/evil-commentary)
-
-  (use-package evil-lion
-    :ensure t
-    :config (evil-lion-mode))
-
-  (evil-mode 1))
+;;; TODO add undo-tree
 
 (use-package which-key
   :ensure t
   :diminish which-key-mode
   :config (which-key-mode 1))
-
-(use-package general
-  :ensure t
-  :after which-key
-  :config
-  (general-evil-setup t)
-
-  (general-create-definer leader
-    :prefix "SPC"
-    :states '(normal visual))
-
-  (general-create-definer local-leader
-    :prefix "SPC m"
-    :states '(normal visual))
-
-  (leader "m" '(:ignore t :which-key "major-mode"))
-
-  (general-define-key
-    :prefix "SPC SPC"
-    :states '(normal visual)
-    "" 'execute-extended-command)
-
-  ;; File
-  (leader
-    "f" '(:ignore t :which-key "file")
-    "ff" 'find-file
-    "ft" 'dired
-    "fc" '((lambda () (interactive) (find-file (concat user-emacs-directory "init.el"))) :which-key "edit-config"))
-
-  ;; Emacs Lisp
-  (local-leader
-    :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
-    "e" '(:ignore t :which-key "eval")
-    "eb" 'eval-buffer
-    "ed" 'eval-defun
-    "ee" 'eval-expression
-    "es" 'eval-last-sexp
-    "ep" 'eval-print-last-sexp
-    "er" 'eval-region))
 
 (use-package ivy
   :ensure t
@@ -177,62 +103,19 @@
 (use-package org
   :ensure t
   :defer t
-  :hook (org-mode . org-indent-mode)
-  :config
+  :hook (org-mode . org-indent-mode))
   ;; TODO set org directory for org-agenda
-
-  (local-leader
-    :keymaps 'org-mode-map
-    "i" '(:ignore t :which-key "insert")
-    "il" 'org-insert-link
-    "o" 'org-open-at-point
-    "a" 'org-agenda
-    "c" 'org-capture
-    "g" 'org-store-link
-    "e" 'org-export-dispatch
-    "v" 'org-eval
-    "s" 'org-edit-src-code
-    "t" 'org-todo))
 
 (use-package restclient
   :ensure t
-  :mode ("\\.restclient\\'" . restclient-mode)
-  :config
+  :mode ("\\.restclient\\'" . restclient-mode))
 
-  (local-leader
-    :keymaps 'restclient-mode-map
-    "s" '(:ignore t :which-key "send")
-    "sc" 'restclient-http-send-current
-    "sr" 'restclient-http-send-current-raw
-    "ss" 'restclient-http-send-current-stay-in-window
-    "j" 'restclient-jump-prev
-    "k" 'restclient-jump-next))
-
-(use-package magit
-  :ensure t
-  :defer t
-  :config
-
-  (leader ; FIXME: doesn't work with `:defer'
-    "g"  '(:ignore t :which-key "git/vcs")
-    "gs" 'magit-status
-    "gd" 'magit-diff
-    "gb" 'magit-blame))
+(use-package magit :ensure t :defer t)
 
 (use-package ledger-mode
   :ensure t
-  :defer t
-  :config
+  :defer t)
   ;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
-
-  (local-leader
-    :keymaps 'ledger-mode-map
-    "c" 'ledger-mode-clean-buffer
-    "k" 'ledger-check-buffer
-    "b" '(:ignore t :which-key "balance")
-    "bb" 'ledger-display-balance
-    "bp" 'ledger-display-balance-at-point
-    "r" '(:ignore t :which-key "register")))
 
 (use-package rainbow-delimiters
   :ensure t
@@ -250,7 +133,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (general which-key magit restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode evil-lion evil-collection evil diminish use-package))))
+    (which-key magit restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode diminish use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
