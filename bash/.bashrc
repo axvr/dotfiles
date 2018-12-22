@@ -13,8 +13,8 @@ fi
 [[ $- != *i* ]] && return
 
 # History config
-export HISTSIZE=1000
-export HISTFILESIZE=2000
+export HISTSIZE=10000
+export HISTFILESIZE=20000
 export HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 
@@ -60,7 +60,7 @@ function git_branch() {
 }
 PS1="[\u@\h \W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\\$ "
 
-# Simplified prompt for Termux (Android)
+# Simplified prompt for Android
 [ "$(uname -o)" == "Android" ] && PS1="[\W]\\$ "
 
 

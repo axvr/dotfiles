@@ -14,7 +14,6 @@ set mouse=a
 set backspace=indent,eol,start
 set encoding=utf-8
 set spelllang=en_gb
-set nrformats-=octal
 
 " Styling
 set showcmd
@@ -99,7 +98,7 @@ augroup filetypes
     autocmd FileType tex setlocal mp=latexmk\ -pdf\ %
     autocmd FileType perl compiler perl
     autocmd FileType sh setlocal mp=shellcheck\ -f\ gcc\ %
-                \efm=%f:%l:%c:\ %trror:\ %m,
+                \ efm=%f:%l:%c:\ %trror:\ %m,
                 \%f:%l:%c:\ %tarning:\ %m,
                 \%f:%l:%c:\ note:\ %m,
                 \%f:%l:%c:\ %m

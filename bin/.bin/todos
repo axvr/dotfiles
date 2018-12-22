@@ -21,9 +21,9 @@ fi
 if [ -n "$1" ]
 then
     grep -nH $colour "$pattern" $*
-elif [ $(git ls-files 2> /dev/null | wc -l) != 0 ]
+elif [ $(git ls-files 2> /dev/null | wc -l) -ne 0 ]
 then
-    grep -n $colour "$pattern" $(git ls-files)
+    grep -nH $colour "$pattern" $(git ls-files)
 else
     printf "No files given\\n"
     exit 1
