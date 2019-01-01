@@ -58,7 +58,7 @@ set expandtab
 set shiftround
 set autoindent
 
-" Line wrap config (Soft wrap code, hard wrap comments and text)
+" Line wrap config (soft wrap code, hard wrap comments, strings and text)
 let &showbreak='+++ '
 set wrap
 set linebreak
@@ -67,7 +67,6 @@ set breakindent
 let g:netrw_banner = 0
 packadd matchit
 packadd commentary
-let g:lion_squeeze_spaces = 1
 packadd lion
 
 " Set colour scheme
@@ -78,8 +77,8 @@ if &term =~# '^.*256color$'
     colorscheme space-vim-dark
 endif
 
-" Fix colours when using Vim with Tmux
-if &term =~# '^screen'
+" Fix colours when using Vim with Tmux or GNU Screen (:h xterm-true-color)
+if &term =~# '^screen' && &termguicolors
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif

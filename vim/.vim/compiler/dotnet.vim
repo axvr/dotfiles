@@ -7,14 +7,14 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 let current_compiler = 'dotnet'
-let s:make = "dotnet\ build\ .\ -clp:NoSummary\ -v\ q\ /nologo\ /p:GenerateFullPaths=true"
+let s:make = "dotnet\ build\ $*\ /clp:NoSummary\ /v:q\ /nologo\ /p:GenerateFullPaths=true"
 
 " Fix file paths for Cygwin (e.g. 'C:\' --> '/cygdrive/c/')
 if has('win32unix')
     let s:make = s:make . "\ \\\|\ tr\ '\\\\' '/' \\\|\ sed\ 's/^\\([A-Z]\\):\\//\\/cygdrive\\/\\1\\//'"
 endif
 
-" Remove garbage from the compiler messages
+" Remove garbage from the end of the compiler messages
 if has('unix')
     let s:make = s:make . "\ \\\|\ sed\ 's/\\s*\\[.*\\?\\]\\s*$//'"
 endif
