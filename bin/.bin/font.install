@@ -39,6 +39,7 @@ Fira Code           (https://github.com/tonsky/FiraCode)
 Fira Mono           (https://mozilla.github.io/Fira/)
 Fira Sans           (https://mozilla.github.io/Fira/)
 Font Awesome        (https://fontawesome.com/)
+GNU FreeFont        (https://www.gnu.org/software/freefont/)
 Hack                (https://sourcefoundry.org/hack/)
 Inconsolata         (http://www.levien.com/type/myfonts/inconsolata.html)
 Mononoki            (https://madmalik.github.io/mononoki/)
@@ -50,7 +51,7 @@ Roboto Mono         (https://fonts.google.com/specimen/Roboto+Mono)
 Roboto Slab         (https://fonts.google.com/specimen/Roboto+Slab)
 Share Tech Mono     (https://fonts.google.com/specimen/Share+Tech+Mono)
 Source Code Pro     (https://adobe-fonts.github.io/source-code-pro/)
-GNU FreeFont        (https://www.gnu.org/software/freefont/)
+Spleen              (https://www.cambus.net/spleen-monospaced-bitmap-fonts/)
 Tamsyn              (http://www.fial.com/~scott/tamsyn-font/)
 EOF
 )
@@ -128,6 +129,16 @@ do
             url="http://www.fial.com/~scott/tamsyn-font/download/tamsyn-font-1.11.tar.gz"
             curl -L "$url" -o "$FONT_DIR/tamsyn-font-1.11/tamsyn.tar.gz" --create-dirs
             tar -zxvf "$FONT_DIR/tamsyn-font-1.11/tamsyn.tar.gz" -C "$FONT_DIR/"
+            ;;
+
+        spleen)
+            requires "tar" "gzip"
+            printf "Installing font: Spleen\\n"
+            [ -d "$FONT_DIR/spleen/" ] && rm -r "$FONT_DIR/spleen/"
+            version="$(github_latest_version "fcambus" "spleen")"
+            url="https://github.com/fcambus/spleen/releases/download/$version/spleen-$version.tar.gz"
+            curl -L "$url" -o "$FONT_DIR/spleen/spleen-$version.tar.gz" --create-dirs
+            tar -zxvf "$FONT_DIR/spleen/spleen-$version.tar.gz" -C "$FONT_DIR/spleen"
             ;;
 
         anonymous_pro)
