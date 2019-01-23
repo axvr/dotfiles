@@ -22,6 +22,9 @@
 
 ;; TODO Indentation settings
 (setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+;; Behaviour similar to `textwidth' in Vim:
+;; `auto-fill-mode' and `fill-column'
 
 (setq require-final-newline 'ask)
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
@@ -37,7 +40,6 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; Highlight TODOs, NOTEs, FIXMEs etc.
 (define-minor-mode highlight-todos-mode
   "Highlight TODO and other comment keywords"
   nil

@@ -10,7 +10,7 @@
 # UNDONE - A reversal or 'roll back' of previous code.
 # XXX    - Warn other programmers of problematic or misguiding code.
 
-pattern="\(TO[-_ ]\?DO\|FIX[-_ ]\?ME\|NOTE\|XXX\|BUG\|HACK\|UNDONE\):\?"
+pattern="\b\(TO[-_ ]\?DO\|FIX[-_ ]\?ME\|NOTE\|XXX\|BUG\|HACK\|UNDONE\)\b"
 
 if [ -n "$1" ] && [ "$1" = "-c" ]
 then

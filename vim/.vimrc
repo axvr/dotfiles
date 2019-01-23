@@ -88,10 +88,12 @@ com! -nargs=* -complete=file -bar TODOs setl gp=todos|gr <args>|setl gp&
 com! -nargs=0 -bar Helptags for p in glob('~/.vim/pack/*/*/*/doc',1,1)|exe 'helpt '.p|endfo
 com! -nargs=0 -bar Scratch enew|setl bh=hide bt=nofile noswf
 
+" TODO set up for JavaScript and TypeScript development (and qf list)
+
 augroup filetypes
     autocmd!
     autocmd FileType c,make,go,gitconfig,help setlocal noet sts=8 sw=8 ts=8
-    autocmd FileType lisp,json,ruby setlocal et sts=2 sw=2 ts=8
+    autocmd FileType lisp,json,ruby,html,css setlocal et sts=2 sw=2 ts=8
     autocmd FileType perl,sh,python,haskell,javascript setlocal tw=79
     autocmd FileType gitcommit setlocal spell
     autocmd FileType tex setlocal mp=latexmk\ -pdf\ %
@@ -103,4 +105,6 @@ augroup filetypes
                 \%f:%l:%c:\ %m
     autocmd FileType markdown setlocal commentstring=<!--%s-->
     autocmd FileType lisp setlocal commentstring=;;%s
+    autocmd BufRead,BufNewFile *.ts setlocal filetype=javascript
+    autocmd BufRead,BufNewFile *.vue setfiletype html
 augroup END
