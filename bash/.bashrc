@@ -1,8 +1,4 @@
-#!/usr/bin/env bash
-
-# ========================================
-# ------------- ~/.bashrc ----------------
-# ========================================
+# ~/.bashrc
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -23,58 +19,41 @@ export LANG=en_GB.UTF-8
 # export LANG=en_US.UTF-8
 # export LC_ALL=POSIX
 
-# Bash Inprovements
-shopt -s globstar
-shopt -s checkwinsize
+# Bash improvements
+shopt -s globstar checkwinsize
 
-
-# ========================================
-# --------- Development Config -----------
-# ========================================
-
-# Set default editor to Vim
+# Set default editor
 export VISUAL=vim
 export EDITOR=vim
 
-# .NET Core development
+# .NET Core settings
 export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 
-# ========================================
-# --------- Custom Bash Prompts ----------
-# ========================================
+# == Bash Prompts ==
 
 # Simple prompt
 #PS1="[\u@\h \W]\$ "
 PS2="> "
 
-# Prompt displaying Git branch
-function git_branch() {
-    if [ "$(command -v git)" ]; then
-        BRANCH=$(git branch 2> /dev/null | grep "^\*" | sed 's/\* \(.*\)/\1/')
-        if [ "$BRANCH" != "" ]; then
-            printf " $BRANCH"
-        fi
-    fi
-    printf ""
+# Prompt with Git branch
+git_branch() {
+    branch=$(git branch 2> /dev/null | grep "^\*" | sed 's/^\* //')
+    [ -n "$branch" ] && printf " $branch"
 }
-PS1="[\u@\h \W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\\$ "
+PS1="[\u@\h \W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\$ "
 
 # Small prompt for Android
-[ "$(uname -o)" == "Android" ] && PS1="[\W]\\$ "
+[ "$(uname -o)" == "Android" ] && PS1="[\W]\$ "
 
 
-# ========================================
-# -------- Aliases and Functions ---------
-# ========================================
+# == Aliases & Functions ==
 
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
-alias pgrep="pgrep --color=auto"
-alias ip="ip -color"
 
 alias ledger="ledger -f ${HOME}/.ledger/personal.dat"
 alias ledger-record="${EDITOR} ${HOME}/.ledger/personal.dat"
