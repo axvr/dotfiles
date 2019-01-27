@@ -51,7 +51,7 @@ if [ "$(y_n "Install dotfiles?")" ]; then
     rm ~/.bash_profile ~/.bashrc ~/.inputrc
     git clone https://github.com/axvr/dotfiles.git ~/dotfiles
     cd ~/dotfiles/
-    stow -t ~ bin/ bash/ git/ tmux/ vim/ emacs/
+    stow -t ~ bin/ bash/ git/ tmux/ vim/
     cd "$HOME"
 
     # Improve dotfiles for Cygwin

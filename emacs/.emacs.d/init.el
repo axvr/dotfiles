@@ -41,7 +41,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (define-minor-mode highlight-todos-mode
-  "Highlight TODO and other comment keywords"
+  "Highlight TODOs and other comment keywords"
   nil
   :lighter ""
   (font-lock-add-keywords
@@ -112,8 +112,6 @@
   :ensure t
   :mode ("\\.restclient\\'" . restclient-mode))
 
-(use-package magit :ensure t :defer t)
-
 (use-package ledger-mode
   :ensure t
   :defer t)
@@ -135,7 +133,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (which-key magit restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode diminish use-package))))
+    (which-key restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode diminish use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

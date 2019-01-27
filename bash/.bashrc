@@ -38,10 +38,7 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 PS2="> "
 
 # Prompt with Git branch
-git_branch() {
-    branch=$(git branch 2> /dev/null | grep "^\*" | sed 's/^\* //')
-    [ -n "$branch" ] && printf " $branch"
-}
+git_branch() { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/^\*//'; }
 PS1="[\u@\h \W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\$ "
 
 # Small prompt for Android
