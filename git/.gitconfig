@@ -6,5 +6,6 @@
 	excludesfile = ~/.gitignore_global
 [alias]
 	logtree = log --graph --oneline --all
+	markers = !git ls-files -u | awk '{print $4}' | uniq | xargs grep -Hn '^<<<<<<<'
 [merge]
 	tool = vimdiff
