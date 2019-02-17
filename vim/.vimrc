@@ -71,6 +71,7 @@ packadd lion
 
 " Set colour scheme
 colorscheme envy
+nmap <leader>h <Plug>HighlightGroup
 set colorcolumn=+1
 
 com! -nargs=+ GitGrep setl gp=git\ grep\ -n|gr <args>|setl gp&
