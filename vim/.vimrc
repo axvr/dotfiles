@@ -70,18 +70,8 @@ packadd commentary
 packadd lion
 
 " Set colour scheme
-if &term =~# '^.*256color$'
-    set termguicolors
-    set cursorline
-    let &colorcolumn='+'.join(range(1,256),',+')
-    colorscheme space-vim-dark
-endif
-
-" Fix colours when using Vim with Tmux or GNU Screen (:h xterm-true-color)
-if &term =~# '^screen' && &termguicolors
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
+colorscheme envy
+set colorcolumn=+1
 
 com! -nargs=+ GitGrep setl gp=git\ grep\ -n|gr <args>|setl gp&
 com! -nargs=* -complete=file -bar TODOs setl gp=todos|gr <args>|setl gp&

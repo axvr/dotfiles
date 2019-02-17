@@ -81,9 +81,9 @@ secring.*
 [._]sw[a-p]
 # Persistent undo
 [._]*.un~
-# Session files
+# Others
 Session.vim
-# Temporary
+errors.err
 .netrwhist
 
 # == Emacs ==
