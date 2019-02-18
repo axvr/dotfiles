@@ -16,6 +16,8 @@ nnoremap <buffer> <localleader>u :<C-u>OmniSharpFixUsings<CR>
 nnoremap <buffer> <localleader>i :<C-u>OmniSharpFindImplementations<CR>
 nnoremap <buffer> <localleader>t :<C-u>OmniSharpTypeLookup<CR>
 nnoremap <buffer> <localleader>m :<C-u>OmniSharpFindMembers<CR>
+nnoremap <buffer> <localleader>r :<C-u>OmniSharpRestartServer<CR>
+nnoremap <buffer> <localleader>R :<C-u>OmniSharpRestartAllServers<CR>
 
 function! s:OmniSharpSignColumn() abort
     if OmniSharp#CountCodeActions({-> execute('sign unplace 99')})
@@ -24,5 +26,5 @@ function! s:OmniSharpSignColumn() abort
 endfunction
 
 setlocal signcolumn=yes updatetime=500
-sign define OmniSharpCodeActions text=> texthl=Special
+sign define OmniSharpCodeActions text=> texthl=Todo
 autocmd! CursorHold <buffer> call <SID>OmniSharpSignColumn()

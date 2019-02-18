@@ -1,10 +1,10 @@
-" =============================================================
+" ============================================================================
 " Name:         Envy
 " Description:  Minimal dark ANSI colour scheme for Vim (based on "mindark",
 "               "space-vim-dark" and the default theme for "kakoune").
 " Author:       Alex Vear <av@axvr.io>
 " Based_on:     https://github.com/zhester/vim-hz/blob/master/colors/mindark.vim
-" =============================================================
+" ============================================================================
 
 set background=dark
 
@@ -37,9 +37,9 @@ let g:colors_name = 'envy'
 " TODO go through syntax.txt and see which items have been missed
 
 
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 " Editor Display
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 
 " Normal Text (everything that isn't "highlighted", must be first in scheme)
 hi Normal           cterm=none      ctermbg=none    ctermfg=7
@@ -82,9 +82,9 @@ hi! link PmenuSbar Pmenu
 hi! link PmenuThumb PmenuSel
 
 
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 " In-buffer Highlighting
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 
 " Search
 hi Search           cterm=none      ctermbg=4       ctermfg=7
@@ -108,31 +108,31 @@ hi Conceal          cterm=none              ctermbg=none    ctermfg=15
 hi NonText          cterm=none              ctermbg=none    ctermfg=4
 
 
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 " Informational Highlighting
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 
 " FIXME Errors and Debugging
-hi Error            cterm=bold      ctermbg=15      ctermfg=1
-hi Warning          cterm=bold      ctermbg=15      ctermfg=5
+hi Error            cterm=bold      ctermbg=none    ctermfg=1
+hi Warning          cterm=bold      ctermbg=none    ctermfg=3
 hi link ErrorMsg Error
 hi link WarningMsg Warning
-hi QuickFixLine     cterm=none      ctermbg=none    ctermfg=2
+hi QuickFixLine     cterm=none      ctermbg=none    ctermfg=5
 
 
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 " Code Syntax Highlighting
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 
 " Highlight other delimiters the same as parenthesis.
 hi link Delimiter Parens
 
 " Comments
 hi Comment          cterm=none      ctermbg=none    ctermfg=6
-hi Todo             cterm=bold      ctermbg=none    ctermfg=10
+hi Todo             cterm=bold      ctermbg=none    ctermfg=3
 
 " Constants
-hi Constant         cterm=none      ctermbg=none    ctermfg=1
+hi Constant         cterm=none      ctermbg=none    ctermfg=15
 hi String           cterm=none      ctermbg=none    ctermfg=2
 
 " Highlight other constants similarly.
@@ -154,7 +154,6 @@ hi Statement        cterm=none      ctermbg=none    ctermfg=15
 
 " Preprocessor
 hi PreProc          cterm=none      ctermbg=none    ctermfg=15
-" hi PreProc          cterm=none      ctermbg=none    ctermfg=5
 
 " Types
 hi Type             cterm=none      ctermbg=none    ctermfg=15
@@ -166,9 +165,9 @@ hi DiffDelete       cterm=none      ctermbg=none    ctermfg=1
 hi DiffText         cterm=none      ctermbg=none    ctermfg=4
 
 
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 " File Type
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 
 " Diff
 hi link diffAdded DiffAdd
@@ -185,16 +184,15 @@ hi link mdItalic htmlItalic
 
 " Git Commit
 hi gitcommitOverflow    cterm=none      ctermbg=none    ctermfg=12
-hi gitcommitFile        cterm=none      ctermbg=none    ctermfg=5
 
 " Vim
 hi helpHyperTextJump    cterm=none      ctermbg=none    ctermfg=4
 hi helpOption           cterm=none      ctermbg=none    ctermfg=5
 
 
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 " Colorscheme Maintenance Helpers
-" -------------------------------------------------------------
+" ----------------------------------------------------------------------------
 
 function! s:SynStack()
     if !exists("*synstack")
