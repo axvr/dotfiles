@@ -102,17 +102,18 @@ hi link SpecialChar Special
 hi link SpecialComment Special
 
 " Other
+hi link Tag Special
 hi Underlined       cterm=underline
-hi MatchParen       cterm=bold,underline    ctermbg=none    ctermfg=10
-hi Conceal          cterm=none              ctermbg=none    ctermfg=15
-hi NonText          cterm=none              ctermbg=none    ctermfg=4
+hi MatchParen       cterm=bold      ctermbg=none    ctermfg=10
+hi Conceal          cterm=none      ctermbg=none    ctermfg=15
+hi NonText          cterm=none      ctermbg=none    ctermfg=4
 
 
 " ----------------------------------------------------------------------------
 " Informational Highlighting
 " ----------------------------------------------------------------------------
 
-" FIXME Errors and Debugging
+" Errors and Debugging
 hi Error            cterm=bold      ctermbg=none    ctermfg=1
 hi Warning          cterm=bold      ctermbg=none    ctermfg=3
 hi link ErrorMsg Error
@@ -173,14 +174,24 @@ hi DiffText         cterm=none      ctermbg=none    ctermfg=4
 hi link diffAdded DiffAdd
 hi link diffRemoved DiffDelete
 
-" TODO HTML
-hi link htmlSpecialTagName Tag
+" HTML
+hi link htmlTag Tag
+hi link htmlTagName Tag
+hi link htmlEndTag Tag
+hi link htmlArg Tag
 hi htmlBold         cterm=bold      ctermbg=none    ctermfg=7
 hi htmlItalic       cterm=none      ctermbg=none    ctermfg=7
+hi htmlH1           cterm=bold      ctermbg=none    ctermfg=4
+hi htmlH2           cterm=bold      ctermbg=none    ctermfg=2
+hi htmlH3           cterm=bold      ctermbg=none    ctermfg=5
+hi htmlH4           cterm=bold      ctermbg=none    ctermfg=12
+hi htmlH5           cterm=none      ctermbg=none    ctermfg=4
+hi htmlH6           cterm=none      ctermbg=none    ctermfg=10
 
-" TODO Markdown
+" Markdown
 hi link mdBold htmlBold
 hi link mdItalic htmlItalic
+hi markdownHeadingDelimiter cterm=none ctermbg=none ctermfg=5
 
 " Git Commit
 hi gitcommitOverflow    cterm=none      ctermbg=none    ctermfg=12
