@@ -48,16 +48,16 @@ hi link Terminal Normal
 " Cursor and Selection
 hi Cursor           cterm=none      ctermbg=none    ctermfg=11
 hi CursorColumn     cterm=none      ctermbg=none    ctermfg=none
-hi CursorLine       cterm=none      ctermbg=none    ctermfg=none
+hi CursorLine       cterm=none      ctermbg=0       ctermfg=none
 hi Visual           cterm=reverse   ctermbg=0       ctermfg=none
 hi link VisualNOS Visual
 
 " Window Margins
-hi LineNr           cterm=none      ctermbg=0       ctermfg=15
+hi LineNr           cterm=none      ctermbg=0       ctermfg=8
 hi CursorLineNr     cterm=bold      ctermbg=none    ctermfg=7
 hi SignColumn       cterm=none      ctermbg=none    ctermfg=13
 hi ColorColumn      cterm=none      ctermbg=0       ctermfg=none
-hi VertSplit        cterm=none      ctermbg=0       ctermfg=7
+hi VertSplit        cterm=none      ctermbg=none    ctermfg=8
 
 " Status Line
 hi StatusLine       cterm=bold,reverse   ctermbg=0  ctermfg=15
@@ -72,7 +72,7 @@ hi! link TabLineFill StatusLine
 hi! link TabLineSel WildMenu
 
 " Folds
-hi Folded           cterm=bold      ctermbg=none    ctermfg=4
+hi Folded           cterm=bold      ctermbg=none    ctermfg=8
 hi FoldColumn       cterm=none      ctermbg=none    ctermfg=4
 
 " Popup Menu
@@ -88,7 +88,7 @@ hi! link PmenuThumb PmenuSel
 
 " Search
 hi Search           cterm=none      ctermbg=4       ctermfg=7
-hi! link IncSearch Search
+hi IncSearch        cterm=none      ctermbg=5       ctermfg=7
 
 " Spell
 hi SpellBad         cterm=underline ctermbg=none    ctermfg=1
@@ -102,9 +102,8 @@ hi link SpecialChar Special
 hi link SpecialComment Special
 
 " Other
-hi link Tag Special
 hi Underlined       cterm=underline
-hi MatchParen       cterm=bold      ctermbg=none    ctermfg=10
+hi MatchParen       cterm=bold      ctermbg=5       ctermfg=none
 hi Conceal          cterm=none      ctermbg=none    ctermfg=15
 hi NonText          cterm=none      ctermbg=none    ctermfg=4
 
@@ -130,7 +129,7 @@ hi link Delimiter Parens
 
 " Comments
 hi Comment          cterm=none      ctermbg=none    ctermfg=6
-hi Todo             cterm=bold      ctermbg=none    ctermfg=3
+hi Todo             cterm=bold      ctermbg=none    ctermfg=10
 
 " Constants
 hi Constant         cterm=none      ctermbg=none    ctermfg=15
@@ -175,26 +174,24 @@ hi link diffAdded DiffAdd
 hi link diffRemoved DiffDelete
 
 " HTML
-hi link htmlTag Tag
-hi link htmlTagName Tag
-hi link htmlEndTag Tag
-hi link htmlArg Tag
-hi htmlBold         cterm=bold      ctermbg=none    ctermfg=7
-hi htmlItalic       cterm=none      ctermbg=none    ctermfg=7
+hi link htmlTagName Special
+hi link htmlArg Special
+hi htmlLink         cterm=underline ctermbg=none    ctermfg=4
+hi htmlItalic       cterm=none
 hi htmlH1           cterm=bold      ctermbg=none    ctermfg=4
 hi htmlH2           cterm=bold      ctermbg=none    ctermfg=2
 hi htmlH3           cterm=bold      ctermbg=none    ctermfg=5
-hi htmlH4           cterm=bold      ctermbg=none    ctermfg=12
-hi htmlH5           cterm=none      ctermbg=none    ctermfg=4
-hi htmlH6           cterm=none      ctermbg=none    ctermfg=10
+hi htmlH4           cterm=none      ctermbg=none    ctermfg=3
+hi htmlH5           cterm=none      ctermbg=none    ctermfg=2
+hi htmlH6           cterm=none      ctermbg=none    ctermfg=4
 
 " Markdown
-hi link mdBold htmlBold
-hi link mdItalic htmlItalic
+hi markdownUrl      cterm=none      ctermbg=none    ctermfg=8
 hi markdownHeadingDelimiter cterm=none ctermbg=none ctermfg=5
+hi link markdownIdDeclaration htmlLink
 
 " Git Commit
-hi gitcommitOverflow    cterm=none      ctermbg=none    ctermfg=12
+hi gitcommitOverflow    cterm=none      ctermbg=none    ctermfg=8
 
 " Vim
 hi helpHyperTextJump    cterm=none      ctermbg=none    ctermfg=4
