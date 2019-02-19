@@ -53,7 +53,7 @@ hi Visual           cterm=reverse   ctermbg=0       ctermfg=none
 hi link VisualNOS Visual
 
 " Window Margins
-hi LineNr           cterm=none      ctermbg=0       ctermfg=8
+hi LineNr           cterm=none      ctermbg=0       ctermfg=15
 hi CursorLineNr     cterm=bold      ctermbg=none    ctermfg=7
 hi SignColumn       cterm=none      ctermbg=none    ctermfg=13
 hi ColorColumn      cterm=none      ctermbg=0       ctermfg=none
@@ -81,6 +81,11 @@ hi PmenuSel         cterm=none      ctermbg=4       ctermfg=15
 hi! link PmenuSbar Pmenu
 hi! link PmenuThumb PmenuSel
 
+" Messages
+hi MoreMsg          cterm=none      ctermbg=none    ctermfg=12
+hi ModeMsg          cterm=bold      ctermbg=none    ctermfg=3
+hi Question         cterm=none      ctermbg=none    ctermfg=12
+
 
 " ----------------------------------------------------------------------------
 " In-buffer Highlighting
@@ -106,6 +111,7 @@ hi Underlined       cterm=underline
 hi MatchParen       cterm=bold      ctermbg=5       ctermfg=none
 hi Conceal          cterm=none      ctermbg=none    ctermfg=15
 hi NonText          cterm=none      ctermbg=none    ctermfg=4
+hi Directory        cterm=none      ctermbg=none    ctermfg=4
 
 
 " ----------------------------------------------------------------------------
@@ -191,7 +197,7 @@ hi markdownHeadingDelimiter cterm=none ctermbg=none ctermfg=5
 hi link markdownIdDeclaration htmlLink
 
 " Git Commit
-hi gitcommitOverflow    cterm=none      ctermbg=none    ctermfg=8
+hi gitcommitOverflow    cterm=none      ctermbg=none    ctermfg=12
 
 " Vim
 hi helpHyperTextJump    cterm=none      ctermbg=none    ctermfg=4
