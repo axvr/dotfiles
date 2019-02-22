@@ -88,12 +88,74 @@
   (require 'use-package))
 (require 'diminish)
 
+;;; Evil-mode Configuration
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-C-u-scroll t
+        evil-want-keybinding nil)
+  :config
+
+  (evil-define-operator av/evil-commentary (beg end)
+    "Emacs implementation of `vim-commentary'"
+    :move-point nil
+    (interactive "<r>")
+    (comment-or-uncomment-region beg end))
+
+  (evil-define-key 'normal 'global "gc" 'av/evil-commentary)
+
+  (evil-define-command av/evil-retab (start end)
+    "Emacs implementation of the `:retab' ex command in Vim"
+    (interactive "<r>")
+    (if indent-tabs-mode
+        (tabify start end)
+      (untabify start end)))
+
+  (evil-ex-define-cmd "ret[ab]"    'av/evil-retab)
+  (evil-ex-define-cmd "ter[minal]" 'ansi-term)
+
+  (use-package evil-collection
+    :ensure t
+    :init (evil-collection-init))
+
+  (use-package evil-lion
+    :ensure t
+    :config (evil-lion-mode))
+
+  ;; TODO try and get this to work with my custom operators
+  ;; (use-package evil-goggles
+  ;;   :ensure t
+  ;;   :config (evil-goggles-mode))
+
+  (evil-mode 1))
+
 ;;; TODO add undo-tree
 
 (use-package which-key
   :ensure t
   :diminish which-key-mode
   :config (which-key-mode 1))
+
+(use-package general
+  :ensure t
+  :after which-key
+  :config
+  (general-evil-setup t)
+
+  (general-create-definer leader
+    :prefix "SPC"
+    :states '(normal visual))
+
+  (general-create-definer local-leader
+    :prefix "SPC m"
+    :states '(normal visual))
+
+  (leader "m" '(:ignore t :which-key "major-mode"))
+
+  (general-define-key
+    :prefix "SPC SPC"
+    :states '(normal visual)
+    "" 'execute-extended-command))
 
 (use-package ivy
   :ensure t
@@ -133,7 +195,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (which-key restclient spacemacs-theme rainbow-delimiters ledger-mode ivy markdown-mode diminish use-package))))
+    (spacemacs-theme rainbow-delimiters ledger-mode restclient markdown-mode ivy general which-key evil-lion evil-collection evil diminish use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
