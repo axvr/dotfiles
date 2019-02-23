@@ -10,7 +10,10 @@
 (show-paren-mode 1)
 
 (column-number-mode 1)
-(setq column-number-indicator-zero-based nil)
+
+;; Update buffers and `dired' when files on disk change
+(global-auto-revert-mode t)
+(add-hook 'dired-mode-hook 'auto-revert-mode)
 
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8-unix)
@@ -19,6 +22,10 @@
 
 (setq user-mail-address "av@axvr.io"
       user-full-name "Alex Vear")
+
+(setq inhibit-startup-screen t) ; TODO test this
+
+(setq frame-title-format '((buffer-file-name "%f" "GNU Emacs")))
 
 ;; TODO Indentation settings
 (setq-default indent-tabs-mode nil)
@@ -32,37 +39,40 @@
 
 (setq scroll-step 1
       scroll-conservatively 10000)
-(put 'scroll-left 'disabled nil) ; Horizontal scrolling (`C-PgUp' & `C-PgDn')
+(put 'scroll-left 'disabled nil) ; Enable horizontal scrolling using `C-PgUp' & `C-PgDn'
 
 (add-hook 'prog-mode-hook 'hl-line-mode)
 (add-hook 'prog-mode-hook 'prettify-symbols-mode)
-;; (add-hook 'prog-mode-hook #'electric-pair-mode)
+(add-hook 'prog-mode-hook 'electric-pair-mode)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(define-minor-mode highlight-todos-mode
-  "Highlight TODOs and other comment keywords"
-  nil
-  :lighter ""
-  (font-lock-add-keywords
-   nil '(("\\<\\(TO[-_ ]?DO\\|FIX[-_ ]?ME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\)\\>"
-          1 '((:foreground "#d78700") (:weight bold)) t))))
-(add-hook 'prog-mode-hook 'highlight-todos-mode)
-
-(when (memq system-type '(cygwin windows-nt ms-dos))
-  (set-face-attribute 'default nil :family "Consolas" :height 110))
+;; Set default fonts
+(if (memq system-type '(cygwin windows-nt ms-dos))
+    (set-face-attribute 'default nil :family "Consolas" :height 110)
+  (when (member "Inconsolata" (font-family-list))
+    (set-face-attribute 'default nil :family "Inconsolata" :height 135)))
 
 (setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backup")))
       backup-by-copying t
       delete-old-versions t
       version-control t
-      undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo")))
-      undo-tree-auto-save-history t
       save-place-file (concat user-emacs-directory "places"))
 (save-place-mode 1)
 
+(define-minor-mode av/hl-todos-mode
+  "Highlight TODOs and other common comment keywords"
+  nil
+  :lighter ""
+  (font-lock-add-keywords
+   nil '(("\\<\\(TO[-_ ]?DO\\|FIX[-_ ]?ME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\)\\>"
+          1 '((:foreground "#d78700") (:weight bold)) t))))
+(add-hook 'prog-mode-hook 'av/hl-todos-mode)
+
+
 
 ;;; Packages
+
 (require 'package)
 
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
@@ -88,11 +98,15 @@
   (require 'use-package))
 (require 'diminish)
 
+
+
 ;;; Evil-mode Configuration
+
 (use-package evil
   :ensure t
   :init
   (setq evil-want-C-u-scroll t
+        evil-want-C-i-jump nil ; TODO test this
         evil-want-keybinding nil)
   :config
 
@@ -113,6 +127,7 @@
 
   (evil-ex-define-cmd "ret[ab]"    'av/evil-retab)
   (evil-ex-define-cmd "ter[minal]" 'ansi-term)
+  (evil-ex-define-cmd "pa[ckadd]"  'package-list-packages)
 
   (use-package evil-collection
     :ensure t
@@ -122,14 +137,16 @@
     :ensure t
     :config (evil-lion-mode))
 
-  ;; TODO try and get this to work with my custom operators
-  ;; (use-package evil-goggles
-  ;;   :ensure t
-  ;;   :config (evil-goggles-mode))
-
   (evil-mode 1))
 
-;;; TODO add undo-tree
+(use-package undo-tree
+  :ensure t
+  :defer t
+  :diminish undo-tree-mode
+  :config
+  (setq undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo")))
+        undo-tree-auto-save-history t)
+  (global-undo-tree-mode 1))
 
 (use-package which-key
   :ensure t
@@ -155,29 +172,54 @@
   (general-define-key
     :prefix "SPC SPC"
     :states '(normal visual)
-    "" 'execute-extended-command))
+    "" 'execute-extended-command)
+
+  ;; File
+  (leader
+    "f" '(:ignore t :which-key "file")
+    "ff" 'find-file
+    "ft" 'dired
+    "fc" '((lambda () (interactive) (find-file (concat user-emacs-directory "init.el"))) :which-key "edit-config"))
+
+  ;; Emacs Lisp
+  (local-leader
+    :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
+    "e" '(:ignore t :which-key "eval")
+    "eb" 'eval-buffer
+    "ed" 'eval-defun
+    "ee" 'eval-expression
+    "es" 'eval-last-sexp
+    "ep" 'eval-print-last-sexp
+    "er" 'eval-region))
 
 (use-package ivy
   :ensure t
   :diminish ivy-mode
   :config (ivy-mode 1))
 
-(use-package markdown-mode :ensure t :defer t)
+(use-package company
+  :ensure t
+  :diminish company-mode
+  :hook (after-init . global-company-mode))
 
-(use-package org
+(use-package magit
+  :ensure t
+  :defer 1
+  :config
+
+  (leader
+    "g"  '(:ignore t :which-key "git/vcs")
+    "gs" 'magit-status
+    "gd" 'magit-diff
+    "gb" 'magit-blame))
+
+;; TODO finish configuring this (set up mappings)
+(use-package projectile
   :ensure t
   :defer t
-  :hook (org-mode . org-indent-mode))
-  ;; TODO set org directory for org-agenda
+  :config (projectile-mode 1))
 
-(use-package restclient
-  :ensure t
-  :mode ("\\.restclient\\'" . restclient-mode))
-
-(use-package ledger-mode
-  :ensure t
-  :defer t)
-  ;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
+;;; TODO proof general
 
 (use-package rainbow-delimiters
   :ensure t
@@ -188,6 +230,78 @@
   :defer t
   :init (load-theme 'spacemacs-dark t))
 
+
+
+;;; File types
+
+(use-package markdown-mode :ensure t :defer t)
+
+(use-package org
+  :ensure t
+  :defer t
+  :hook (org-mode . org-indent-mode)
+  :config
+  ;; TODO set org directory for org-agenda
+
+  (local-leader
+    :keymaps 'org-mode-map
+    "i" '(:ignore t :which-key "insert")
+    "il" 'org-insert-link
+    "o" 'org-open-at-point
+    "a" 'org-agenda
+    "c" 'org-capture
+    "g" 'org-store-link
+    "e" 'org-export-dispatch
+    "v" 'org-eval
+    "s" 'org-edit-src-code
+    "t" 'org-todo))
+
+;; TODO write function to open this?
+(use-package restclient
+  :ensure t
+  :mode ("\\.restclient\\'" . restclient-mode)
+  :config
+
+  (local-leader
+    :keymaps 'restclient-mode-map
+    "s" '(:ignore t :which-key "send")
+    "sc" 'restclient-http-send-current
+    "sr" 'restclient-http-send-current-raw
+    "ss" 'restclient-http-send-current-stay-in-window
+    "j" 'restclient-jump-prev
+    "k" 'restclient-jump-next))
+
+(use-package ledger-mode
+  :ensure t
+  :defer t
+  :config
+
+  ;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
+  (local-leader
+    :keymaps 'ledger-mode-map
+    "c" 'ledger-mode-clean-buffer
+    "k" 'ledger-check-buffer
+    "b" '(:ignore t :which-key "balance")
+    "bb" 'ledger-display-balance
+    "bp" 'ledger-display-balance-at-point
+    "r" '(:ignore t :which-key "register")))
+
+;; (use-package js2-mode
+;;   :ensure t
+;;   :defer t
+;;   :config (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+
+;; (use-package csharp-mode
+;;   :ensure t
+;;   :defer t
+;;   :config
+
+;;   (add-to-list 'auto-mode-alist '("\\.cs$" . csharp-mode))
+
+;;   (use-package omnisharp
+;;     :ensure t
+;;     :hook (csharp-mode . omnisharp-mode)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -195,7 +309,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (spacemacs-theme rainbow-delimiters ledger-mode restclient markdown-mode ivy general which-key evil-lion evil-collection evil diminish use-package))))
+    (projectile company magit spacemacs-theme rainbow-delimiters ledger-mode restclient markdown-mode ivy general which-key evil-lion evil-collection evil diminish use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
