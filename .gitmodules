@@ -1,9 +1,6 @@
 [submodule "vim/.vim/pack/core/start/ledger"]
 	path = vim/.vim/pack/core/start/ledger
 	url = https://github.com/ledger/vim-ledger
-[submodule "vim/.vim/pack/core/start/omnisharp"]
-	path = vim/.vim/pack/core/start/omnisharp
-	url = https://github.com/OmniSharp/omnisharp-vim
 [submodule "vim/.vim/pack/core/opt/vim-cs"]
 	path = vim/.vim/pack/core/opt/vim-cs
 	url = https://github.com/nickspoons/vim-cs
@@ -13,3 +10,21 @@
 [submodule "vim/.vim/pack/core/opt/lion"]
 	path = vim/.vim/pack/core/opt/lion
 	url = https://github.com/tommcdo/vim-lion
+[submodule "vim/.vim/pack/core/opt/omnisharp"]
+	path = vim/.vim/pack/core/opt/omnisharp
+	url = https://github.com/OmniSharp/omnisharp-vim
+[submodule "vim/.vim/pack/core/opt/cool"]
+	path = vim/.vim/pack/core/opt/cool
+	url = https://github.com/romainl/vim-cool
+[submodule "vim/.vim/pack/core/opt/qf"]
+	path = vim/.vim/pack/core/opt/qf
+	url = https://github.com/romainl/vim-qf
+[submodule "vim/.vim/pack/core/start/org"]
+	path = vim/.vim/pack/core/start/org
+	url = https://github.com/axvr/org.vim
+[submodule "vim/.vim/pack/theme/start/nofrils"]
+	path = vim/.vim/pack/theme/start/nofrils
+	url = https://github.com/robertmeta/nofrils
+[submodule "vim/.vim/pack/theme/start/apprentice"]
+	path = vim/.vim/pack/theme/start/apprentice
+	url = https://github.com/romainl/apprentice
