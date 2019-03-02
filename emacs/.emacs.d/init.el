@@ -23,14 +23,17 @@
 (setq user-mail-address "av@axvr.io"
       user-full-name "Alex Vear")
 
-(setq inhibit-startup-screen t) ; TODO test this
+(setq inhibit-startup-screen t)
 
-(setq frame-title-format '((buffer-file-name "%f" "GNU Emacs")))
+(setq frame-title-format "GNU Emacs")
+;; (setq frame-title-format '((buffer-file-name "%f" "GNU Emacs")))
 
-;; TODO Indentation settings
+;; Indentation settings
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-;; Behaviour similar to `textwidth' in Vim:
+;; TODO configure indentation for each major mode
+
+;; TODO Behaviour similar to `textwidth' in Vim:
 ;; `auto-fill-mode' and `fill-column'
 
 (setq require-final-newline 'ask)
@@ -42,7 +45,7 @@
 (put 'scroll-left 'disabled nil) ; Enable horizontal scrolling using `C-PgUp' & `C-PgDn'
 
 (add-hook 'prog-mode-hook 'hl-line-mode)
-(add-hook 'prog-mode-hook 'prettify-symbols-mode)
+;; (add-hook 'prog-mode-hook 'prettify-symbols-mode) ; TODO only prettify `lambda'
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -68,7 +71,6 @@
    nil '(("\\<\\(TO[-_ ]?DO\\|FIX[-_ ]?ME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\)\\>"
           1 '((:foreground "#d78700") (:weight bold)) t))))
 (add-hook 'prog-mode-hook 'av/hl-todos-mode)
-
 
 
 ;;; Packages
@@ -98,12 +100,12 @@
   (require 'use-package))
 (require 'diminish)
 
+(setq use-package-always-ensure t)
 
 
 ;;; Evil-mode Configuration
 
 (use-package evil
-  :ensure t
   :init
   (setq evil-want-C-u-scroll t
         evil-want-C-i-jump nil ; TODO test this
@@ -130,18 +132,14 @@
   (evil-ex-define-cmd "pa[ckadd]"  'package-list-packages)
 
   (use-package evil-collection
-    :ensure t
     :init (evil-collection-init))
 
   (use-package evil-lion
-    :ensure t
     :config (evil-lion-mode))
 
   (evil-mode 1))
 
 (use-package undo-tree
-  :ensure t
-  :defer t
   :diminish undo-tree-mode
   :config
   (setq undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo")))
@@ -149,12 +147,10 @@
   (global-undo-tree-mode 1))
 
 (use-package which-key
-  :ensure t
   :diminish which-key-mode
   :config (which-key-mode 1))
 
 (use-package general
-  :ensure t
   :after which-key
   :config
   (general-evil-setup t)
@@ -193,17 +189,22 @@
     "er" 'eval-region))
 
 (use-package ivy
-  :ensure t
-  :diminish ivy-mode
-  :config (ivy-mode 1))
+  :diminish ivy-mode counsel-mode
+  :config
+  (setq ivy-use-virtual-buffers t
+        ivy-count-format "%d/%d ")
+  (ivy-mode 1)
+  (counsel-mode 1)
+
+  (leader
+    "b" '(:ignore t :which-key "buffers")
+    "bb" 'ivy-switch-buffer))
 
 (use-package company
-  :ensure t
   :diminish company-mode
   :hook (after-init . global-company-mode))
 
 (use-package magit
-  :ensure t
   :defer 1
   :config
 
@@ -213,20 +214,27 @@
     "gd" 'magit-diff
     "gb" 'magit-blame))
 
-;; TODO finish configuring this (set up mappings)
 (use-package projectile
-  :ensure t
-  :defer t
-  :config (projectile-mode 1))
+  :config
+  (setq projectile-completion-system 'ivy)
+
+  (projectile-mode 1)
+
+  (leader
+    "p" '(:ignore t :which-key "project")
+    "pf" 'projectile-find-file
+    "pt" 'projectile-dired
+    "pg" 'projectile-grep
+    "pG" 'counsel-git-grep
+    "fg" 'counsel-grep
+    "pT" 'projectile-run-term))
 
 ;;; TODO proof general
 
 (use-package rainbow-delimiters
-  :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package spacemacs-theme
-  :ensure t
   :defer t
   :init (load-theme 'spacemacs-dark t))
 
@@ -234,10 +242,9 @@
 
 ;;; File types
 
-(use-package markdown-mode :ensure t :defer t)
+(use-package markdown-mode :defer t)
 
 (use-package org
-  :ensure t
   :defer t
   :hook (org-mode . org-indent-mode)
   :config
@@ -256,9 +263,7 @@
     "s" 'org-edit-src-code
     "t" 'org-todo))
 
-;; TODO write function to open this?
 (use-package restclient
-  :ensure t
   :mode ("\\.restclient\\'" . restclient-mode)
   :config
 
@@ -272,7 +277,6 @@
     "k" 'restclient-jump-next))
 
 (use-package ledger-mode
-  :ensure t
   :defer t
   :config
 
@@ -287,20 +291,8 @@
     "r" '(:ignore t :which-key "register")))
 
 ;; (use-package js2-mode
-;;   :ensure t
 ;;   :defer t
 ;;   :config (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
-
-;; (use-package csharp-mode
-;;   :ensure t
-;;   :defer t
-;;   :config
-
-;;   (add-to-list 'auto-mode-alist '("\\.cs$" . csharp-mode))
-
-;;   (use-package omnisharp
-;;     :ensure t
-;;     :hook (csharp-mode . omnisharp-mode)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
