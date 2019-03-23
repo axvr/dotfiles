@@ -1,32 +1,66 @@
 ;;;; Emacs Configuration
 ;;;; `~/.emacs.d/init.el'
 
+;; Add custom elisp files to `load-path'
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+(let ((default-directory  "~/.emacs.d/elisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+;; UI config
 (menu-bar-mode -1)
 (if (display-graphic-p)
     (progn (tool-bar-mode -1)
            (scroll-bar-mode -1))
   (xterm-mouse-mode 1))
 
-(show-paren-mode 1)
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message "")
+(setq frame-title-format "GNU Emacs")
 
-(column-number-mode 1)
+;; Set default fonts
+(if (member "Inconsolata" (font-family-list))
+    (set-face-attribute 'default nil :family "Inconsolata" :height 135)
+  (when (memq system-type '(cygwin windows-nt ms-dos))
+    (set-face-attribute 'default nil :family "Consolas" :height 110)))
 
-;; Update buffers and `dired' when files on disk change
-(global-auto-revert-mode t)
-(add-hook 'dired-mode-hook 'auto-revert-mode)
+;; Mouse scrolling
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
+      mouse-wheel-progressive-speed nil
+      mouse-wheel-follow-mouse 't)
 
+;; Keyboard scrolling
+(setq scroll-step 1
+      scroll-conservatively 10000)
+
+;; Horizontal scrolling (`C-PgUp' & `C-PgDn')
+(put 'scroll-left 'disabled nil)
+
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq ring-bell-function 'ignore)
+
+;; Character encoding
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8-unix)
 
-(setq ring-bell-function 'ignore)
+;; Update buffers and `dired' when files change on disk
+(global-auto-revert-mode t)
+(add-hook 'dired-mode-hook 'auto-revert-mode)
+
+;; Backups and save cursor position
+(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backup")))
+      backup-by-copying t
+      delete-old-versions t
+      version-control t
+      save-place-file (concat user-emacs-directory "places")
+      undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo")))
+      undo-tree-auto-save-history t)
+(save-place-mode 1)
 
 (setq user-mail-address "av@axvr.io"
       user-full-name "Alex Vear")
 
-(setq inhibit-startup-screen t)
 
-(setq frame-title-format "GNU Emacs")
-;; (setq frame-title-format '((buffer-file-name "%f" "GNU Emacs")))
+;;; Programming
 
 ;; Indentation settings
 (setq-default indent-tabs-mode nil)
@@ -40,28 +74,11 @@
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
-(setq scroll-step 1
-      scroll-conservatively 10000)
-(put 'scroll-left 'disabled nil) ; Enable horizontal scrolling using `C-PgUp' & `C-PgDn'
-
+(show-paren-mode 1)
+(column-number-mode 1)
 (add-hook 'prog-mode-hook 'hl-line-mode)
 ;; (add-hook 'prog-mode-hook 'prettify-symbols-mode) ; TODO only prettify `lambda'
-(add-hook 'prog-mode-hook 'electric-pair-mode)
-
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; Set default fonts
-(if (memq system-type '(cygwin windows-nt ms-dos))
-    (set-face-attribute 'default nil :family "Consolas" :height 110)
-  (when (member "Inconsolata" (font-family-list))
-    (set-face-attribute 'default nil :family "Inconsolata" :height 135)))
-
-(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backup")))
-      backup-by-copying t
-      delete-old-versions t
-      version-control t
-      save-place-file (concat user-emacs-directory "places"))
-(save-place-mode 1)
+;; (add-hook 'prog-mode-hook 'electric-pair-mode)
 
 (define-minor-mode av/hl-todos-mode
   "Highlight TODOs and other common comment keywords"
@@ -108,12 +125,11 @@
 (use-package evil
   :init
   (setq evil-want-C-u-scroll t
-        evil-want-C-i-jump nil ; TODO test this
         evil-want-keybinding nil)
   :config
 
   (evil-define-operator av/evil-commentary (beg end)
-    "Emacs implementation of `vim-commentary'"
+    "Emacs implementation of `tpope/vim-commentary'"
     :move-point nil
     (interactive "<r>")
     (comment-or-uncomment-region beg end))
@@ -137,21 +153,24 @@
   (use-package evil-lion
     :config (evil-lion-mode))
 
-  (evil-mode 1))
+  (use-package evil-org
+    :diminish evil-org-mode
+    :after org
+    :hook
+    (org-mode . evil-org-mode)
+    (evil-org-mode . (lambda () (evil-org-set-key-theme)))
+    :config
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
 
-(use-package undo-tree
-  :diminish undo-tree-mode
-  :config
-  (setq undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "undo")))
-        undo-tree-auto-save-history t)
-  (global-undo-tree-mode 1))
+  (evil-mode 1))
 
 (use-package which-key
   :diminish which-key-mode
   :config (which-key-mode 1))
 
 (use-package general
-  :after which-key
+  :after which-key evil
   :config
   (general-evil-setup t)
 
@@ -204,16 +223,6 @@
   :diminish company-mode
   :hook (after-init . global-company-mode))
 
-(use-package magit
-  :defer 1
-  :config
-
-  (leader
-    "g"  '(:ignore t :which-key "git/vcs")
-    "gs" 'magit-status
-    "gd" 'magit-diff
-    "gb" 'magit-blame))
-
 (use-package projectile
   :config
   (setq projectile-completion-system 'ivy)
@@ -238,8 +247,6 @@
   :defer t
   :init (load-theme 'spacemacs-dark t))
 
-
-
 ;;; File types
 
 (use-package markdown-mode :defer t)
@@ -248,6 +255,8 @@
   :defer t
   :hook (org-mode . org-indent-mode)
   :config
+  (require 'org-man)
+
   ;; TODO set org directory for org-agenda
 
   (local-leader
@@ -290,10 +299,6 @@
     "bp" 'ledger-display-balance-at-point
     "r" '(:ignore t :which-key "register")))
 
-;; (use-package js2-mode
-;;   :defer t
-;;   :config (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -301,7 +306,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (projectile company magit spacemacs-theme rainbow-delimiters ledger-mode restclient markdown-mode ivy general which-key evil-lion evil-collection evil diminish use-package))))
+    (which-key use-package spacemacs-theme restclient rainbow-delimiters projectile markdown-mode ledger-mode ivy general evil-org evil-lion evil-collection diminish company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
