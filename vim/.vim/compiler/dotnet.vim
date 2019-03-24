@@ -19,6 +19,10 @@ if has('unix')
     let s:make = s:make . "\ \\\|\ sed\ 's/\\s*\\[.*\\?\\]\\s*$//'"
 endif
 
+" TODO trim the current working directory from the start of the paths
+" - Allows for longer error messages without having to scroll horzontally
+" - Fixes interaction with git (using % and # in ex commands)
+
 let &l:makeprg = s:make
 
 setlocal errorformat=%f(%l\\\,%v):\ %t%*[^:]:%m

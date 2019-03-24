@@ -72,35 +72,35 @@ packadd cool
 packadd qf
 
 " Set colour scheme
-" - Envy
-" - Apprentice
-" - Nofrils-dark
 if &term =~# '^.*256color$'
-    " set termguicolors
-    set cursorline
     let &colorcolumn='+'.join(range(1,256),',+')
     colorscheme apprentice
-
-    " let g:nofrils_strbackgrounds = 1
-    " colorscheme nofrils-dark
-else
-    colorscheme envy
-    nmap <leader>h <Plug>HighlightGroup
-    set colorcolumn=+1
+    " colorscheme photon
 endif
 
+augroup style
+    autocmd!
+    autocmd BufEnter,WinEnter * set cursorline
+    autocmd BufLeave,WinLeave * set nocursorline
+augroup END
+
 " Fix colours when using Vim with Tmux or GNU Screen (:h xterm-true-color)
-" if &term =~# '^\(screen\|tmux\)' && &termguicolors
-"     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-" endif
+if &term =~# '^\(screen\|tmux\)' && &termguicolors
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 
 com! -nargs=+ GitGrep setl gp=git\ grep\ -n|gr <args>|setl gp&
 com! -nargs=* -complete=file -bar TODOs setl gp=todos|gr <args>|setl gp&
 com! -nargs=0 -bar Helptags for p in glob('~/.vim/pack/*/*/*/doc',1,1)|exe 'helpt '.p|endfo
 com! -nargs=0 -bar Scratch enew|setl bh=hide bt=nofile noswf
 
-" TODO set up for JavaScript and TypeScript development (and qf list)
+" Fix screen refresh issue in Vim 8.0 and below when using the vim-qf plugin
+if v:version <= 800
+    autocmd! QuickFixCmdPost * :redraw!
+endif
+
+" TODO set up qf list for JavaScript and TypeScript development
 
 augroup filetypes
     autocmd!

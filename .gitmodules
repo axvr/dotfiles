@@ -22,9 +22,6 @@
 [submodule "vim/.vim/pack/core/start/org"]
 	path = vim/.vim/pack/core/start/org
 	url = https://github.com/axvr/org.vim
-[submodule "vim/.vim/pack/theme/start/nofrils"]
-	path = vim/.vim/pack/theme/start/nofrils
-	url = https://github.com/robertmeta/nofrils
-[submodule "vim/.vim/pack/theme/start/apprentice"]
-	path = vim/.vim/pack/theme/start/apprentice
-	url = https://github.com/romainl/apprentice
+[submodule "vim/.vim/pack/core/start/apprentice"]
+	path = vim/.vim/pack/core/start/apprentice
+	url = https://github.com/romainl/Apprentice
