@@ -3,6 +3,8 @@
 " File:         ~/.vim/ftplugin/cs.vim
 " =============================================================
 
+packadd omnisharp
+
 setlocal commentstring=//%s
 setlocal completeopt& completeopt-=preview
 

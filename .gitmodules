@@ -25,3 +25,6 @@
 [submodule "vim/.vim/pack/core/start/apprentice"]
 	path = vim/.vim/pack/core/start/apprentice
 	url = https://github.com/romainl/Apprentice
+[submodule "vim/.vim/pack/core/start/photon"]
+	path = vim/.vim/pack/core/start/photon
+	url = https://github.com/axvr/photon.vim

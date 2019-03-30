@@ -7,8 +7,6 @@ if v:version <= 800
     packadd vim-cs
 endif
 
-packadd omnisharp
-
 let g:OmniSharp_timeout = 5
 let g:OmniSharp_highlight_types = 1
 
