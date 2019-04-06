@@ -95,7 +95,7 @@ endif
 
 augroup filetypes
     autocmd!
-    autocmd FileType c,make,go,gitconfig setlocal noet sts=8 sw=8 ts=8
+    autocmd FileType c,cpp,make,go,gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
     autocmd FileType lisp,json,ruby,html,css setlocal et sts=2 sw=2 ts=8
     autocmd FileType perl,sh,python,haskell,javascript setlocal tw=79
     autocmd FileType gitcommit setlocal spell
@@ -108,6 +108,7 @@ augroup filetypes
                 \%f:%l:%c:\ %m
     autocmd FileType markdown setlocal commentstring=<!--%s-->
     autocmd FileType lisp setlocal commentstring=;;%s
+    autocmd FileType fstab setlocal commentstring=#%s
     autocmd BufRead,BufNewFile *.ts setlocal filetype=javascript
     autocmd BufRead,BufNewFile *.vue setfiletype html
 augroup END

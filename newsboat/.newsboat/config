@@ -9,5 +9,5 @@ bind-key ^B pageup
 bind-key ^F pagedown
 
 # Podboat config
-download-path   "~/Downloads/%h/%n"
-player          "totem"
+download-path "~/Downloads/%h/%n"
+player "totem"

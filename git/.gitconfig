@@ -5,7 +5,7 @@
 	editor = vim
 	excludesfile = ~/.gitignore_global
 [alias]
-	logtree = log --graph --oneline --all
+	logtree = log --all --decorate --oneline --graph
 	markers = !git ls-files -u | awk '{print $4}' | uniq | xargs grep -Hn '^<<<<<<<'
 [merge]
 	tool = vimdiff

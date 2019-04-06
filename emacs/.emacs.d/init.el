@@ -24,7 +24,7 @@
     (set-face-attribute 'default nil :family "Consolas" :height 110)))
 
 ;; Mouse scrolling
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
+(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))
       mouse-wheel-progressive-speed nil
       mouse-wheel-follow-mouse 't)
 
