@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Return current X current keyboard layout
+# Return current X keyboard layout
 
 # NOTE: This script has a couple of limitations.
 # - You can only have 2 keyboard layouts configured in your '.xinitrc' file.

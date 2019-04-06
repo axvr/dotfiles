@@ -1,5 +1,5 @@
 --- config.def.h	2019-02-17 14:46:25.200546884 +0000
-+++ config.h	2019-04-06 16:34:39.657229767 +0100
++++ config.h	2019-04-06 20:27:10.033308857 +0100
 @@ -5,7 +5,7 @@
   *
   * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
@@ -34,14 +34,14 @@
 -	"magenta3",
 -	"cyan3",
 -	"gray90",
-+	"#171717",  // black
-+	"#af5f87",  // red
-+	"#789c79",  // green
-+	"#af8700",  // yellow
-+	"#5f87ff",  // blue
-+	"#af87d7",  // magenta
-+	"#0fdcb6",  // cyan
-+	"#c6c6c6",  // white
++	"#262626",  // black
++	"#a54242",  // red
++	"#8c9440",  // green
++	"#de935f",  // yellow
++	"#5f819d",  // blue
++	"#85678f",  // magenta
++	"#5e8d87",  // cyan
++	"#767676",  // white
  
  	/* 8 bright colors */
 -	"gray50",
@@ -52,14 +52,23 @@
 -	"magenta",
 -	"cyan",
 -	"white",
-+	"#38252c",  // black
++	"#626262",  // black
 +	"#d75f5f",  // red
-+	"#87af87",  // green
-+	"#e1a126",  // yellow
-+	"#289cd5",  // blue
-+	"#ff2491",  // magenta
-+	"#0a9b81",  // cyan
-+	"#767676",  // white
++	"#b5bd68",  // green
++	"#f0c674",  // yellow
++	"#81a2be",  // blue
++	"#b294bb",  // magenta
++	"#8abeb7",  // cyan
++	"#c6c6c6",  // white
  
  	[255] = 0,
  
+@@ -116,7 +116,7 @@ static const char *colorname[] = {
+  * Default colors (colorname index)
+  * foreground, background, cursor, reverse cursor
+  */
+-unsigned int defaultfg = 7;
++unsigned int defaultfg = 15;
+ unsigned int defaultbg = 0;
+ static unsigned int defaultcs = 256;
+ static unsigned int defaultrcs = 257;

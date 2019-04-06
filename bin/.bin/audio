@@ -11,13 +11,15 @@ running() {
 }
 
 volume() {
-    if [ "$(command -v amixer)" ]; then
+    if [ "$(command -v amixer)" ]
+    then
         vol_cmd="amixer -q sset 'Master'"
+        vol_unmute="amixer -q sset 'Master' unmute"
         case "$1" in
-            up)     ${vol_cmd} "${2}%+";;
-            down)   ${vol_cmd} "${2}%-";;
+            up)     ${vol_unmute}; ${vol_cmd} "${2}%+";;
+            down)   ${vol_unmute}; ${vol_cmd} "${2}%-";;
             mute)   ${vol_cmd} "toggle";;
-            set)    ${vol_cmd} "${2}%";;
+            set)    ${vol_unmute}; ${vol_cmd} "${2}%";;
             get)
                 info=$(amixer sget 'Master' | grep "\[on\]" | \
                     sed -e '2,$d' -e 's/^.*\[\([0-9]\{1,3\}\)%\].*$/\1/')
@@ -31,14 +33,16 @@ volume() {
 }
 
 music() {
-    if [ "$(command -v cmus-remote)" ] && [ "$(running 'cmus')" ]; then
+    if [ "$(command -v cmus-remote)" ] && [ "$(running 'cmus')" ]
+    then
         case "$1" in
             play)    cmus-remote -u;;
             forward) cmus-remote -n;;
             back)    cmus-remote -r;;
             info)    ;;
         esac
-    elif [ "$(command -v mpd)" ]; then
+    elif [ "$(command -v mpd)" ]
+    then
         [ ! "$(running 'mpd')" ] && mpd
         # TODO add mpd controls
         case "$1" in
