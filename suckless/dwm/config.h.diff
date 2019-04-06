@@ -1,20 +1,21 @@
---- config.def.h	2018-05-30 20:47:12.052807247 +0100
-+++ config.h	2018-06-06 20:03:13.567444577 +0100
-@@ -5,8 +5,8 @@
+--- config.def.h	2019-04-05 20:18:43.069553751 +0100
++++ config.h	2019-04-06 16:29:46.827356260 +0100
+@@ -5,8 +5,8 @@ static const unsigned int borderpx  = 1;
  static const unsigned int snap      = 32;       /* snap pixel */
  static const int showbar            = 1;        /* 0 means no bar */
  static const int topbar             = 1;        /* 0 means bottom bar */
 -static const char *fonts[]          = { "monospace:size=10" };
 -static const char dmenufont[]       = "monospace:size=10";
-+static const char *fonts[]          = { "Tamsyn:size=12" };
-+static const char dmenufont[]       = "Tamsyn:size=12";
++static const char *fonts[]          = { "Inconsolata:size=14" };
++static const char dmenufont[]       = "Inconsolata:size=14";
  static const char col_gray1[]       = "#222222";
  static const char col_gray2[]       = "#444444";
  static const char col_gray3[]       = "#bbbbbb";
-@@ -44,6 +44,14 @@
+@@ -44,7 +44,15 @@ static const Layout layouts[] = {
  };
  
  /* key definitions */
+-#define MODKEY Mod1Mask
 +#define XF86MonBrightnessDown           0x1008ff03
 +#define XF86MonBrightnessUp             0x1008ff02
 +#define XF86AudioMute                   0x1008ff12
@@ -23,17 +24,18 @@
 +#define XF86AudioPlay                   0x1008ff14
 +#define XF86AudioNext                   0x1008ff17
 +#define XF86AudioPrev                   0x1008ff16
- #define MODKEY Mod1Mask
++#define MODKEY Mod4Mask
  #define TAGKEYS(KEY,TAG) \
  	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-@@ -57,7 +65,15 @@
+ 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+@@ -57,7 +65,15 @@ static const Layout layouts[] = {
  /* commands */
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
  static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 -static const char *termcmd[]  = { "st", NULL };
 +static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
-+static const char *cmdbrightnessup[]   = { "sudo", "/home/axvr/bin/bright", "-u", "5", NULL };
-+static const char *cmdbrightnessdown[] = { "sudo", "/home/axvr/bin/bright", "-d", "5", NULL };
++static const char *cmdbrightnessup[]   = { "sudo", "/home/axvr/bin/bright", "-u", "5", NULL }; // FIXME
++static const char *cmdbrightnessdown[] = { "sudo", "/home/axvr/bin/bright", "-d", "5", NULL }; // FIXME
 +static const char *cmdsoundup[]     = { "audio", "-u", "5", NULL };
 +static const char *cmdsounddown[]   = { "audio", "-d", "5", NULL };
 +static const char *cmdsoundtoggle[] = { "audio", "-m",      NULL };
@@ -43,7 +45,7 @@
  
  static Key keys[] = {
  	/* modifier                     key        function        argument */
-@@ -94,6 +110,14 @@
+@@ -94,6 +110,14 @@ static Key keys[] = {
  	TAGKEYS(                        XK_8,                      7)
  	TAGKEYS(                        XK_9,                      8)
  	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
@@ -52,9 +54,9 @@
 +	{ 0,                            XF86AudioMute,             spawn,         {.v = cmdsoundtoggle } },
 +	{ 0,                            XF86AudioRaiseVolume,      spawn,         {.v = cmdsoundup } },
 +	{ 0,                            XF86AudioLowerVolume,      spawn,         {.v = cmdsounddown } },
-+        { 0,                            XF86AudioPlay,             spawn,         {.v = cmdaudioplay } },
-+        { 0,                            XF86AudioNext,             spawn,         {.v = cmdaudionext } },
-+        { 0,                            XF86AudioPrev,             spawn,         {.v = cmdaudioprev } },
++	{ 0,                            XF86AudioPlay,             spawn,         {.v = cmdaudioplay } },
++	{ 0,                            XF86AudioNext,             spawn,         {.v = cmdaudionext } },
++	{ 0,                            XF86AudioPrev,             spawn,         {.v = cmdaudioprev } },
  };
  
  /* button definitions */

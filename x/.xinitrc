@@ -1,18 +1,21 @@
 #!/bin/sh
 
 # Configure an X session
-
+# ----------------------
 
 # Set up touchpad
-# TODO configure horizontal scrolling
 for i in $(xinput list | grep -i "\(touch\|track\) \?pad" | sed 's/^.*id=\([0-9]\+\).*$/\1/')
 do
     tapping=$(xinput list-props "$i" | grep -i "tapping enabled" \
         | grep -vi "default" | sed 's/^.*(\([0-9]\+\)).*$/\1/')
     natural=$(xinput list-props "$i" | grep -i "natural scrolling enabled" \
         | grep -vi "default" | sed 's/^.*(\([0-9]\+\)).*$/\1/')
+    horizontal=$(xinput list-props "$i" | grep -i "horizontal scroll enabled" \
+        | grep -vi "default" | sed 's/^.*(\([0-9]\+\)).*$/\1/')
+
     xinput set-prop "$i" "$tapping" 1
     xinput set-prop "$i" "$natural" 1
+    xinput set-prop "$i" "$horizontal" 1
 done
 
 # All options for 'setxkbmap' are here: '/usr/share/X11/xkb/rules/base.lst'
@@ -29,10 +32,10 @@ case "$DESKTOP" in
         battery() {
             state="$(power -s)"
             case "$state" in
-                Charging)       state="+";;
-                Discharging)    state="-";;
-                Full)           state="" ;;
-                *)              state="?";;
+                Charging)       state="+" ;;
+                Discharging)    state="-" ;;
+                Full)           state=""  ;;
+                *)              state="?" ;;
             esac
             printf "BAT %s%s%%" "$state" "$(power -c)"
         }
@@ -41,7 +44,8 @@ case "$DESKTOP" in
         do
             volume="VOL $(audio -v)%"
             datetime="$(date +%Y-%m-%d\ %H:%M)"
-            xsetroot -name " [$volume] [$(battery)] [$datetime] "
+            keymap="KB $(xkb-layout)"
+            xsetroot -name " $keymap | $volume | $(battery) | $datetime "
             sleep 1s
         done &
 

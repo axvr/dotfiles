@@ -1,15 +1,15 @@
---- config.def.h	2018-05-29 23:03:59.912247435 +0100
-+++ config.h	2018-06-03 10:50:02.905391948 +0100
+--- config.def.h	2019-02-17 14:46:25.200546884 +0000
++++ config.h	2019-04-06 16:34:39.657229767 +0100
 @@ -5,7 +5,7 @@
   *
   * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
   */
 -static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
-+static char *font = "Tamsyn:pixelsize=16";
++static char *font = "Inconsolata:pixelsize=18:antialias=true";
  static int borderpx = 2;
  
  /*
-@@ -49,7 +49,7 @@
+@@ -49,7 +49,7 @@ static unsigned int actionfps = 30;
   * blinking timeout (set to 0 to disable blinking) for the terminal blinking
   * attribute.
   */
@@ -18,3 +18,48 @@
  
  /*
   * thickness of underline and bar cursors
+@@ -82,27 +82,27 @@ char *termname = "st-256color";
+  */
+ unsigned int tabspaces = 8;
+ 
+-/* Terminal colors (16 first used in escape sequence) */
++/* FIXME Terminal colors (16 first used in escape sequence) */
+ static const char *colorname[] = {
+ 	/* 8 normal colors */
+-	"black",
+-	"red3",
+-	"green3",
+-	"yellow3",
+-	"blue2",
+-	"magenta3",
+-	"cyan3",
+-	"gray90",
++	"#171717",  // black
++	"#af5f87",  // red
++	"#789c79",  // green
++	"#af8700",  // yellow
++	"#5f87ff",  // blue
++	"#af87d7",  // magenta
++	"#0fdcb6",  // cyan
++	"#c6c6c6",  // white
+ 
+ 	/* 8 bright colors */
+-	"gray50",
+-	"red",
+-	"green",
+-	"yellow",
+-	"#5c5cff",
+-	"magenta",
+-	"cyan",
+-	"white",
++	"#38252c",  // black
++	"#d75f5f",  // red
++	"#87af87",  // green
++	"#e1a126",  // yellow
++	"#289cd5",  // blue
++	"#ff2491",  // magenta
++	"#0a9b81",  // cyan
++	"#767676",  // white
+ 
+ 	[255] = 0,
+ 
