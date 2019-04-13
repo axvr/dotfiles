@@ -3,7 +3,6 @@
 	email = av@axvr.io
 [core]
 	editor = vim
-	excludesfile = ~/.gitignore_global
 [alias]
 	logtree = log --all --decorate --oneline --graph
 	markers = !git ls-files -u | awk '{print $4}' | uniq | xargs grep -Hn '^<<<<<<<'
