@@ -70,6 +70,7 @@ packadd commentary
 packadd lion
 packadd cool
 packadd qf
+let g:c_syntax_for_h = 1
 
 " Theming
 let &colorcolumn='+'.join(range(1,256),',+')
