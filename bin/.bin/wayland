@@ -2,7 +2,6 @@
 
 # Start and configure a Wayland session
 
-
 export XDG_SESSION_TYPE=wayland
 
 export XKB_DEFAULT_LAYOUT=gb,us
@@ -16,10 +15,9 @@ if [ -z "${XDG_RUNTIME_DIR}" ]; then
     fi
 fi
 
-
 [ -z "$DESKTOP" ] && DESKTOP="sway"
 case "$DESKTOP" in
-    plasma) export $(dbus-launch) && startplasmacompositor;; # FIXME
-    gnome)  exec dbus-run-session gnome-session;;            # FIXME
-    sway)   exec sway;;                                      # FIXME
+    plasma) export $(dbus-launch) && startplasmacompositor ;;
+    gnome)  exec dbus-run-session gnome-session ;;
+    sway)   exec sway ;;
 esac

@@ -10,8 +10,8 @@ export PATH
 # Start window manager on login in TTY1
 if [ -z "$DISPLAY" ] && [[ "$(tty)" = /dev/tty1 ]]; then
     if [ $(command -v startx) ]; then
-        exec startx
-        # exec wayland
-        vlock
+        exec startx && vlock
+    elif [ $(command -v wayland) ]; then
+        exec wayland && vlock
     fi
 fi
