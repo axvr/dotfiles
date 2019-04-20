@@ -1,6 +1,12 @@
 --- config.def.h	2019-02-17 14:46:25.200546884 +0000
-+++ config.h	2019-04-06 20:27:10.033308857 +0100
-@@ -5,7 +5,7 @@
++++ config.h	2019-04-20 20:56:16.863894588 +0100
+@@ -1,11 +1,13 @@
+ /* See LICENSE file for copyright and license details. */
+ 
++// TODO: configure better/sane zoom keys
++
+ /*
+  * appearance
   *
   * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
   */
@@ -9,7 +15,7 @@
  static int borderpx = 2;
  
  /*
-@@ -49,7 +49,7 @@ static unsigned int actionfps = 30;
+@@ -49,7 +51,7 @@ static unsigned int actionfps = 30;
   * blinking timeout (set to 0 to disable blinking) for the terminal blinking
   * attribute.
   */
@@ -18,13 +24,11 @@
  
  /*
   * thickness of underline and bar cursors
-@@ -82,27 +82,27 @@ char *termname = "st-256color";
-  */
- unsigned int tabspaces = 8;
+@@ -84,25 +86,37 @@ unsigned int tabspaces = 8;
  
--/* Terminal colors (16 first used in escape sequence) */
-+/* FIXME Terminal colors (16 first used in escape sequence) */
+ /* Terminal colors (16 first used in escape sequence) */
  static const char *colorname[] = {
++
  	/* 8 normal colors */
 -	"black",
 -	"red3",
@@ -35,13 +39,24 @@
 -	"cyan3",
 -	"gray90",
 +	"#262626",  // black
-+	"#a54242",  // red
-+	"#8c9440",  // green
-+	"#de935f",  // yellow
-+	"#5f819d",  // blue
-+	"#85678f",  // magenta
-+	"#5e8d87",  // cyan
-+	"#767676",  // white
++	"#cf3f61",  // red
++	"#7bb75b",  // green
++	"#e9b32a",  // yellow
++	"#3465a4",  // blue
++	"#a57fc4",  // magenta
++	"#389aad",  // cyan
++	"#fafaf6",  // white
++
++	/* /1* Tango *1/ */
++	/* /1* 8 normal colors *1/ */
++	/* "#262626",  // black */
++	/* "#cc0000",  // red */
++	/* "#4e9a06",  // green */
++	/* "#c4a000",  // yellow */
++	/* "#3465a4",  // blue */
++	/* "#75507b",  // magenta */
++	/* "#06989a",  // cyan */
++	/* "#d3d7cf",  // white */
  
  	/* 8 bright colors */
 -	"gray50",
@@ -52,18 +67,18 @@
 -	"magenta",
 -	"cyan",
 -	"white",
-+	"#626262",  // black
-+	"#d75f5f",  // red
-+	"#b5bd68",  // green
-+	"#f0c674",  // yellow
-+	"#81a2be",  // blue
-+	"#b294bb",  // magenta
-+	"#8abeb7",  // cyan
-+	"#c6c6c6",  // white
++	"#555753",  // black
++	"#ef2929",  // red
++	"#8ae234",  // green
++	"#fce94f",  // yellow
++	"#729fcf",  // blue
++	"#ad7fa8",  // magenta
++	"#34e2e2",  // cyan
++	"#eeeeee",  // white
  
  	[255] = 0,
  
-@@ -116,7 +116,7 @@ static const char *colorname[] = {
+@@ -116,7 +130,7 @@ static const char *colorname[] = {
   * Default colors (colorname index)
   * foreground, background, cursor, reverse cursor
   */
