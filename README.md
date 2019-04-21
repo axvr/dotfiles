@@ -48,5 +48,5 @@ rm -rf .git/modules/!$
 
 ---
 
-These config files are all dedicated to the Public Domain, without any
-conditions whatsoever (unless stated otherwise).
+These configuration files are all dedicated to the Public Domain, without any
+conditions whatsoever (unless otherwise stated).
