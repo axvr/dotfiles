@@ -55,7 +55,6 @@ case "$DESKTOP" in
         exec dwm
         ;;
     i3)     ;;
-    bspwm)  ;;
     plasma) exec startkde ;;
     gnome)  exec gnome-session ;;
 esac
