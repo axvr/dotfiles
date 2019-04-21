@@ -14,22 +14,8 @@ export HISTFILESIZE=20000
 export HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 
-# Set locale and language
-export LANG=en_GB.UTF-8
-# export LANG=en_US.UTF-8
-# export LC_ALL=POSIX
-
 # Bash improvements
 shopt -s globstar checkwinsize
-
-# Set default editor
-export VISUAL=vim
-export EDITOR=vim
-
-# .NET Core settings
-export ASPNETCORE_ENVIRONMENT=Development
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
 
 # == Bash Prompts ==
 
