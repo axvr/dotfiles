@@ -120,92 +120,10 @@
 (setq use-package-always-ensure t)
 
 
-;;; Evil-mode Configuration
-
-(use-package evil
-  :init
-  (setq evil-want-C-u-scroll t
-        evil-want-keybinding nil)
-  :config
-
-  (evil-define-operator av/evil-commentary (beg end)
-    "Emacs implementation of `tpope/vim-commentary'"
-    :move-point nil
-    (interactive "<r>")
-    (comment-or-uncomment-region beg end))
-
-  (evil-define-key 'normal 'global "gc" 'av/evil-commentary)
-
-  (evil-define-command av/evil-retab (start end)
-    "Emacs implementation of the `:retab' ex command in Vim"
-    (interactive "<r>")
-    (if indent-tabs-mode
-        (tabify start end)
-      (untabify start end)))
-
-  (evil-ex-define-cmd "ret[ab]"    'av/evil-retab)
-  (evil-ex-define-cmd "ter[minal]" 'ansi-term)
-  (evil-ex-define-cmd "pa[ckadd]"  'package-list-packages)
-
-  (use-package evil-collection
-    :init (evil-collection-init))
-
-  (use-package evil-lion
-    :config (evil-lion-mode))
-
-  (use-package evil-org
-    :diminish evil-org-mode
-    :after org
-    :hook
-    (org-mode . evil-org-mode)
-    (evil-org-mode . (lambda () (evil-org-set-key-theme)))
-    :config
-    (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys))
-
-  (evil-mode 1))
-
 (use-package which-key
   :diminish which-key-mode
   :config (which-key-mode 1))
 
-(use-package general
-  :after which-key evil
-  :config
-  (general-evil-setup t)
-
-  (general-create-definer leader
-    :prefix "SPC"
-    :states '(normal visual))
-
-  (general-create-definer local-leader
-    :prefix "SPC m"
-    :states '(normal visual))
-
-  (leader "m" '(:ignore t :which-key "major-mode"))
-
-  (general-define-key
-    :prefix "SPC SPC"
-    :states '(normal visual)
-    "" 'execute-extended-command)
-
-  ;; File
-  (leader
-    "f" '(:ignore t :which-key "file")
-    "ff" 'find-file
-    "ft" 'dired
-    "fc" '((lambda () (interactive) (find-file (concat user-emacs-directory "init.el"))) :which-key "edit-config"))
-
-  ;; Emacs Lisp
-  (local-leader
-    :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
-    "e" '(:ignore t :which-key "eval")
-    "eb" 'eval-buffer
-    "ed" 'eval-defun
-    "ee" 'eval-expression
-    "es" 'eval-last-sexp
-    "ep" 'eval-print-last-sexp
-    "er" 'eval-region))
 
 (use-package ivy
   :diminish ivy-mode counsel-mode
@@ -213,11 +131,7 @@
   (setq ivy-use-virtual-buffers t
         ivy-count-format "%d/%d ")
   (ivy-mode 1)
-  (counsel-mode 1)
-
-  (leader
-    "b" '(:ignore t :which-key "buffers")
-    "bb" 'ivy-switch-buffer))
+  (counsel-mode 1))
 
 (use-package company
   :diminish company-mode
@@ -227,25 +141,12 @@
   :config
   (setq projectile-completion-system 'ivy)
 
-  (projectile-mode 1)
-
-  (leader
-    "p" '(:ignore t :which-key "project")
-    "pf" 'projectile-find-file
-    "pt" 'projectile-dired
-    "pg" 'projectile-grep
-    "pG" 'counsel-git-grep
-    "fg" 'counsel-grep
-    "pT" 'projectile-run-term))
+  (projectile-mode 1))
 
 ;;; TODO proof general
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
-
-(use-package spacemacs-theme
-  :defer t
-  :init (load-theme 'spacemacs-dark t))
 
 ;;; File types
 
@@ -255,49 +156,17 @@
   :defer t
   :hook (org-mode . org-indent-mode)
   :config
-  (require 'org-man)
+  (require 'org-man))
 
   ;; TODO set org directory for org-agenda
 
-  (local-leader
-    :keymaps 'org-mode-map
-    "i" '(:ignore t :which-key "insert")
-    "il" 'org-insert-link
-    "o" 'org-open-at-point
-    "a" 'org-agenda
-    "c" 'org-capture
-    "g" 'org-store-link
-    "e" 'org-export-dispatch
-    "v" 'org-eval
-    "s" 'org-edit-src-code
-    "t" 'org-todo))
-
 (use-package restclient
-  :mode ("\\.restclient\\'" . restclient-mode)
-  :config
+  :mode ("\\.restclient\\'" . restclient-mode))
 
-  (local-leader
-    :keymaps 'restclient-mode-map
-    "s" '(:ignore t :which-key "send")
-    "sc" 'restclient-http-send-current
-    "sr" 'restclient-http-send-current-raw
-    "ss" 'restclient-http-send-current-stay-in-window
-    "j" 'restclient-jump-prev
-    "k" 'restclient-jump-next))
+(use-package ledger-mode :defer t)
+;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
 
-(use-package ledger-mode
-  :defer t
-  :config
-
-  ;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
-  (local-leader
-    :keymaps 'ledger-mode-map
-    "c" 'ledger-mode-clean-buffer
-    "k" 'ledger-check-buffer
-    "b" '(:ignore t :which-key "balance")
-    "bb" 'ledger-display-balance
-    "bp" 'ledger-display-balance-at-point
-    "r" '(:ignore t :which-key "register")))
+(load-theme 'tsdh-light t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -306,7 +175,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (which-key use-package spacemacs-theme restclient rainbow-delimiters projectile markdown-mode ledger-mode ivy general evil-org evil-lion evil-collection diminish company))))
+    (which-key use-package restclient rainbow-delimiters projectile markdown-mode ledger-mode ivy general diminish company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
