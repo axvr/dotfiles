@@ -15,7 +15,7 @@ set $right l
 set $term st -e tmux
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu dmenu_path | dmenu -fn "Inconsolata:size=12" | xargs swaymsg exec
+set $menu dmenu_path | dmenu -p "Run:" -fn "Inconsolata:size=12" | xargs swaymsg exec
 
 # Interface font
 font pango:Inconsolata, DejaVu Sans Mono 12
