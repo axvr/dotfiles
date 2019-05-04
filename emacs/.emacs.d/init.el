@@ -35,7 +35,6 @@
 ;; Horizontal scrolling (`C-PgUp' & `C-PgDn')
 (put 'scroll-left 'disabled nil)
 
-(fset 'yes-or-no-p 'y-or-n-p)
 (setq ring-bell-function 'ignore)
 
 ;; Character encoding
@@ -77,8 +76,6 @@
 (show-paren-mode 1)
 (column-number-mode 1)
 (add-hook 'prog-mode-hook 'hl-line-mode)
-;; (add-hook 'prog-mode-hook 'prettify-symbols-mode) ; TODO only prettify `lambda'
-;; (add-hook 'prog-mode-hook 'electric-pair-mode)
 
 (define-minor-mode av/hl-todos-mode
   "Highlight TODOs and other common comment keywords"
@@ -117,55 +114,32 @@
   (require 'use-package))
 (require 'diminish)
 
-(setq use-package-always-ensure t)
-
-
 (use-package which-key
+  :ensure t
   :diminish which-key-mode
   :config (which-key-mode 1))
 
 
-(use-package ivy
-  :diminish ivy-mode counsel-mode
-  :config
-  (setq ivy-use-virtual-buffers t
-        ivy-count-format "%d/%d ")
-  (ivy-mode 1)
-  (counsel-mode 1))
-
-(use-package company
-  :diminish company-mode
-  :hook (after-init . global-company-mode))
-
-(use-package projectile
-  :config
-  (setq projectile-completion-system 'ivy)
-
-  (projectile-mode 1))
-
-;;; TODO proof general
-
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
-
 ;;; File types
 
-(use-package markdown-mode :defer t)
+(use-package markdown-mode :ensure t :defer t)
 
 (use-package org
+  :ensure t
   :defer t
   :hook (org-mode . org-indent-mode)
   :config
+  ;; TODO set org directory for org-agenda
   (require 'org-man))
 
-  ;; TODO set org directory for org-agenda
-
 (use-package restclient
+  :ensure t
   :mode ("\\.restclient\\'" . restclient-mode))
 
-(use-package ledger-mode :defer t)
+(use-package ledger-mode :ensure t :defer t)
 ;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
 
+;; TODO: find better colour scheme (or port photon)
 (load-theme 'tsdh-light t)
 
 (custom-set-variables
@@ -175,7 +149,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (which-key use-package restclient rainbow-delimiters projectile markdown-mode ledger-mode ivy general diminish company))))
+    (use-package org which-key restclient markdown-mode ledger-mode diminish))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
