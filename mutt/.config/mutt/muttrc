@@ -1,0 +1,12 @@
+set from = "av@axvr.io"
+set realname = "Alex Vear"
+
+set folder = "imaps://av@axvr.io@imap.axvr.io:993"
+set smtp_url = "smtp://av@axvr.io@smtp.axvr.io:587"
+
+set spoolfile = "+INBOX"
+set record = "+Sent"
+set trash = "+Trash"
+set postponed = "+Drafts"
+
+mailboxes =INBOX =Sent =Trash =Drafts =Junk =Archive =Feeds
