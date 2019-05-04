@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Termux specific Bash config
+
+PS1="[\W]\$ "

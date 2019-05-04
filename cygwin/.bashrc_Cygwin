@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Cygwin specific Bash config
+
+alias dotnet="winpty dotnet"
+alias node="winpty node"
+alias npm="winpty npm.cmd"
+alias ng="winpty ng.cmd"
+alias choco="winpty choco"

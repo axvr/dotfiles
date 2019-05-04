@@ -13,48 +13,6 @@ y_n() {
     esac
 }
 
-# Set up mintty
-if [ "$(y_n "Configure MinTTY?")" ]; then
-    cat << EOF > .minttyrc
-BoldAsFont=-1
-CursorType=block
-Font=Consolas # Inconsolata
-FontHeight=14
-FontSmoothing=full
-Locale=en_GB
-Charset=UTF-8
-Scrollbar=none
-Term=xterm-256color
-BellType=0
-AllowBlinking=no
-CursorBlinks=no
-Transparency=off
-CtrlShiftShortcuts=no
-ComposeKey=off
-BoldAsColour=yes
-
-#ThemeFile=flat-ui
-BackgroundColour=38,38,38
-ForegroundColour=238,238,238
-CursorColour=238,238,238
-Black=38,38,38
-BoldBlack=85,87,83
-Red=207,63,97
-BoldRed=239,41,41
-Green=123,183,91
-BoldGreen=138,226,52
-Yellow=233,179,42
-BoldYellow=252,233,79
-Blue=52,101,164
-BoldBlue=114,159,207
-Magenta=165,127,196
-BoldMagenta=173,127,168
-Cyan=56,154,173
-BoldCyan=52,226,226
-White=250,250,246
-BoldWhite=238,238,238
-EOF
-fi
 
 # Compile and install winpty
 if [ "$(y_n "Install winpty?")" ]; then
@@ -71,20 +29,10 @@ if [ "$(y_n "Install dotfiles?")" ]; then
     rm ~/.profile ~/.bashrc ~/.inputrc
     git clone https://github.com/axvr/dotfiles.git ~/dotfiles
     cd ~/dotfiles/
-    stow -t ~ bin/ shell/ git/ tmux/ vim/
+    stow -t ~ bin/ shell/ git/ tmux/ vim/ cygwin/
     cd "$HOME"
 
-    # Improve dotfiles for Cygwin
-    cat << EOF >> ~/dotfiles/shell/.bashrc
-
-if [ "\$(uname -o)" == "Cygwin" ]; then
-    alias dotnet="winpty dotnet"
-    alias node="winpty node"
-    alias npm="winpty npm.cmd"
-    alias ng="winpty ng.cmd"
-    alias choco="winpty choco"
-fi
-EOF
+    # Change global Git email address
     read -rp "Email address: " email
     sed -i "s/\(email = \).*$/\1$email/" ~/dotfiles/git/.config/git/config
 fi
