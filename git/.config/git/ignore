@@ -1,22 +1,7 @@
-# Global gitignore file
-# ---------------------
+# Global Git ignore file
+#
 # vim: ft=conf :
 # -*- mode: gitignore; -*-
-# ---------------------
-
-
-# General files
-# -------------
-
-# Compiled source
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
-*.pyc
-*.bin
 
 # Tag/syntax files
 TAGS
@@ -35,130 +20,58 @@ cscope.out
 cscope.in.out
 cscope.po.out
 
-# Temporary files
-/tmp/
-
-# Archives and packages
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-
-# Logs and databases
-*.log
-*.sql
-*.sqlite
-*.dat
-*.data
-
-# GPG files
+# PGP keys, encrypted files and password vaults
 secring.*
 *.pgp
 *.gpg
 *.asc
 *.pub
-
-# Password DB & Wallets
 *.kdbx
 *.kdb
 *.key
 *.pass
-*wallet*
+id_rsa
 
-# Build files
-.redo/
-
-
-# Text editor files
-# -----------------
-
-# == Vim ==
-# Swap
+# Vim
+*~
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
 [._]s[a-v][a-z]
 [._]sw[a-p]
-# Persistent undo
 [._]*.un~
-# Others
 Session.vim
 errors.err
 .netrwhist
 
-# == Emacs ==
+# GNU Emacs
 *~
 \#*\#
 /.emacs.desktop
 /.emacs.desktop.lock
-*.elc
-auto-save-list
 tramp
 .\#*
-# Org-mode
 .org-id-locations
-*_archive
-# flymake-mode
 *_flymake.*
-# eshell files
-/eshell/history
-/eshell/lastdir
-# elpa packages
-/elpa/
-# reftex files
-*.rel
-# AUCTeX auto folder
-/auto/
-# cask packages
-.cask/
-dist/
-# Flycheck
 flycheck_*.el
-# server auth directory
-/server/
-# projectiles files
 .projectile
-# directory configuration
 .dir-locals.el
 
-# == Visual Studio Code ==
+# Visual Studio Code
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
-
-# OS generated files
-# ------------------
-
-# == Linux ==
+# Linux
 *~
-# temporary files which can be created if a process still has a handle open of
-# a deleted file
 .fuse_hidden*
-# KDE directory preferences
 .directory
-# Linux trash folder which might appear on any partition or disk
 .Trash-*
-# .nfs files are created when an open file is removed but is still being
-# accessed
 .nfs*
 
-# == Apple macOS ==
-# General
+# Apple macOS
 .DS_Store
 .DS_Store?
 .AppleDouble
 .LSOverride
-# Icon must end with two \r
-Icon
-# Thumbnails
 ._*
-# Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -166,28 +79,23 @@ Icon
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-# Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
+Icon
 
-# == Microsoft Windows ==
-# Windows thumbnail cache files
+# Microsoft Windows
 Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db
-# Dump file
 *.stackdump
-# Folder config file
-Desktop.ini
-# Recycle Bin used on file shares
+[Dd]esktop.ini
 $RECYCLE.BIN/
-# Windows Installer files
 *.cab
 *.msi
+*.msix
 *.msm
 *.msp
-# Windows shortcuts
 *.lnk
