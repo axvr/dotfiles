@@ -13,7 +13,6 @@ y_n() {
     esac
 }
 
-
 # Compile and install winpty
 if [ "$(y_n "Install winpty?")" ]; then
     git clone https://github.com/rprichard/winpty.git ~/winpty
