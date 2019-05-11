@@ -83,7 +83,7 @@
   :lighter ""
   (font-lock-add-keywords
    nil '(("\\<\\(TO[-_ ]?DO\\|FIX[-_ ]?ME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\)\\>"
-          1 '((:foreground "#d78700") (:weight bold)) t))))
+          1 '((:foreground "#d75f5f") (:weight bold)) t))))
 (add-hook 'prog-mode-hook 'av/hl-todos-mode)
 
 
@@ -139,8 +139,7 @@
 (use-package ledger-mode :ensure t :defer t)
 ;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
 
-;; TODO: find better colour scheme (or port photon)
-(load-theme 'tsdh-light t)
+(load-theme 'photon t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
