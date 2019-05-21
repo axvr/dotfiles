@@ -50,6 +50,13 @@ set wildmenu
 set wildignore+=*/tmp/*,*.so,*.pyc,*.db,*.sqlite,*/node_modules/*,*/.git/*,*.dll,*.exe,*.cache,*.o
 set path+=**
 
+" Dictionary file
+if filereadable('/usr/dict/words')
+    set dictionary=/usr/dict/words
+elseif filereadable('/usr/share/dict/words')
+    set dictionary=/usr/share/dict/words
+endif
+
 " Indentation
 set tabstop=8
 set softtabstop=4

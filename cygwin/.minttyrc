@@ -1,6 +1,7 @@
 BoldAsFont=-1
 CursorType=block
-Font=Consolas # Inconsolata
+Font=Consolas
+# Font=Inconsolata
 FontHeight=14
 FontSmoothing=full
 Locale=en_GB

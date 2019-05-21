@@ -20,15 +20,16 @@ export EDITOR=vim
 
 # User specific environment and startup programs
 PATH="${PATH}:$HOME/.local/bin:$HOME/.dotnet/tools"
-export PATH
+MANPATH="${MANPATH}:$HOME/.local/man"
+export PATH MANPATH
 
 # .NET Core settings
 export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # Plan 9 from User Space
-PLAN9="$HOME/Documents/Projects/plan9port" export PLAN9
-PATH="${PATH}:$PLAN9/bin" export PATH
+PATH="${PATH}:$HOME/Documents/Projects/plan9port/bin"
+export PATH
 
 # Start window manager on login in TTY1
 if [ -z "$DISPLAY" ] && [ "$(tty)" = /dev/tty1 ]; then
