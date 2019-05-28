@@ -17,11 +17,34 @@
 (setq initial-scratch-message "")
 (setq frame-title-format "GNU Emacs")
 
+
+(defun current-frame-name ()
+  "Return the name of the current GUI frame."
+  (substring-no-properties
+   (cdr (assoc 'name (frame-parameters)))))
+
+(defun set-gtk-theme (variant)
+  "Set the GTK theme variant for the current Emacs session."
+  (interactive "sLight or dark? ")
+  (call-process-shell-command
+   (concat "xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT \"" variant "\" -name \"" (current-frame-name) "\"")))
+
+(if (window-system)
+    (set-gtk-theme "dark"))
+
+(load-theme 'photon t)
+
 ;; Set default fonts
 (if (member "Inconsolata" (font-family-list))
-    (set-face-attribute 'default nil :family "Inconsolata" :height 135)
+    (progn
+      (set-face-attribute 'default nil :family "Inconsolata" :height 135)
+      (set-face-attribute 'fixed-pitch nil :family "Inconsolata" :height 135))
   (when (memq system-type '(cygwin windows-nt ms-dos))
-    (set-face-attribute 'default nil :family "Consolas" :height 110)))
+    (progn (set-face-attribute 'default nil :family "Consolas" :height 110)
+           (set-face-attribute 'fixed-pitch nil :family "Consolas" :height 110))))
+
+(if (member "DejaVu Sans" (font-family-list))
+    (set-face-attribute 'variable-pitch nil :family "DejaVu Sans" :height 110))
 
 ;; Mouse scrolling
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1))
@@ -138,8 +161,6 @@
 
 (use-package ledger-mode :ensure t :defer t)
 ;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
-
-(load-theme 'photon t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
