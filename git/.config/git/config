@@ -1,6 +1,11 @@
 [user]
 	name = Alex Vear
 	email = av@axvr.io
+[sendemail]
+	smtpserver = mail.gandi.net
+	smtpuser = av@axvr.io
+	smtpencryption = tls
+	smtpserverport = 587
 [core]
 	editor = vim
 [alias]
