@@ -130,16 +130,13 @@
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
-  (package-install 'use-package)
-  (package-install 'diminish))
+  (package-install 'use-package))
 
 (eval-when-compile
   (require 'use-package))
-(require 'diminish)
 
 (use-package which-key
   :ensure t
-  :diminish which-key-mode
   :config (which-key-mode 1))
 
 
@@ -169,7 +166,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (use-package org which-key restclient markdown-mode ledger-mode diminish))))
+    (use-package org which-key restclient markdown-mode ledger-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
