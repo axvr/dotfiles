@@ -9,7 +9,7 @@ setlocal commentstring=//%s
 setlocal completeopt& completeopt-=preview
 
 " C# documentation (use OmniSharp instead of '&keywordprg')
-nnoremap <buffer><silent> K :<C-u>OmniSharpDocumentation<CR>:wincmd P<CR>
+nnoremap <buffer><silent> K :<C-u>OmniSharpDocumentation<CR>
 nnoremap <buffer><silent> <C-]> :<C-u>OmniSharpGotoDefinition<CR>
 nnoremap <buffer> <F2> :<C-u>OmniSharpRename<CR>
 

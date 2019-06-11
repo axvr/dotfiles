@@ -1,3 +1,6 @@
+[submodule "vim/.vim/pack/core/start/photon"]
+	path = vim/.vim/pack/core/start/photon
+	url = https://github.com/axvr/photon.vim
 [submodule "vim/.vim/pack/core/start/ledger"]
 	path = vim/.vim/pack/core/start/ledger
 	url = https://github.com/ledger/vim-ledger
@@ -13,15 +16,9 @@
 [submodule "vim/.vim/pack/core/opt/cool"]
 	path = vim/.vim/pack/core/opt/cool
 	url = https://github.com/romainl/vim-cool
-[submodule "vim/.vim/pack/core/start/photon"]
-	path = vim/.vim/pack/core/start/photon
-	url = https://github.com/axvr/photon.vim
 [submodule "vim/.vim/pack/core/start/waikiki"]
 	path = vim/.vim/pack/core/start/waikiki
 	url = https://github.com/fcpg/vim-waikiki
-[submodule "vim/.vim/pack/core/opt/vim-cs"]
-	path = vim/.vim/pack/core/opt/vim-cs
-	url = https://github.com/nickspoons/vim-cs
 [submodule "vim/.vim/pack/core/opt/omnisharp"]
 	path = vim/.vim/pack/core/opt/omnisharp
 	url = https://github.com/OmniSharp/omnisharp-vim
