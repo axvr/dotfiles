@@ -7,6 +7,9 @@
 [submodule "vim/.vim/pack/core/start/org"]
 	path = vim/.vim/pack/core/start/org
 	url = https://github.com/axvr/org.vim
+[submodule "vim/.vim/pack/core/opt/ascribe"]
+	path = vim/.vim/pack/core/opt/ascribe
+	url = https://github.com/axvr/ascribe.vim
 [submodule "vim/.vim/pack/core/opt/commentary"]
 	path = vim/.vim/pack/core/opt/commentary
 	url = https://github.com/tpope/vim-commentary
