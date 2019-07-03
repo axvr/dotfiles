@@ -27,10 +27,6 @@ export PATH MANPATH
 export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
-# Plan 9 from User Space
-PATH="${PATH}:$HOME/Documents/Projects/plan9port/bin"
-export PATH
-
 # Start window manager on login in TTY1
 if [ -z "$DISPLAY" ] && [ "$(tty)" = /dev/tty1 ]; then
     if [ "$(command -v startx)" ]; then

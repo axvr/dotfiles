@@ -19,7 +19,8 @@ shopt -s histappend
 # Bash enhancements
 shopt -s globstar checkwinsize
 
-# == Bash Prompts ==
+
+# == Bash prompts ==
 
 # Simple prompt
 #PS1="[\u@\h \W]\$ "
@@ -35,7 +36,7 @@ if [ -f "$HOME/.bashrc_$(uname -o)" ]; then
 fi
 
 
-# == Aliases & Functions ==
+# == Aliases & functions ==
 
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
