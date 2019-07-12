@@ -3,11 +3,12 @@
 " File:         ~/.vimrc
 " =============================================================
 
-" Essentials
 filetype plugin indent on
 if !exists('g:syntax_on')
     syntax enable
 endif
+
+" Essentials
 set hidden
 set autoread
 set mouse=a
@@ -15,30 +16,27 @@ set backspace=indent,eol,start
 set encoding=utf-8
 set spelllang=en_gb
 
-" Styling
+" Interface
 set showcmd
 set ruler
 set belloff=all
 set showmatch
 
-" Searching
+" Search
 set hlsearch
 set incsearch
 
 " Backup, Swap & Undo files
-let s:dirs = [expand($HOME.'/.vim/backup'),
-            \ expand($HOME.'/.vim/swap'),
-            \ expand($HOME.'/.vim/undo')]
-for s:dir in s:dirs
+let &backupdir = expand($HOME.'/.vim/backup')
+set backup
+let &directory = expand($HOME.'/.vim/swap')
+let &undodir = expand($HOME.'/.vim/undo')
+set undofile
+for s:dir in [&backupdir, &directory, &undodir]
     if !isdirectory(s:dir)
         call mkdir(s:dir, 'p')
     endif
 endfor
-let &backupdir = s:dirs[0]
-set backup
-let &directory = s:dirs[1]
-let &undodir = s:dirs[2]
-set undofile
 
 " Set <Leader> and <LocalLeader> prefixes
 let mapleader = "\\"
@@ -47,15 +45,9 @@ let maplocalleader = "\\\\"
 " Vim Omnicomplete, Ins-complete & Wild menu
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
-set wildignore+=*/tmp/*,*.so,*.pyc,*.db,*.sqlite,*/node_modules/*,*/.git/*,*.dll,*.exe,*.cache,*.o
-set path+=**
-
-" Dictionary file
-if filereadable('/usr/dict/words')
-    set dictionary=/usr/dict/words
-elseif filereadable('/usr/share/dict/words')
-    set dictionary=/usr/share/dict/words
-endif
+set wildignore+=*/node_modules/*,*/.git/*
+set path=.,,**
+set dictionary=/usr/dict/words,/usr/share/dict/words
 
 " Indentation
 set tabstop=8
@@ -71,13 +63,13 @@ set wrap
 set linebreak
 set breakindent
 
+" Packages
 let g:netrw_banner = 0
 packadd matchit
 packadd cfilter
 packadd commentary
 packadd lion
 packadd cool
-packadd ascribe
 let g:c_syntax_for_h = 1
 
 " Theming
@@ -90,8 +82,8 @@ augroup style
     autocmd BufLeave,WinLeave * set nocursorline
 augroup END
 
-com! -nargs=+ -complete=file GitGrep setl gp=git\ grep\ -n|gr <args>|setl gp&
-com! -nargs=* -complete=file -bar TODOs setl gp=todos|gr <args>|setl gp&
+com! -nargs=+ -complete=file GitGrep let s:gp=&l:gp|setl gp=git\ grep\ -n|gr <args>|let &l:gp=s:gp|unl s:gp
+com! -nargs=* -complete=file Todos let s:gp=&l:gp|setl gp=todos|gr <args>|let &l:gp=s:gp|unl s:gp
 com! -nargs=0 -bar Helptags for p in glob('~/.vim/pack/*/*/*/doc',1,1)|exe 'helpt '.p|endfo
 com! -nargs=0 -bar Scratch enew|setl bh=hide bt=nofile noswf
 com! -nargs=? -range GitBlame ec join(systemlist("git blame -L <line1>,<line2> <args> " . expand('%')), "\n")
