@@ -52,7 +52,6 @@ tramp
 .\#*
 .org-id-locations
 *_flymake.*
-flycheck_*.el
 .projectile
 .dir-locals.el
 

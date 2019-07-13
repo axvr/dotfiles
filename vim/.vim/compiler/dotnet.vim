@@ -9,7 +9,7 @@ set cpo&vim
 let current_compiler = 'dotnet'
 let s:make = "dotnet\ build\ $*\ /clp:NoSummary\ /v:q\ /nologo\ /p:GenerateFullPaths=true"
 
-" Fix file paths for Cygwin (e.g. 'C:\' --> '/cygdrive/c/')
+" Fix file paths for Cygwin (e.g. "C:\" --> "/cygdrive/c/")
 if has('win32unix')
     let s:make = s:make . "\ \\\|\ tr\ '\\\\' '/' \\\|\ sed\ 's/^\\([A-Z]\\):\\//\\/cygdrive\\/\\1\\//'"
 endif
@@ -21,7 +21,7 @@ endif
 
 " TODO trim the current working directory from the start of the paths
 " - Allows for longer error messages without having to scroll horzontally
-" - Fixes interaction with git (using % and # in ex commands)
+" - Fixes interaction with git (using "%" and "#" in ex commands)
 
 let &l:makeprg = s:make
 

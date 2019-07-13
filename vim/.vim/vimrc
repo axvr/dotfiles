@@ -26,7 +26,7 @@ set showmatch
 set hlsearch
 set incsearch
 
-" Backup, Swap & Undo files
+" Backup, swap & undo
 let &backupdir = expand($HOME.'/.vim/backup')
 set backup
 let &directory = expand($HOME.'/.vim/swap')
@@ -37,15 +37,16 @@ for s:dir in [&backupdir, &directory, &undodir]
         call mkdir(s:dir, 'p')
     endif
 endfor
+unlet s:dir
 
-" Set <Leader> and <LocalLeader> prefixes
+" Set "<Leader>" and "<LocalLeader>" prefixes
 let mapleader = "\\"
 let maplocalleader = "\\\\"
 
-" Vim Omnicomplete, Ins-complete & Wild menu
+" Completion
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
-set wildignore+=*/node_modules/*,*/.git/*
+set wildignore+=*/.git/*,*/node_modules/*
 set path=.,,**
 set dictionary=/usr/dict/words,/usr/share/dict/words
 
@@ -57,7 +58,7 @@ set expandtab
 set shiftround
 set autoindent
 
-" Line wrap config (soft wrap code, hard wrap comments, strings and text)
+" Line wrap (soft wrap code, hard wrap comments, strings and text)
 let &showbreak='+++ '
 set wrap
 set linebreak

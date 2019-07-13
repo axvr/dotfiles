@@ -23,6 +23,10 @@ PATH="${PATH}:$HOME/.local/bin:$HOME/.dotnet/tools"
 MANPATH="${MANPATH}:$HOME/.local/man"
 export PATH MANPATH
 
+# Golang environment
+GOPATH="$HOME/.local/share/go"
+export GOPATH
+
 # .NET Core settings
 export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
@@ -30,10 +34,8 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 # Start window manager on login in TTY1
 if [ -z "$DISPLAY" ] && [ "$(tty)" = /dev/tty1 ]; then
     if [ "$(command -v startx)" ]; then
-        exec startx
-        vlock
+        exec startx; vlock
     elif [ "$(command -v wayland)" ]; then
-        exec wayland
-        vlock
+        exec wayland; vlock
     fi
 fi
