@@ -45,3 +45,7 @@ alias fgrep="fgrep --color=auto"
 
 alias ledger="ledger -f $HOME/.ledger/personal.dat"
 alias ledger-record="$EDITOR $HOME/.ledger/personal.dat"
+
+alias tasks="[ -f 'TODO' ] \
+    && vim -o TODO DOING DONE \
+    || vim -o $HOME/.{todo,doing,done}.txt"

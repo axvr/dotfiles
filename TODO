@@ -1,0 +1,13 @@
+- Simplify and clean td (is td even needed? maybe I just need a task adder?)
+- Start 'ssh-agent' in profile file or 'wayland'/'xinitrc' files
+  - https://stackoverflow.com/a/18915067
+  - http://mah.everybody.org/docs/ssh
+- Change X config to be device specific (e.g. keyboard layout)
+- Add Wayland configs for 'gemini' and 'apollo'
+- ABCDE: fix MP3 tagging
+- ABCDE: mark albums as compilations
+- Lock screen on X with 'slock'
+- Configure redshift for X and Wayland
+- Configure notifications for X (dunst) and Wayland (mako)
+- Configure calendar sync using 'vdirsyncer' (or create my own alternative)
+- Try out 'cwm'

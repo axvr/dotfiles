@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# List TODOs and other comment tags in named files or a git repo
+# List TODOs and other comment tags in specified files or a git repo
 
 # BUG    - A known bug that should be corrected.
 # FIXME  - Should be corrected.

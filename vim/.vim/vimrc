@@ -83,17 +83,18 @@ augroup style
     autocmd BufLeave,WinLeave * set nocursorline
 augroup END
 
-com! -nargs=+ -complete=file GitGrep let s:gp=&l:gp|setl gp=git\ grep\ -n|gr <args>|let &l:gp=s:gp|unl s:gp
-com! -nargs=* -complete=file Todos let s:gp=&l:gp|setl gp=todos|gr <args>|let &l:gp=s:gp|unl s:gp
+com! -nargs=+ -complete=file GitGrep let s:gp=&gp|set gp=git\ grep\ -n|gr <args>|let &gp=s:gp|unl s:gp
+com! -nargs=* -complete=file Todos let s:gp=&gp|set gp=todos|gr <args>|let &gp=s:gp|unl s:gp
 com! -nargs=0 -bar Helptags for p in glob('~/.vim/pack/*/*/*/doc',1,1)|exe 'helpt '.p|endfo
 com! -nargs=0 -bar Scratch enew|setl bh=hide bt=nofile noswf
-com! -nargs=? -range GitBlame ec join(systemlist("git blame -L <line1>,<line2> <args> " . expand('%')), "\n")
+com! -nargs=? -range GitBlame ec join(systemlist("git blame -L <line1>,<line2> <args> -- ".expand('%')),"\n")
+com! -nargs=0 -bar Tasks tabe DONE|sp DOING|sp TODO
 
 " TODO set up quickfix list for JavaScript and TypeScript development
 
 augroup filetypes
     autocmd!
-    autocmd FileType c,cpp,make,go,gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
+    autocmd FileType c,make,go,gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
     autocmd FileType lisp,json,ruby,html,css setlocal et sts=2 sw=2 ts=8
     autocmd FileType perl,sh,python,haskell,javascript setlocal tw=79
     autocmd FileType gitcommit setlocal spell

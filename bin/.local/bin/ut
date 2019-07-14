@@ -1,7 +1,9 @@
 #!/bin/sh
 
 # A more minimal version of t (http://stevelosh.com/projects/t/)
-# ut is 4 times faster than t and 1/10th the size
+# ut is ~4 times faster than t and ~1/10th the size
+
+# NOTE: This has been deprecated in favour of td.
 
 [ -z "$TODO_FILE" ] && TODO_FILE="$HOME/.todo.txt"
 [ ! -f "$TODO_FILE" ] && touch "$TODO_FILE"

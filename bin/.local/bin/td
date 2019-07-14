@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# A simple and easy to use todo management system
+# td is ~2x faster than ut, and ~7x faster than t
+# Both td and ut share the same goals as t (https://stevelosh.com/projects/t/)
+
+is_int() { test "$(expr "$1" : '^[0-9]\+$')" -gt 0 && return 0 || return 1; }
+
+if [ "$#" -ge 2 ] && [ "$1" = '-f' ]; then
+    file="$2"
+    shift 2
+elif [ -f 'TODO' ]; then
+    file='TODO'
+else
+    file="$HOME/.todo.txt"
+fi
+
+if [ "$#" -eq 0 ]; then
+    nl -b a -w 3 -s '  ' "$file" 2> /dev/null
+elif [ "$1" = '-u' ]; then
+    printf "usage: %s [-u] [-f file] [-x line1 [line2]] [-e [line message]] [message]\\n" "$0";
+elif [ "$1" = '-e' ]; then
+    shift
+
+    if [ "$#" = 0 ]; then
+        exec "$EDITOR" "$file"
+    elif is_int "$1"; then
+        line="$1"
+        shift
+        sed -i "${line}s/.*/$*/" "$file"
+    else
+        echo "error: expected a line number followed by a new message"
+        exit 1
+    fi
+elif [ "$1" = '-x' ]; then
+    shift
+
+    if [ "$#" = 1 ] && is_int "$1"; then
+        sed -i "${1}d" "$file"
+    elif [ "$#" = 2 ] && is_int "$1$2"; then
+        sed -i "${1},${2}d" "$file"
+    else
+        echo "error: expected a line number or a line number range"
+        exit 1
+    fi
+else
+    echo "$*" >> "$file"
+fi
