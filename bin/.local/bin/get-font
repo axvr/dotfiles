@@ -55,9 +55,11 @@ github_latest_version() {
 # TODO: Terminus (http://terminus-font.sourceforge.net/)
 
 font_list=$(cat <<EOF
+Alto Mono           (https://damieng.com/blog/2008/08/25/the-xerox-alto-mono-spaced-font-rises-again)
 Anonymous Pro       (https://www.marksimonson.com/fonts/view/anonymous-pro)
 DejaVu Sans/Serif   (https://dejavu-fonts.github.io/)
 Dijkstra            (http://lucacardelli.name/indexartifacts.html)
+Envy Code R         (https://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released)
 Fira Code           (https://github.com/tonsky/FiraCode)
 Fira Mono           (https://mozilla.github.io/Fira/)
 Fira Sans           (https://mozilla.github.io/Fira/)
@@ -179,6 +181,22 @@ do
             url="http://lucacardelli.name/Artifacts/Fonts/Pc/dijkstra.ttf"
             download "$url" "dijkstra/dijkstra.ttf"
             message "Dijkstra"
+            ;;
+
+        envy_code|envy_code_r)
+            requires "unzip"
+            url="https://download.damieng.com/fonts/original/EnvyCodeR-PR7.zip"
+            download "$url" "envy_code_r/EnvyCodeR-PR7.zip"
+            unzip -q "$FONT_DIR/envy_code_r/EnvyCodeR-PR7.zip" -d "$FONT_DIR/envy_code_r/"
+            message "Envy Code R"
+            ;;
+
+        alto_mono)
+            requires "unzip"
+            url="https://download.damieng.com/fonts/reproduced/AltoMono.zip"
+            download "$url" "alto_mono/AltoMono.zip"
+            unzip -q "$FONT_DIR/alto_mono/AltoMono.zip" -d "$FONT_DIR/alto_mono/"
+            message "Alto Mono"
             ;;
 
         *)  printf "Error: Invalid font '%s'\\n" "$f";;
