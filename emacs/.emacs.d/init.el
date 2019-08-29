@@ -135,11 +135,6 @@
 (eval-when-compile
   (require 'use-package))
 
-(use-package which-key
-  :ensure t
-  :config (which-key-mode 1))
-
-
 ;;; File types
 
 (use-package markdown-mode :ensure t :defer t)
@@ -166,7 +161,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (use-package org which-key restclient markdown-mode ledger-mode))))
+    (use-package org restclient markdown-mode ledger-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

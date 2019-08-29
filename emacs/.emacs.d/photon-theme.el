@@ -1,5 +1,5 @@
 (deftheme photon
-  "Created 2019-05-25.")
+  "Created 2019-08-09.")
 
 (custom-theme-set-faces
  'photon
@@ -8,7 +8,7 @@
  '(variable-pitch ((t nil)))
  '(escape-glyph ((((background dark)) (:foreground "cyan")) (((type pc)) (:foreground "magenta")) (t (:foreground "brown"))))
  '(homoglyph ((((background dark)) (:foreground "cyan")) (((type pc)) (:foreground "magenta")) (t (:foreground "brown"))))
- '(minibuffer-prompt ((t (:weight bold :box (:line-width -1 :color nil :style released-button) :foreground "#0184bc"))))
+ '(minibuffer-prompt ((t (:foreground "#767676" :weight bold))))
  '(highlight ((t (:background "#303030"))))
  '(region ((t (:background "#3a3a3a" :distant-foreground nil))))
  '(shadow ((t (:foreground "#626262"))))
@@ -30,7 +30,7 @@
  '(font-lock-variable-name-face ((t (:foreground "#c6c6c6"))))
  '(font-lock-warning-face ((t (:inherit (error)))))
  '(button ((t (:inherit (link)))))
- '(link ((t (:underline (:color foreground-color :style line) :foreground "#729fcf"))))
+ '(link ((t (:foreground "#af87d7" :underline t))))
  '(link-visited ((t (:foreground "violet" :inherit (link)))))
  '(fringe ((((class color) (background light)) (:background "grey95")) (((class color) (background dark)) (:background "#262626")) (t (:background "#767676"))))
  '(header-line ((t (:inherit mode-line :inverse-video nil))))
