@@ -21,6 +21,7 @@ set showcmd
 set ruler
 set belloff=all
 set showmatch
+set scrolloff=0
 
 " Search
 set hlsearch
@@ -67,11 +68,14 @@ set breakindent
 " Packages
 let g:netrw_banner = 0
 packadd matchit
-packadd cfilter
+if v:version >= 810
+    packadd cfilter
+endif
 packadd commentary
 packadd lion
 packadd cool
 let g:c_syntax_for_h = 1
+let g:latex_to_unicode_cmd_mapping = ['<C-J>']
 
 " Theming
 let &colorcolumn='+'.join(range(1,256),',+')

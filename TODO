@@ -1,4 +1,5 @@
-- Simplify and clean td (is td even needed? maybe I just need a task adder?)
+- td: simplify and clean (is it even needed? maybe I just need a task adder?)
+- td: read input from STDIN
 - Start 'ssh-agent' in profile file or 'wayland'/'xinitrc' files
   - https://stackoverflow.com/a/18915067
   - http://mah.everybody.org/docs/ssh
@@ -11,3 +12,4 @@
 - Configure notifications for X (dunst) and Wayland (mako)
 - Configure calendar sync using 'vdirsyncer' (or create my own alternative)
 - Try out 'cwm'
+- Fedora: `/etc/vimrc` is the same as `defaults.vim` but sourcing it cannot be prevented (https://bugzilla.redhat.com/show_bug.cgi?id=1643311)

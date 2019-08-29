@@ -41,9 +41,9 @@ if [ "$(y_n "Create symbolic links?")" ]; then
     ln -s "/cygdrive/c/Users/$USER/" ~/local
     mkdir -p "/cygdrive/c/Users/$USER/source/repos/"
     ln -s "/cygdrive/c/Users/$USER/source/repos/" ~/code
-    read -rp "Remote location: " remote
-    remote="$(echo "$remote" | sed 's/\\/\//g')"
-    ln -s "$remote" ~/remote
+    # read -rp "Remote location: " remote
+    # remote="$(echo "$remote" | sed 's/\\/\//g')"
+    # ln -s "$remote" ~/remote
 fi
 
 # Set up SSH

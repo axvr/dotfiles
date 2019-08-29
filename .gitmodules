@@ -22,3 +22,6 @@
 [submodule "vim/.vim/pack/core/opt/omnisharp"]
 	path = vim/.vim/pack/core/opt/omnisharp
 	url = https://github.com/OmniSharp/omnisharp-vim
+[submodule "vim/.vim/pack/core/start/julia"]
+	path = vim/.vim/pack/core/start/julia
+	url = https://github.com/JuliaEditorSupport/julia-vim
