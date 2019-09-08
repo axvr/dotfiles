@@ -15,7 +15,7 @@ set $right l
 set $term st -e tmux
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu dmenu_path | dmenu -p "Run:" -fn "Inconsolata:size=12" | xargs swaymsg exec
+set $menu dmenu_path | dmenu -p "Run:" -fn "Inconsolata:size=12" | xargs swaymsg exec --
 
 # Interface font
 font pango:Inconsolata, DejaVu Sans Mono 12
@@ -30,7 +30,6 @@ output * bg "/usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png" fill
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-#output "eDP-1" resolution 1600x900
 
 ### Idle configuration
 #
@@ -59,13 +58,6 @@ exec swayidle -w \
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
-input "1739:30383:DELL07E6:00_06CB:76AF_To" {
-    dwt enabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-    scroll_method two_finger
-}
 
 input "2131:256:Topre_Corporation_HHKB_Professional" {
     xkb_layout us
@@ -114,6 +106,7 @@ input "2131:256:Topre_Corporation_HHKB_Professional" {
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
     # lock sway
+    # TODO: turn off screen
     bindsym $mod+Shift+x exec swaylock -f -c 000000
 
     # jump to urgent window
@@ -196,8 +189,8 @@ input "2131:256:Topre_Corporation_HHKB_Professional" {
     bindsym $mod+a focus parent
 
     # window borders
-    new_window pixel 1
-    new_float pixel 1
+    default_border pixel 1
+    default_floating_border pixel 1
 #
 # Scratchpad:
 #

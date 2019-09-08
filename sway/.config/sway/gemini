@@ -1,0 +1,13 @@
+# Gemini - Dell Latitude D630
+
+# Primary monitor (laptop screen)
+output "Unknown 0x4544 0x00000000" {
+    mode 1280x800@60.039001Hz
+    position 1024 0
+}
+
+# Secondary monitor
+output "Unknown MD7475AB 0" {
+    mode 1024x768@75.028999Hz
+    position 0 0
+}
