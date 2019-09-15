@@ -1,4 +1,4 @@
-;;; org-man.el - Support for links to manpages in Org
+;;; org-man.el --- Support for links to manpages in Org
 ;;; `https://orgmode.org/manual/Adding-hyperlink-types.html'
 
 (require 'org)

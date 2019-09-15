@@ -1,52 +1,178 @@
+;;;; photon-theme.el
+
+;;; Much of the logic in this file is taken from Emacs-Grayscale-Theme, which
+;;; is GPL licenced, as such this theme is also under the terms of the GPL
+;;; until/unless I rewrite those sections. The licence can be found here:
+;;; `https://github.com/belak/emacs-grayscale-theme'
+
+;; M-x describe-face
+
+(defun photon-theme-transform-spec (spec colors)
+  "Transform a theme `SPEC' into a face spec using `COLORS'."
+  (let ((output))
+    (while spec
+      (let* ((key       (car  spec))
+             (value     (cadr spec))
+             (color-key (if (symbolp value) (intern (concat ":" (symbol-name value))) nil))
+             (color     (plist-get colors color-key)))
+
+        ;; Append the transformed element
+        (cond
+         ((and (memq key '(:box :underline)) (listp value))
+          (setq output (append output (list key (photon-theme-transform-spec value colors)))))
+         (color
+          (setq output (append output (list key color))))
+         (t
+          (setq output (append output (list key value))))))
+
+      ;; Go to the next element in the list
+      (setq spec (cddr spec)))
+
+    ;; Return the transformed spec
+    output))
+
+(defun photon-theme-transform-face (spec colors)
+  "Transform a face `SPEC' into an Emacs theme face definition using `COLORS'."
+  (let* ((face       (car spec))
+         (definition (cdr spec)))
+
+    (list face `((t ,(photon-theme-transform-spec definition colors))))))
+
+(defun photon-theme-set-faces (theme-name colors faces)
+  "Define the important part of `THEME-NAME' using `COLORS' to map the `FACES' to actual colors."
+  (apply 'custom-theme-set-faces theme-name
+         (mapcar #'(lambda (face)
+                     (photon-theme-transform-face face colors))
+                 faces)))
+
+(defvar photon-theme-colors
+  '(:bg "#262626"
+    ;; Darker background shades
+    :bgd-1 "#1c1c1c"
+    :bgd-2 "#121212"
+    ;; Lighter background shades
+    :bgl-1 "#303030"
+    :bgl-2 "#3a3a3a"
+    :bgl-3 "#444444"
+    :bgl-4 "#626262"
+
+    :fg "#c6c6c6"
+
+    :purple "#af87d8"
+    :orange "#d75f5f"
+    :grey   "#767676"
+    :yellow "#af8700"
+    :green  "#87af87"
+    :blue   "#5f87ff"
+    :red    "#af5f87"))
+
 (deftheme photon
-  "Created 2019-08-09.")
+  "An elegant, dark colour scheme with minimal syntax highlighting.")
 
-(custom-theme-set-faces
+(photon-theme-set-faces
  'photon
- '(cursor ((t (:background "#c6c6c6"))))
- '(fixed-pitch ((t nil)))
- '(variable-pitch ((t nil)))
- '(escape-glyph ((((background dark)) (:foreground "cyan")) (((type pc)) (:foreground "magenta")) (t (:foreground "brown"))))
- '(homoglyph ((((background dark)) (:foreground "cyan")) (((type pc)) (:foreground "magenta")) (t (:foreground "brown"))))
- '(minibuffer-prompt ((t (:foreground "#767676" :weight bold))))
- '(highlight ((t (:background "#303030"))))
- '(region ((t (:background "#3a3a3a" :distant-foreground nil))))
- '(shadow ((t (:foreground "#626262"))))
- '(secondary-selection ((t (:background "deep sky blue"))))
- '(trailing-whitespace ((((class color) (background light)) (:background "red1")) (((class color) (background dark)) (:background "red1")) (t (:inverse-video t))))
- '(font-lock-builtin-face ((t (:foreground "#c6c6c6"))))
- '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face))))
- '(font-lock-comment-face ((t (:foreground "#626262"))))
- '(font-lock-constant-face ((t (:foreground "#af87d7"))))
- '(font-lock-doc-face ((t (:slant italic :inherit (font-lock-string-face)))))
- '(font-lock-function-name-face ((t (:foreground "#c6c6c6"))))
- '(font-lock-keyword-face ((t (:foreground "#767676"))))
- '(font-lock-negation-char-face ((t (:weight bold))))
- '(font-lock-preprocessor-face ((t (:foreground "#767676" :inherit (font-lock-builtin-face)))))
- '(font-lock-regexp-grouping-backslash ((t (:foreground "#767676" :inherit (bold)))))
- '(font-lock-regexp-grouping-construct ((t (:foreground "black" :inherit (bold)))))
- '(font-lock-string-face ((t (:foreground "#af87d7"))))
- '(font-lock-type-face ((t (:foreground "#c6c6c6"))))
- '(font-lock-variable-name-face ((t (:foreground "#c6c6c6"))))
- '(font-lock-warning-face ((t (:inherit (error)))))
- '(button ((t (:inherit (link)))))
- '(link ((t (:foreground "#af87d7" :underline t))))
- '(link-visited ((t (:foreground "violet" :inherit (link)))))
- '(fringe ((((class color) (background light)) (:background "grey95")) (((class color) (background dark)) (:background "#262626")) (t (:background "#767676"))))
- '(header-line ((t (:inherit mode-line :inverse-video nil))))
- '(tooltip ((t (:foreground "black" :background "lightyellow" :inherit (variable-pitch)))))
- '(mode-line ((t (:box nil :foreground "#af87d7" :background "#3a3a3a"))))
- '(mode-line-buffer-id ((t (:weight bold))))
- '(mode-line-emphasis ((t (:weight bold))))
- '(mode-line-highlight ((((class color) (min-colors 88)) (:box (:line-width 2 :color "grey40" :style released-button))) (t (:inherit (highlight)))))
- '(mode-line-inactive ((t (:foreground "#767676" :background "#303030" :inherit (mode-line)))))
- '(isearch ((t (:foreground "#262626" :background "#d75f5f"))))
- '(isearch-fail ((((class color) (min-colors 88) (background light)) (:background "RosyBrown1")) (((class color) (min-colors 88) (background dark)) (:background "red4")) (((class color) (min-colors 16)) (:background "red")) (((class color) (min-colors 8)) (:background "red")) (((class color grayscale)) (:foreground "grey")) (t (:inverse-video t))))
- '(lazy-highlight ((t (:foreground "#262626" :background "#af87d7"))))
- '(match ((((class color) (min-colors 88) (background light)) (:background "yellow1")) (((class color) (min-colors 88) (background dark)) (:background "RoyalBlue3")) (((class color) (min-colors 8) (background light)) (:foreground "black" :background "yellow")) (((class color) (min-colors 8) (background dark)) (:foreground "white" :background "blue")) (((type tty) (class mono)) (:inverse-video t)) (t (:background "gray"))))
- '(next-error ((t (:inherit (region)))))
- '(query-replace ((t (:inherit (isearch)))))
- '(show-paren-match ((t (:weight bold :foreground "#d75f5f"))))
- '(default ((t (:inherit nil :stipple nil :background "#262626" :foreground "#c6c6c6" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 136 :width normal)))))
+ photon-theme-colors
 
-(provide-theme 'photon)
+ '(
+   ;;; Built-in
+
+   ;; Bare essentials
+
+   (default :foreground fg :background bg)
+   (border  :background bg) ; TODO check what this is
+   (cursor  :background fg)
+   (fringe  :background bg)
+   (header-line :background nil :inherit mode-line)
+   (highlight :background bgl-1)
+   (link    :foreground purple :underline t)
+   (link-visited :foreground "violet" :underline t :inherit link)
+   (minibuffer-prompt :weight bold :foreground grey)
+   (region :background bgl-2 :distant-foreground nil)
+   (secondary-selection :background bgl-2)
+   (shadow :foreground bgl-4)
+   (trailing-whitespace :foreground fg :background red)
+   ;;(widget-button)
+   ;;(widget-field)
+
+   (error   :foreground red    :weight bold)
+   (warning :foreground yellow :weight bold)
+   (success :foreground green  :wieght bold)
+
+   ;;; Font-lock
+   (font-lock-builtin-face :foreground fg)
+   (font-lock-comment-delimiter-face :inherit font-lock-comment-face)
+   (font-lock-comment-face :foreground bgl-4)
+   (font-lock-constant-face :foreground purple)
+   (font-lock-doc-face :slant italic :inherit font-lock-string-face)
+   (font-lock-function-name-face :foreground fg)
+   (font-lock-keyword-face :foreground grey)
+   (font-lock-negation-char-face :foreground grey)
+   (font-lock-preprocessor-face :foreground grey :inherit font-lock-builtin-face)
+   (font-lock-regexp-grouping-backslash :inherit font-lock-negation-char-face)
+   (font-lock-regexp-grouping-construct :inherit font-lock-regexp-grouping-backslash)
+   (font-lock-string-face :foreground purple)
+   (font-lock-type-face :foreground fg)
+   (font-lock-variable-name-face :foreground fg)
+   (font-lock-warning-face :inherit error)
+
+   ;;; Mode-line
+   (mode-line :foreground purple :background bgl-2 :box nil)
+   (mode-line-buffer-id :weight bold)
+   (mode-line-emphasis :weight bold)
+   (mode-line-highlight :box (:line-width 2 :color "grey40" :style released-button))
+   (mode-line-inactive :foreground grey :background bgl-1 :inherit mode-line)
+
+   ;;; Isearch
+   (isearch :foreground bg :background orange)
+   (isearch-fail :foreground red)
+   (match :foreground fg :background blue)
+   (lazy-highlight :foreground bg :background purple)
+
+   ;;; Show paren
+   (show-paren-match :foreground orange :weight bold)
+   (show-paren-mismatch :foreground bg :background red :weight bold)
+
+   ;;; Line numbers
+   (line-number :foreground bgl-4)
+   (line-number-current-line :background bgl-1 :foreground purple)
+
+   ;;; Hl-line
+   (hl-line :background bgl-1)
+
+   ;;; Diff
+   (diff-added   :foreground green)
+   (diff-changed :foreground yellow)
+   (diff-removed :foreground red)
+   (diff-header  :foreground grey :background bgl-1)
+   (diff-file-header :foreground purple :inherit diff-header)
+   (diff-hunk-header :foreground grey :inherit diff-header)
+
+   ;;; Flyspell
+   (flyspell-duplicate :underline (:style wave :color blue))
+   (flyspell-incorrect :underline (:style wave :color red))
+
+   ;;; Other
+   ;; TODO
+   ;;(escape-glyph)
+   ;;(homoglyph)
+   (button :inherit link)
+   ;;(tooltip)
+   (next-error :inherit region)
+   (query-replace :inherit isearch)
+
+   ;;; TODO: Org, company, magit?, flymake, ido (and/or ivy)
+
+   ))
+
+;; TODO: terminal colours
+
+;;;###autoload
+(and load-file-name
+     (boundp 'custom-theme-load-path)
+     (add-to-list 'custom-theme-load-path
+                  (file-name-as-directory
+                   (file-name-directory load-file-name))))
+
+(provide 'photon-theme)
+
+;;; photon-theme.el ends here

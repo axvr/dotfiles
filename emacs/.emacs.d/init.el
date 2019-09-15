@@ -10,7 +10,8 @@
 (menu-bar-mode -1)
 (if (display-graphic-p)
     (progn (tool-bar-mode -1)
-           (scroll-bar-mode -1))
+           (scroll-bar-mode -1)
+           (setq-default cursor-type 'bar))
   (xterm-mouse-mode 1))
 
 (setq inhibit-startup-screen t)
@@ -120,6 +121,9 @@
   (add-to-list 'package-archives (cons "melpa" (concat proto "melpa.org/packages/")) t)
   (add-to-list 'package-archives (cons "melpa-stable" (concat proto "stable.melpa.org/packages/")) t))
 
+;; NOTE: Temporary until Fedora package GNU Emacs 26.3
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 (setq package-archive-priorities
       '(("gnu" . 10)
         ("melpa" . 5)
@@ -136,6 +140,18 @@
   (require 'use-package))
 
 ;;; File types
+
+(use-package clojure-mode
+  :ensure t
+  :defer t)
+
+(use-package julia-mode
+  :ensure t
+  :defer t
+  :config
+  (use-package julia-repl
+    :ensure t
+    :hook (julia-mode . julia-repl-mode)))
 
 (use-package markdown-mode :ensure t :defer t)
 
@@ -161,7 +177,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (use-package org restclient markdown-mode ledger-mode))))
+    (clojure-mode julia-repl julia-mode use-package org restclient markdown-mode ledger-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
