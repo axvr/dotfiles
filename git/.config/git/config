@@ -9,7 +9,7 @@
 [core]
 	editor = vim
 [alias]
-	logtree = log --all --decorate --oneline --graph
+	log-tree = log --all --decorate --oneline --graph
 	markers = !git ls-files -u | awk '{print $4}' | uniq | xargs grep -Hn '^<<<<<<<'
 [merge]
 	tool = vimdiff
