@@ -1,6 +1,3 @@
-- td: simplify and clean (is it even needed? maybe I just need a task adder?)
-- td: read input from STDIN
-
 - Start 'ssh-agent' in profile file or 'wayland'/'xinitrc' files
   - https://stackoverflow.com/a/18915067
   - http://mah.everybody.org/docs/ssh
