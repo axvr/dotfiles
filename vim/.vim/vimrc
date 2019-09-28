@@ -104,14 +104,10 @@ augroup filetypes
     autocmd FileType gitcommit setlocal spell
     autocmd FileType tex setlocal mp=latexmk\ -pdf\ %
     autocmd FileType perl compiler perl
-    autocmd FileType sh setlocal mp=shellcheck\ -f\ gcc\ %
-                \ efm=%f:%l:%c:\ %trror:\ %m,
-                \%f:%l:%c:\ %tarning:\ %m,
-                \%f:%l:%c:\ note:\ %m,
-                \%f:%l:%c:\ %m
+    autocmd FileType sh compiler shellcheck
     autocmd FileType markdown setlocal commentstring=<!--%s-->
-    autocmd FileType lisp setlocal commentstring=;;%s
-    autocmd FileType fstab setlocal commentstring=#%s
+    autocmd FileType lisp,clojure setlocal commentstring=;;%s
+    autocmd FileType fstab,crontab setlocal commentstring=#%s
     autocmd BufRead,BufNewFile *.ts setlocal filetype=javascript
     autocmd BufRead,BufNewFile *.vue setfiletype html
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
