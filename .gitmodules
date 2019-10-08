@@ -1,9 +1,9 @@
 [submodule "vim/.vim/pack/core/start/photon"]
 	path = vim/.vim/pack/core/start/photon
-	url = https://git.sr.ht/~axvr/photon.vim
+	url = https://github.com/axvr/photon.vim
 [submodule "vim/.vim/pack/core/start/org"]
 	path = vim/.vim/pack/core/start/org
-	url = https://git.sr.ht/~axvr/org.vim
+	url = https://github.com/axvr/org.vim
 [submodule "vim/.vim/pack/core/start/ledger"]
 	path = vim/.vim/pack/core/start/ledger
 	url = https://github.com/ledger/vim-ledger
