@@ -45,3 +45,5 @@ alias fgrep="fgrep --color=auto"
 
 alias ledger="ledger -f $HOME/.ledger/personal.dat"
 alias ledger-record="$EDITOR $HOME/.ledger/personal.dat"
+
+alias serve="python3 -m http.server"

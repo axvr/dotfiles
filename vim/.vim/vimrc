@@ -98,8 +98,10 @@ com! -nargs=0 -bar Tasks tabe DONE|sp DOING|sp TODO
 
 augroup filetypes
     autocmd!
+    autocmd FileType c,cpp setlocal path&
     autocmd FileType c,make,go,gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
-    autocmd FileType lisp,json,ruby,html,css setlocal et sts=2 sw=2 ts=8
+    autocmd FileType lisp,json,ruby setlocal et sts=2 sw=2 ts=8
+    autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2
     autocmd FileType perl,sh,python,haskell,javascript setlocal tw=79
     autocmd FileType gitcommit setlocal spell
     autocmd FileType tex setlocal mp=latexmk\ -pdf\ %
