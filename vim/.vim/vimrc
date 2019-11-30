@@ -94,23 +94,36 @@ com! -nargs=0 -bar Scratch enew|setl bh=hide bt=nofile noswf
 com! -nargs=? -range GitBlame ec join(systemlist("git blame -L <line1>,<line2> <args> -- ".expand('%')),"\n")
 com! -nargs=0 -bar Tasks tabe DONE|sp DOING|sp TODO
 
-" TODO set up quickfix list for JavaScript and TypeScript development
 
 augroup filetypes
     autocmd!
+
     autocmd FileType c,cpp setlocal path&
     autocmd FileType c,make,go,gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
-    autocmd FileType lisp,json,ruby setlocal et sts=2 sw=2 ts=8
+    autocmd FileType lisp,json,ruby,scheme,clojure setlocal et sts=2 sw=2 ts=8
     autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2
+    autocmd FileType julia,python setlocal et sts=4 sw=4 ts=4
     autocmd FileType perl,sh,python,haskell,javascript setlocal tw=79
     autocmd FileType gitcommit setlocal spell
+
     autocmd FileType tex setlocal mp=latexmk\ -pdf\ %
     autocmd FileType perl compiler perl
     autocmd FileType sh compiler shellcheck
+    " TODO set up quickfix list for JavaScript and TypeScript development
+
     autocmd FileType markdown setlocal commentstring=<!--%s-->
-    autocmd FileType lisp,clojure setlocal commentstring=;;%s
+    autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s
     autocmd FileType fstab,crontab setlocal commentstring=#%s
-    autocmd BufRead,BufNewFile *.ts setlocal filetype=javascript
+
     autocmd BufRead,BufNewFile *.vue setfiletype html
+    autocmd BufRead,BufNewFile *.ts setlocal filetype=javascript
+
+    " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
+
+    " TXR <https://www.nongnu.org/txr/>
+    autocmd BufRead,BufNewFile *.txr setlocal filetype=txr lisp
+    autocmd BufRead,BufNewFile *.tl,*.tlo setlocal filetype=tl lisp
+
+    " TODO SubX <http://akkartik.name/post/mu-2019-1>
 augroup END
