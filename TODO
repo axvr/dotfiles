@@ -1,7 +1,3 @@
-- Start 'ssh-agent' in profile file or 'wayland'/'xinitrc' files
+- Start 'ssh-agent' in profile file
   - https://stackoverflow.com/a/18915067
   - http://mah.everybody.org/docs/ssh
-- Change X config to be device specific (e.g. keyboard layout)
-- Configure redshift for X and Wayland
-- Configure notifications for X (dunst) and Wayland (mako)
-- Configure calendar sync using 'vdirsyncer' (or create my own alternative)
