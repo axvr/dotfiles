@@ -59,8 +59,6 @@
 ;; Horizontal scrolling (`C-PgUp' & `C-PgDn')
 (put 'scroll-left 'disabled nil)
 
-(setq ring-bell-function 'ignore)
-
 ;; Character encoding
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8-unix)
@@ -110,6 +108,8 @@
           1 '((:foreground "#d75f5f") (:weight bold)) t))))
 (add-hook 'prog-mode-hook 'av/hl-todos-mode)
 
+(add-hook 'prog-mode-hook 'prettify-symbols-mode)
+
 
 ;;; Packages
 
@@ -120,9 +120,6 @@
        (proto (if no-ssl "http://" "https://")))
   (add-to-list 'package-archives (cons "melpa" (concat proto "melpa.org/packages/")) t)
   (add-to-list 'package-archives (cons "melpa-stable" (concat proto "stable.melpa.org/packages/")) t))
-
-;; NOTE: Temporary until Fedora package GNU Emacs 26.3
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 (setq package-archive-priorities
       '(("gnu" . 10)
@@ -139,19 +136,14 @@
 (eval-when-compile
   (require 'use-package))
 
-;;; File types
 
-(use-package clojure-mode
+(use-package undo-propose
   :ensure t
-  :defer t)
+  :config (global-set-key (kbd "C-c u") 'undo-propose))
 
-(use-package julia-mode
-  :ensure t
-  :defer t
-  :config
-  (use-package julia-repl
-    :ensure t
-    :hook (julia-mode . julia-repl-mode)))
+(setq scheme-program-name "csi -:c")
+
+(use-package clojure-mode :ensure t :defer t)
 
 (use-package markdown-mode :ensure t :defer t)
 
@@ -163,9 +155,7 @@
   ;; TODO set org directory for org-agenda
   (require 'org-man))
 
-(use-package restclient
-  :ensure t
-  :mode ("\\.restclient\\'" . restclient-mode))
+(use-package restclient :ensure t :mode ("\\.restclient\\'" . restclient-mode))
 
 (use-package ledger-mode :ensure t :defer t)
 ;; FIXME `ledger-mode-clean-buffer' should sort in reverse order
@@ -177,7 +167,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (julia-shell clojure-mode julia-repl julia-mode use-package org restclient markdown-mode ledger-mode))))
+    (ledger-mode restclient markdown-mode clojure-mode undo-propose use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
