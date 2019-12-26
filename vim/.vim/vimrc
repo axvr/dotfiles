@@ -1,6 +1,6 @@
 " =============================================================
-" Description:  Vim Configuration File
-" File:         ~/.vimrc
+" Description:  Main Vim configuration file.
+" File:         ~/.vim/vimrc
 " =============================================================
 
 filetype plugin indent on
@@ -75,7 +75,6 @@ packadd commentary
 packadd lion
 packadd cool
 let g:c_syntax_for_h = 1
-let g:latex_to_unicode_cmd_mapping = ['<C-J>']
 
 " Theming
 let &colorcolumn='+'.join(range(1,256),',+')
@@ -94,7 +93,6 @@ com! -nargs=0 -bar Scratch enew|setl bh=hide bt=nofile noswf
 com! -nargs=? -range GitBlame ec join(systemlist("git blame -L <line1>,<line2> <args> -- ".expand('%')),"\n")
 com! -nargs=0 -bar Tasks tabe DONE|sp DOING|sp TODO
 
-
 augroup filetypes
     autocmd!
 
@@ -109,9 +107,7 @@ augroup filetypes
     autocmd FileType tex setlocal mp=latexmk\ -pdf\ %
     autocmd FileType perl compiler perl
     autocmd FileType sh compiler shellcheck
-    " TODO set up quickfix list for JavaScript and TypeScript development
 
-    autocmd FileType markdown setlocal commentstring=<!--%s-->
     autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s
     autocmd FileType fstab,crontab setlocal commentstring=#%s
 

@@ -1,6 +1,6 @@
 " =============================================================
-" Description:  Set up Vim for C# (.NET Core) Projects
-" File:         ~/.vim/ftdetect/cs.vim
+" Description:  C# configuration.
+" File:         ~/.vim/after/ftdetect/cs.vim
 " =============================================================
 
 let g:OmniSharp_server_stdio = 1

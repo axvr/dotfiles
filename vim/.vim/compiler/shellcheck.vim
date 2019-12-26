@@ -1,5 +1,5 @@
 " =============================================================
-" Description:  Vim quickfix integration with ShellCheck
+" Description:  ShellCheck compiler integration.
 " File:         ~/.vim/compiler/shellcheck.vim
 " =============================================================
 

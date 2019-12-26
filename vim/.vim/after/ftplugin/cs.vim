@@ -1,6 +1,6 @@
 " =============================================================
-" Description:  Set up Vim for Editing C# (.NET Core) Projects
-" File:         ~/.vim/ftplugin/cs.vim
+" Description:  C# configuration.
+" File:         ~/.vim/after/ftplugin/cs.vim
 " =============================================================
 
 packadd omnisharp

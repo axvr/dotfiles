@@ -1,5 +1,5 @@
 " =============================================================
-" Description:  .NET Core CLI (dotnet-cli) Compiler Interface
+" Description:  .NET Core compiler integration.
 " File:         ~/.vim/compiler/dotnet.vim
 " =============================================================
 
