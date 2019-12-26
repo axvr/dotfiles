@@ -1,12 +1,6 @@
 [submodule "vim/.vim/pack/core/start/photon"]
 	path = vim/.vim/pack/core/start/photon
 	url = https://github.com/axvr/photon.vim
-[submodule "vim/.vim/pack/lang/start/org"]
-	path = vim/.vim/pack/lang/start/org
-	url = https://github.com/axvr/org.vim
-[submodule "vim/.vim/pack/lang/start/ledger"]
-	path = vim/.vim/pack/lang/start/ledger
-	url = https://github.com/ledger/vim-ledger
 [submodule "vim/.vim/pack/core/start/ascribe"]
 	path = vim/.vim/pack/core/start/ascribe
 	url = https://github.com/axvr/ascribe.vim
@@ -19,6 +13,15 @@
 [submodule "vim/.vim/pack/core/opt/cool"]
 	path = vim/.vim/pack/core/opt/cool
 	url = https://github.com/romainl/vim-cool
+[submodule "vim/.vim/pack/core/opt/qf"]
+	path = vim/.vim/pack/core/opt/qf
+	url = https://github.com/romainl/vim-qf
+[submodule "vim/.vim/pack/lang/start/org"]
+	path = vim/.vim/pack/lang/start/org
+	url = https://github.com/axvr/org.vim
+[submodule "vim/.vim/pack/lang/start/ledger"]
+	path = vim/.vim/pack/lang/start/ledger
+	url = https://github.com/ledger/vim-ledger
 [submodule "vim/.vim/pack/lang/opt/omnisharp"]
 	path = vim/.vim/pack/lang/opt/omnisharp
 	url = https://github.com/OmniSharp/omnisharp-vim
