@@ -1,6 +1,6 @@
 " =============================================================
-" Description:  C# configuration.
-" File:         ~/.vim/after/ftplugin/cs.vim
+" Description:  C# file type configuration.
+" File:         after/ftplugin/cs.vim
 " =============================================================
 
 packadd omnisharp

@@ -1,6 +1,6 @@
 " =============================================================
 " Description:  .NET Core compiler integration.
-" File:         ~/.vim/compiler/dotnet.vim
+" File:         compiler/dotnet.vim
 " =============================================================
 
 let s:cpo_save = &cpo

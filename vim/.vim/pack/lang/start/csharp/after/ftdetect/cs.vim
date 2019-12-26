@@ -1,6 +1,6 @@
 " =============================================================
-" Description:  C# configuration.
-" File:         ~/.vim/after/ftdetect/cs.vim
+" Description:  C# file type detection.
+" File:         after/ftdetect/cs.vim
 " =============================================================
 
 let g:OmniSharp_server_stdio = 1
