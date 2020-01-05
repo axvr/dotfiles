@@ -66,13 +66,15 @@ set linebreak
 set breakindent
 
 " Packages
-let g:netrw_banner = 0
 packadd matchit
+packadd cfilter
 packadd commentary
 packadd lion
 packadd cool
-packadd qf
+
+let g:netrw_banner = 0
 let g:c_syntax_for_h = 1
+let g:org_clean_folds = 1
 
 " Theming
 let &colorcolumn='+'.join(range(1,256),',+')
@@ -103,7 +105,7 @@ augroup filetypes
     autocmd FileType perl,sh,python,haskell,javascript setlocal tw=79
     autocmd FileType gitcommit setlocal spell
 
-    autocmd FileType tex setlocal mp=latexmk\ -pdf\ %
+    autocmd FileType tex compiler latexmk
     autocmd FileType perl compiler perl
     autocmd FileType sh compiler shellcheck
 
@@ -115,10 +117,4 @@ augroup filetypes
 
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
-
-    " TXR <https://www.nongnu.org/txr/>
-    autocmd BufRead,BufNewFile *.txr setlocal filetype=txr lisp
-    autocmd BufRead,BufNewFile *.tl,*.tlo setlocal filetype=tl lisp
-
-    " TODO SubX <http://akkartik.name/post/mu-2019-1>
 augroup END

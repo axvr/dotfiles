@@ -13,9 +13,6 @@
 [submodule "vim/.vim/pack/core/opt/cool"]
 	path = vim/.vim/pack/core/opt/cool
 	url = https://github.com/romainl/vim-cool
-[submodule "vim/.vim/pack/core/opt/qf"]
-	path = vim/.vim/pack/core/opt/qf
-	url = https://github.com/romainl/vim-qf
 [submodule "vim/.vim/pack/lang/start/org"]
 	path = vim/.vim/pack/lang/start/org
 	url = https://github.com/axvr/org.vim
