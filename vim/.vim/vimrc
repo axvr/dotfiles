@@ -15,6 +15,7 @@ set mouse=a
 set backspace=indent,eol,start
 set encoding=utf-8
 set spelllang=en_gb
+set cpoptions+=J
 
 " Interface
 set showcmd
@@ -41,8 +42,8 @@ endfor
 unlet s:dir
 
 " Set "<Leader>" and "<LocalLeader>" prefixes
-let mapleader = "\\"
-let maplocalleader = "\\\\"
+let mapleader = " "
+let maplocalleader = "\\"
 
 " Completion
 set omnifunc=syntaxcomplete#Complete

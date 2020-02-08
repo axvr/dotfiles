@@ -15,8 +15,8 @@ function! s:update_signs()
     let l:bufnr = bufnr('%')
     let l:signs = []
 
-    if !exists('b:itt')
-        let b:itt = 1024
+    if !exists('b:qf2s_next_sign_id')
+        let b:qf2s_next_sign_id = 1024
     endif
 
     for i in getqflist()
@@ -26,21 +26,22 @@ function! s:update_signs()
 
         if i.bufnr == l:bufnr
             if i.type ==? 'e'
-                let type = 'QfError'
+                let l:type = 'QfError'
             elseif i.type ==? 'w'
-                let type = 'QfWarning'
+                let l:type = 'QfWarning'
             else
-                let type = 'QfOther'
+                let l:type = 'QfOther'
             endif
 
-            exec 'sign place '.b:itt.' line='.i.lnum.' name='.type.' buffer='.l:bufnr
+            exec 'sign place '.b:qf2s_next_sign_id.' line='.i.lnum.' name='.l:type.' buffer='.l:bufnr
 
-            call insert(l:signs, b:itt)
-            let b:itt = b:itt + 1
+            call insert(l:signs, b:qf2s_next_sign_id)
+            let b:qf2s_next_sign_id = b:qf2s_next_sign_id + 1
         endif
     endfor
 
-    " Remove old signs after placing the new ones. This reduces screen refresh time.
+    " Remove old signs after placing new signs.  This avoids the sign coloum
+    " closing and reopening instantly, causing a screen flash.
     if exists('b:signs')
         for i in b:signs
             exec 'sign unplace '.i.' buffer='.l:bufnr

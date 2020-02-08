@@ -48,11 +48,12 @@ github_latest_version() {
 
 [ -z "$FONT_DIR" ] && FONT_DIR="$HOME/.fonts"
 
-# TODO: Iosevka (https://be5invis.github.io/Iosevka/)
-# TODO: Liberation Mono (find home page)
-# TODO: Liberation Sans (find home page)
-# TODO: Terminus (http://terminus-font.sourceforge.net/)
-# TODO: APL333 + APL385 (http://apl385.com/fonts/)
+# TODO: add more fonts:
+#   - Iosevka (https://be5invis.github.io/Iosevka/)
+#   - Liberation Mono (find home page)
+#   - Liberation Sans (find home page)
+#   - Terminus (http://terminus-font.sourceforge.net/)
+#   - APL333 + APL385 (http://apl385.com/fonts/)
 
 font_list=$(cat <<EOF
 Alto Mono           (https://damieng.com/blog/2008/08/25/the-xerox-alto-mono-spaced-font-rises-again)
