@@ -22,3 +22,6 @@
 [submodule "vim/.vim/pack/lang/opt/omnisharp"]
 	path = vim/.vim/pack/lang/opt/omnisharp
 	url = https://github.com/OmniSharp/omnisharp-vim
+[submodule "vim/.vim/pack/core/opt/waikiki"]
+	path = vim/.vim/pack/core/opt/waikiki
+	url = https://github.com/fcpg/vim-waikiki
