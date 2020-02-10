@@ -16,6 +16,9 @@ set backspace=indent,eol,start
 set encoding=utf-8
 set spelllang=en_gb
 set cpoptions+=J
+set modeline
+set nrformats-=octal
+set formatoptions+=jpl1n
 
 " Interface
 set showcmd
@@ -68,13 +71,16 @@ set breakindent
 
 " Packages
 packadd matchit
-packadd cfilter
+if v:version >= 810
+    packadd cfilter
+endif
 packadd commentary
 packadd lion
 packadd cool
 
 let g:netrw_banner = 0
 let g:c_syntax_for_h = 1
+let g:c_comment_strings = 1
 let g:org_clean_folds = 1
 
 " Wiki
@@ -107,7 +113,7 @@ com! -nargs=0 -bar Tasks tabe DONE|sp DOING|sp TODO
 augroup filetypes
     autocmd!
 
-    autocmd FileType c,cpp setlocal path&
+    autocmd FileType c,cpp setlocal path+=/usr/include
     autocmd FileType c,make,go,gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
     autocmd FileType lisp,json,ruby,scheme,clojure setlocal et sts=2 sw=2 ts=8
     autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2

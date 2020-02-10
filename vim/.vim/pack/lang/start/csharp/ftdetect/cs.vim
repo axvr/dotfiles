@@ -1,12 +1,12 @@
 " =============================================================
 " Description:  C# file type detection.
-" File:         after/ftdetect/cs.vim
+" File:         ftdetect/cs.vim
 " =============================================================
 
 let g:OmniSharp_server_stdio = 1
 let g:OmniSharp_highlight_types = 1
 
-autocmd BufReadPre,BufNewFile *.cs setfiletype cs
+autocmd BufReadPre,BufNewFile *.cs packadd omnisharp | setfiletype cs
 autocmd BufRead,BufNewFile *.cs,*.cshtml,*.csproj,*.aspx,*.sln compiler dotnet
 autocmd BufRead,BufNewFile *.cshtml setfiletype cshtml.html
 autocmd BufRead,BufNewFile *.aspx   setfiletype aspx.html
