@@ -30,12 +30,3 @@ export GOPATH
 # .NET Core settings
 export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
-# Start window manager on login in TTY1
-if [ -z "$DISPLAY" ] && [ "$(tty)" = /dev/tty1 ]; then
-    if [ "$(command -v startx)" ]; then
-        exec startx; vlock
-    elif [ "$(command -v wayland)" ]; then
-        exec wayland; vlock
-    fi
-fi
