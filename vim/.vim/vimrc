@@ -15,10 +15,10 @@ set mouse=a
 set backspace=indent,eol,start
 set encoding=utf-8
 set spelllang=en_gb
-set cpoptions+=J
-set modeline
-set nrformats-=octal
 set formatoptions+=jpl1n
+set cpoptions+=J
+set nrformats-=octal
+set modeline
 
 " Interface
 set showcmd
@@ -51,7 +51,7 @@ let maplocalleader = "\\"
 " Completion
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
-set wildignore+=*/.git/*,*/node_modules/*
+set wildignore+=*/.git/*,*/node_modules/*,tags
 set path=.,,**
 set dictionary=/usr/dict/words,/usr/share/dict/words
 
@@ -77,6 +77,8 @@ endif
 packadd commentary
 packadd lion
 packadd cool
+let g:CoolTotalMatches = 1
+packadd zepl
 
 let g:netrw_banner = 0
 let g:c_syntax_for_h = 1
@@ -133,4 +135,23 @@ augroup filetypes
 
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
+
+    autocmd FileType clojure let b:repl_config = { 'cmd': 'clj', 'load_file': '(load-file "%s")' }
+    autocmd FileType julia let b:repl_config = { 'cmd': 'julia', 'load_file': 'include("%s")' }
 augroup END
+
+" Nice s-expr selection/expansion.
+" onoremap s ab
+" xnoremap s ab
+
+function! s:repl_load_files(...) abort
+    let fns = (a:0 > 0 ? a:000 : [expand('%')])
+    let fns = map(copy(fns), 'fnamemodify(expand(v:val), ":p")')
+    let vfns = filter(uniq(copy(fns)), 'filereadable(v:val)')
+    let cmds = map(copy(vfns), 'printf(b:repl_config["load_file"], v:val)')
+    call zepl#send(join(cmds, "\n"))
+endfunction
+
+command! -nargs=* -complete=file -bar ReplLoadFile :call <SID>repl_load_files(<f-args>)
+nnoremap <silent> <Plug>ReplLoadFile :<C-u>ReplLoadFile<CR>
+nmap <silent> gz. <Plug>ReplLoadFile

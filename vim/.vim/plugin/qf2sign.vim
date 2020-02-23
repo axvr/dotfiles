@@ -3,6 +3,7 @@
 " File:         ~/.vim/plugin/qf2sign.vim
 " Licence:      Public domain.
 " Created:      2018-07-19
+" Updated:      2020-02-19
 " =============================================================
 
 sign define QfWarning text=> texthl=WarningMsg
@@ -12,8 +13,8 @@ sign define QfOther text=>
 autocmd! BufEnter,QuickFixCmdPost * call <SID>update_signs()
 
 function! s:update_signs()
-    let l:bufnr = bufnr('%')
-    let l:signs = []
+    let bufnr = bufnr('%')
+    let signs = []
 
     if !exists('b:qf2s_next_sign_id')
         let b:qf2s_next_sign_id = 1024
@@ -24,18 +25,18 @@ function! s:update_signs()
             continue
         endif
 
-        if i.bufnr == l:bufnr
+        if i.bufnr == bufnr
             if i.type ==? 'e'
-                let l:type = 'QfError'
+                let type = 'QfError'
             elseif i.type ==? 'w'
-                let l:type = 'QfWarning'
+                let type = 'QfWarning'
             else
-                let l:type = 'QfOther'
+                let type = 'QfOther'
             endif
 
-            exec 'sign place '.b:qf2s_next_sign_id.' line='.i.lnum.' name='.l:type.' buffer='.l:bufnr
+            exec 'sign place '.b:qf2s_next_sign_id.' line='.i.lnum.' name='.type.' buffer='.bufnr
 
-            call insert(l:signs, b:qf2s_next_sign_id)
+            call insert(signs, b:qf2s_next_sign_id)
             let b:qf2s_next_sign_id = b:qf2s_next_sign_id + 1
         endif
     endfor
@@ -44,9 +45,9 @@ function! s:update_signs()
     " closing and reopening instantly, causing a screen flash.
     if exists('b:signs')
         for i in b:signs
-            exec 'sign unplace '.i.' buffer='.l:bufnr
+            exec 'sign unplace '.i.' buffer='.bufnr
         endfor
     endif
 
-    let b:signs = l:signs
+    let b:signs = signs
 endfunction
