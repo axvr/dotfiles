@@ -78,7 +78,9 @@ packadd commentary
 packadd lion
 packadd cool
 let g:CoolTotalMatches = 1
+
 packadd zepl
+runtime zepl/contrib/load_files.vim
 
 let g:netrw_banner = 0
 let g:c_syntax_for_h = 1
@@ -139,19 +141,3 @@ augroup filetypes
     autocmd FileType clojure let b:repl_config = { 'cmd': 'clj', 'load_file': '(load-file "%s")' }
     autocmd FileType julia let b:repl_config = { 'cmd': 'julia', 'load_file': 'include("%s")' }
 augroup END
-
-" Nice s-expr selection/expansion.
-" onoremap s ab
-" xnoremap s ab
-
-function! s:repl_load_files(...) abort
-    let fns = (a:0 > 0 ? a:000 : [expand('%')])
-    let fns = map(copy(fns), 'fnamemodify(expand(v:val), ":p")')
-    let vfns = filter(uniq(copy(fns)), 'filereadable(v:val)')
-    let cmds = map(copy(vfns), 'printf(b:repl_config["load_file"], v:val)')
-    call zepl#send(join(cmds, "\n"))
-endfunction
-
-command! -nargs=* -complete=file -bar ReplLoadFile :call <SID>repl_load_files(<f-args>)
-nnoremap <silent> <Plug>ReplLoadFile :<C-u>ReplLoadFile<CR>
-nmap <silent> gz. <Plug>ReplLoadFile

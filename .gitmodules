@@ -1,6 +1,9 @@
 [submodule "vim/.vim/pack/core/start/photon"]
 	path = vim/.vim/pack/core/start/photon
 	url = https://github.com/axvr/photon.vim
+[submodule "vim/.vim/pack/core/opt/zepl"]
+	path = vim/.vim/pack/core/opt/zepl
+	url = https://github.com/axvr/zepl.vim
 [submodule "vim/.vim/pack/core/start/ascribe"]
 	path = vim/.vim/pack/core/start/ascribe
 	url = https://github.com/axvr/ascribe.vim
@@ -28,6 +31,3 @@
 [submodule "vim/.vim/pack/lang/start/julia"]
 	path = vim/.vim/pack/lang/start/julia
 	url = https://github.com/JuliaEditorSupport/julia-vim
-[submodule "vim/.vim/pack/core/opt/zepl"]
-	path = vim/.vim/pack/core/opt/zepl
-	url = https://github.com/axvr/zepl.vim
