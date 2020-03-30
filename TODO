@@ -3,3 +3,7 @@
   - http://mah.everybody.org/docs/ssh
 - Maybe remove Cygwin and Termux configs?
 - What to do with my set up scripts, guides and resources?
+
+VIM SCHEME:
+- [[ and [] mappings
+- Highlight TODO and FIXME comments

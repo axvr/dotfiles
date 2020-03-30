@@ -26,6 +26,7 @@ set ruler
 set belloff=all
 set showmatch
 set scrolloff=0
+set nofoldenable
 
 " Search
 set hlsearch
@@ -102,8 +103,8 @@ colorscheme photon
 
 augroup style
     autocmd!
-    autocmd BufEnter,WinEnter * set cursorline
-    autocmd BufLeave,WinLeave * set nocursorline
+    autocmd BufEnter,WinEnter * setlocal cursorline
+    autocmd BufLeave,WinLeave * setlocal nocursorline
 augroup END
 
 com! -nargs=+ -complete=file GitGrep let s:gp=&gp|set gp=git\ grep\ -n|gr <args>|let &gp=s:gp|unl s:gp
