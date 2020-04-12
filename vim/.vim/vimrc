@@ -126,7 +126,7 @@ augroup filetypes
     autocmd FileType c,make,go,gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
     autocmd FileType lisp,json,ruby,scheme,clojure setlocal et sts=2 sw=2 ts=8
     autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2
-    autocmd FileType julia,python setlocal et sts=4 sw=4 ts=4
+    autocmd FileType python setlocal et sts=4 sw=4 ts=4
     autocmd FileType perl,sh,python,haskell,javascript setlocal tw=79
     autocmd FileType gitcommit setlocal spell
 
@@ -144,5 +144,4 @@ augroup filetypes
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
 
     autocmd FileType clojure let b:repl_config = { 'cmd': 'clj', 'load_file': '(load-file "%s")' }
-    autocmd FileType julia let b:repl_config = { 'cmd': 'julia', 'load_file': 'include("%s")' }
 augroup END

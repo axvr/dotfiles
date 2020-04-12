@@ -28,6 +28,3 @@
 [submodule "vim/.vim/pack/core/opt/waikiki"]
 	path = vim/.vim/pack/core/opt/waikiki
 	url = https://github.com/fcpg/vim-waikiki
-[submodule "vim/.vim/pack/lang/start/julia"]
-	path = vim/.vim/pack/lang/start/julia
-	url = https://github.com/JuliaEditorSupport/julia-vim
