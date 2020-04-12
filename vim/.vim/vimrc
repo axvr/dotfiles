@@ -97,6 +97,10 @@ augroup Waikiki
     autocmd User setup nmap <buffer> <2-LeftMouse> <Plug>(waikikiFollowLink)
 augroup END
 
+if $TERM =~# '^screen'
+    set ttymouse=xterm2
+endif
+
 " Theming
 let &colorcolumn='+'.join(range(1,256),',+')
 colorscheme photon

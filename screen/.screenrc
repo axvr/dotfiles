@@ -1,0 +1,13 @@
+# ~/.screenrc - GNU Screen Configuration
+
+startup_message off
+term screen-256color        # Terminal hacks.
+altscreen on                # Clear screen on TUI close.
+maptimeout 5                # Avoid slowing down responsiveness of the ESC key.
+defscrollback 20000
+mousetrack on               # Enable mouse support.
+
+# Connect to Replica 1:
+#   ^A : screen /dev/ttyUSB0
+
+# TODO: check /etc/screenrc
