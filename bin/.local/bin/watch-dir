@@ -1,0 +1,11 @@
+#!/bin/bash
+
+watch-fn() {
+    inotifywait --recursive --event modify,move,create,delete "$1" &> /dev/null
+}
+
+[ -z "$WATCH_DIR" ] && WATCH_DIR="$(pwd)"
+
+while watch-fn "$WATCH_DIR"; do
+    $*
+done
