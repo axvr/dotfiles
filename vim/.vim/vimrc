@@ -80,22 +80,10 @@ packadd lion
 packadd cool
 let g:CoolTotalMatches = 1
 
-packadd zepl
-runtime zepl/contrib/load_files.vim
-
 let g:netrw_banner = 0
 let g:c_syntax_for_h = 1
 let g:c_comment_strings = 1
 let g:org_clean_folds = 1
-
-" Wiki
-let g:waikiki_roots = ['~/Wiki/']
-let g:waikiki_default_maps = 1
-packadd waikiki
-augroup Waikiki
-    autocmd!
-    autocmd User setup nmap <buffer> <2-LeftMouse> <Plug>(waikikiFollowLink)
-augroup END
 
 if $TERM =~# '^screen'
     set ttymouse=xterm2
@@ -104,12 +92,6 @@ endif
 " Theming
 let &colorcolumn='+'.join(range(1,256),',+')
 colorscheme photon
-
-augroup style
-    autocmd!
-    autocmd BufEnter,WinEnter * setlocal cursorline
-    autocmd BufLeave,WinLeave * setlocal nocursorline
-augroup END
 
 com! -nargs=+ -complete=file GitGrep let s:gp=&gp|set gp=git\ grep\ -n|gr <args>|let &gp=s:gp|unl s:gp
 com! -nargs=* -complete=file Todos let s:gp=&gp|set gp=todos|gr <args>|let &gp=s:gp|unl s:gp
@@ -142,6 +124,4 @@ augroup filetypes
 
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
-
-    autocmd FileType clojure let b:repl_config = { 'cmd': 'clj', 'load_file': '(load-file "%s")' }
 augroup END

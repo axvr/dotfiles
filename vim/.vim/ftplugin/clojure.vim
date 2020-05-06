@@ -1,0 +1,12 @@
+" =============================================================
+" Description:  Clojure configuration for Vim
+" File:         ftplugin/clojure.vim
+" =============================================================
+
+let b:repl_config = { 'cmd': 'clj', 'load_file': '(load-file "%s")' }
+
+command! -buffer -bar -nargs=1 CljDoc :call zepl#send('(clojure.repl/doc ' . <q-args> . ')')
+command! -buffer -bar -nargs=1 CljSrc :call zepl#send('(clojure.repl/source ' . <q-args> . ')')
+command! -buffer -bar -nargs=+ CljNs  :call zepl#send('(clojure.core/ns ' . <q-args> . ')')
+
+let &l:keywordprg = ":CljDoc"  " FIXME: fails if symbol contains a question mark or asterisk.

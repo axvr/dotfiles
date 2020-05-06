@@ -8,7 +8,10 @@ highlight! def link schemeParentheses Delimiter
 let b:is_chicken = get(b:, 'is_chicken', get(g:, 'is_chicken', 1))
 
 if b:is_chicken
-    let b:repl_config = { 'cmd': 'rlwrap csi -:c', 'load_file': '(load "%s")' }
+    let b:repl_config = {
+                \   'cmd': 'rlwrap -r -q "\"" -b "(){}[],^%#@\";:" csi -:c',
+                \   'load_file': '(load "%s")'
+                \ }
 
     " https://wiki.call-cc.org/vim
     setl lispwords+=let-values,condition-case,with-input-from-string

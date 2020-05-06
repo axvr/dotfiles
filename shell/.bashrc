@@ -38,6 +38,8 @@ fi
 
 # == Aliases & functions ==
 
+alias vi="vim"
+
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
@@ -48,4 +50,4 @@ alias ledger-record='$EDITOR "$HOME/.ledger/personal.dat"'
 
 alias serve="python3 -m http.server"
 
-alias wiki="(cd ~/Wiki/ && vim index.md)"
+alias wiki="(cd ~/Documents/Wiki/ && vim index.md)"
