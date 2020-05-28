@@ -30,11 +30,6 @@ PS2="> "
 git_branch() { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/^\*//'; }
 PS1="[\u@\h \W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\$ "
 
-# Source environment specific Bash config file
-if [ -f "$HOME/.bashrc_$(uname -o)" ]; then
-    . "$HOME/.bashrc_$(uname -o)"
-fi
-
 
 # == Aliases & functions ==
 
