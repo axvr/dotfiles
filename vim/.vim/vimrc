@@ -72,9 +72,7 @@ set breakindent
 
 " Packages
 packadd matchit
-if v:version >= 810
-    packadd cfilter
-endif
+packadd cfilter
 packadd commentary
 packadd lion
 packadd cool
@@ -118,9 +116,6 @@ augroup filetypes
 
     autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s
     autocmd FileType fstab,crontab setlocal commentstring=#%s
-
-    autocmd BufRead,BufNewFile *.vue setfiletype html
-    autocmd BufRead,BufNewFile *.ts setlocal filetype=javascript
 
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
