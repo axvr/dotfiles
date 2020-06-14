@@ -1,7 +1,6 @@
 - Start 'ssh-agent' in profile file
   - https://stackoverflow.com/a/18915067
   - http://mah.everybody.org/docs/ssh
-- Maybe remove Cygwin and Termux configs?
 - What to do with my set up scripts, guides and resources?
 
 VIM SCHEME:
