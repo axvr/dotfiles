@@ -56,10 +56,7 @@ github_latest_version() {
 #   - APL333 + APL385 (http://apl385.com/fonts/)
 
 font_list=$(cat <<EOF
-Alto Mono           (https://damieng.com/blog/2008/08/25/the-xerox-alto-mono-spaced-font-rises-again)
-Anonymous Pro       (https://www.marksimonson.com/fonts/view/anonymous-pro)
 DejaVu Sans/Serif   (https://dejavu-fonts.github.io/)
-Dijkstra            (http://lucacardelli.name/indexartifacts.html)
 Envy Code R         (https://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released)
 Fira Code           (https://github.com/tonsky/FiraCode)
 Fira Mono           (https://mozilla.github.io/Fira/)
@@ -67,17 +64,13 @@ Fira Sans           (https://mozilla.github.io/Fira/)
 Font Awesome        (https://fontawesome.com/)
 Hack                (https://sourcefoundry.org/hack/)
 Inconsolata         (http://www.levien.com/type/myfonts/inconsolata.html)
-Mononoki            (https://madmalik.github.io/mononoki/)
 Noto Sans           (https://fonts.google.com/specimen/Noto+Sans)
 Noto Serif          (https://fonts.google.com/specimen/Noto+Serif)
 Roboto Condensed    (https://fonts.google.com/specimen/Roboto+Condensed)
 Roboto              (https://fonts.google.com/specimen/Roboto)
 Roboto Mono         (https://fonts.google.com/specimen/Roboto+Mono)
 Roboto Slab         (https://fonts.google.com/specimen/Roboto+Slab)
-Share Tech Mono     (https://fonts.google.com/specimen/Share+Tech+Mono)
 Source Code Pro     (https://adobe-fonts.github.io/source-code-pro/)
-Spleen              (https://www.cambus.net/spleen-monospaced-bitmap-fonts/)
-Tamsyn              (http://www.fial.com/~scott/tamsyn-font/)
 EOF
 )
 
@@ -106,14 +99,13 @@ do
         inconsolata)        google_fonts "Inconsolata";;
         fira_sans)          google_fonts "Fira Sans";;
         fira_mono)          google_fonts "Fira Mono";;
-        share_tech_mono)    google_fonts "Share Tech Mono";;
 
         fira_code)
             requires "unzip"
             version="$(github_latest_version "tonsky" "FiraCode")"
-            url="https://github.com/tonsky/FiraCode/releases/download/$version/FiraCode_$version.zip"
-            download "$url" "fira-code/FiraCode_$version.zip"
-            unzip -q "$FONT_DIR/fira-code/FiraCode_$version.zip" -d "$FONT_DIR/fira-code/"
+            url="https://github.com/tonsky/FiraCode/releases/download/$version/Fira_Code_v$version.zip"
+            download "$url" "fira-code/Fira_Code_v$version.zip"
+            unzip -q "$FONT_DIR/fira-code/Fira_Code_v$version.zip" -d "$FONT_DIR/fira-code/"
             message "Fira Code"
             ;;
 
@@ -126,47 +118,12 @@ do
             message "Hack"
             ;;
 
-        mononoki)
-            requires "unzip"
-            version="$(github_latest_version "madmalik" "mononoki")"
-            url="https://github.com/madmalik/mononoki/releases/download/$version/mononoki.zip"
-            download "$url" "mononoki/mononoki.zip"
-            unzip -q "$FONT_DIR/mononoki/mononoki.zip" -d "$FONT_DIR/mononoki/"
-            message "Mononoki"
-            ;;
-
         dejavu)
             requires "tar" "bzip2"
             url="http://sourceforge.net/projects/dejavu/files/dejavu/2.37/dejavu-fonts-ttf-2.37.tar.bz2"
             download "$url" "dejavu-fonts-ttf-2.37/dejavu-fonts-ttf-2.37.tar.bz2"
             tar -jxf "$FONT_DIR/dejavu-fonts-ttf-2.37/dejavu-fonts-ttf-2.37.tar.bz2" -C "$FONT_DIR/"
             message "DejaVu"
-            ;;
-
-        tamsyn)
-            requires "tar" "gzip"
-            url="http://www.fial.com/~scott/tamsyn-font/download/tamsyn-font-1.11.tar.gz"
-            download "$url" "tamsyn-font-1.11/tamsyn.tar.gz"
-            tar -zxf "$FONT_DIR/tamsyn-font-1.11/tamsyn.tar.gz" -C "$FONT_DIR/"
-            message "Tamsyn"
-            ;;
-
-        spleen)
-            requires "tar" "gzip"
-            version="$(github_latest_version "fcambus" "spleen")"
-            url="https://github.com/fcambus/spleen/releases/download/$version/spleen-$version.tar.gz"
-            download "$url" "spleen/spleen-$version.tar.gz"
-            tar -zxf "$FONT_DIR/spleen/spleen-$version.tar.gz" -C "$FONT_DIR/spleen"
-            message "Spleen"
-            ;;
-
-        anonymous_pro)
-            requires "unzip"
-            archive_name="AnonymousPro-1.002.zip"
-            url="https://www.marksimonson.com/assets/content/fonts/$archive_name"
-            download "$url" "anonymous-pro/$archive_name"
-            unzip -q "$FONT_DIR/anonymous-pro/$archive_name" -d "$FONT_DIR/anonymous-pro"
-            message "Anonymous Pro"
             ;;
 
         font_awesome)
@@ -178,26 +135,12 @@ do
             message "Font Awesome (free)"
             ;;
 
-        dijkstra)
-            url="http://lucacardelli.name/Artifacts/Fonts/Pc/dijkstra.ttf"
-            download "$url" "dijkstra/dijkstra.ttf"
-            message "Dijkstra"
-            ;;
-
         envy_code|envy_code_r)
             requires "unzip"
             url="https://download.damieng.com/fonts/original/EnvyCodeR-PR7.zip"
             download "$url" "envy_code_r/EnvyCodeR-PR7.zip"
             unzip -q "$FONT_DIR/envy_code_r/EnvyCodeR-PR7.zip" -d "$FONT_DIR/envy_code_r/"
             message "Envy Code R"
-            ;;
-
-        alto_mono)
-            requires "unzip"
-            url="https://download.damieng.com/fonts/reproduced/AltoMono.zip"
-            download "$url" "alto_mono/AltoMono.zip"
-            unzip -q "$FONT_DIR/alto_mono/AltoMono.zip" -d "$FONT_DIR/alto_mono/"
-            message "Alto Mono"
             ;;
 
         *)  printf "Error: Invalid font '%s'\\n" "$f";;
