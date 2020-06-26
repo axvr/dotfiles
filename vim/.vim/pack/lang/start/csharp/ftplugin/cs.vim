@@ -22,12 +22,23 @@ nnoremap <buffer> <localleader>i :<C-u>OmniSharpFindImplementations<CR>
 nnoremap <buffer> <localleader>t :<C-u>OmniSharpTypeLookup<CR>
 nnoremap <buffer> <localleader>s :<C-u>OmniSharpSignatureHelp<CR>
 
-function! s:OmniSharpSignColumn() abort
-    if OmniSharp#CountCodeActions({-> execute('sign unplace 99')})
-        exe 'sign place 99 line='.getpos('.')[1].' name=OmniSharpCodeActions buffer='.bufnr('%')
+function! s:OmniSharpCodeActions() abort
+    if bufname('%') ==# '' || !OmniSharp#IsServerRunning() | return | endif
+    let opts = {
+             \   'CallbackCount': function('s:OmniSharpCodeActionsReturnCount'),
+             \   'CallbackCleanup': {-> execute('sign unplace 99')}
+             \ }
+    call OmniSharp#actions#codeactions#Count(opts)
+endfunction
+
+function! s:OmniSharpCodeActionsReturnCount(count) abort
+    if a:count
+        let l = getpos('.')[1]
+        let f = expand('%:p')
+        execute 'sign place 99 line='.l.' name=OmniSharpCodeActions file='.f
     endif
 endfunction
 
 setlocal signcolumn=yes updatetime=500
 sign define OmniSharpCodeActions text=> texthl=Special
-autocmd! CursorHold <buffer> call <SID>OmniSharpSignColumn()
+autocmd! CursorHold <buffer> call <SID>OmniSharpCodeActions()
