@@ -3,24 +3,40 @@
 " File:         ftplugin/cs.vim
 " =============================================================
 
+augroup csharp
+    autocmd!
+augroup END
+
 setlocal commentstring=//%s
 setlocal completeopt-=preview completeopt+=popuphidden
 setlocal completepopup+=border:off
 
-" C# documentation (use OmniSharp instead of "&keywordprg")
-nnoremap <buffer><silent> K :<C-u>OmniSharpDocumentation<CR>
-nnoremap <buffer><silent> gd :<C-u>OmniSharpGotoDefinition<CR>
-nnoremap <buffer><silent> <C-]> :<C-u>OmniSharpGotoDefinition<CR>
-nnoremap <buffer> <F12> :<C-u>OmniSharpPreviewDefinition<CR>
-nnoremap <buffer> <S-F12> :<C-u>OmniSharpPreviewImplementation<CR>
-nnoremap <buffer> <F2> :<C-u>OmniSharpRename<CR>
+nmap <silent> <buffer> [[ <Plug>(omnisharp_navigate_up)
+nmap <silent> <buffer> ]] <Plug>(omnisharp_navigate_down)
 
-nnoremap <buffer> <localleader>a :<C-u>OmniSharpGetCodeActions<CR>
-nnoremap <buffer> <localleader>U :<C-u>OmniSharpFixUsings<CR>
-nnoremap <buffer> <localleader>u :<C-u>OmniSharpFindUsages<CR>
-nnoremap <buffer> <localleader>i :<C-u>OmniSharpFindImplementations<CR>
-nnoremap <buffer> <localleader>t :<C-u>OmniSharpTypeLookup<CR>
-nnoremap <buffer> <localleader>s :<C-u>OmniSharpSignatureHelp<CR>
+nmap <silent> <buffer> K <Plug>(omnisharp_documentation)
+
+nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
+nmap <silent> <buffer> <C-]> <Plug>(omnisharp_go_to_definition)
+
+nmap <silent> <buffer> <F2> <Plug>(omnisharp_rename)
+
+nmap <silent> <buffer> <localleader>a <Plug>(omnisharp_code_actions)
+xmap <silent> <buffer> <localleader>a <Plug>(omnisharp_code_actions)
+
+nmap <silent> <buffer> <localleader>U <Plug>(omnisharp_fix_usings)
+nmap <silent> <buffer> <localleader>u <Plug>(omnisharp_find_usages)
+nmap <silent> <buffer> <localleader>i <Plug>(omnisharp_find_implementations)
+nmap <silent> <buffer> <localleader>I <Plug>(omnisharp_preview_implementations)
+nmap <silent> <buffer> <localleader>d <Plug>(omnisharp_go_to_definition)
+nmap <silent> <buffer> <localleader>D <Plug>(omnisharp_preview_definition)
+
+nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+
+nmap <silent> <buffer> gq <Plug>(omnisharp_code_format)
+
+autocmd csharp CursorHold *.cs OmniSharpTypeLookup
 
 function! s:OmniSharpCodeActions() abort
     if bufname('%') ==# '' || !OmniSharp#IsServerRunning() | return | endif
@@ -41,4 +57,4 @@ endfunction
 
 setlocal signcolumn=yes updatetime=500
 sign define OmniSharpCodeActions text=> texthl=Special
-autocmd! CursorHold <buffer> call <SID>OmniSharpCodeActions()
+autocmd csharp CursorHold <buffer> call <SID>OmniSharpCodeActions()
