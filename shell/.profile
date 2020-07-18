@@ -19,14 +19,15 @@ export VISUAL=vim
 export EDITOR=vim
 
 # User specific environment and startup programs
-PATH="${PATH}:$HOME/.local/bin:$HOME/.dotnet/tools"
+PATH="${PATH}:$HOME/.local/bin"
 MANPATH="${MANPATH}:$HOME/.local/man"
-export PATH MANPATH
 
 # Golang environment
-GOPATH="$HOME/.local/share/go"
-export GOPATH
+export GOPATH="$HOME/.local/share/go"
 
 # .NET Core settings
+PATH="${PATH}:$HOME/.dotnet/tools"
 export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+export PATH MANPATH
