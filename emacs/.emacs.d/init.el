@@ -62,21 +62,37 @@
 
 ;;; Default fonts
 
-(defun set-monospace-font (family height)
-  (set-face-attribute 'default nil :family family :height height)
-  (set-face-attribute 'fixed-pitch nil :family family :height height))
+(defun flatten (mylist)
+  (cond
+   ((null mylist) nil)
+   ((atom mylist) (list mylist))
+   (t
+    (append (flatten (car mylist))
+            (flatten (cdr mylist))))))
 
-(cond ((member "Roboto Mono" (font-family-list))
-       (set-monospace-font "Roboto Mono" 110))
-      ((member "Inconsolata" (font-family-list))
-       (set-monospace-font "Inconsolata" 135))
-      ((memq system-type '(cygwin windows-nt ms-dos))
-       (set-monospace-font "Consolas" 110)))
+(defun av/top-installed-font (fonts)
+    (seq-find (lambda (x)
+                (member (cdr (assoc :family x))
+                        (font-family-list)))
+              fonts))
 
-(cond ((member "Cantarell" (font-family-list))
-       (set-face-attribute 'variable-pitch nil :family "Cantarell" :height 120))
-      ((member "DejaVu Sans" (font-family-list))
-       (set-face-attribute 'variable-pitch nil :family "DejaVu Sans" :height 110)))
+(defun av/set-font (type fonts)
+  (let ((font-attrs (av/top-installed-font fonts)))
+    (when font-attrs
+      (if (eq type 'monospace)
+          (progn
+            (av/set-font 'default (list font-attrs))
+            (av/set-font 'fixed-pitch (list font-attrs)))
+        (apply 'set-face-attribute type nil (flatten font-attrs))))))
+
+(av/set-font 'monospace
+             '(((:family . "Roboto Mono") (:height . 110))
+               ((:family . "Inconsolata") (:height . 135))
+               ((:family . "Consolas")    (:height . 110))))
+
+(av/set-font 'variable-pitch
+             '(((:family . "Cantarell")   (:height . 120))
+               ((:family . "DejaVu Sans") (:height . 110))))
 
 
 ;;; Scrolling
