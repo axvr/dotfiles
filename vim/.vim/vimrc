@@ -74,6 +74,7 @@ set breakindent
 packadd matchit
 packadd cfilter
 packadd commentary
+packadd traces
 packadd lion
 packadd cool
 let g:CoolTotalMatches = 1
@@ -87,7 +88,7 @@ let g:org_clean_folds = 1
 "     set termguicolors
 " endif
 
-if &term =~# '^screen'
+if &term =~# '^\(screen\|tmux\)'
     set ttymouse=xterm2
     " :help xterm-true-color
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -122,8 +123,10 @@ augroup filetypes
     autocmd FileType sh compiler shellcheck
 
     autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s
-    autocmd FileType fstab,crontab setlocal commentstring=#%s
+    autocmd FileType fstab,crontab,spec setlocal commentstring=#%s
 
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
+
+    autocmd BufRead,BufNewFile *.sxml setfiletype scheme
 augroup END
