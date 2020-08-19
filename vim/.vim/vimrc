@@ -127,6 +127,4 @@ augroup filetypes
 
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
-
-    autocmd BufRead,BufNewFile *.sxml setfiletype scheme
 augroup END

@@ -3,5 +3,10 @@
   - http://mah.everybody.org/docs/ssh
 
 VIM SCHEME:
-- [[ and [] mappings
-- Highlight TODO and FIXME comments
+- (Outer?) s-expression jump mappings:
+  - [[ : Backwards to start of s-expression.
+  - [] : Backwards to end of previous s-expression.
+  - ][ : Forwards to end of s-expression.
+  - ]] : Forwards to start of next s-expression.
+
+- Add proper F# support to Vim.
