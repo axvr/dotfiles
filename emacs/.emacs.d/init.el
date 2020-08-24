@@ -8,6 +8,7 @@
   (normal-top-level-add-subdirs-to-load-path))
 
 
+;;; ------------------------------------------------------------
 ;;; Essentials
 
 (setq user-mail-address "av@axvr.io"
@@ -29,14 +30,21 @@
       save-place-file (concat user-emacs-directory "places"))
 (save-place-mode 1)
 
+(defalias 'yes-or-no-p 'y-or-n-p)
 
+;; Enable WindMove
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings 'meta))
+
+
+;;; ------------------------------------------------------------
 ;;; UI config
 
-(menu-bar-mode -1)
 (if (display-graphic-p)
-    (progn (tool-bar-mode -1)
-           (scroll-bar-mode -1)
-           (setq-default cursor-type 'bar))
+    (progn
+      (tool-bar-mode -1)
+      (setq default-frame-alist '((height . 46) (width . 96)))
+      (setq-default cursor-type 'bar))
   (xterm-mouse-mode 1))
 
 (setq inhibit-startup-screen t
@@ -54,12 +62,24 @@
   (call-process-shell-command
    (concat "xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT \"" variant "\" -name \"" (current-frame-name) "\"")))
 
-(when (window-system)
+(when (and (display-graphic-p)
+           (string= (getenv "GTK_THEME") "Adwaita:dark"))
   (set-gtk-theme "dark"))
 
+;; Themes:
+;;   - photon (custom)  TODO: improve Photon.el
+;;   - nothing (nothing-theme)
+;;   - modus-operandi (modus-operandi-theme)
 (load-theme 'photon t)
+;; Photon improvements:
+;; - More contrast on selectrum selected items.
+;; - Support company mode.
+;; - Sly buffer colours.
+;; - Directory colours.
+;; - Menubar in Terminal.
 
 
+;;; ------------------------------------------------------------
 ;;; Default fonts
 
 (defun flatten (mylist)
@@ -86,8 +106,8 @@
         (apply 'set-face-attribute type nil (flatten font-attrs))))))
 
 (av/set-font 'monospace
-             '(((:family . "Roboto Mono") (:height . 110))
-               ((:family . "Inconsolata") (:height . 135))
+             '(((:family . "Inconsolata") (:height . 135))
+               ((:family . "Roboto Mono") (:height . 110))
                ((:family . "Consolas")    (:height . 110))))
 
 (av/set-font 'variable-pitch
@@ -95,11 +115,16 @@
                ((:family . "DejaVu Sans") (:height . 110))))
 
 
+;;; ------------------------------------------------------------
 ;;; Scrolling
 
-(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))
+(mouse-wheel-mode 1)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
       mouse-wheel-progressive-speed nil
       mouse-wheel-follow-mouse 't
+      ;; Horizontal scroll on trackpad
+      mouse-wheel-tilt-scroll 't
+      mouse-wheel-flip-direction 't
       ;; Keyboard scrolling
       scroll-step 1
       scroll-conservatively 10000)
@@ -107,6 +132,7 @@
 (put 'scroll-left 'disabled nil)
 
 
+;;; ------------------------------------------------------------
 ;;; Programming
 
 ;; Indentation.
@@ -123,7 +149,6 @@
 (column-number-mode 1)
 (electric-pair-mode 1)
 ;; (add-hook 'prog-mode-hook 'hl-line-mode)
-;; (add-hook 'prog-mode-hook 'prettify-symbols-mode)
 
 ;; (define-minor-mode av/hl-todos-mode
 ;;   "Highlight TODOs and other common comment keywords"
@@ -137,60 +162,62 @@
 (setq scheme-program-name "csi -:c")
 
 
+;;; ------------------------------------------------------------
 ;;; Packages
+
+(setq custom-file (concat user-emacs-directory "custom.el"))
 
 (require 'package)
 
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
-       (proto (if no-ssl "http://" "https://")))
-  (add-to-list 'package-archives (cons "melpa" (concat proto "melpa.org/packages/")) t))
+       (protocol (if no-ssl "http://" "https://")))
+  (add-to-list 'package-archives (cons "melpa" (concat protocol "melpa.org/packages/")) t))
 
 (setq package-archive-priorities
       '(("gnu" . 10)
-        ("melpa" . 5))
-      package-enable-at-startup nil)
+        ("melpa" . 5)))
 
-(when (< emacs-major-version 27)
-  (package-initialize))
+(package-initialize)
 
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+(unless package-archive-contents
+  (package-refresh-contents))
 
-(eval-when-compile
-  (require 'use-package)
-  (require 'use-package-ensure)
-  (setq use-package-always-ensure t))
+(defun av/package-install (&rest packages)
+  (dolist (package packages)
+    (unless (package-installed-p package)
+      (package-install package))))
 
-(use-package undo-propose
-  :config (global-set-key (kbd "C-c u") 'undo-propose))
 
-(use-package clojure-mode :defer t)
-(use-package markdown-mode :defer t)
-(use-package restclient :mode ("\\.http\\'" . restclient-mode))
-(use-package ledger-mode :defer t)  ; FIXME: make `ledger-mode-clean-buffer' sort in reverse order.
+(when (display-graphic-p)
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
 
-(use-package org
-  :defer t
-  :hook (org-mode . org-indent-mode)
-  :config
-  ;; TODO set org directory for org-agenda
-  (require 'org-man))
+(av/package-install 'undo-propose)
+(global-set-key (kbd "C-c C-_") 'undo-propose)
 
-;; TODO: sly/slime, paredit, inf-clojure, gerbil, gambit, magit
+(av/package-install 'popup-edit-menu)
+(require 'popup-edit-menu)
+(global-set-key [mouse-3] (popup-edit-menu-stub))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (ledger-mode restclient markdown-mode clojure-mode undo-propose use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(av/package-install 'selectrum)
+(selectrum-mode 1)
+
+(av/package-install 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+(av/package-install 'clojure-mode 'markdown-mode)
+(av/package-install 'restclient)
+(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
+(av/package-install 'ledger-mode)  ; FIXME: `ledger-mode-clean-buffer' sort in reverse.
+
+(av/package-install 'org)
+(add-hook 'org-mode-hook 'org-indent-mode)
+(require 'org-man)
+
+(av/package-install 'company)
+(global-company-mode 1)
+
+(setq inferior-lisp-program "sbcl")
+(av/package-install 'sly)  ;; or SLIME
+
+;; TODO: paredit, inf-clojure, magit
