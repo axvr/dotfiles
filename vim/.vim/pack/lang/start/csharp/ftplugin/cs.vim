@@ -10,6 +10,7 @@ augroup END
 setlocal commentstring=//%s
 setlocal completeopt-=preview completeopt+=popuphidden
 setlocal completepopup+=border:off
+setlocal shortmess+=T
 
 nmap <silent> <buffer> [[ <Plug>(omnisharp_navigate_up)
 nmap <silent> <buffer> ]] <Plug>(omnisharp_navigate_down)

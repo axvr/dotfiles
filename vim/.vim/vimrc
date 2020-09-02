@@ -107,6 +107,12 @@ com! -nargs=? -range GitBlame ec join(systemlist("git -C ".shellescape(expand('%
             \ " blame -L <line1>,<line2> <args> -- ".expand('%:t')),"\n")
 com! -nargs=0 -bar Tasks tabe DONE|sp DOING|sp TODO
 
+" Emacs bindings in command-line mode.
+cnoremap <C-a> <Home>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-g> <C-e><C-u><BS>
+
 augroup filetypes
     autocmd!
 
