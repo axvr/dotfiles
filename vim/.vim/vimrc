@@ -131,6 +131,8 @@ augroup filetypes
     autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s
     autocmd FileType fstab,crontab,spec setlocal commentstring=#%s
 
+    autocmd BufRead,BufNewFile TODO,DOING,DONE setfiletype outline
+
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
 augroup END

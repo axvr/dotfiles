@@ -3,6 +3,10 @@
 # vim: ft=conf :
 # -*- mode: gitignore; -*-
 
+# To do files
+DOING
+DONE
+
 # Tag/syntax files
 TAGS
 .TAGS
