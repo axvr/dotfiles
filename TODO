@@ -2,7 +2,6 @@
   - https://stackoverflow.com/a/18915067
   - http://mah.everybody.org/docs/ssh
 
-VIM SCHEME:
 - (Outer?) s-expression jump mappings:
   - [[ : Backwards to start of s-expression.
   - [] : Backwards to end of previous s-expression.
@@ -10,3 +9,6 @@ VIM SCHEME:
   - ]] : Forwards to start of next s-expression.
 
 - Add proper F# support to Vim.
+
+- Vim 'include' and 'includeexpr'
+- Move more config to 'after' dir
