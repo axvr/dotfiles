@@ -116,8 +116,8 @@ cnoremap <C-g> <C-e><C-u><BS>
 augroup filetypes
     autocmd!
 
-    autocmd FileType c,cpp setlocal path+=/usr/include
-    autocmd FileType c,make,go,gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
+    autocmd FileType cpp setlocal path+=/usr/include
+    autocmd FileType make,go,gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
     autocmd FileType lisp,json,ruby,scheme,clojure setlocal et sts=2 sw=2 ts=8
     autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2
     autocmd FileType python setlocal et sts=4 sw=4 ts=4

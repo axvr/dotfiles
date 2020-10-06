@@ -1,25 +1,16 @@
-function Cstyle(style) dict
-    if a:style ==# 'gnu'
-        call s:gnu()
-    elseif a:style ==# 'vim'
-        call s:vim()
-    else
-        echohl ErrorMsg
-        echom "C style '" . a:style . "' is not supported."
-        echohl None
-    endif
-endfunction
+" =============================================================
+" Description:  Functions to set C formatting style.
+" File:         ~/.vim/plugin/cstyle.vim
+" =============================================================
 
-let g:ascribe_handlers['ctyle'] = function('Cstyle')
-
-" TODO: More C styles:
-"   - Kernel
-"   - <https://git.sr.ht/~sircmpwn/cstyle>
+" TODO: add more styles:
 "   - K&R
+"   - Kernel <https://www.kernel.org/doc/html/v4.10/process/coding-style.html>
+"   - <https://git.sr.ht/~sircmpwn/cstyle>
 
 " GNU coding standard format.
 " <https://www.gnu.org/prep/standards/standards.html>
-function! s:gnu()
+function! cstyle#gnu()
     setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=8 textwidth=79
     setlocal cindent cinoptions=>2s,es,n-s,f0,{s,}0,^-s,p5,t0,Ls,:s,=s,l1,b0
     setlocal cinoptions+=+2,c3,C0,/0,(0,u4,U0,w0,W0,k0,m0,M0,)20,*70,P0
@@ -28,7 +19,7 @@ function! s:gnu()
 endfunction
 
 " Vim defaults.
-function! s:vim()
+function! cstyle#vim()
     setlocal noexpandtab softtabstop=8 shiftwidth=8 tabstop=8 textwidth<
     setlocal cindent cinoptions< formatprg<
 endfunction
