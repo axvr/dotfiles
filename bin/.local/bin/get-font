@@ -48,16 +48,10 @@ github_latest_version() {
 
 [ -z "$FONT_DIR" ] && FONT_DIR="$HOME/.fonts"
 
-# TODO: add more fonts:
-#   - Iosevka (https://be5invis.github.io/Iosevka/)
-#   - Liberation Mono (find home page)
-#   - Liberation Sans (find home page)
-#   - Terminus (http://terminus-font.sourceforge.net/)
-#   - APL333 + APL385 (http://apl385.com/fonts/)
+# TODO: add Liberation Sans and Mono (+ find home page)
 
 font_list=$(cat <<EOF
 DejaVu Sans/Serif   (https://dejavu-fonts.github.io/)
-Envy Code R         (https://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released)
 Fira Code           (https://github.com/tonsky/FiraCode)
 Fira Mono           (https://mozilla.github.io/Fira/)
 Fira Sans           (https://mozilla.github.io/Fira/)
@@ -133,14 +127,6 @@ do
             download "$url" "font-awesome/fontawesome-free-5.2.0-desktop.zip"
             unzip -q "$FONT_DIR/font-awesome/$archive_name" -d "$FONT_DIR/font-awesome/"
             message "Font Awesome (free)"
-            ;;
-
-        envy_code|envy_code_r)
-            requires "unzip"
-            url="https://download.damieng.com/fonts/original/EnvyCodeR-PR7.zip"
-            download "$url" "envy_code_r/EnvyCodeR-PR7.zip"
-            unzip -q "$FONT_DIR/envy_code_r/EnvyCodeR-PR7.zip" -d "$FONT_DIR/envy_code_r/"
-            message "Envy Code R"
             ;;
 
         *)  printf "Error: Invalid font '%s'\\n" "$f";;
