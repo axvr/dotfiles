@@ -1,23 +1,25 @@
 " =============================================================
-" Description:  Show quickfix items in the sign column.
-" File:         ~/.vim/plugin/qf2sign.vim
-" Licence:      Public domain.
-" Created:      2018-07-19
-" Updated:      2020-02-19
+" Description:   Show quickfix items in the sign column.
+" File:          plugin/qfsign.vim
+" Last Updated:  2020-10-24  (created: 2018-07-19)
+" Legal:         Public domain.  No rights reserved.
 " =============================================================
 
 sign define QfWarning text=> texthl=WarningMsg
 sign define QfError text=> texthl=ErrorMsg
 sign define QfOther text=>
 
-autocmd! BufEnter,QuickFixCmdPost * call <SID>update_signs()
+augroup qfsign
+    autocmd!
+    autocmd BufEnter,QuickFixCmdPost * call s:update_signs()
+augroup END
 
 function! s:update_signs()
     let bufnr = bufnr('%')
     let signs = []
 
-    if !exists('b:qf2s_next_sign_id')
-        let b:qf2s_next_sign_id = 1024
+    if !exists('b:qfsign_next_id')
+        let b:qfsign_next_id = 1024
     endif
 
     for i in getqflist()
@@ -34,20 +36,20 @@ function! s:update_signs()
                 let type = 'QfOther'
             endif
 
-            exec 'sign place '.b:qf2s_next_sign_id.' line='.i.lnum.' name='.type.' buffer='.bufnr
+            exec 'sign place '.b:qfsign_next_id.' line='.i.lnum.' name='.type.' buffer='.bufnr
 
-            call insert(signs, b:qf2s_next_sign_id)
-            let b:qf2s_next_sign_id = b:qf2s_next_sign_id + 1
+            call insert(signs, b:qfsign_next_id)
+            let b:qfsign_next_id += 1
         endif
     endfor
 
     " Remove old signs after placing new signs.  This avoids the sign coloum
     " closing and reopening instantly, causing a screen flash.
-    if exists('b:signs')
-        for i in b:signs
+    if exists('b:qfsigns')
+        for i in b:qfsigns
             exec 'sign unplace '.i.' buffer='.bufnr
         endfor
     endif
 
-    let b:signs = signs
+    let b:qfsigns = signs
 endfunction

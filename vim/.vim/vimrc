@@ -70,21 +70,11 @@ set wrap
 set linebreak
 set breakindent
 
-" Packages
-packadd matchit
-packadd cfilter
-packadd commentary
-packadd traces
-packadd lion
-packadd cool
-let g:CoolTotalMatches = 1
+" Theming
+let &colorcolumn='+'.join(range(1,256),',+')
+colorscheme photon
 
-let g:netrw_banner = 0
-let g:c_syntax_for_h = 1
-let g:c_comment_strings = 1
-let g:org_clean_folds = 1
-
-" if &term =~# '^.*256color$'
+" if &term =~# '256color$'
 "     set termguicolors
 " endif
 
@@ -95,17 +85,15 @@ if &term =~# '^\(screen\|tmux\)'
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-" Theming
-let &colorcolumn='+'.join(range(1,256),',+')
-colorscheme photon
-
 com! -nargs=+ -complete=file GitGrep let s:gp=&gp|set gp=git\ grep\ -n|gr <args>|let &gp=s:gp|unl s:gp
-com! -nargs=* -complete=file Todos let s:gp=&gp|set gp=todos|gr <args>|let &gp=s:gp|unl s:gp
-com! -nargs=0 -bar Helptags for p in glob('~/.vim/pack/*/*/*/doc',1,1)|exe 'helpt '.p|endfo
-com! -nargs=0 -bar Scratch enew|setl bh=hide bt=nofile noswf
 com! -nargs=? -range GitBlame ec join(systemlist("git -C ".shellescape(expand('%:p:h')).
             \ " blame -L <line1>,<line2> <args> -- ".expand('%:t')),"\n")
+
+com! -nargs=* -complete=file Todos let s:gp=&gp|set gp=todos|gr <args>|let &gp=s:gp|unl s:gp
 com! -nargs=0 -bar Tasks tabe DONE|sp DOING|sp TODO
+
+com! -nargs=0 -bar Helptags for p in glob('~/.vim/pack/*/*/*/doc',1,1)|exe 'helpt '.p|endfo
+com! -nargs=0 -bar Scratch enew|setl bh=hide bt=nofile noswf
 
 augroup filetypes
     autocmd!
