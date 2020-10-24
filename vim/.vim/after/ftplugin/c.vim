@@ -10,9 +10,7 @@ function! <SID>cstyle(style) dict
     elseif a:style ==# 'vim'
         call cstyle#vim()
     else
-        echohl ErrorMsg
-        echom "C style '" . a:style . "' is not supported."
-        echohl None
+        echoerr "C style '" . a:style . "' is not supported."
     endif
 endfunction
 

@@ -20,6 +20,6 @@ endfunction
 
 " Vim defaults.
 function! cstyle#vim()
-    setlocal noexpandtab softtabstop=8 shiftwidth=8 tabstop=8 textwidth<
-    setlocal cindent cinoptions< formatprg<
+    setlocal noexpandtab softtabstop=8 shiftwidth=8 tabstop=8 textwidth&
+    setlocal cindent cinoptions& formatprg&
 endfunction
