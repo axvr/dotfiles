@@ -1,15 +1,9 @@
-- Start 'ssh-agent' in profile file
-  - https://stackoverflow.com/a/18915067
-  - http://mah.everybody.org/docs/ssh
+* Shell
+  - Start 'ssh-agent' in profile file.
+    - <https://stackoverflow.com/a/18915067>
+    - <http://mah.everybody.org/docs/ssh>
 
-- (Outer?) s-expression jump mappings:
-  - [[ : Backwards to start of s-expression.
-  - [] : Backwards to end of previous s-expression.
-  - ][ : Forwards to end of s-expression.
-  - ]] : Forwards to start of next s-expression.
-- Shorthand keybinding for `ab` motion.
-
-- Add proper F# support to Vim.
-
-- Vim 'include' and 'includeexpr'
-- Move more config to 'after' dir
+* Vim
+  - S-expression jump mappings by overriding square-bracket keys.
+  - Use 'include' and 'includeexpr'
+  - Add F# config.
