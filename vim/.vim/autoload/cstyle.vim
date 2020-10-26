@@ -1,7 +1,5 @@
-" =============================================================
 " Description:  Functions to set C formatting style.
-" File:         ~/.vim/plugin/cstyle.vim
-" =============================================================
+" File:         autoload/cstyle.vim
 
 " TODO: add more styles:
 "   - K&R

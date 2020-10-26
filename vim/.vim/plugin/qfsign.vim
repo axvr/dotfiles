@@ -1,9 +1,7 @@
-" =============================================================
-" Description:   Show quickfix items in the sign column.
-" File:          plugin/qfsign.vim
-" Last Updated:  2020-10-24  (created: 2018-07-19)
-" Legal:         Public domain.  No rights reserved.
-" =============================================================
+" Description:  Show quickfix items in the sign column.
+" File:         plugin/qfsign.vim
+" Last Updated: 2020-10-24  (created: 2018-07-19)
+" Legal:        Public domain.  No rights reserved.
 
 sign define QfWarning text=> texthl=WarningMsg
 sign define QfError text=> texthl=ErrorMsg

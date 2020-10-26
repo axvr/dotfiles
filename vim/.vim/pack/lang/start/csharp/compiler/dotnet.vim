@@ -1,7 +1,5 @@
-" =============================================================
 " Description:  .NET Core compiler integration.
 " File:         compiler/dotnet.vim
-" =============================================================
 
 let s:cpo_save = &cpo
 set cpo&vim

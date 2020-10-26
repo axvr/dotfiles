@@ -1,4 +1,4 @@
-" Emacs bindings in command-line mode.
+" Add some Emacs key bindings to Vim's command-line mode.
 cnoremap <C-a> <Home>
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>

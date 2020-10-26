@@ -1,3 +1,6 @@
+" Description:  Scheme file type detection.
+" File:         ftdetect/scheme.vim
+
 augroup Scheme
     autocmd!
     autocmd BufRead,BufNewFile *.sxml setfiletype scheme

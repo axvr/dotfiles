@@ -1,7 +1,5 @@
-" =============================================================
 " Description:  C# file type configuration.
 " File:         ftplugin/cs.vim
-" =============================================================
 
 augroup csharp
     autocmd!

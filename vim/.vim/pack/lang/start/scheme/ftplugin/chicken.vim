@@ -1,3 +1,6 @@
+" Description:  CHICKEN Scheme config.
+" File:         ftplugin/chicken.vim
+
 let b:is_chicken = 1
 
 let b:repl_config = {

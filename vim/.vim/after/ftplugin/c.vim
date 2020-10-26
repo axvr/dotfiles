@@ -1,8 +1,6 @@
-" =============================================================
 " Description:  Use Ascribe to configure C formatting style.
-" File:         ~/.vim/after/ftplugin/c.vim
+" File:         after/ftplugin/c.vim
 " Ascribe:      <https://axvr.io/projects/ascribe/>
-" =============================================================
 
 function! <SID>cstyle(style) dict
     if a:style ==# 'gnu'

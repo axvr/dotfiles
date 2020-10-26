@@ -1,7 +1,5 @@
-" =============================================================
 " Description:  Latexmk compiler integration.
-" File:         ~/.vim/compiler/latexmk.vim
-" =============================================================
+" File:         compiler/latexmk.vim
 
 let s:cpo_save = &cpo
 set cpo&vim

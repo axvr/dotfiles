@@ -1,7 +1,5 @@
-" =============================================================
 " Description:  C# file type detection.
 " File:         ftdetect/cs.vim
-" =============================================================
 
 let g:OmniSharp_popup_options = { 'highlight': 'Pmenu', 'padding': [1] }
 

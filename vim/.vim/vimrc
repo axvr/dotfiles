@@ -1,7 +1,4 @@
-" =============================================================
-" Description:  Main Vim configuration file.
-" File:         ~/.vim/vimrc
-" =============================================================
+" ~/.vim/vimrc
 
 filetype plugin indent on
 if !exists('g:syntax_on')

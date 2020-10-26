@@ -1,7 +1,5 @@
-" =============================================================
 " Description:  ShellCheck compiler integration.
-" File:         ~/.vim/compiler/shellcheck.vim
-" =============================================================
+" File:         compiler/shellcheck.vim
 
 let s:cpo_save = &cpo
 set cpo&vim
