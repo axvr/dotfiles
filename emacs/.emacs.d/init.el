@@ -7,6 +7,35 @@
   (add-to-list 'load-path default-directory)
   (normal-top-level-add-subdirs-to-load-path))
 
+;; Prevent Emacs from appending "custom" stuff to this file.
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file)
+
+
+;;; ------------------------------------------------------------
+;;; Packages
+
+(require 'package)
+
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (protocol (if no-ssl "http://" "https://")))
+  (add-to-list 'package-archives (cons "melpa" (concat protocol "melpa.org/packages/")) t))
+
+(setq package-archive-priorities
+      '(("gnu" . 10)
+        ("melpa" . 5)))
+
+(package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(defun av/package-install (&rest packages)
+  (dolist (package packages)
+    (unless (package-installed-p package)
+      (package-install package))))
+
 
 ;;; ------------------------------------------------------------
 ;;; Essentials
@@ -32,9 +61,12 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; Enable WindMove
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings 'meta))
+
+(when (display-graphic-p)
+  ;; Remap escape key to "quit".
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
 
 
 ;;; ------------------------------------------------------------
@@ -66,17 +98,9 @@
            (string= (getenv "GTK_THEME") "Adwaita:dark"))
   (set-gtk-theme "dark"))
 
-;; Themes:
-;;   - photon (custom)  TODO: improve Photon.el
-;;   - nothing (nothing-theme)
-;;   - modus-operandi (modus-operandi-theme)
 (load-theme 'photon t)
-;; Photon improvements:
-;; - More contrast on selectrum selected items.
-;; - Support company mode.
-;; - Sly buffer colours.
-;; - Directory colours.
-;; - Menubar in Terminal.
+;; (av/package-install 'nothing-theme)
+;; (load-theme 'nothing t)
 
 
 ;;; ------------------------------------------------------------
@@ -99,16 +123,12 @@
 (defun av/set-font (type fonts)
   (let ((font-attrs (av/top-installed-font fonts)))
     (when font-attrs
-      (if (eq type 'monospace)
-          (progn
-            (av/set-font 'default (list font-attrs))
-            (av/set-font 'fixed-pitch (list font-attrs)))
-        (apply 'set-face-attribute type nil (flatten font-attrs))))))
+        (apply 'set-face-attribute type nil (flatten font-attrs)))))
 
-(av/set-font 'monospace
-             '(((:family . "Inconsolata") (:height . 135))
-               ((:family . "Roboto Mono") (:height . 110))
-               ((:family . "Consolas")    (:height . 110))))
+(let ((monospace '(((:family . "Inconsolata") (:height . 135))
+                   ((:family . "Consolas")    (:height . 110)))))
+  (av/set-font 'default monospace)
+  (av/set-font 'fixed-pitch monospace))
 
 (av/set-font 'variable-pitch
              '(((:family . "Cantarell")   (:height . 120))
@@ -148,49 +168,15 @@
 (show-paren-mode 1)
 (column-number-mode 1)
 (electric-pair-mode 1)
-;; (add-hook 'prog-mode-hook 'hl-line-mode)
 
-;; (define-minor-mode av/hl-todos-mode
-;;   "Highlight TODOs and other common comment keywords"
-;;   nil
-;;   :lighter ""
-;;   (font-lock-add-keywords
-;;    nil '(("\\<\\(TO[-_ ]?DO\\|FIX[-_ ]?ME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\)\\>"
-;;           1 '((:foreground "#d75f5f") (:weight bold)) t))))
-;; (add-hook 'prog-mode-hook 'av/hl-todos-mode)
-
-(setq scheme-program-name "csi -:c")
-
-
-;;; ------------------------------------------------------------
-;;; Packages
-
-(setq custom-file (concat user-emacs-directory "custom.el"))
-
-(require 'package)
-
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (protocol (if no-ssl "http://" "https://")))
-  (add-to-list 'package-archives (cons "melpa" (concat protocol "melpa.org/packages/")) t))
-
-(setq package-archive-priorities
-      '(("gnu" . 10)
-        ("melpa" . 5)))
-
-(package-initialize)
-
-(unless package-archive-contents
-  (package-refresh-contents))
-
-(defun av/package-install (&rest packages)
-  (dolist (package packages)
-    (unless (package-installed-p package)
-      (package-install package))))
-
-
-(when (display-graphic-p)
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
+(define-minor-mode av/hl-todos-mode
+  "Highlight TODOs and other common comment keywords"
+  nil
+  :lighter ""
+  (font-lock-add-keywords
+   nil '(("\\<\\(TO[-_ ]?DO\\|FIX[-_ ]?ME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\)\\>"
+          1 '((:foreground "#d75f5f") (:weight bold)) t))))
+(add-hook 'prog-mode-hook 'av/hl-todos-mode)
 
 (av/package-install 'undo-propose)
 (global-set-key (kbd "C-c C-_") 'undo-propose)
@@ -199,8 +185,10 @@
 (require 'popup-edit-menu)
 (global-set-key [mouse-3] (popup-edit-menu-stub))
 
-(av/package-install 'selectrum)
+(av/package-install 'selectrum 'selectrum-prescient)
 (selectrum-mode 1)
+(selectrum-prescient-mode 1)
+(prescient-persist-mode 1)
 
 (av/package-install 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
@@ -218,6 +206,8 @@
 (global-company-mode 1)
 
 (setq inferior-lisp-program "sbcl")
-(av/package-install 'sly)  ;; or SLIME
+(av/package-install 'sly)
+
+(setq scheme-program-name "csi -:c")
 
 ;; TODO: paredit, inf-clojure, magit

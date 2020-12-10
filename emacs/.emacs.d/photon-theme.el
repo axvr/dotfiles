@@ -160,7 +160,7 @@
    (next-error :inherit region)
    (query-replace :inherit isearch)
 
-   ;;; TODO: Org, company, magit?, flymake, ido (and/or ivy)
+   ;;; TODO: Org, company, magit?, flymake
 
    ;;; Org mode
    (org-document-title :foreground fg :weight bold)
@@ -177,6 +177,15 @@
    ))
 
 ;; TODO: terminal colours
+
+;; TODO: Photon improvements:
+;; - More contrast on selectrum selected items.  (Same as Vim's wildmenu)
+;; - Support company mode.
+;; - Sly buffer colours.
+;; - Directory colours.
+;; - Menubar in Terminal.
+;; - Magit
+;; - Use new diff colours.
 
 ;;;###autoload
 (and load-file-name
