@@ -1,3 +1,4 @@
+# Vim
 [submodule "vim/.vim/pack/core/start/photon"]
 	path = vim/.vim/pack/core/start/photon
 	url = https://github.com/axvr/photon.vim
@@ -28,3 +29,9 @@
 [submodule "vim/.vim/pack/core/opt/traces"]
 	path = vim/.vim/pack/core/opt/traces
 	url = https://github.com/markonm/traces.vim
+
+# GNU Emacs
+[submodule "emacs/.emacs.d/elisp/photon"]
+	path = emacs/.emacs.d/elisp/photon
+	url = https://github.com/axvr/photon.vim
+	branch = contrib

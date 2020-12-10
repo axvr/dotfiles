@@ -98,6 +98,7 @@
            (string= (getenv "GTK_THEME") "Adwaita:dark"))
   (set-gtk-theme "dark"))
 
+(require 'photon-theme)
 (load-theme 'photon t)
 ;; (av/package-install 'nothing-theme)
 ;; (load-theme 'nothing t)
