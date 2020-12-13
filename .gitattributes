@@ -1,0 +1,6 @@
+*               text=auto
+
+common-lisp/**  linguist-language=lisp
+
+git/.config/git/attributes  linguist-language=gitattributes
+git/.config/git/config      linguist-language=gitconfig
