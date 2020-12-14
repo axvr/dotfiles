@@ -59,14 +59,17 @@
       save-place-file (concat user-emacs-directory "places"))
 (save-place-mode 1)
 
-(defalias 'yes-or-no-p 'y-or-n-p)
-
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings 'meta))
 
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 (when (display-graphic-p)
+  (setq confirm-kill-emacs 'yes-or-no-p)
   ;; Remap escape key to "quit".
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
+
+(setq vc-follow-symlinks t)
 
 
 ;;; ------------------------------------------------------------
@@ -157,8 +160,8 @@
 ;;; Programming
 
 ;; Indentation.
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
+(setq-default indent-tabs-mode nil
+              tab-width 4)
 ;; TODO: configure indentation for each major mode.
 ;; TODO: behaviour similar to `textwidth' in Vim: `auto-fill-mode' and `fill-column'.
 
@@ -169,6 +172,8 @@
 (show-paren-mode 1)
 (column-number-mode 1)
 (electric-pair-mode 1)
+(electric-indent-mode 1)
+(delete-selection-mode 1)
 
 (define-minor-mode av/hl-todos-mode
   "Highlight TODOs and other common comment keywords"
@@ -177,7 +182,11 @@
   (font-lock-add-keywords
    nil '(("\\<\\(TO[-_ ]?DO\\|FIX[-_ ]?ME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\)\\>"
           1 '((:foreground "#d75f5f") (:weight bold)) t))))
-(add-hook 'prog-mode-hook 'av/hl-todos-mode)
+;;(add-hook 'prog-mode-hook 'av/hl-todos-mode)
+
+(av/package-install 'paren-face)
+(global-paren-face-mode 1)
+(set-face-foreground 'parenthesis "#767676")
 
 (av/package-install 'undo-propose)
 (global-set-key (kbd "C-c C-_") 'undo-propose)
@@ -194,7 +203,7 @@
 (av/package-install 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
-(av/package-install 'clojure-mode 'markdown-mode)
+(av/package-install 'clojure-mode 'markdown-mode 'markless)
 (av/package-install 'restclient)
 (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
 (av/package-install 'ledger-mode)  ; FIXME: `ledger-mode-clean-buffer' sort in reverse.
