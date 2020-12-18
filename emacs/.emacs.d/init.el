@@ -97,14 +97,25 @@
   (call-process-shell-command
    (concat "xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT \"" variant "\" -name \"" (current-frame-name) "\"")))
 
-(when (and (display-graphic-p)
-           (string= (getenv "GTK_THEME") "Adwaita:dark"))
-  (set-gtk-theme "dark"))
+(defun av/set-theme (theme &optional mode)
+  ;; TODO: make interactive.
+  (when (and (display-graphic-p)
+             (memq system-type '(gnu/linux)))
+    (set-gtk-theme (if mode mode "dark")))
+  (load-theme theme t))
 
-(require 'photon-theme)
-(load-theme 'photon t)
-;; (av/package-install 'nothing-theme)
-;; (load-theme 'nothing t)
+(if (and (display-graphic-p)
+         (not (string= (getenv "GTK_THEME") "Adwaita:dark")))
+    (progn
+      (av/package-install 'nothing-theme)
+      (av/set-theme 'nothing "light"))
+  (progn
+    (av/package-install 'doom-themes)
+    (av/set-theme 'doom-opera "dark")
+    (set-face-background 'default "#262626")
+    (set-face-foreground 'default "#C6C6C6")
+    (set-face-background 'mode-line "#323334")
+    (setq face-near-same-color-threshold 20000)))
 
 
 ;;; ------------------------------------------------------------
@@ -175,6 +186,9 @@
 (electric-indent-mode 1)
 (delete-selection-mode 1)
 
+;; (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
+
+;; TODO: (defface todo ...)
 (define-minor-mode av/hl-todos-mode
   "Highlight TODOs and other common comment keywords"
   nil
