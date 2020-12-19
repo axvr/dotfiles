@@ -13,3 +13,5 @@
 	markers = !git ls-files -u | awk '{print $4}' | uniq | xargs grep -Hn '^<<<<<<<'
 [merge]
 	tool = vimdiff
+[pull]
+	ff = only
