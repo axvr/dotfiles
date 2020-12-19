@@ -199,6 +199,7 @@
 ;;(add-hook 'prog-mode-hook 'av/hl-todos-mode)
 
 (av/package-install 'paren-face)
+(setq paren-face-regexp "[][(){}]")
 (global-paren-face-mode 1)
 (set-face-foreground 'parenthesis "#767676")
 
@@ -209,10 +210,7 @@
 (require 'popup-edit-menu)
 (global-set-key [mouse-3] (popup-edit-menu-stub))
 
-(av/package-install 'selectrum 'selectrum-prescient)
-(selectrum-mode 1)
-(selectrum-prescient-mode 1)
-(prescient-persist-mode 1)
+(fido-mode 1)
 
 (av/package-install 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
@@ -228,6 +226,10 @@
 
 (av/package-install 'company)
 (global-company-mode 1)
+(define-key company-active-map (kbd "\C-n") 'company-select-next)
+(define-key company-active-map (kbd "\C-p") 'company-select-previous)
+(define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
+(define-key company-active-map (kbd "M-.")  'company-show-location)
 
 (setq inferior-lisp-program "sbcl")
 (av/package-install 'sly)
