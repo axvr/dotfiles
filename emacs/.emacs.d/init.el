@@ -226,7 +226,6 @@
 
 (av/package-install 'org)
 (add-hook 'org-mode-hook 'org-indent-mode)
-(require 'org-man)
 
 (av/package-install 'company)
 (global-company-mode 1)
