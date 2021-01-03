@@ -3,7 +3,7 @@
 ![Image of Vim config](https://raw.githubusercontent.com/axvr/photon.vim/be279d4bd29d78f61860f97be6561b65c0d10067/photon5.png)
 
 _The above image shows my Vim configuration.  The colour scheme is
-[photon.vim](https://github.com/axvr/photon.vim) and the font is
+[Photon.vim](https://github.com/axvr/photon.vim) and the font is
 [Inconsolata](https://levien.com/type/myfonts/inconsolata.html) by
 [Raph Levien](https://levien.com/)._
 

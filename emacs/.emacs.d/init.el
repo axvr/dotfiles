@@ -91,26 +91,30 @@
   (substring-no-properties
    (cdr (assoc 'name (frame-parameters)))))
 
-(defun set-gtk-theme (variant)
+(defun av/executable-find (program)
+  (not (null (executable-find program))))
+
+(defun av/set-gtk-theme (variant)
   "Set the GTK theme variant for the current Emacs session."
-  (interactive "sLight or dark? ")
-  (call-process-shell-command
-   (concat "xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT \"" variant "\" -name \"" (current-frame-name) "\"")))
+  (when (and (display-graphic-p)
+             (memq system-type '(gnu/linux))
+             (av/executable-find "xprop"))
+    (call-process-shell-command
+     (concat "xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT \"" variant "\" -name \"" (current-frame-name) "\""))))
 
 (defun av/set-theme (theme &optional mode)
-  ;; TODO: make interactive.
-  (when (and (display-graphic-p)
-             (memq system-type '(gnu/linux)))
-    (set-gtk-theme (if mode mode "dark")))
+  (av/set-gtk-theme (if mode mode "dark"))
   (load-theme theme t))
 
-(if (and (display-graphic-p)
-         (not (string= (getenv "GTK_THEME") "Adwaita:dark")))
+(av/package-install 'doom-themes)
+
+(if (and (av/executable-find "theme-variant")
+         (string= (shell-command-to-string "theme-variant emacs") "light"))
     (progn
-      (av/package-install 'nothing-theme)
-      (av/set-theme 'nothing "light"))
+      (av/set-theme 'doom-opera-light "light")
+      (set-face-foreground 'font-lock-comment-face "#949494")
+      (set-face-attribute 'region nil :background "#e4e4e4"))
   (progn
-    (av/package-install 'doom-themes)
     (av/set-theme 'doom-opera "dark")
     (set-face-background 'default "#262626")
     (set-face-foreground 'default "#C6C6C6")

@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# Check current OS theme, and return if application should use dark of light
+# theme variant.
+
+q () { printf '%s' "$1"; exit; }
+
+has_gsettings () { type 'gsettings' &>/dev/null ; }
+
+gsettings_get () { gsettings get "$1" "$2" | sed -e "s/'//g"; }
+
+test_gtk_theme () {
+    if [ "$1" = 'Adwaita' ] || [ "$1" = 'Adwaita:light' ]; then
+        q 'light'
+    elif [ "$1" = 'Adwaita-dark' ] || [ "$1" = 'Adwaita:dark' ]; then
+        q 'dark'
+    fi
+}
+
+gtk_theme_var () {
+    [ -n "$GTK_THEME" ] && test_gtk_theme "$GTK_THEME"
+}
+
+system_gtk_theme () {
+    if has_gsettings; then
+        test_gtk_theme "$(gsettings_get 'org.gnome.desktop.interface' 'gtk-theme')"
+    fi
+}
+
+terminal_gtk_theme () {
+    if has_gsettings; then
+        t="$(gsettings_get 'org.gnome.Terminal.Legacy.Settings' 'theme-variant')"
+        [ "$t" != 'system' ] && q "$t"
+    fi
+}
+
+
+case "$1" in
+    'vim')
+        terminal_gtk_theme
+        gtk_theme_var
+        system_gtk_theme
+        ;;
+    'emacs')
+        gtk_theme_var
+        system_gtk_theme
+        ;;
+    *)
+        gtk_theme_var
+        system_gtk_theme
+        q 'light'
+esac
+
+q 'dark'
