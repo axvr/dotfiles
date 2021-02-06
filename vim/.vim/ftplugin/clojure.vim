@@ -1,6 +1,6 @@
 let b:repl_config = { 'cmd': 'clj', 'load_file': '(load-file "%s")' }
 
-let g:clojure_align_multiline_strings = 1
+" let g:clojure_align_multiline_strings = 1
 
 command! -buffer -bar -nargs=1 CljDoc :call zepl#send('(clojure.repl/doc ' . substitute(<q-args>, '\', '', 'g') . ')')
 command! -buffer -bar -nargs=1 CljSrc :call zepl#send('(clojure.repl/source ' . <q-args> . ')')

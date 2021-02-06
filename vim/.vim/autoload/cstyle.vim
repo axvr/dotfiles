@@ -4,7 +4,6 @@
 " TODO: add more styles:
 "   - K&R
 "   - Kernel <https://www.kernel.org/doc/html/v4.10/process/coding-style.html>
-"   - <https://git.sr.ht/~sircmpwn/cstyle>
 
 " GNU coding standard format.
 " <https://www.gnu.org/prep/standards/standards.html>
