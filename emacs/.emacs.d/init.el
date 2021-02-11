@@ -4,8 +4,9 @@
 
 ;; Add custom elisp files to `load-path'.
 (let ((default-directory (concat user-emacs-directory "elisp")))
-  (add-to-list 'load-path default-directory)
-  (normal-top-level-add-subdirs-to-load-path))
+  (when (file-directory-p default-directory)
+    (add-to-list 'load-path default-directory)
+    (normal-top-level-add-subdirs-to-load-path)))
 
 ;; Prevent Emacs from appending "custom" stuff to this file.
 (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -64,12 +65,8 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(when (display-graphic-p)
-  (setq confirm-kill-emacs 'yes-or-no-p)
-  ;; Remap escape key to "quit".
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
-
-(setq vc-follow-symlinks t)
+(setq confirm-kill-emacs 'yes-or-no-p
+      vc-follow-symlinks t)
 
 
 ;;; ------------------------------------------------------------
@@ -79,7 +76,8 @@
     (progn
       (tool-bar-mode -1)
       (setq default-frame-alist '((height . 46) (width . 96)))
-      (setq-default cursor-type 'bar))
+      (setq-default cursor-type 'bar)
+      (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
   (xterm-mouse-mode 1))
 
 (setq inhibit-startup-screen t
@@ -121,28 +119,32 @@
     (set-face-background 'mode-line "#323334")
     (setq face-near-same-color-threshold 20000)))
 
+(av/package-install 'popup-edit-menu)
+(require 'popup-edit-menu)
+(global-set-key [mouse-3] (popup-edit-menu-stub))
+
 
 ;;; ------------------------------------------------------------
 ;;; Default fonts
 
-(defun flatten (mylist)
+(defun av/flatten (mylist)
   (cond
    ((null mylist) nil)
    ((atom mylist) (list mylist))
    (t
-    (append (flatten (car mylist))
-            (flatten (cdr mylist))))))
+    (append (av/flatten (car mylist))
+            (av/flatten (cdr mylist))))))
 
-(defun av/top-installed-font (fonts)
-    (seq-find (lambda (x)
-                (member (cdr (assoc :family x))
-                        (font-family-list)))
-              fonts))
+(defun av/first-installed-font (fonts)
+  (seq-find (lambda (x)
+              (member (cdr (assoc :family x))
+                      (font-family-list)))
+            fonts))
 
 (defun av/set-font (type fonts)
-  (let ((font-attrs (av/top-installed-font fonts)))
+  (let ((font-attrs (av/first-installed-font fonts)))
     (when font-attrs
-        (apply 'set-face-attribute type nil (flatten font-attrs)))))
+      (apply 'set-face-attribute type nil (av/flatten font-attrs)))))
 
 (let ((monospace '(((:family . "Inconsolata") (:height . 135))
                    ((:family . "Consolas")    (:height . 110)))))
@@ -177,8 +179,6 @@
 ;; Indentation.
 (setq-default indent-tabs-mode nil
               tab-width 4)
-;; TODO: configure indentation for each major mode.
-;; TODO: behaviour similar to `textwidth' in Vim: `auto-fill-mode' and `fill-column'.
 
 (setq require-final-newline 'ask)
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
@@ -190,9 +190,6 @@
 (electric-indent-mode 1)
 (delete-selection-mode 1)
 
-;; (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-
-;; TODO: (defface todo ...)
 (define-minor-mode av/hl-todos-mode
   "Highlight TODOs and other common comment keywords"
   nil
@@ -210,16 +207,12 @@
 (av/package-install 'undo-propose)
 (global-set-key (kbd "C-c C-_") 'undo-propose)
 
-(av/package-install 'popup-edit-menu)
-(require 'popup-edit-menu)
-(global-set-key [mouse-3] (popup-edit-menu-stub))
-
-(fido-mode 1)
+;; (fido-mode 1)
 
 (av/package-install 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
-(av/package-install 'clojure-mode 'markdown-mode 'markless)
+(av/package-install 'markdown-mode 'markless)
 (av/package-install 'restclient)
 (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
 (av/package-install 'ledger-mode)  ; FIXME: `ledger-mode-clean-buffer' sort in reverse.
@@ -239,4 +232,4 @@
 
 (setq scheme-program-name "csi -:c")
 
-;; TODO: paredit, inf-clojure, magit
+(av/package-install 'clojure-mode)
