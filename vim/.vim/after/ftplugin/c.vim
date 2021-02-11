@@ -2,7 +2,7 @@
 " File:         after/ftplugin/c.vim
 " Ascribe:      <https://axvr.io/projects/ascribe/>
 
-function! <SID>cstyle(style) dict
+function! s:cstyle(style) dict
     if a:style ==# 'gnu'
         call cstyle#gnu()
     elseif a:style ==# 'vim'

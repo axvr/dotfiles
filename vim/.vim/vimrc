@@ -89,7 +89,6 @@ endif
 
 com! -nargs=* -complete=file Todos let s:gp=&gp|set gp=todos|gr <args>|let &gp=s:gp|unl s:gp
 com! -nargs=0 -bar Tasks tabe DONE|sp DOING|sp TODO
-com! -nargs=0 -bar Scratch enew|setl bh=hide bt=nofile noswf
 
 augroup filetypes
     autocmd!
