@@ -11,7 +11,6 @@
 #   $ get-font Source-Code-Pro roboto-mono
 #   $ get-font souRce_Code-pRO
 
-# TODO: better error messages (and print in colour) similar to `redo-sh`
 # TODO: prevent duplicate fonts causing problems
 
 requires() {
@@ -48,20 +47,15 @@ github_latest_version() {
 
 [ -z "$FONT_DIR" ] && FONT_DIR="$HOME/.fonts"
 
-# TODO: add Liberation Sans and Mono (+ find home page)
+# TODO: add Liberation Sans and Mono
 
 font_list=$(cat <<EOF
 DejaVu Sans/Serif   (https://dejavu-fonts.github.io/)
-Fira Code           (https://github.com/tonsky/FiraCode)
-Fira Mono           (https://mozilla.github.io/Fira/)
-Fira Sans           (https://mozilla.github.io/Fira/)
-Font Awesome        (https://fontawesome.com/)
-Hack                (https://sourcefoundry.org/hack/)
 Inconsolata         (http://www.levien.com/type/myfonts/inconsolata.html)
 Noto Sans           (https://fonts.google.com/specimen/Noto+Sans)
 Noto Serif          (https://fonts.google.com/specimen/Noto+Serif)
-Roboto Condensed    (https://fonts.google.com/specimen/Roboto+Condensed)
 Roboto              (https://fonts.google.com/specimen/Roboto)
+Roboto Condensed    (https://fonts.google.com/specimen/Roboto+Condensed)
 Roboto Mono         (https://fonts.google.com/specimen/Roboto+Mono)
 Roboto Slab         (https://fonts.google.com/specimen/Roboto+Slab)
 Source Code Pro     (https://adobe-fonts.github.io/source-code-pro/)
@@ -91,26 +85,6 @@ do
         noto_sans)          google_fonts "Noto Sans";;
         noto_serif)         google_fonts "Noto Serif";;
         inconsolata)        google_fonts "Inconsolata";;
-        fira_sans)          google_fonts "Fira Sans";;
-        fira_mono)          google_fonts "Fira Mono";;
-
-        fira_code)
-            requires "unzip"
-            version="$(github_latest_version "tonsky" "FiraCode")"
-            url="https://github.com/tonsky/FiraCode/releases/download/$version/Fira_Code_v$version.zip"
-            download "$url" "fira-code/Fira_Code_v$version.zip"
-            unzip -q "$FONT_DIR/fira-code/Fira_Code_v$version.zip" -d "$FONT_DIR/fira-code/"
-            message "Fira Code"
-            ;;
-
-        hack)
-            requires "tar" "gzip"
-            version="$(github_latest_version "source-foundry" "Hack")"
-            url="https://github.com/source-foundry/Hack/releases/download/$version/Hack-$version-ttf.tar.gz"
-            download "$url" "hack/Hack-$version-ttf.tar.gz"
-            tar -zxf "$FONT_DIR/hack/Hack-$version-ttf.tar.gz" -C "$FONT_DIR/hack"
-            message "Hack"
-            ;;
 
         dejavu)
             requires "tar" "bzip2"
@@ -118,15 +92,6 @@ do
             download "$url" "dejavu-fonts-ttf-2.37/dejavu-fonts-ttf-2.37.tar.bz2"
             tar -jxf "$FONT_DIR/dejavu-fonts-ttf-2.37/dejavu-fonts-ttf-2.37.tar.bz2" -C "$FONT_DIR/"
             message "DejaVu"
-            ;;
-
-        font_awesome)
-            requires "unzip"
-            archive_name="fontawesome-free-5.2.0-desktop.zip"
-            url="https://use.fontawesome.com/releases/v5.2.0/$archive_name"
-            download "$url" "font-awesome/fontawesome-free-5.2.0-desktop.zip"
-            unzip -q "$FONT_DIR/font-awesome/$archive_name" -d "$FONT_DIR/font-awesome/"
-            message "Font Awesome (free)"
             ;;
 
         *)  printf "Error: Invalid font '%s'\\n" "$f";;
