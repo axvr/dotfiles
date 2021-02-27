@@ -6,6 +6,3 @@
 * Vim
   - S-expression jump mappings by overriding square-bracket keys.
   - Use 'include' and 'includeexpr'
-
-* Emacs
-  - Tidy up/reorganise init.el
