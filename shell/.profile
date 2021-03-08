@@ -22,9 +22,6 @@ export EDITOR=vim
 PATH="${PATH}:$HOME/.local/bin"
 MANPATH="${MANPATH}:$HOME/.local/man"
 
-# Golang environment
-export GOPATH="$HOME/.local/share/go"
-
 # .NET Core settings
 PATH="${PATH}:$HOME/.dotnet/tools"
 export ASPNETCORE_ENVIRONMENT=Development
