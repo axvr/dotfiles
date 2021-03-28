@@ -6,7 +6,9 @@
   :outdated {:extra-deps {antq/antq {:mvn/version "RELEASE"}
                           org.slf4j/slf4j-nop {:mvn/version "RELEASE"}}
              :main-opts ["-m" "antq.core"]}
+
   ;; Start a Socket REPL on port 5555.
   :socket {:jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/repl}"]}
+
   ;; Start a Socket pREPL on port 6666.
   :prepl {:jvm-opts ["-Dclojure.server.repl={:port,6666,:accept,clojure.core.server/io-prepl}"]}}}

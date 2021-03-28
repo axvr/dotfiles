@@ -1,15 +1,15 @@
 [user]
 	name = Alex Vear
-	email = av@axvr.io
+	email = alex@vear.uk
 [sendemail]
-	smtpserver = mail.gandi.net
-	smtpuser = av@axvr.io
+	smtpserver = smtp.fastmail.com
+	smtpuser = alex@vear.uk
 	smtpencryption = tls
 	smtpserverport = 587
 [core]
 	editor = vim
 [alias]
-	log-tree = log --all --decorate --oneline --graph
+	graph = log --all --decorate --oneline --graph
 	markers = !git ls-files -u | awk '{print $4}' | uniq | xargs grep -Hn '^<<<<<<<'
 [merge]
 	tool = vimdiff
