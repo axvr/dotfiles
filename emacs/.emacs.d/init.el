@@ -10,7 +10,8 @@
 
 ;; Prevent Emacs from appending "custom" stuff to this file.
 (setq custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file)
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 
 ;;; ------------------------------------------------------------
