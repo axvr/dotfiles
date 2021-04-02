@@ -18,7 +18,7 @@ export LANG=en_GB.UTF-8
 export VISUAL=vim
 export EDITOR=vim
 
-# User specific environment and startup programs
+# User local environment and startup programs
 PATH="${PATH}:$HOME/.local/bin"
 MANPATH="${MANPATH}:$HOME/.local/man"
 

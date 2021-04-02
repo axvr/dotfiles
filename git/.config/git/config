@@ -10,6 +10,7 @@
 	editor = vim
 [alias]
 	graph = log --all --decorate --oneline --graph
+	subupdate = submodule update --remote --merge
 	markers = !git ls-files -u | awk '{print $4}' | uniq | xargs grep -Hn '^<<<<<<<'
 [merge]
 	tool = vimdiff

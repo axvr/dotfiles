@@ -5,14 +5,6 @@
 # Author:  Alex Vear (axvr)
 # Licence: Unlicence
 
-# Usage examples:
-#   $ get-font inconsolata
-#   $ get-font "source code pro"
-#   $ get-font Source-Code-Pro roboto-mono
-#   $ get-font souRce_Code-pRO
-
-# TODO: prevent duplicate fonts causing problems
-
 requires() {
     for i in "$@"
     do
@@ -57,7 +49,6 @@ Noto Serif          (https://fonts.google.com/specimen/Noto+Serif)
 Roboto              (https://fonts.google.com/specimen/Roboto)
 Roboto Condensed    (https://fonts.google.com/specimen/Roboto+Condensed)
 Roboto Mono         (https://fonts.google.com/specimen/Roboto+Mono)
-Roboto Slab         (https://fonts.google.com/specimen/Roboto+Slab)
 Source Code Pro     (https://adobe-fonts.github.io/source-code-pro/)
 EOF
 )
@@ -79,7 +70,6 @@ do
     case "$f" in
         roboto)             google_fonts "Roboto";;
         roboto_mono)        google_fonts "Roboto Mono";;
-        roboto_slab)        google_fonts "Roboto Slab";;
         roboto_condensed)   google_fonts "Roboto Condensed";;
         source_code_pro)    google_fonts "Source Code Pro";;
         noto_sans)          google_fonts "Noto Sans";;
