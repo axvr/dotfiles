@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Open all URLs located in a file.
+# Used primarily to open tabs to restore a project-specific research session.
+
+if [ "$(command -v xdg-open)" ]; then
+    open_cmd='xdg-open'
+elif [ "$(command -v open)" ]; then
+    open_cmd='open'
+elif [ "$(command -v firefox)" ]; then
+    open_cmd='firefox'
+else
+    echo 'No command found to open URL.'
+    exit 1
+fi
+
+splat_urls  () { sed -e 's,\(https\?://\),\n\1,g' "$@"; }
+filter_urls () { grep 'https\?:\/\/' "$@"; }
+extract_url () { sed -e 's,^.*\(https\?://[^][ ()<>]*\).*$,\1,' "$@"; }
+
+for url in $(cat "$@" | splat_urls | filter_urls | extract_url); do
+    sleep 0.2
+    echo "opening: $url"
+    "$open_cmd" "$url"
+done

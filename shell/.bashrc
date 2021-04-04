@@ -44,4 +44,5 @@ export LEDGER_FILE="$HOME/Documents/Ledger/personal.dat"
 alias ledger='ledger -f "$LEDGER_FILE"'
 alias ledger-record='$EDITOR "$LEDGER_FILE"'
 
-alias serve="python3 -m http.server"
+# <https://cr.yp.to/bib/documentid.html>
+alias docid="head /dev/urandom | md5sum | cut -c 1-32"
