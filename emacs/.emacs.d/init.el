@@ -109,10 +109,7 @@
 
 (if (and (av/executable-find "theme-variant")
          (string= (shell-command-to-string "theme-variant emacs") "light"))
-    (progn
-      (av/set-theme 'doom-opera-light "light")
-      (set-face-foreground 'font-lock-comment-face "#949494")
-      (set-face-attribute 'region nil :background "#e4e4e4"))
+    (av/set-theme 'doom-homage-white "light")
   (progn
     (av/set-theme 'doom-opera "dark")
     (set-face-background 'default "#262626")
