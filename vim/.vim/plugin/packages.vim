@@ -7,7 +7,6 @@ packadd matchit
 packadd cfilter
 packadd commentary
 packadd traces
-packadd lion
 
 packadd cool
 let g:CoolTotalMatches = 1

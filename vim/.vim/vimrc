@@ -108,6 +108,7 @@ augroup filetypes
 
     autocmd BufRead,BufNewFile TODO,DOING,DONE setfiletype outline
     autocmd BufRead,BufNewFile *.asd setfiletype lisp
+    autocmd BufRead,BufNewFile *.sld,*.sxml setfiletype scheme
 
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
