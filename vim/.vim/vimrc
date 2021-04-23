@@ -69,16 +69,7 @@ set breakindent
 
 " Theming
 let &colorcolumn='+'.join(range(1,256),',+')
-
-if executable('theme-variant') && system('theme-variant vim') ==# 'light'
-    colorscheme antiphoton
-else
-    colorscheme photon
-endif
-
-" if &term =~# '256color$'
-"     set termguicolors
-" endif
+colorscheme photon
 
 if &term =~# '^\(screen\|tmux\)'
     set ttymouse=xterm2
