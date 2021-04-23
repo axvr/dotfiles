@@ -19,9 +19,6 @@
 [submodule "vim/.vim/pack/lang/start/ledger"]
 	path = vim/.vim/pack/lang/start/ledger
 	url = https://github.com/ledger/vim-ledger
-[submodule "vim/.vim/pack/lang/opt/omnisharp"]
-	path = vim/.vim/pack/lang/opt/omnisharp
-	url = https://github.com/OmniSharp/omnisharp-vim
 [submodule "vim/.vim/pack/core/opt/traces"]
 	path = vim/.vim/pack/core/opt/traces
 	url = https://github.com/markonm/traces.vim
