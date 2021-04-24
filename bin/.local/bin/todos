@@ -1,14 +1,6 @@
 #!/bin/sh
 
-# List TODOs and other comment tags in specified files or a git repo
-
-# BUG    - A known bug that should be corrected.
-# FIXME  - Should be corrected.
-# HACK   - A workaround.
-# NOTE   - Useful information about a particular piece of code.
-# TODO   - Something to be done.
-# UNDONE - A reversal or 'roll back' of previous code.
-# XXX    - Warn other programmers of problematic or misguiding code.
+# List TODOs and other comment tags in specified files or a git repo.
 
 pattern="\b\(TO[-_ ]\?DO\|FIX[-_ ]\?ME\|NOTE\|XXX\|BUG\|HACK\|UNDONE\)\b"
 

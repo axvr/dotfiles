@@ -1,0 +1,19 @@
+{
+    "window.zoomLevel": 0.5,
+    "workbench.colorTheme": "Visual Studio Light",
+    "editor.fontFamily": "Inconsolata, Consolas, 'monospace', monospace",
+    "editor.fontSize": 16,
+    "editor.minimap.enabled": false,
+    "editor.minimap.renderCharacters": false,
+    "editor.cursorBlinking": "smooth",
+    "editor.smoothScrolling": true,
+    "editor.renderIndentGuides": false,
+    "editor.renderFinalNewline": false,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "extensions.ignoreRecommendations": true,
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false
+}

@@ -16,5 +16,6 @@ endfunction
 
 command! -nargs=0 -bar -bang Scratch silent call s:scratch(<q-mods>, <q-bang>)
 
+" Custom version of <https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7>
 command! -nargs=+ -complete=command -bar Redirect call appendbufline(bufnr(),
             \ getcurpos('.')[1] - 1, split(execute(<q-args>), "\n"))
