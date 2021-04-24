@@ -85,7 +85,7 @@ augroup filetypes
     autocmd!
 
     autocmd FileType cpp setlocal path+=/usr/include
-    autocmd FileType make,go,gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
+    autocmd FileType make,gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
     autocmd FileType lisp,json,ruby,scheme,clojure,outline,org setlocal et sts=2 sw=2 ts=8
     autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2
     autocmd FileType perl,sh,python,javascript setlocal tw=79

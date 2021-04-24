@@ -8,7 +8,6 @@ packadd cfilter
 packadd commentary
 packadd traces
 
-packadd cool
 let g:CoolTotalMatches = 1
 
 packadd zepl
