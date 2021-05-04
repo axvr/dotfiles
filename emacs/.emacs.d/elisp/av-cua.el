@@ -1,3 +1,5 @@
+(provide 'av-cua)
+
 (cua-mode t)
 
 (defun av/home-key ()
