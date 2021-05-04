@@ -106,16 +106,7 @@
   (load-theme theme t))
 
 (av/package-install 'doom-themes)
-
-(if (and (av/executable-find "theme-variant")
-         (string= (shell-command-to-string "theme-variant emacs") "light"))
-    (av/set-theme 'doom-homage-white "light")
-  (progn
-    (av/set-theme 'doom-opera "dark")
-    (set-face-background 'default "#262626")
-    (set-face-foreground 'default "#C6C6C6")
-    (set-face-background 'mode-line "#323334")
-    (setq face-near-same-color-threshold 20000)))
+(av/set-theme 'doom-homage-white "light")
 
 (av/package-install 'popup-edit-menu)
 (require 'popup-edit-menu)
