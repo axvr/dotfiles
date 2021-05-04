@@ -42,7 +42,7 @@
 ;;; ------------------------------------------------------------
 ;;; Essentials
 
-(setq user-mail-address "av@axvr.io"
+(setq user-mail-address "alex@vear.uk"
       user-full-name "Alex Vear")
 
 ;; Use UTF-8 character encoding.
@@ -68,6 +68,8 @@
 
 (setq confirm-kill-emacs 'yes-or-no-p
       vc-follow-symlinks t)
+
+(require 'av-cua)
 
 
 ;;; ------------------------------------------------------------
@@ -191,23 +193,12 @@
 (av/package-install 'paren-face)
 (setq paren-face-regexp "[][(){}]")
 (global-paren-face-mode 1)
-(set-face-foreground 'parenthesis "#767676")
-
-(av/package-install 'undo-propose)
-(global-set-key (kbd "C-c C-_") 'undo-propose)
+(set-face-foreground 'parenthesis "#828282")
 
 ;; (fido-mode 1)
 
 (av/package-install 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
-
-(av/package-install 'markdown-mode 'markless)
-(av/package-install 'restclient)
-(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
-(av/package-install 'ledger-mode)  ; FIXME: `ledger-mode-clean-buffer' sort in reverse.
-
-(av/package-install 'org)
-(add-hook 'org-mode-hook 'org-indent-mode)
 
 (av/package-install 'company)
 (global-company-mode 1)
@@ -222,3 +213,20 @@
 (setq scheme-program-name "csi -:c")
 
 (av/package-install 'clojure-mode)
+
+
+;;; ------------------------------------------------------------
+;;; Tools
+
+(av/package-install 'undo-propose)
+(global-set-key (kbd "C-c C-_") 'undo-propose)
+
+(av/package-install 'org 'markdown-mode 'markless)
+(add-hook 'org-mode-hook 'org-indent-mode)
+
+(av/package-install 'restclient)
+(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
+
+(av/package-install 'ledger-mode)  ; FIXME: `ledger-mode-clean-buffer' sort in reverse.
+
+;; (av/package-install 'circe)
