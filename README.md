@@ -1,6 +1,6 @@
 # dotfiles
 
-![Image of Vim config](https://raw.githubusercontent.com/axvr/photon.vim/be279d4bd29d78f61860f97be6561b65c0d10067/photon5.png)
+![Image of Vim config](https://raw.githubusercontent.com/axvr/photon.vim/e9e2a0f085b806b62523a617abf0c039ff7346e8/photon6.png)
 
 _The above image shows my Vim configuration.  The colour scheme is
 [Photon.vim](https://github.com/axvr/photon.vim) and the font is
