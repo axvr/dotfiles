@@ -1,9 +1,9 @@
 # dotfiles
 
-![Image of Vim config](https://raw.githubusercontent.com/axvr/photon.vim/e9e2a0f085b806b62523a617abf0c039ff7346e8/photon6.png)
+![Image of Vim config](https://raw.githubusercontent.com/axvr/raider.vim/4ecc2e5a200ae027c8d5f4e7c43d2b8a8ff75cfc/raider1.png)
 
 _The above image shows my Vim configuration.  The colour scheme is
-[Photon.vim](https://github.com/axvr/photon.vim) and the font is
+[Raider.vim](https://github.com/axvr/raider.vim) and the font is
 [Inconsolata](https://levien.com/type/myfonts/inconsolata.html) by
 [Raph Levien](https://levien.com/)._
 
