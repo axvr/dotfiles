@@ -1,6 +1,6 @@
 # dotfiles
 
-![Image of Vim config](https://raw.githubusercontent.com/axvr/raider.vim/4ecc2e5a200ae027c8d5f4e7c43d2b8a8ff75cfc/raider1.png)
+![Image of Vim config](https://raw.githubusercontent.com/axvr/raider.vim/d692fad234334f52a2260e3da823d4eef36754cb/raider1.png)
 
 _The above image shows my Vim configuration.  The colour scheme is
 [Raider.vim](https://github.com/axvr/raider.vim) and the font is
