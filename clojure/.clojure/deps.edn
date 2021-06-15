@@ -7,6 +7,9 @@
                           org.slf4j/slf4j-nop {:mvn/version "RELEASE"}}
              :main-opts ["-m" "antq.core"]}
 
+  :lint {:extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+         :main-opts ["-m" "clj-kondo.main"]}
+
   ;; Start a Socket REPL on port 5555.
   :socket {:jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/repl}"]}
 
