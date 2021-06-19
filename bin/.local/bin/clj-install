@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Script to make installing and updating the Clojure CLI tools on Linux easier.
+#
+# Releases:     <https://clojure.org/releases/tools>
+# Instructions: <https://clojure.org/guides/getting_started#_installation_on_linux>
+
+set -e
+
+if [ -z "$1" ]; then
+    echo "No version specified.  Looking up latest version."
+
+    v="$(curl --silent 'https://clojure.org/releases/tools' \
+        | grep '^<h3' \
+        | sed 's/<h3\s\+id="v\([0-9\.]\+\?\)">.*$/\1/' \
+        | head -n 1)"
+else
+    v="$(echo "$1" | sed 's/^v//')"
+fi
+
+echo "Installing Clojure CLI Tools v${v}"
+
+curl --silent "https://download.clojure.org/install/linux-install-${v}.sh" \
+     --output '/tmp/clj-installer.sh'
+chmod +x '/tmp/clj-installer.sh'
+sudo '/tmp/clj-installer.sh'
