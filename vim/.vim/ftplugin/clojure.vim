@@ -2,12 +2,37 @@ let b:repl_config = { 'cmd': 'clj', 'load_file': '(load-file "%s")' }
 
 " let g:clojure_align_multiline_strings = 1
 
-command! -buffer -bar -nargs=1 CljDoc :call zepl#send('(clojure.repl/doc ' . substitute(<q-args>, '\', '', 'g') . ')')
-command! -buffer -bar -nargs=1 CljSrc :call zepl#send('(clojure.repl/source ' . <q-args> . ')')
-command! -buffer -bar -nargs=+ CljNs  :call zepl#send('(clojure.core/ns ' . <q-args> . ')')
-command! -buffer -bar -nargs=1 CljReq :call zepl#send("(clojure.core/require '" . <q-args> . ' :reload)')
+command! -buffer -bar -nargs=* Ns      :call s:change_ns(<q-args>)
+command! -buffer -bar -nargs=1 Doc     :call zepl#send('(clojure.repl/doc ' . substitute(<q-args>, '\', '', 'g') . ')')
+command! -buffer -bar -nargs=1 Source  :call zepl#send('(clojure.repl/source ' . <q-args> . ')')
+command! -buffer -bar -nargs=1 Require :call zepl#send("(clojure.core/require '" . <q-args> . ' :reload)')
+command! -buffer -bar -nargs=1 Unmap   :call zepl#send("(clojure.core/ns-unmap *ns* '" . <q-args> . ")")
+command! -buffer -bar -nargs=1 Unalias :call zepl#send("(clojure.core/ns-unalias *ns* '" . <q-args> . ")")
 
-let &l:keywordprg = ':CljDoc'
+let &l:keywordprg = ':Doc'
+
+let &l:makeprg = 'clj -M:lint --lint'
 setlocal errorformat=%f:%l:%c:\ %trror:\ %m,
                     \%f:%l:%c:\ %tarning:\ %m
-let &l:makeprg = 'clj -M:lint --lint src'
+
+function! s:change_ns(ns)
+    let ns = a:ns
+
+    if empty(trim(ns))
+        let lines = getbufline('%', 1, '$')
+        for l in lines
+            let ns = matchstr(l, '\m\C(ns\s\+\zs\(\k\+\)\ze')
+            if !empty(ns) | break | endif
+        endfor
+    endif
+
+    if empty(ns)
+        echohl ErrorMsg
+        echo 'No namespace specified.'
+        echohl NONE
+    else
+        call zepl#send('(clojure.core/ns ' . ns . ')')
+    endif
+endfunction
+
+nnoremap gzn :<C-u>Ns<CR>
