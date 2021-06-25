@@ -13,7 +13,7 @@ fi
 # History config
 export HISTSIZE=10000
 export HISTFILESIZE=1000000
-export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoredups:ignorespace
 shopt -s histappend
 
 # Bash enhancements
