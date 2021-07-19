@@ -7,11 +7,17 @@
                           org.slf4j/slf4j-nop {:mvn/version "RELEASE"}}
              :main-opts ["-m" "antq.core"]}
 
+  ;; Run Clj-kondo linter.  <https://github.com/clj-kondo/clj-kondo>
   :lint {:extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
-         :main-opts ["-m" "clj-kondo.main"]}
+         :main-opts ["-m" "clj-kondo.main" "--lint"]}
 
   ;; Start a Socket REPL on port 5555.
   :socket {:jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/repl}"]}
 
   ;; Start a Socket pREPL on port 6666.
-  :prepl {:jvm-opts ["-Dclojure.server.repl={:port,6666,:accept,clojure.core.server/io-prepl}"]}}}
+  :prepl {:jvm-opts ["-Dclojure.server.repl={:port,6666,:accept,clojure.core.server/io-prepl}"]}
+
+  ;; Generate dependency graph image.  <https://github.com/clojure/tools.deps.graph>
+  :deps-graph {:replace-deps {org.clojure/tools.deps.graph {:mvn/version "1.0.63"}}
+               :exec-fn clojure.tools.deps.graph/graph
+               :exec-args {:output "deps.png"}}}}
