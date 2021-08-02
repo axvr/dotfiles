@@ -16,6 +16,7 @@ set formatoptions+=jpl1n
 set cpoptions+=J
 set nrformats-=octal
 set modeline
+set keywordprg=info
 
 " Interface
 set showcmd

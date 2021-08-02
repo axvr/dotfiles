@@ -20,4 +20,11 @@
   ;; Generate dependency graph image.  <https://github.com/clojure/tools.deps.graph>
   :deps-graph {:replace-deps {org.clojure/tools.deps.graph {:mvn/version "1.0.63"}}
                :exec-fn clojure.tools.deps.graph/graph
-               :exec-args {:output "deps.png"}}}}
+               :exec-args {:output "deps.png"}}
+
+  ;; add-libs <https://insideclojure.org/2018/05/04/add-lib/>
+  ;;   (use 'clojure.tools.deps.alpha.repl)
+  ;;   (add-libs '{org.clojure/core.cache {:mvn/version "1.0.207"}})
+  :add-libs {:extra-deps {org.clojure/tools.deps.alpha
+                          {:git/url "https://github.com/clojure/tools.deps.alpha.git"
+                           :sha "241cd24c35ba770aea4773ea161d45276e5d3a73"}}}}}
