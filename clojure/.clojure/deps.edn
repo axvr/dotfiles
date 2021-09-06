@@ -1,10 +1,12 @@
 ;;;; Clojure deps.edn global config.
 ;;;; ~/.clojure/deps.edn
 
-{:aliases
+{:deps {uk.axvr/user {:git/url "https://github.com/axvr/user.clj.git"
+                      :git/sha "5062e51c0c85a59d3216d90c1c0a66dbb0559bf7"}}
+ :aliases
  {;; Check for outdated dependencies.  <https://github.com/liquidz/antq>
-  :outdated {:extra-deps {antq/antq {:mvn/version "RELEASE"}
-                          org.slf4j/slf4j-nop {:mvn/version "RELEASE"}}
+  :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}
+                          org.slf4j/slf4j-nop     {:mvn/version "RELEASE"}}
              :main-opts ["-m" "antq.core"]}
 
   ;; Run Clj-kondo linter.  <https://github.com/clj-kondo/clj-kondo>
@@ -18,7 +20,7 @@
   :prepl {:jvm-opts ["-Dclojure.server.repl={:port,6666,:accept,clojure.core.server/io-prepl}"]}
 
   ;; Generate dependency graph image.  <https://github.com/clojure/tools.deps.graph>
-  :deps-graph {:replace-deps {org.clojure/tools.deps.graph {:mvn/version "1.0.63"}}
+  :deps-graph {:replace-deps {org.clojure/tools.deps.graph {:mvn/version "RELEASE"}}
                :exec-fn clojure.tools.deps.graph/graph
                :exec-args {:output "deps.png"}}
 
@@ -27,4 +29,4 @@
   ;;   (add-libs '{org.clojure/core.cache {:mvn/version "1.0.207"}})
   :add-libs {:extra-deps {org.clojure/tools.deps.alpha
                           {:git/url "https://github.com/clojure/tools.deps.alpha.git"
-                           :sha "241cd24c35ba770aea4773ea161d45276e5d3a73"}}}}}
+                           :git/sha "241cd24c35ba770aea4773ea161d45276e5d3a73"}}}}}

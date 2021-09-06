@@ -16,8 +16,7 @@ else
     v="$(echo "$1" | sed 's/^v//')"
 fi
 
-command -v clojure > /dev/null
-if [ "$?" -eq '0' ]; then
+if test "$(command -v clojure)"; then
     current_v="$(clojure --version | sed 's/^[^0-9]*//' | sed 's/\s\+//')"
     if [ "$v" = "$current_v" ]; then
         echo "Nothing to do: v${v} is already installed"
