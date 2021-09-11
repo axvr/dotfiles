@@ -46,6 +46,7 @@ id_rsa
 Session.vim
 errors.err
 .netrwhist
+%*
 
 # GNU Emacs
 *~
