@@ -18,3 +18,5 @@
 	ff = only
 [init]
 	defaultBranch = master
+[help]
+	autocorrect = 25
