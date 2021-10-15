@@ -19,4 +19,4 @@
 [init]
 	defaultBranch = master
 [help]
-	autocorrect = 25
+	autocorrect = 20
