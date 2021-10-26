@@ -1,3 +1,10 @@
 (ns user
-  (:require [clj-java-decompiler.core :refer [decompile disassemble]]
-            [criterium.core           :refer [bench quick-bench]]))
+  (:require potemkin clj-java-decompiler.core criterium.core))
+
+(potemkin/import-vars
+  [clj-java-decompiler.core
+   decompile
+   disassemble]
+  [criterium.core
+   bench
+   quick-bench])

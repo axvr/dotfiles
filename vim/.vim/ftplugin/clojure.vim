@@ -1,18 +1,20 @@
 let b:repl_config = { 'cmd': 'clj', 'load_file': '(load-file "%s")' }
 
-command! -buffer -bar -nargs=* Ns      :call s:change_ns(<q-args>)
+let g:clojure_discard_macro = 1
 
-command! -buffer -bar -nargs=1 Doc     :call zepl#send('(clojure.repl/doc ' . substitute(<q-args>, '\', '', 'g') . ')')
-command! -buffer -bar -nargs=1 Source  :call zepl#send('(clojure.repl/source ' . <q-args> . ')')
-command! -buffer -bar -nargs=1 Apropos :call zepl#send('(clojure.pprint/pprint (clojure.repl/apropos "' . <q-args> . '"))')
-command! -buffer -bar -nargs=1 InNs    :call zepl#send("(clojure.pprint/pprint (keys (ns-publics '" . <q-args> . ')))')
+command! -buffer -bar -nargs=* Ns        :call s:change_ns(<q-args>)
 
-command! -buffer -bar -nargs=1 Require :call zepl#send("(clojure.core/require '" . <q-args> . ' :reload)')
-command! -buffer -bar -nargs=1 Import  :call zepl#send("(clojure.core/import '" . <q-args> . ')')
-command! -buffer -bar -nargs=1 Use     :call zepl#send("(clojure.core/use '" . <q-args> . ')')
+command! -buffer -bar -nargs=1 Doc       :call zepl#send('(clojure.repl/doc ' . substitute(<q-args>, '\', '', 'g') . ')')
+command! -buffer -bar -nargs=1 Source    :call zepl#send('(clojure.repl/source ' . <q-args> . ')')
+command! -buffer -bar -nargs=1 Apropos   :call zepl#send('(clojure.pprint/pprint (clojure.repl/apropos "' . <q-args> . '"))')
+command! -buffer -bar -nargs=1 NsPublics :call zepl#send("(clojure.pprint/pprint (keys (ns-publics '" . <q-args> . ')))')
 
-command! -buffer -bar -nargs=1 Unmap   :call zepl#send("(clojure.core/ns-unmap *ns* '" . <q-args> . ")")
-command! -buffer -bar -nargs=1 Unalias :call zepl#send("(clojure.core/ns-unalias *ns* '" . <q-args> . ")")
+command! -buffer -bar -nargs=1 Require   :call zepl#send("(clojure.core/require '" . <q-args> . ' :reload)')
+command! -buffer -bar -nargs=1 Import    :call zepl#send("(clojure.core/import '" . <q-args> . ')')
+command! -buffer -bar -nargs=1 Use       :call zepl#send("(clojure.core/use '" . <q-args> . ')')
+
+command! -buffer -bar -nargs=1 NsUnmap   :call zepl#send("(clojure.core/ns-unmap *ns* '" . <q-args> . ")")
+command! -buffer -bar -nargs=1 NsUnalias :call zepl#send("(clojure.core/ns-unalias *ns* '" . <q-args> . ")")
 
 let &l:keywordprg = ':Doc'
 
