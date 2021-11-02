@@ -22,13 +22,16 @@ shopt -s globstar checkwinsize
 
 # == Bash prompts ==
 
-# Simple prompt
-#PS1="[\u@\h \W]\$ "
-PS2="> "
+if (($COLUMNS >= 60)) && test "$(command -v git)"; then
+    git_branch() { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/^\*//'; }
+    PS1="[\u@\h \W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\$ "
+elif (($COLUMNS > 40)); then
+    PS1="[\u@\h \W]\$ "
+else
+    PS1="[\W]\$ "
+fi
 
-# Prompt with Git branch
-git_branch() { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/^\*//'; }
-PS1="[\u@\h \W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\$ "
+PS2="> "
 
 
 # == Aliases & functions ==
@@ -43,6 +46,3 @@ alias fgrep="fgrep --color=auto"
 export LEDGER_FILE="$HOME/Documents/Ledger/personal.dat"
 alias ledger='ledger -f "$LEDGER_FILE"'
 alias ledger-record='$EDITOR "$LEDGER_FILE"'
-
-# <https://cr.yp.to/bib/documentid.html>
-alias docid="head /dev/urandom | md5sum | cut -c 1-32"

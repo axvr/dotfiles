@@ -3,6 +3,8 @@
 let g:netrw_banner = 0
 let g:org_clean_folds = 1
 
+runtime ftplugin/man.vim
+
 packadd matchit
 packadd cfilter
 packadd commentary

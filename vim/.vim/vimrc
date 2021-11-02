@@ -63,19 +63,16 @@ set shiftround
 set autoindent
 
 " Line wrap (soft wrap code, hard wrap comments, strings and text)
-let &showbreak='+++ '
+let &showbreak='>>> '
 set wrap
 set linebreak
 set breakindent
 
 " Theming
-let &colorcolumn='+'.join(range(1,256),',+')
-
 if &term =~# '256color$'
     set termguicolors
     colorscheme raider
-else
-    colorscheme photon
+    let &colorcolumn='+'.join(range(1,256),',+')
 endif
 
 if &term =~# '^\(screen\|tmux\)'
@@ -99,7 +96,7 @@ augroup filetypes
     autocmd FileType gitcommit setlocal spell
 
     autocmd FileType tex compiler latexmk
-    autocmd FileType sh compiler shellcheck
+    autocmd FileType sh  compiler shellcheck
 
     autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s
     autocmd FileType fstab,crontab,spec,desktop setlocal commentstring=#%s

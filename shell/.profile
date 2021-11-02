@@ -11,7 +11,6 @@ fi
 
 # Set locale and language
 export LANG=en_GB.UTF-8
-# export LANG=en_US.UTF-8
 # export LC_ALL=POSIX
 
 # Set default editor

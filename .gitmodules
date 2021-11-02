@@ -1,12 +1,6 @@
-[submodule "vim/.vim/pack/core/start/raider"]
-	path = vim/.vim/pack/core/start/raider
-	url = https://github.com/axvr/raider.vim
-[submodule "vim/.vim/pack/core/start/photon"]
-	path = vim/.vim/pack/core/start/photon
-	url = https://github.com/axvr/photon.vim
-[submodule "vim/.vim/pack/core/start/ascribe"]
-	path = vim/.vim/pack/core/start/ascribe
-	url = https://github.com/axvr/ascribe.vim
+[submodule "vim/.vim/pack/core/opt/zepl"]
+	path = vim/.vim/pack/core/opt/zepl
+	url = https://github.com/axvr/zepl.vim
 [submodule "vim/.vim/pack/core/opt/cool"]
 	path = vim/.vim/pack/core/start/cool
 	url = https://github.com/romainl/vim-cool
@@ -16,9 +10,12 @@
 [submodule "vim/.vim/pack/core/opt/commentary"]
 	path = vim/.vim/pack/core/opt/commentary
 	url = https://github.com/tpope/vim-commentary
-[submodule "vim/.vim/pack/core/opt/zepl"]
-	path = vim/.vim/pack/core/opt/zepl
-	url = https://github.com/axvr/zepl.vim
+[submodule "vim/.vim/pack/core/start/ascribe"]
+	path = vim/.vim/pack/core/start/ascribe
+	url = https://github.com/axvr/ascribe.vim
+[submodule "vim/.vim/pack/core/start/raider"]
+	path = vim/.vim/pack/core/start/raider
+	url = https://github.com/axvr/raider.vim
 [submodule "vim/.vim/pack/lang/start/org"]
 	path = vim/.vim/pack/lang/start/org
 	url = https://github.com/axvr/org.vim
