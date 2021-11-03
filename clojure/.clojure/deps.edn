@@ -3,11 +3,8 @@
 
 {:aliases
  {;; Load global user.clj config.
-  :user {:extra-deps {com.clojure-goes-fast/clj-java-decompiler {:mvn/version "0.3.0"}
-                      criterium/criterium {:mvn/version "0.4.6"}
-                      potemkin/potemkin   {:mvn/version "0.4.5"}
-                      uk.axvr/user {:git/url "https://github.com/axvr/user.clj.git"
-                                    :git/sha "5062e51c0c85a59d3216d90c1c0a66dbb0559bf7"}}}
+  :axvr {:extra-deps {uk.axvr/utils {:git/url "git@github.com:axvr/uk.axvr.utils.git"
+                                     :git/sha "cd80142e6a18c3a04c9bc2bdfe88e61175df59ac"}}}
 
   ;; Check for outdated dependencies.  <https://github.com/liquidz/antq>
   :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}
