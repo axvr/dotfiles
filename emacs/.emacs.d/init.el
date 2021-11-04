@@ -107,8 +107,8 @@
   (av/set-gtk-theme (if mode mode "dark"))
   (load-theme theme t))
 
-(av/package-install 'doom-themes)
-(av/set-theme 'doom-homage-white "light")
+(av/package-install 'sketch-themes)
+(av/set-theme 'sketch-black "dark")
 
 (av/package-install 'popup-edit-menu)
 (require 'popup-edit-menu)
@@ -151,7 +151,7 @@
 ;;; Scrolling
 
 (mouse-wheel-mode 1)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
+(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))
       mouse-wheel-progressive-speed nil
       mouse-wheel-follow-mouse 't
       ;; Horizontal scroll on trackpad
@@ -218,8 +218,12 @@
 ;;; ------------------------------------------------------------
 ;;; Tools
 
-(av/package-install 'undo-propose)
-(global-set-key (kbd "C-c C-_") 'undo-propose)
+(av/package-install 'undo-fu 'undo-fu-session)
+(setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+(global-undo-fu-session-mode)
+(global-unset-key (kbd "C-z"))
+(global-set-key (kbd "C-z")   'undo-fu-only-undo)
+(global-set-key (kbd "C-S-z") 'undo-fu-only-redo)
 
 (av/package-install 'org 'markdown-mode 'markless)
 (add-hook 'org-mode-hook 'org-indent-mode)
