@@ -85,6 +85,8 @@ endif
 com! -nargs=* -complete=file Todos let s:gp=&gp|set gp=todos|gr <args>|let &gp=s:gp|unl s:gp
 com! -nargs=0 -bar Tasks tabe DONE|sp DOING|sp TODO
 
+nnoremap <F4> :<C-u>source Session.vim<CR>
+
 augroup filetypes
     autocmd!
 
@@ -98,7 +100,7 @@ augroup filetypes
     autocmd FileType tex compiler latexmk
     autocmd FileType sh  compiler shellcheck
 
-    autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s
+    autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s cpo-=J cpo+=j
     autocmd FileType fstab,crontab,spec,desktop setlocal commentstring=#%s
 
     autocmd BufRead,BufNewFile TODO,DOING,DONE setfiletype outline

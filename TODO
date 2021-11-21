@@ -4,5 +4,4 @@
     - <http://mah.everybody.org/docs/ssh>
 
 * Vim
-  - S-expression jump mappings by overriding square-bracket keys.
   - Use 'include' and 'includeexpr'

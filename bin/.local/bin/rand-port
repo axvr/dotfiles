@@ -1,0 +1,19 @@
+#!/usr/bin/env perl
+
+# Print a random unused port to STDOUT.
+
+use v5.34.0;
+use strict;
+use warnings;
+
+use IO::Socket::INET;
+
+my $socket = IO::Socket::INET->new(
+    LocalHost => '127.0.0.1',
+    LocalPort => 0,
+    Proto => 'tcp'
+) or die "Error creating socket: $!\n";
+
+say $socket->sockport();
+
+$socket->close() or die "Error closing socket: $!\n";

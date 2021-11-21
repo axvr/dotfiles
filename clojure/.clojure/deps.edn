@@ -2,7 +2,7 @@
 ;;;; ~/.clojure/deps.edn
 
 {:aliases
- {;; Load global user.clj config.
+ {;; Personal library of useful Clojure dev utilities.
   :axvr {:extra-deps {uk.axvr/utils {:git/url "git@github.com:axvr/uk.axvr.utils.git"
                                      :git/sha "cd80142e6a18c3a04c9bc2bdfe88e61175df59ac"}}}
 

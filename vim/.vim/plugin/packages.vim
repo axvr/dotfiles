@@ -2,15 +2,16 @@
 
 let g:netrw_banner = 0
 let g:org_clean_folds = 1
+let g:CoolTotalMatches = 1
 
 runtime ftplugin/man.vim
 
 packadd matchit
 packadd cfilter
 packadd commentary
+packadd surround
 packadd traces
-
-let g:CoolTotalMatches = 1
+packadd apart
 
 packadd zepl
 runtime zepl/contrib/load_files.vim

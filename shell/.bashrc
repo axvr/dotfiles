@@ -25,7 +25,7 @@ shopt -s globstar checkwinsize
 if (($COLUMNS >= 60)) && test "$(command -v git)"; then
     git_branch() { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/^\*//'; }
     PS1="[\u@\h \W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\$ "
-elif (($COLUMNS > 40)); then
+elif (($COLUMNS >= 40)); then
     PS1="[\u@\h \W]\$ "
 else
     PS1="[\W]\$ "

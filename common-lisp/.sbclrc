@@ -7,5 +7,7 @@
   (when (probe-file quicklisp-init)
     (load quicklisp-init)))
 
-;; Automatically load Quickproject
-(ql:quickload :quickproject)
+;; Quickproject <https://www.xach.com/lisp/quickproject/>
+;;   (ql:quickload :quickproject)
+;;   (quickproject:make-project #p"~/Projects/my-project/" :name "my-project")
+;;   (ql:quickload :my-project)

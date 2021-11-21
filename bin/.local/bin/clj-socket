@@ -1,3 +1,43 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-rlwrap -pWhite -r -q '\"' -b "(){}[],^%#@\";:'" nc "$@"
+# Clojure socket REPL wrapper with auto-port selection.
+
+# This script has 3 modes of operation:
+#   1. If args have been given (and don't begin with a hyphen) pass to netcat.
+#          clj-socket localhost 5555
+#   2. If no args and .clj_port file exists, pass port number to netcat.
+#          clj-socket
+#   3. If no .clj_port file, start Clojure with socket REPL (+ args) and write
+#      the port number to .clj_port.  On exit, delete .clj_port file.
+
+readline () {
+    rlwrap -C clj -pWhite -r -q '\"' -b "(){}[],^%#@\";:'" "$@"
+}
+
+finish () {
+    [ -f "$file" ] && rm "$file"
+}
+
+file='.clj_port'
+
+if [ $# -ne 0 ] && [[ "$1" != -* ]]; then
+    # If args given and don't begin with a hyphen connect to specified REPL.
+    readline nc "$@"
+elif [ -f "$file" ]; then
+    # If .clj_port file exists.
+    if [ $# -eq 0 ]; then
+        # No arguments were given, connect to running socket REPL.
+        readline nc localhost "$(< "$file")"
+    else
+        # Arguments given with intention of starting another socket REPL.
+        echo "Socket REPL already running on port: $(< "$file")"
+        echo "Use \"clj\" command instead."
+    fi
+else
+    # Start new socket REPL.
+    trap finish EXIT
+    port="$(rand-port)"
+    echo "$port" > "$file"
+    echo "Starting Clojure with socket REPL on port: $port"
+    readline clojure -J-Dclojure.server.repl="{:port $port :accept clojure.core.server/repl}" "$@"
+fi
