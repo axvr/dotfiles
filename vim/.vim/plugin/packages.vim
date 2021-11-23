@@ -7,11 +7,12 @@ let g:CoolTotalMatches = 1
 runtime ftplugin/man.vim
 
 packadd matchit
-packadd cfilter
 packadd commentary
 packadd surround
 packadd traces
 packadd apart
+" packadd cfilter
+packadd qf
 
 packadd zepl
 runtime zepl/contrib/load_files.vim
