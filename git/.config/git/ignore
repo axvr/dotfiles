@@ -36,6 +36,11 @@ secring.*
 *.pass
 id_rsa
 
+# Clojure
+.clj_port
+.nrepl-port
+.lein-repl-history
+
 # Vim
 *~
 [._]*.s[a-v][a-z]
