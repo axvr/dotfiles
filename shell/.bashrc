@@ -37,6 +37,7 @@ PS2="> "
 # == Aliases & functions ==
 
 alias vi="vim"
+alias svim="vim +'source Session.vim'"
 
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"

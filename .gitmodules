@@ -16,9 +16,6 @@
 [submodule "vim/.vim/pack/core/opt/commentary"]
 	path = vim/.vim/pack/core/opt/commentary
 	url = https://github.com/tpope/vim-commentary
-[submodule "vim/.vim/pack/core/opt/surround"]
-	path = vim/.vim/pack/core/opt/surround
-	url = https://github.com/tpope/vim-surround
 [submodule "vim/.vim/pack/core/start/ascribe"]
 	path = vim/.vim/pack/core/start/ascribe
 	url = https://github.com/axvr/ascribe.vim

@@ -1,1 +1,1 @@
-let &l:keywordprg = ':Help'
+setl keywordprg=:Help

@@ -1,4 +1,4 @@
-let b:repl_config = { 'cmd': 'clj', 'load_file': '(load-file "%s")' }
+let b:repl_config = { 'cmd': 'clj-socket', 'load_file': '(load-file "%s")' }
 
 let g:clojure_discard_macro = 1
 
@@ -47,3 +47,5 @@ nnoremap gzn :<C-u>Ns<CR>
 
 " TODO: dedicated :Lint and :Test commands.
 " TODO: make :Source default to symbol under cursor.
+
+nmap <silent> <buffer> J <Plug>LispyJ
