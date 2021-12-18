@@ -15,6 +15,5 @@
     "extensions.ignoreRecommendations": true,
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
-    "editor.renderLineHighlight": "none",
-    "workbench.colorTheme": "Gnome Light (GitHub)"
+    "editor.renderLineHighlight": "none"
 }

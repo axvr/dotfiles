@@ -47,5 +47,3 @@ nnoremap gzn :<C-u>Ns<CR>
 
 " TODO: dedicated :Lint and :Test commands.
 " TODO: make :Source default to symbol under cursor.
-
-nmap <silent> <buffer> J <Plug>LispyJ
