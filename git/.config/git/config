@@ -16,6 +16,8 @@
 	tool = vimdiff
 [pull]
 	ff = only
+[log]
+	follow = true
 [init]
 	defaultBranch = master
 [help]
