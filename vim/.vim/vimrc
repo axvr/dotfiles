@@ -17,6 +17,7 @@ set cpoptions+=J
 set nrformats-=octal
 set modeline
 set keywordprg=info
+set history=200
 
 " Interface
 set showcmd
@@ -42,6 +43,10 @@ for s:dir in [&backupdir, &directory, &undodir]
     endif
 endfor
 unlet s:dir
+
+if has('sodium')
+    set cryptmethod=xchacha20
+endif
 
 " Set "<Leader>" and "<LocalLeader>" prefixes
 let mapleader = " "
@@ -82,6 +87,13 @@ if &term =~# '^\(screen\|tmux\)'
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+nnoremap Q gq
+nnoremap Y y$
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo, so
+" that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+
 augroup filetypes
     autocmd!
 
@@ -91,17 +103,13 @@ augroup filetypes
     autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2
     autocmd FileType perl,sh,python,javascript setlocal tw=79
     autocmd FileType gitcommit setlocal spell
+    autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s cpo-=J cpo+=j
+    autocmd FileType robots,crontab,spec,desktop setlocal commentstring=#%s
 
     autocmd FileType tex compiler latexmk
     autocmd FileType sh  compiler shellcheck
 
-    autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s cpo-=J cpo+=j
-    autocmd FileType robots,crontab,spec,desktop setlocal commentstring=#%s
-
     autocmd BufRead,BufNewFile TODO,DOING,DONE setfiletype outline
-    autocmd BufRead,BufNewFile *.asd setfiletype lisp
-    autocmd BufRead,BufNewFile *.sld,*.sxml setfiletype scheme
-
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
 augroup END

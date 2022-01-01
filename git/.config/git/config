@@ -20,6 +20,8 @@
 	follow = true
 [init]
 	defaultBranch = master
+[commit]
+	verbose = true
 [help]
 	autocorrect = 10
 [filter "lfs"]
