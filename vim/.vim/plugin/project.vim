@@ -1,24 +1,32 @@
+" Project management helpers.
+
+function! TempSetBufOpt(opt, val, callback)
+    let buf = bufnr('%')
+    let prevval = getbufvar(buf, a:opt)
+    call setbufvar(buf, a:opt, a:val)
+    call a:callback()
+    call setbufvar(buf, a:opt, prevval)
+endfunction
+
+function! TempGrep(prg, args)
+    call TempSetBufOpt('&grepprg', a:prg, {-> execute('grep' . a:args)})
+    redraw!
+endfunction
+
 " Task management.
-com! -nargs=* -complete=file Todos let s:gp=&l:gp|setl gp=todos|gr <args>|let &l:gp=s:gp|unl s:gp
-com! -nargs=0 -bar Tasks tabe DONE|sp DOING|sp TODO
+command! -nargs=0 -bar Tasks tabe DONE | split DOING | split TODO
+command! -nargs=* -complete=file Todos call TempGrep('todos', <q-args>)
 
 " Git integration.
-com! -nargs=+ -complete=file GitGrep let s:gp=&l:gp|setl gp=git\ grep\ -n|gr <args>|let &l:gp=s:gp|unl s:gp
+command! -nargs=+ -complete=file GitGrep call TempGrep('git grep -n', <q-args>)
 com! -nargs=? -range GitBlame ec join(systemlist("git -C ".shellescape(expand('%:p:h')).
             \ " blame -L <line1>,<line2> <args> -- ".expand('%:t')),"\n")
 
-augroup project
-    autocmd!
-    " When editing a file, jump to the last known cursor position.
-    autocmd BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-    " Reset cursor position to line 1 when writing a Git commit/tag message.
-    autocmd BufReadPost COMMIT_EDITMSG,TAG_EDITMSG normal! gg
-augroup END
-
-" Session restore.
-nnoremap <F4> :<C-u>source Session.vim<CR>
-
 " Command to diff unsaved changes to current file.  Deactivate with :diffoff!
-command! -nargs=0 -bar DiffOrig botright vertical new
-            \ | set buftype=nofile | read ++edit # | 0d_ | diffthis
+command! -nargs=0 -bar DiffOrig
+            \ <mods> new
+            \ | read ++edit # | 0d_ | diffthis
+            \ | setl buftype=nofile readonly noswapfile bufhidden=wipe nobuflisted nomodifiable
+            \ | exe 'setfiletype ' . getbufvar('#', '&l:filetype')
+            \ | exe 'silent file [Diff] ' . bufname('#')
             \ | wincmd p | diffthis

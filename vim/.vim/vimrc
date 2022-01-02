@@ -16,8 +16,8 @@ set formatoptions+=jpl1n
 set cpoptions+=J
 set nrformats-=octal
 set modeline
-set keywordprg=info
-set history=200
+set history=500
+" set keywordprg=info
 
 " Interface
 set showcmd
@@ -44,13 +44,14 @@ for s:dir in [&backupdir, &directory, &undodir]
 endfor
 unlet s:dir
 
+" Encryption
 if has('sodium')
     set cryptmethod=xchacha20
 endif
 
-" Set "<Leader>" and "<LocalLeader>" prefixes
-let mapleader = " "
-let maplocalleader = "\\"
+" "<Leader>" and "<LocalLeader>" prefixes
+let g:mapleader = " "
+let g:maplocalleader = "\\"
 
 " Completion
 set omnifunc=syntaxcomplete#Complete
@@ -67,7 +68,7 @@ set expandtab
 set shiftround
 set autoindent
 
-" Line wrap (soft wrap code, hard wrap comments, strings and text)
+" Line wrap
 let &showbreak='>>> '
 set wrap
 set linebreak
@@ -81,23 +82,29 @@ if &term =~# '256color$' || has('gui')
 endif
 
 if &term =~# '^\(screen\|tmux\)'
-    set ttymouse=xterm2
+    set ttymouse=sgr
     " :help xterm-true-color
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+" Nicer default mappings
 nnoremap Q gq
 nnoremap Y y$
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo, so
-" that you can undo CTRL-U after inserting a line break.
+" Remap <C-U> to add an entry to undo history.
 inoremap <C-U> <C-G>u<C-U>
 
-augroup filetypes
+augroup cursor_restore
+    autocmd!
+    " When editing a file, jump to the last known cursor position.
+    autocmd BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+    " Reset cursor position to line 1 when writing a Git commit/tag message.
+    autocmd BufReadPost COMMIT_EDITMSG,TAG_EDITMSG normal! gg
+augroup END
+
+augroup filetype_config
     autocmd!
 
-    autocmd FileType cpp setlocal path+=/usr/include
     autocmd FileType gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
     autocmd FileType lisp,clojure,scheme,json,ruby,outline,org setlocal et sts=2 sw=2 ts=8
     autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2
@@ -106,6 +113,7 @@ augroup filetypes
     autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s cpo-=J cpo+=j
     autocmd FileType robots,crontab,spec,desktop setlocal commentstring=#%s
 
+    autocmd FileType cpp setlocal path+=/usr/include
     autocmd FileType tex compiler latexmk
     autocmd FileType sh  compiler shellcheck
 

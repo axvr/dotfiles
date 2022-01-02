@@ -1,20 +1,23 @@
 " Configure packages.
 
 " Regenerate help tags for plugins.
-com! -nargs=0 -bar Helptags for p in glob('~/.vim/pack/*/*/*/doc',1,1)|exe 'helpt '.p|endfo
+command! -nargs=0 -bar Helptags
+            \ for s:dir in glob('~/.vim/pack/*/*/*/doc', 1, 1)
+            \ |   execute 'helptags ' . s:dir
+            \ | endfor
+            \ | unlet s:dir
 
 let g:netrw_banner = 0
 let g:org_clean_folds = 1
 let g:CoolTotalMatches = 1
 
 runtime ftplugin/man.vim
-" set keywordprg=:Man
+set keywordprg=:Man
 
 packadd matchit
 packadd commentary
 packadd traces
 packadd apart
-" packadd cfilter
 packadd qf
 
 packadd zepl
