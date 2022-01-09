@@ -1,4 +1,4 @@
-# DNS hosts file.  /etc/hosts
+# DNS hosts file.  /etc/hosts (or /private/etc/hosts on macOS)
 #
 # Install with:
 #     sudo cp dns/hosts /etc/hosts

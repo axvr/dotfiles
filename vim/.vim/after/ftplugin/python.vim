@@ -1,1 +1,1 @@
-setl keywordprg=:Help
+setlocal keywordprg=:Help

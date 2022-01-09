@@ -2,7 +2,7 @@ let b:repl_config = { 'cmd': 'rlwrap sbcl' }
 
 command! -buffer -bar -nargs=1 Describe :call zepl#send("(describe '" . substitute(<q-args>, '\', '', 'g') . ')')
 
-let &l:keywordprg = ':Describe'
+setlocal keywordprg=:Describe
 
 " Use function keys to control the debugger.
 nnoremap <silent> <F1> :<C-u>call zepl#send('1')<CR>

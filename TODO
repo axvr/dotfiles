@@ -1,7 +1,0 @@
-* Shell
-  - Start 'ssh-agent' in profile file.
-    - <https://stackoverflow.com/a/18915067>
-    - <http://mah.everybody.org/docs/ssh>
-
-* Vim
-  - Use 'include' and 'includeexpr'

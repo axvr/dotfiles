@@ -1,29 +1,30 @@
 [user]
 	name = Alex Vear
 	email = alex@vear.uk
+[core]
+	editor = vim
+[alias]
+	graph = log --all --decorate --oneline --graph
+	submodule-pull = submodule update --remote --merge
+	markers = !git ls-files -u | awk '{ print $4 }' | uniq | xargs grep -Hn '^<<<<<<<'
+	amend = commit --amend
+[pull]
+	ff = only
+[log]
+	follow = true
+[commit]
+	verbose = true
+[merge]
+	tool = vimdiff
+[init]
+	defaultBranch = master
+[help]
+	autocorrect = 10
 [sendemail]
 	smtpserver = smtp.fastmail.com
 	smtpuser = alex@vear.uk
 	smtpencryption = tls
 	smtpserverport = 587
-[core]
-	editor = vim
-[alias]
-	graph = log --all --decorate --oneline --graph
-	subupdate = submodule update --remote --merge
-	markers = !git ls-files -u | awk '{print $4}' | uniq | xargs grep -Hn '^<<<<<<<'
-[merge]
-	tool = vimdiff
-[pull]
-	ff = only
-[log]
-	follow = true
-[init]
-	defaultBranch = master
-[commit]
-	verbose = true
-[help]
-	autocorrect = 10
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
