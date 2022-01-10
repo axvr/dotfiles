@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # ~/.bash_profile
 
@@ -22,7 +22,7 @@ prepend_to() {
     shift
     for v in "$@"; do
         if ! [[ "${!opt}" =~ "$v" ]]; then
-            eval "$opt=$v${!opt+:}${!opt}"
+            eval "$opt='$v${!opt+:}${!opt}'"
         fi
     done
 }
@@ -32,7 +32,7 @@ append_to() {
     shift
     for v in "$@"; do
         if ! [[ "${!opt}" =~ "$v" ]]; then
-            eval "$opt=${!opt}${!opt+:}$v"
+            eval "$opt='${!opt}${!opt+:}$v'"
         fi
     done
 }

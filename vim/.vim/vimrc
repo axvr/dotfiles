@@ -17,7 +17,6 @@ set cpoptions+=J
 set nrformats-=octal
 set modeline
 set history=500
-" set keywordprg=info
 
 " Interface
 set showcmd
@@ -48,10 +47,6 @@ unlet s:dir
 if has('sodium')
     set cryptmethod=xchacha20
 endif
-
-" "<Leader>" and "<LocalLeader>" prefixes
-let g:mapleader = " "
-let g:maplocalleader = "\\"
 
 " Completion
 set omnifunc=syntaxcomplete#Complete
@@ -88,7 +83,11 @@ if &term =~# '^\(screen\|tmux\)'
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-" Nicer default mappings
+" "<Leader>" and "<LocalLeader>" prefixes
+let g:mapleader = " "
+let g:maplocalleader = "\\"
+
+" Sensible default mappings
 nnoremap Q gq
 nnoremap Y y$
 " Remap <C-U> to add an entry to undo history.
