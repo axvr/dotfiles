@@ -9,7 +9,7 @@ function! TempSetBufOpt(opt, val, callback)
 endfunction
 
 function! TempGrep(prg, args)
-    call TempSetBufOpt('&grepprg', a:prg, {-> execute('grep' . a:args)})
+    call TempSetBufOpt('&grepprg', a:prg, {-> execute('grep ' . a:args)})
     redraw!
 endfunction
 

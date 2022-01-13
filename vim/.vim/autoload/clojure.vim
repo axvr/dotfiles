@@ -15,7 +15,7 @@ def ErrorMsg(msg: string)
     echohl NONE
 enddef
 
-export def clojure#format_ns_as_file_path(ns: string)
+export def clojure#format_ns_as_file_path(ns: string): string
     return tr(FixNs(ns), '-.', '_/')
 enddef
 

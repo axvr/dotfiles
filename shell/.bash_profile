@@ -39,8 +39,8 @@ append_to() {
 
 # User local environment and startup programs
 prepend_to PATH "$HOME/.local/bin"
-prepend_to MANPATH "$HOME/.local/share/man"
-prepend_to INFOPATH "$HOME/.local/share/info"
+# prepend_to MANPATH "$HOME/.local/share/man"
+# prepend_to INFOPATH "$HOME/.local/share/info"
 
 # .NET Core settings
 append_to PATH "$HOME/.dotnet/tools"
