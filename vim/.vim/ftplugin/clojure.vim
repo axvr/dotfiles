@@ -1,30 +1,32 @@
-let b:repl_config = { 'cmd': 'clj-socket', 'load_file': '(load-file "%s")' }
+vim9script
 
-let g:clojure_discard_macro = 1
+b:repl_config = { 'cmd': 'clj-socket', 'load_file': '(load-file "%s")' }
 
-command! -buffer -bar -nargs=* Ns        :call clojure#change_ns(<q-args>)
-command! -buffer -bar -nargs=1 Doc       :call clojure#doc(<q-args>)
-command! -buffer -bar -nargs=1 Source    :call clojure#source(<q-args>)
-command! -buffer -bar -nargs=1 Apropos   :call clojure#apropos(<q-args>)
-command! -buffer -bar -nargs=1 NsPublics :call clojure#ns_publics(<q-args>)
+g:clojure_discard_macro = 1
 
-command! -buffer -bang -bar -nargs=1 Require :call clojure#require(<q-args>, (<q-bang> ==# '!'))
-command! -buffer -bar -nargs=1 Import        :call clojure#import(<q-args>)
-command! -buffer -bar -nargs=1 Use           :call clojure#use(<q-args>)
+command! -buffer -bar -nargs=* Ns        :call clojure#ChangeNs(<q-args>)
+command! -buffer -bar -nargs=1 Doc       :call clojure#Doc(<q-args>)
+command! -buffer -bar -nargs=1 Source    :call clojure#Source(<q-args>)
+command! -buffer -bar -nargs=1 Apropos   :call clojure#Apropos(<q-args>)
+command! -buffer -bar -nargs=1 NsPublics :call clojure#NsPublics(<q-args>)
 
-command! -buffer -bar -nargs=1 NsUnmap   :call clojure#ns_unmap('*ns*', <q-args>)
-command! -buffer -bar -nargs=1 NsUnalias :call clojure#ns_unalias('*ns*', <q-args>)
+command! -buffer -bang -bar -nargs=1 Require :call clojure#Require(<q-args>, (<q-bang> ==# '!'))
+command! -buffer -bar -nargs=1 Import        :call clojure#Import(<q-args>)
+command! -buffer -bar -nargs=1 Use           :call clojure#Use(<q-args>)
+
+command! -buffer -bar -nargs=1 NsUnmap   :call clojure#NsUnmap('*ns*', <q-args>)
+command! -buffer -bar -nargs=1 NsUnalias :call clojure#NsUnalias('*ns*', <q-args>)
 
 setlocal keywordprg=:Doc
 compiler clj-kondo
 
-" FIXME: Create issue to add option to prioritise suffix checks over dir check
+# FIXME: Create issue to add option to prioritise suffix checks over dir check
 setlocal suffixesadd=.clj,.cljc,.cljs,.cljx,.edn
-setlocal includeexpr=clojure#format_ns_as_file_path(v:fname)
+setlocal includeexpr=clojure#FormatNsAsPath(v:fname)
 
-" TODO: remap definfition lookups.
+# TODO: remap definfition lookups.
 
 nnoremap gzn :<C-u>Ns<CR>
 
-" TODO: dedicated :Lint and :Test commands.
-" TODO: make :Source default to symbol under cursor.
+# TODO: dedicated :Lint and :Test commands.
+# TODO: make :Source default to symbol under cursor.

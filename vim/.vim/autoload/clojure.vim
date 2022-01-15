@@ -1,4 +1,4 @@
-vim9script
+vim9script autoload
 
 def FixSymbol(symbol: string): string
     return substitute(symbol, '\', '', 'g')
@@ -15,7 +15,7 @@ def ErrorMsg(msg: string)
     echohl NONE
 enddef
 
-export def clojure#format_ns_as_file_path(ns: string): string
+export def FormatNsAsPath(ns: string): string
     return tr(FixNs(ns), '-.', '_/')
 enddef
 
@@ -35,23 +35,23 @@ def Apply(expr: string, func: string): string
     return '(' .. func .. ' ' .. expr .. ')'
 enddef
 
-def PrettyPrint(expr: string)
+def PrettyPrint(expr: string): string
     return expr->Apply('clojure.pprint/pprint')
 enddef
 
-export def clojure#doc(sym: string)
+export def Doc(sym: string)
     sym -> FixSymbol()
         -> Apply('clojure.repl/doc')
         -> zepl#send()
 enddef
 
-export def clojure#source(sym: string)
+export def Source(sym: string)
     sym -> FixSymbol()
         -> Apply('clojure.repl/source')
         -> zepl#send()
 enddef
 
-export def clojure#apropos(sym: string)
+export def Apropos(sym: string)
     sym -> FixSymbol()
         -> String()
         -> Apply('clojure.repl/apropos')
@@ -59,7 +59,7 @@ export def clojure#apropos(sym: string)
         -> zepl#send()
 enddef
 
-export def clojure#ns_publics(ns: string)
+export def NsPublics(ns: string)
     ns -> FixNs()
        -> Quote()
        -> Apply('ns-publics')
@@ -68,7 +68,7 @@ export def clojure#ns_publics(ns: string)
        -> zepl#send()
 enddef
 
-export def clojure#require(ns: string, reload = false)
+export def Require(ns: string, reload = false)
     ns -> FixNs()
        -> Quote()
        -> Concat((reload ? ' :reload' : ''))
@@ -76,35 +76,35 @@ export def clojure#require(ns: string, reload = false)
        -> zepl#send()
 enddef
 
-export def clojure#import(ns: string)
+export def Import(ns: string)
     ns -> FixNs()
        -> Quote()
        -> Apply('clojure.core/import')
        -> zepl#send()
 enddef
 
-export def clojure#use(ns: string)
+export def Use(ns: string)
     ns -> FixNs()
        -> Quote()
        -> Apply('clojure.core/use')
        -> zepl#send()
 enddef
 
-export def clojure#ns_unmap(ns: string, sym: string)
+export def NsUnmap(ns: string, sym: string)
     ns -> FixNs()
        -> Concat(sym -> FixSymbol() -> Quote())
        -> Apply('clojure.core/ns-map')
        -> zepl#send()
 enddef
 
-export def clojure#ns_unalias(ns: string, sym: string)
+export def NsUnalias(ns: string, sym: string)
     ns -> FixNs()
        -> Concat(sym -> FixSymbol() -> Quote())
        -> Apply('clojure.core/ns-unalias')
        -> zepl#send()
 enddef
 
-export def clojure#ns(file = '%'): string
+export def Ns(file = '%'): string
     const GetNs = (ln) => matchstr(ln, '\m(ns\s\+\zs\(\k\+\)\ze')
     if bufnr(file) == -1
         for line in readfile(file, '', 100)
@@ -125,11 +125,11 @@ export def clojure#ns(file = '%'): string
     return ''
 enddef
 
-export def clojure#change_ns(ns: string)
+export def ChangeNs(ns: string)
     var ns2 = ns
 
     if empty(trim(ns2))
-        ns2 = clojure#ns('%')
+        ns2 = Ns('%')
     endif
 
     if empty(ns2)
