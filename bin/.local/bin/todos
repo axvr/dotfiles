@@ -4,13 +4,11 @@
 
 pattern="\b\(TO[-_ ]\?DO\|FIX[-_ ]\?ME\|NOTE\|XXX\|BUG\|HACK\|UNDONE\)\b"
 
-if [ -n "$1" ]
-then
+if [ -n "$1" ]; then
     grep -nH --color=auto "$pattern" $*
-elif [ $(git ls-files 2> /dev/null | wc -l) -ne 0 ]
-then
+elif [ $(git ls-files 2> /dev/null | wc -l) -ne 0 ]; then
     grep -nH --color=auto "$pattern" $(git ls-files) 2> /dev/null
 else
-    printf "No files given\\n"
+    echo "No files given"
     exit 1
 fi

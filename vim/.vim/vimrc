@@ -43,6 +43,11 @@ for s:dir in [&backupdir, &directory, &undodir]
 endfor
 unlet s:dir
 
+" Clipboard
+if has('mac')
+    set clipboard=unnamed
+endif
+
 " Encryption
 if has('sodium')
     set cryptmethod=xchacha20
