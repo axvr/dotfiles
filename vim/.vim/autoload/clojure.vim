@@ -1,4 +1,4 @@
-vim9script autoload
+vim9script
 
 def FixSymbol(symbol: string): string
     return substitute(symbol, '\', '', 'g')

@@ -10,14 +10,14 @@
 	amend = commit --amend
 	fixup = commit --fixup
 	autosquash = rebase -i --autosquash
-	open = "! open() { \
+	open = "! open_remote() { \
 		  git remote get-url \"${1-origin}\" \
 		    | sed -e 's,\\.git$,,' \
 		          -e 's,:,/,' \
 		          -e 's,^\\(https\\?\\)///,\\1://,' \
 		          -e 's,^git@,https://,' \
 		    | open-urls; \
-		}; open"
+		}; open_remote"
 [pull]
 	ff = only
 [log]

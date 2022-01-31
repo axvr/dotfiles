@@ -20,7 +20,6 @@ command! -buffer -bar -nargs=1 NsUnalias :call clojure#NsUnalias('*ns*', <q-args
 setlocal keywordprg=:Doc
 compiler clj-kondo
 
-# FIXME: Create issue to add option to prioritise suffix checks over dir check
 setlocal suffixesadd=.clj,.cljc,.cljs,.cljx,.edn
 setlocal includeexpr=clojure#FormatNsAsPath(v:fname)
 
