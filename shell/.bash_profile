@@ -47,4 +47,8 @@ append_to PATH "$HOME/.dotnet/tools"
 export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
+# Go environment
+export GOPATH="$HOME/.local/share/go"
+prepend_to PATH "$GOPATH/bin"
+
 export PATH MANPATH INFOPATH
