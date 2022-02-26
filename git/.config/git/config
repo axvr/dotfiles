@@ -9,7 +9,7 @@
 	markers = !git ls-files -u | awk '{ print $4 }' | uniq | xargs grep -Hn '^<<<<<<<'
 	amend = commit --amend
 	fixup = commit --fixup
-	autosquash = rebase -i --autosquash
+	irebase = rebase -i --autosquash
 	open = "! open_remote() { \
 		  git remote get-url \"${1-origin}\" \
 		    | sed -e 's,\\.git$,,' \

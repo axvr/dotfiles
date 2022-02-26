@@ -93,7 +93,7 @@ enddef
 export def NsUnmap(ns: string, sym: string)
     ns -> FixNs()
        -> Concat(sym -> FixSymbol() -> Quote())
-       -> Apply('clojure.core/ns-map')
+       -> Apply('clojure.core/ns-unmap')
        -> zepl#send()
 enddef
 

@@ -33,3 +33,16 @@ command! -nargs=0 -bar DiffOrig
             \ | exe 'setfiletype ' . getbufvar('#', '&l:filetype')
             \ | exe 'silent file [Diff] ' . bufname('#')
             \ | wincmd p | diffthis
+
+" Creat parent directories on buffer write if they don't exist.
+function! s:create_parent_dirs()
+    let dir = expand("%:h")
+    if !isdirectory(dir) && confirm('Create directory "'.dir.'"?', "&Yes\n&No") == 1
+        call mkdir(dir, 'p')
+    endif
+endfunction
+
+augroup create_parent_dirs
+    autocmd!
+    autocmd BufWritePre * :call <SID>create_parent_dirs()
+augroup END
