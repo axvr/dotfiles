@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rlwrap -C sbcl -pWhite -r -q '\"' -b "(){}[],^%#@\";:'" sbcl "$@"

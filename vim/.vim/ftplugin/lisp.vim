@@ -1,6 +1,8 @@
-let b:repl_config = { 'cmd': 'rlwrap sbcl' }
+let b:repl_config = { 'cmd': 'sbcl-repl' }
 
 command! -buffer -bar -nargs=1 Describe :call zepl#send("(describe '" . substitute(<q-args>, '\', '', 'g') . ')')
+command! -buffer -bar -nargs=1 Introspect :call zepl#send("(sb-introspect:find-definition-source #'" . <q-args> . ')')
+command! -buffer -bar -nargs=1 Disassemble :call zepl#send("(disassemble '" . <q-args> . ')')
 
 setlocal keywordprg=:Describe
 
