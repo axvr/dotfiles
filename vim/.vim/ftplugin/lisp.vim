@@ -3,14 +3,19 @@ vim9script
 b:repl_config = { 'cmd': 'sbcl-repl', 'load_file': '(load "%s")' }
 
 setlocal lispwords+=loop
-setlocal iskeyword+=&
+setlocal iskeyword+=&,:
 setlocal keywordprg=:Describe
 
+# TODO: gzn binding like in ftplugin/clojure.vim to switch to package
+# the current file is in.
+
 command! -buffer -bar -nargs=1 Describe :call lisp#Describe(<q-args>)
+command! -buffer -bar -nargs=+ Documentation :call lisp#Documentation(<f-args>)
 command! -buffer -bar -nargs=1 InPackage :call lisp#InPackage(<q-args>)
 command! -buffer -bar -nargs=1 Quickload :call lisp#Quickload(<q-args>)
 command! -buffer -bar -nargs=1 Introspect :call lisp#Introspect(<q-args>)
 command! -buffer -bar -nargs=1 Disassemble :call lisp#Disassemble(<q-args>)
+command! -buffer -bar -nargs=+ Unintern :call lisp#Unintern(<f-args>)
 command! -buffer -bang -bar -nargs=+ Apropos :call Apropos(<q-args>, <q-bang> == '!')
 
 def Apropos(sym_and_pkg: string, extern: bool)
@@ -35,4 +40,6 @@ nnoremap <silent> <F8> :<C-u>call zepl#send('8')<CR>
 nnoremap <silent> <F9> :<C-u>call zepl#send('9')<CR>
 nnoremap <silent> <F10> :<C-u>call zepl#send('0')<CR>
 nnoremap <silent> <F11> :<C-u>call zepl#send('0')<CR>
-nnoremap <silent> <F12> :<C-u>call zepl#send('0')<CR>
+# Exit debugger and/or REPL.
+nnoremap <silent> <F12> :<C-u>call zepl#send("<C-d>", 1)<CR>
+nnoremap <silent> gz<C-d> :<C-u>call zepl#send("<C-d>", 1)<CR>

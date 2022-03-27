@@ -1,5 +1,11 @@
 vim9script
 
+def ErrorMsg(msg: string)
+    echohl ErrorMsg
+    echo msg
+    echohl NONE
+enddef
+
 def FixSymbol(symbol: string): string
     return substitute(symbol, '\', '', 'g')
 enddef
@@ -9,18 +15,16 @@ def FixNs(ns: string): string
               -> substitute('\m/\k*$', '', '')
 enddef
 
-def ErrorMsg(msg: string)
-    echohl ErrorMsg
-    echo msg
-    echohl NONE
-enddef
-
 export def FormatNsAsPath(ns: string): string
     return tr(FixNs(ns), '-.', '_/')
 enddef
 
 def Quote(expr: string): string
-    return "'" .. expr
+    return (expr =~# "^'" ? expr : "'" .. expr)
+enddef
+
+def Keyword(expr: string): string
+    return (expr =~# '^:' ? expr : ':' .. expr)
 enddef
 
 def String(expr: string): string
@@ -36,7 +40,7 @@ def Apply(expr: string, func: string): string
 enddef
 
 def PrettyPrint(expr: string): string
-    return expr->Apply('clojure.pprint/pprint')
+    return expr -> Apply('clojure.pprint/pprint')
 enddef
 
 export def Doc(sym: string)

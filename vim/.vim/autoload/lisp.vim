@@ -1,17 +1,11 @@
 vim9script
 
 def FixSymbol(symbol: string): string
-    return substitute(trim(symbol), "[:\"'\\`,]", '', 'g')
-enddef
-
-def ErrorMsg(msg: string)
-    echohl ErrorMsg
-    echo msg
-    echohl NONE
+    return substitute(trim(symbol), "[\"'\\`,]", '', 'g')
 enddef
 
 def Quote(expr: string): string
-    return "'" .. expr
+    return (expr =~# "^'" ? expr : "'" .. expr)
 enddef
 
 def String(expr: string): string
@@ -19,7 +13,7 @@ def String(expr: string): string
 enddef
 
 def Keyword(expr: string): string
-    return ':' .. expr
+    return (expr =~# '^:' ? expr : ':' .. expr)
 enddef
 
 def Function(expr: string): string
@@ -38,10 +32,20 @@ enddef
 
 export def Describe(sym: string)
     sym -> FixSymbol()
+        -> Quote()
         -> Apply('describe')
         -> zepl#send()
 enddef
 
+export def Documentation(sym: string, obj_type: string)
+    sym -> FixSymbol()
+        -> Quote()
+        -> Concat(obj_type -> FixSymbol() -> Quote())
+        -> Apply('documentation')
+        -> zepl#send()
+enddef
+
+# TODO: if no package is given, switch to package the current file is in.
 export def InPackage(pkg: string)
     pkg -> FixSymbol()
         -> Keyword()
@@ -72,6 +76,14 @@ export def Disassemble(sym: string)
     sym -> FixSymbol()
         -> Quote()
         -> Apply('disassemble')
+        -> zepl#send()
+enddef
+
+export def Unintern(sym: string, pkg = '')
+    sym -> FixSymbol()
+        -> Quote()
+        -> Concat((pkg == '' ? '' : pkg -> FixSymbol() -> Keyword()))
+        -> Apply('unintern')
         -> zepl#send()
 enddef
 

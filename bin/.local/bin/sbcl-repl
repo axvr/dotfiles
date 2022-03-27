@@ -1,3 +1,5 @@
 #!/bin/sh
 
+# Wrap SBCL with a nicer Readline based prompt.
+
 rlwrap -C sbcl -pWhite -r -q '\"' -b "(){}[],^%#@\";:'" sbcl "$@"
