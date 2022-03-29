@@ -2,7 +2,6 @@ vim9script
 
 b:repl_config = { 'cmd': 'sbcl-repl', 'load_file': '(load "%s")' }
 
-setlocal lispwords+=loop
 setlocal iskeyword+=&,:
 setlocal keywordprg=:Describe
 
@@ -16,6 +15,7 @@ command! -buffer -bar -nargs=1 Quickload :call lisp#Quickload(<q-args>)
 command! -buffer -bar -nargs=1 Introspect :call lisp#Introspect(<q-args>)
 command! -buffer -bar -nargs=1 Disassemble :call lisp#Disassemble(<q-args>)
 command! -buffer -bar -nargs=+ Unintern :call lisp#Unintern(<f-args>)
+command! -buffer -bar -nargs=1 Makunbound :call lisp#Makunbound(<q-args>)
 command! -buffer -bang -bar -nargs=+ Apropos :call Apropos(<q-args>, <q-bang> == '!')
 
 def Apropos(sym_and_pkg: string, extern: bool)

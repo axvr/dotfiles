@@ -87,6 +87,13 @@ export def Unintern(sym: string, pkg = '')
         -> zepl#send()
 enddef
 
+export def Makunbound(sym: string)
+    sym -> FixSymbol()
+        -> Quote()
+        -> Apply('makunbound')
+        -> zepl#send()
+enddef
+
 export def Quickload(pkg: string)
     pkg -> FixSymbol()
         -> Keyword()
