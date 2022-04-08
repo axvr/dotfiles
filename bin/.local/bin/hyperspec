@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Open the relevant Common Lisp HyperSpec page for a given Common Lisp symbol.
+
+symbol_table="$HOME/.local/share/hyperspec/symbols.lisp"
+
+if [ ! -f "$symbol_table" ]; then
+    url="https://paste.sr.ht/blob/c2bcd5ee1c00af10d8540cdaec5260cf3ab096f6"
+    curl --silent -L "$url" --create-dirs -o "$symbol_table"
+fi
+
+awk "\$1 == \"$1\" { print \$2 }" "$symbol_table" | open-urls

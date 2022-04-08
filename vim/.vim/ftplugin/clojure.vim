@@ -1,14 +1,16 @@
 vim9script
 
 b:repl_config = { 'cmd': 'clj-socket', 'load_file': '(load-file "%s")' }
-
 g:clojure_discard_macro = 1
 
 command! -buffer -bar -nargs=* Ns        :call clojure#ChangeNs(<q-args>)
-command! -buffer -bar -nargs=1 Doc       :call clojure#Doc(<q-args>)
-command! -buffer -bar -nargs=1 Source    :call clojure#Source(<q-args>)
-command! -buffer -bar -nargs=1 Apropos   :call clojure#Apropos(<q-args>)
 command! -buffer -bar -nargs=1 NsPublics :call clojure#NsPublics(<q-args>)
+command! -buffer -bar -nargs=1 -complete=customlist,syntax#CmdComplete Doc
+            \ :call clojure#Doc(<q-args>)
+command! -buffer -bar -nargs=1 -complete=customlist,syntax#CmdComplete Source
+            \ :call clojure#Source(<q-args>)
+command! -buffer -bar -nargs=1 -complete=customlist,syntax#CmdComplete Apropos
+            \ :call clojure#Apropos(<q-args>)
 
 command! -buffer -bang -bar -nargs=1 Require :call clojure#Require(<q-args>, (<q-bang> ==# '!'))
 command! -buffer -bar -nargs=1 Import        :call clojure#Import(<q-args>)
