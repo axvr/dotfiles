@@ -36,18 +36,10 @@ def Apropos(sym_and_pkg: string, extern: bool)
     endif
 enddef
 
-# Use function keys to control the debugger.
-nnoremap <silent> <F1> :<C-u>call zepl#send('1')<CR>
-nnoremap <silent> <F2> :<C-u>call zepl#send('2')<CR>
-nnoremap <silent> <F3> :<C-u>call zepl#send('3')<CR>
-nnoremap <silent> <F4> :<C-u>call zepl#send('4')<CR>
-nnoremap <silent> <F5> :<C-u>call zepl#send('5')<CR>
-nnoremap <silent> <F6> :<C-u>call zepl#send('6')<CR>
-nnoremap <silent> <F7> :<C-u>call zepl#send('7')<CR>
-nnoremap <silent> <F8> :<C-u>call zepl#send('8')<CR>
-nnoremap <silent> <F9> :<C-u>call zepl#send('9')<CR>
-nnoremap <silent> <F10> :<C-u>call zepl#send('0')<CR>
-nnoremap <silent> <F11> :<C-u>call zepl#send('0')<CR>
+nnoremap <silent> <F1> :<C-u>call lisp#HyperSpec()<CR>
+
+# Select a debugger option.
+nnoremap <silent> gzd :<C-u>call zepl#send(getcharstr())<CR>
+
 # Exit debugger and/or REPL.
-nnoremap <silent> <F12> :<C-u>call zepl#send("<C-d>", 1)<CR>
 nnoremap <silent> gz<C-d> :<C-u>call zepl#send("<C-d>", 1)<CR>

@@ -25,7 +25,7 @@ compiler clj-kondo
 setlocal suffixesadd=.clj,.cljc,.cljs,.cljx,.edn
 setlocal includeexpr=clojure#FormatNsAsPath(v:fname)
 
-# TODO: remap definition lookups.
+# TODO: remap definition lookups.  (e.g. <C-]>)
 
 nnoremap gzn :<C-u>Ns<CR>
 

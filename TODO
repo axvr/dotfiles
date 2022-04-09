@@ -1,0 +1,9 @@
+- CljDoc equivalent to my HyperSpec command.
+- <C-K> binding to lookup symbol in HyperSpec or ClojureDocs?
+- COPR repos:
+  - Clojure (replace clj-install script?)
+  - SBCL (based on: https://copr.fedorainfracloud.org/coprs/shassard/sbcl/)
+- Zepl2
+  - zepl-toolkit.vim
+  - zepl-clojure.vim
+  - zepl-common-lisp.vim
