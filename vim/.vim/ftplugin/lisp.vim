@@ -23,8 +23,8 @@ command! -buffer -bar -nargs=1 Makunbound :call lisp#Makunbound(<q-args>)
 command! -buffer -bang -bar -nargs=+ -complete=customlist,syntax#CmdComplete Apropos
             \ :call Apropos(<q-args>, <q-bang> == '!')
 
-command! -buffer -nargs=1 -complete=customlist,syntax#CmdComplete HyperSpec
-            \ :call system("hyperspec " .. shellescape(<q-args>))
+command! -buffer -nargs=? -complete=customlist,syntax#CmdComplete HyperSpec
+            \ :call lisp#HyperSpec(<q-args>)
 
 def Apropos(sym_and_pkg: string, extern: bool)
     const s = split(trim(sym_and_pkg), '\s\+', 0)

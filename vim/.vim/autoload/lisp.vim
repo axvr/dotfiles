@@ -100,3 +100,7 @@ export def Quickload(pkg: string)
         -> Apply('ql:quickload')
         -> zepl#send()
 enddef
+
+export def HyperSpec(sym = '')
+    system('hyperspec ' .. shellescape(tolower(sym)))
+enddef

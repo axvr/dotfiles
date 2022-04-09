@@ -9,4 +9,8 @@ if [ ! -f "$symbol_table" ]; then
     curl --silent -L "$url" --create-dirs -o "$symbol_table"
 fi
 
-awk "\$1 == \"$1\" { print \$2 }" "$symbol_table" | open-urls
+if [ -n "$1" ]; then
+    awk "\$1 == \"$1\" { print \$2 }" "$symbol_table"
+else
+    head -n 2 "$symbol_table"
+fi | open-urls
