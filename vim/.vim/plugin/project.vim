@@ -34,7 +34,7 @@ command! -nargs=0 -bar DiffOrig
             \ | exe 'silent file [Diff] ' . bufname('#')
             \ | wincmd p | diffthis
 
-" Creat parent directories on buffer write if they don't exist.
+" Create parent directories on buffer write if they don't exist.
 function! s:create_parent_dirs()
     let dir = expand("%:h")
     if !isdirectory(dir) && confirm('Create directory "'.dir.'"?', "&Yes\n&No") == 1

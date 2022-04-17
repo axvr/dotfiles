@@ -129,7 +129,7 @@ export def Ns(file = '%'): string
     return ''
 enddef
 
-export def ChangeNs(ns: string)
+export def ChangeNs(ns = '')
     var ns2 = ns
 
     if empty(trim(ns2))
