@@ -1,5 +1,10 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Wrap SBCL with a nicer Readline based prompt.
 
-rlwrap -C sbcl -pWhite -r -q '\"' -b "(){}[],^%#@\";:'" sbcl "$@"
+rlwrap --command-name sbcl -pWhite \
+    --quote-characters '"' \
+    --break-chars '(){}[]%@;"' \
+    --case-insensitive \
+    --file <(awk '{ print $1 }' "$HOME/.local/share/hyperspec/symbols.lisp") \
+    sbcl "$@"
