@@ -1,6 +1,11 @@
 vim9script
 
-b:repl_config = { 'cmd': 'clj-socket', 'load_file': '(load-file "%s")' }
+b:repl_config = {
+      'cmd': 'clj-socket',
+      'rlwrap': 1,
+      'load_file': '(load-file "%s")'
+    }
+
 g:clojure_discard_macro = 1
 
 command! -buffer -bar -nargs=* Ns        :call clojure#ChangeNs(<q-args>)

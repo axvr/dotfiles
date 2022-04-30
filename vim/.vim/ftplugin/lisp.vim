@@ -1,6 +1,11 @@
 vim9script
 
-b:repl_config = { 'cmd': 'sbcl-repl', 'load_file': '(load "%s")' }
+b:repl_config = {
+      'cmd': 'sbcl-repl',
+      'rlwrap': 1,
+      'load_file': '(load "%s")'
+    }
+
 b:omni_syntax_ignorecase = 1
 
 setlocal iskeyword+=&,:
