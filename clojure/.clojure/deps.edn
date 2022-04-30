@@ -13,7 +13,7 @@
 
   ;; Run Clj-kondo linter.  <https://github.com/clj-kondo/clj-kondo>
   :kondo {:extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
-          :main-opts ["-m" "clj-kondo.main" "--lint"]}
+          :main-opts ["-m" "clj-kondo.main"]}
 
   ;; Start a Socket REPL on port 5555.
   :socket {:jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/repl}"]}

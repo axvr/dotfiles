@@ -5,6 +5,7 @@
 - COPR repos:
   - Clojure (replace clj-install script?)
   - SBCL (based on: https://copr.fedorainfracloud.org/coprs/shassard/sbcl/)
+  - Fonts?
 - Zepl2
   - zepl-toolkit.vim
   - zepl-clojure.vim
