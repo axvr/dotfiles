@@ -28,3 +28,6 @@
 [submodule "vim/.vim/pack/core/start/raider"]
 	path = vim/.vim/pack/core/start/raider
 	url = https://github.com/axvr/raider.vim
+[submodule "vim/.vim/pack/core/opt/waikiki"]
+	path = vim/.vim/pack/core/opt/waikiki
+	url = https://github.com/fcpg/vim-waikiki.git

@@ -47,3 +47,5 @@ alias fgrep="fgrep --color=auto"
 export LEDGER_FILE="$HOME/Documents/Ledger/personal.dat"
 alias ledger='ledger -f "$LEDGER_FILE"'
 alias ledger-record='$EDITOR "$LEDGER_FILE"'
+
+alias wiki='(cd ~/Documents/Wiki && vim Index.org)'
