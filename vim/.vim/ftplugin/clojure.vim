@@ -1,8 +1,8 @@
 vim9script
 
 b:repl_config = {
-      'cmd': 'clj-socket',
-      'rlwrap': 1,
+      'cmd': filereadable('project.clj') ? 'lein repl' : 'clj-socket',
+      'rlwrap': filereadable('project.clj') ? 0 : 1,
       'load_file': '(load-file "%s")'
     }
 

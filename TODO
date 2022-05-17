@@ -1,3 +1,5 @@
+- Link.vim plugin.
+  - Alternative to Waikiki.vim supporting multiple file extensions.
 - CljDoc equivalent to my HyperSpec command.
   - https://clojuredocs.org/
   - https://cljdoc.org/
