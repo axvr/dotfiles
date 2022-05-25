@@ -146,3 +146,9 @@ enddef
 # TODO
 # def GetSymbolUnderCursor()
 # enddef
+
+# CustomList function for :command-complete to complete Clojure syntax keywords.
+export def CmdComplete(text: string, wholecmd: string, curpos: number): list<string>
+    const symbols = uniq(clojurecomplete#Complete(0, '')['words'])
+    return empty(text) ? symbols : matchfuzzy(symbols, text)
+enddef

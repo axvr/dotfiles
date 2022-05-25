@@ -10,11 +10,11 @@ g:clojure_discard_macro = 1
 
 command! -buffer -bar -nargs=* Ns        :call clojure#ChangeNs(<q-args>)
 command! -buffer -bar -nargs=1 NsPublics :call clojure#NsPublics(<q-args>)
-command! -buffer -bar -nargs=1 -complete=customlist,syntax#CmdComplete Doc
+command! -buffer -bar -nargs=1 -complete=customlist,clojure#CmdComplete Doc
             \ :call clojure#Doc(<q-args>)
-command! -buffer -bar -nargs=1 -complete=customlist,syntax#CmdComplete Source
+command! -buffer -bar -nargs=1 -complete=customlist,clojure#CmdComplete Source
             \ :call clojure#Source(<q-args>)
-command! -buffer -bar -nargs=1 -complete=customlist,syntax#CmdComplete Apropos
+command! -buffer -bar -nargs=1 -complete=customlist,clojure#CmdComplete Apropos
             \ :call clojure#Apropos(<q-args>)
 
 command! -buffer -bang -bar -nargs=1 Require :call clojure#Require(<q-args>, (<q-bang> ==# '!'))
