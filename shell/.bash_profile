@@ -48,6 +48,7 @@ export ASPNETCORE_ENVIRONMENT=Development
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # Go environment
+export GOPROXY=direct
 export GOPATH="$HOME/.local/share/go"
 prepend_to PATH "$GOPATH/bin"
 
