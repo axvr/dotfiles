@@ -55,21 +55,25 @@ export def Source(sym: string)
         -> zepl#send()
 enddef
 
-export def Apropos(sym: string)
-    sym -> FixSymbol()
+export def Apropos(txt: string)
+    txt -> FixSymbol()
         -> String()
         -> Apply('clojure.repl/apropos')
         -> PrettyPrint()
         -> zepl#send()
 enddef
 
-export def NsPublics(ns: string)
+export def Dir(ns: string)
     ns -> FixNs()
-       -> Quote()
-       -> Apply('ns-publics')
-       -> Apply('keys')
-       -> PrettyPrint()
+       -> Apply('clojure.repl/dir')
        -> zepl#send()
+enddef
+
+export def FindDoc(txt: string)
+    txt -> String()
+        -> substitute('\', '\\\', 'g')
+        -> Apply('clojure.repl/find-doc')
+        -> zepl#send()
 enddef
 
 export def Require(ns: string, reload = false)

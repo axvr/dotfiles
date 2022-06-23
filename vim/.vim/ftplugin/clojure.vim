@@ -8,8 +8,9 @@ b:repl_config = {
 
 g:clojure_discard_macro = 1
 
-command! -buffer -bar -nargs=* Ns        :call clojure#ChangeNs(<q-args>)
-command! -buffer -bar -nargs=1 NsPublics :call clojure#NsPublics(<q-args>)
+command! -buffer -bar -nargs=* Ns      :call clojure#ChangeNs(<q-args>)
+command! -buffer -bar -nargs=1 Dir     :call clojure#Dir(<q-args>)
+command! -buffer -bar -nargs=+ FindDoc :call clojure#FindDoc(<q-args>)
 command! -buffer -bar -nargs=1 -complete=customlist,clojure#CmdComplete Doc
             \ :call clojure#Doc(<q-args>)
 command! -buffer -bar -nargs=1 -complete=customlist,clojure#CmdComplete Source
