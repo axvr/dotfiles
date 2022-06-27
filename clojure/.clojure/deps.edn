@@ -3,8 +3,8 @@
 
 {:aliases
  {;; Personal library of useful Clojure dev utilities.
-  :axvr {:extra-deps {uk.axvr/debug {:git/url "git@github.com:axvr/uk.axvr.debug.git"
-                                     :git/sha "b47c51acf5d1d757061937032031bd7113166293"}}}
+  :dissect {:extra-deps {uk.axvr/dissect {:git/url "git@github.com:axvr/dissect.git"
+                                          :git/sha "f5d5b94a55a07db839809aa2da8359ce0413c231"}}}
 
   ;; Check for outdated dependencies.  <https://github.com/liquidz/antq>
   :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}
