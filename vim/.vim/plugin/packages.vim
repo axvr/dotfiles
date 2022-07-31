@@ -9,6 +9,7 @@ command! -nargs=0 -bar Helptags
 
 let g:netrw_banner = 0
 let g:org_clean_folds = 1
+let g:org_use_italics = 1
 let g:CoolTotalMatches = 1
 
 runtime ftplugin/man.vim

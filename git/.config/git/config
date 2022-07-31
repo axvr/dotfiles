@@ -10,7 +10,7 @@
 	fixup = commit --fixup
 	amend = commit --amend
 	amendne = commit --amend --no-edit
-	irebase = rebase -i --autosquash
+	rebaser = rebase -i --autosquash
 	open = "! open_remote() { \
 		  git remote get-url \"${1-origin}\" \
 		    | sed -e 's,\\.git$,,' \
