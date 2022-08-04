@@ -49,3 +49,7 @@ alias ledger='ledger -f "$LEDGER_FILE"'
 alias ledger-record='$EDITOR "$LEDGER_FILE"'
 
 alias wiki='(cd ~/Documents/Notes && vim Index.org)'
+
+# This must be at the end of the file for SDKMAN! to work.
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && . "$SDKMAN_DIR/bin/sdkman-init.sh"
