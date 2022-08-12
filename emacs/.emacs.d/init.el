@@ -87,6 +87,8 @@
       initial-scratch-message ""
       frame-title-format "GNU Emacs")
 
+(context-menu-mode 1)
+
 (defun current-frame-name ()
   "Return the name of the current GUI frame."
   (substring-no-properties
@@ -110,11 +112,6 @@
 (av/package-install 'sketch-themes)
 (av/set-theme 'sketch-black "dark")
 
-(av/package-install 'popup-edit-menu)
-(require 'popup-edit-menu)
-(global-set-key [mouse-3] (popup-edit-menu-stub))
-
-
 ;;; ------------------------------------------------------------
 ;;; Default fonts
 
@@ -137,7 +134,8 @@
     (when font-attrs
       (apply 'set-face-attribute type nil (av/flatten font-attrs)))))
 
-(let ((monospace '(((:family . "Inconsolata") (:height . 135))
+(let ((monospace '(((:family . "JuliaMono")   (:height . 125))
+                   ((:family . "Inconsolata") (:height . 135))
                    ((:family . "Consolas")    (:height . 110)))))
   (av/set-font 'default monospace)
   (av/set-font 'fixed-pitch monospace))
@@ -175,7 +173,6 @@
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
-(show-paren-mode 1)
 (column-number-mode 1)
 (electric-pair-mode 1)
 (electric-indent-mode 1)
