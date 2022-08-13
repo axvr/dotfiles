@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Script to make installing and updating Bass on Linux easier.
+#
+# Website:  <https://bass-lang.org>
+# Releases: <https://github.com/vito/bass/releases/latest>
+
+set -e
+
+if [ -z "$1" ]; then
+    v="$(curl -sI 'https://github.com/vito/bass/releases/latest' \
+        | grep '^location: ' \
+        | sed -e 's,^.*/v\([[:digit:]\.]\+\)[[:space:]]*$,\1,')"
+else
+    v="$(echo "$1" | sed 's/^v//')"
+fi
+
+if test "$(command -v bass)"; then
+    current_v="$(bass --version \
+        | grep '^bass' \
+        | sed 's/^bass[[:space:]]\+v\([[:digit:]\.]\+\)$/\1/')"
+    if [ "$v" = "$current_v" ]; then
+        echo "Nothing to do: v${v} is already installed"
+        exit 0
+    else
+        echo "Upgrading: v${current_v} -> v${v}"
+    fi
+else
+    echo "Installing: v${v}"
+fi
+
+curl -L "https://github.com/vito/bass/releases/download/v${v}/bass.linux-amd64.tgz" -o '/tmp/bass.tgz'
+(cd /tmp && tar zxf '/tmp/bass.tgz')
+sudo cp /tmp/bass /usr/local/bin/bass
+
+echo "Changelog: https://github.com/vito/bass/releases/tag/v${v}"

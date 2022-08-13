@@ -7,7 +7,6 @@ command! -nargs=0 -bar Helptags
             \ | endfor
             \ | unlet s:dir
 
-let g:netrw_banner = 0
 let g:org_clean_folds = 1
 let g:org_use_italics = 1
 let g:CoolTotalMatches = 1
@@ -20,6 +19,12 @@ packadd commentary
 packadd traces
 packadd apart
 packadd qf
+
+" Replace netrw with dirvish.
+let g:netrw_banner = 0
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+packadd dirvish
 
 packadd zepl
 runtime zepl/contrib/load_files.vim
