@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Run a bunch of update commands for my Fedora installs.
+
+set -ex
+
+sudo dnf upgrade --refresh
+clj-install
+yes y | sudo lein upgrade
+bass-install
+(cd ~/Projects/dotfiles/ && git submodule-pull && vim +Helptags +q)
+
+set +x
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && . "$SDKMAN_DIR/bin/sdkman-init.sh"
+echo '+ sdk selfupdate'
+sdk selfupdate
+echo '+ sdk update java'
+sdk update java
+set -x
+
+# TODO: install fonts.

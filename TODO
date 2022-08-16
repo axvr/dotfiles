@@ -4,14 +4,8 @@
   - https://clojuredocs.org/
   - https://cljdoc.org/
 - <C-K> binding to lookup symbol in HyperSpec or ClojureDocs?
-- COPR repos:
-  - Clojure (replace clj-install script?)
-  - SBCL (based on: https://copr.fedorainfracloud.org/coprs/shassard/sbcl/)
-  - Bass
-  - Fonts?
 - Zepl2
   - zepl-toolkit.vim
   - zepl-clojure.vim
   - zepl-common-lisp.vim
-- Some way to connect multiple REPLs to the same SBCL instance?
-  - SWANK?
+- Some way to connect multiple REPLs to the same SBCL instance?  SWANK?
