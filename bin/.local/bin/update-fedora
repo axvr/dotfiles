@@ -5,9 +5,10 @@
 set -ex
 
 sudo dnf upgrade --refresh
+docker-compose-install
+bass-install
 clj-install
 yes y | sudo lein upgrade
-bass-install
 (cd ~/Projects/dotfiles/ && git submodule-pull && vim +Helptags +q)
 
 set +x
