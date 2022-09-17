@@ -20,4 +20,5 @@ echo '+ sdk update java'
 sdk update java
 set -x
 
-# TODO: install fonts.
+juliamono-install
+inter-install
