@@ -1,3 +1,6 @@
+- LSP clients.
+  - Installer for Clojure-LSP.
+  - Fix needing to reload file for Bass LSP.
 - Link.vim plugin.
   - Alternative to Waikiki.vim supporting multiple file extensions.
 - CljDoc equivalent to my HyperSpec command.
