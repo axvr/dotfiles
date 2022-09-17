@@ -5,9 +5,9 @@
 set -ex
 
 sudo dnf upgrade --refresh
-docker-compose-install
-bass-install
-clj-install
+install-docker-compose
+install-bass
+install-clojure
 yes y | sudo lein upgrade
 (cd ~/Projects/dotfiles/ && git submodule-pull && vim +Helptags +q)
 
@@ -20,5 +20,5 @@ echo '+ sdk update java'
 sdk update java
 set -x
 
-juliamono-install
-inter-install
+install-font-juliamono
+install-font-inter

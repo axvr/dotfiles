@@ -53,3 +53,6 @@ export GOPATH="$HOME/.local/share/go"
 prepend_to PATH "$GOPATH/bin"
 
 export PATH MANPATH INFOPATH
+
+# Other configs
+export FONT_DIR="$HOME/.fonts"

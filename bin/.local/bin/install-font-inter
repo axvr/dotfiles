@@ -7,7 +7,7 @@
 
 set -e
 
-FONT_DIR="$HOME/.fonts"
+FONT_DIR="${FONT_DIR=$HOME/.fonts}"
 DEST="$FONT_DIR/Inter"
 VERSION_FILE="$DEST/version"
 TMP_DIR="/tmp/inter"

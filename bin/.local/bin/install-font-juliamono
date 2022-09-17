@@ -7,7 +7,7 @@
 
 set -e
 
-FONT_DIR="$HOME/.fonts"
+FONT_DIR="${FONT_DIR=$HOME/.fonts}"
 DEST="$FONT_DIR/JuliaMono"
 VERSION_FILE="$DEST/version"
 
@@ -34,7 +34,7 @@ fi
 curl -L "https://github.com/cormullion/juliamono/releases/download/v${v}/JuliaMono-ttf.tar.gz" \
      -o '/tmp/juliamono.tar.gz'
 
-[ -d "$DEST" ] rm -r "$DEST"
+[ -d "$DEST" ] && rm -r "$DEST"
 mkdir -p "$DEST"
 
 (cd "$DEST" && tar zxf '/tmp/juliamono.tar.gz')
