@@ -41,6 +41,9 @@ id_rsa
 .nrepl-port
 .lein-repl-history
 
+# LSP
+.lsp/*
+
 # Vim
 *~
 [._]*.s[a-v][a-z]

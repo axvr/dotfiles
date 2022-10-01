@@ -9,7 +9,7 @@ install-docker-compose
 install-bass
 install-clojure
 yes y | sudo lein upgrade
-(cd ~/Projects/dotfiles/ && git submodule-pull && vim +Helptags +q)
+(cd ~/Projects/dotfiles/ && git submodule-pull && vim +Helptags +qall)
 
 set +x
 export SDKMAN_DIR="$HOME/.sdkman"
