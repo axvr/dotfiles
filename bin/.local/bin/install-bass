@@ -12,13 +12,13 @@ if [ -z "$1" ]; then
         | grep '^location: ' \
         | sed -e 's,^.*/v\([[:digit:]\.]\+\)[[:space:]]*$,\1,')"
 else
-    v="$(echo "$1" | sed 's/^v//')"
+    v="$(echo "$1" | sed -e 's/^v//')"
 fi
 
 if test "$(command -v bass)"; then
     current_v="$(bass --version \
         | grep '^bass' \
-        | sed 's/^bass[[:space:]]\+v\([[:digit:]\.]\+\)$/\1/')"
+        | sed -e 's/^bass[[:space:]]\+v\([[:digit:]\.]\+\)$/\1/')"
     if [ "$v" = "$current_v" ]; then
         echo "Nothing to do: Bass v${v} is already installed"
         exit 0

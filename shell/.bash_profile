@@ -56,3 +56,11 @@ export PATH MANPATH INFOPATH
 
 # Other configs
 export FONT_DIR="$HOME/.fonts"
+
+if [ "$(uname -s)" = "Darwin" ]; then
+    # Homebrew.
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    # Bash completion.
+    [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+fi
