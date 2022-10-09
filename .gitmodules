@@ -40,6 +40,3 @@
 [submodule "vim/.vim/pack/lang/start/julia"]
 	path = vim/.vim/pack/lang/start/julia
 	url = https://github.com/JuliaEditorSupport/julia-vim.git
-[submodule "vim/.vim/pack/core/opt/lsp"]
-	path = vim/.vim/pack/core/opt/lsp
-	url = https://github.com/yegappan/lsp.git
