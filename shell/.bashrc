@@ -48,7 +48,6 @@ export LEDGER_FILE="$HOME/Documents/Ledger/personal.dat"
 alias ledger='ledger -f "$LEDGER_FILE"'
 alias ledger-record='$EDITOR "$LEDGER_FILE"'
 
-alias wiki='(cd ~/Documents/Notes && vim Index.org)'
 
 # This must be at the end of the file for SDKMAN! to work.
 export SDKMAN_DIR="$HOME/.sdkman"

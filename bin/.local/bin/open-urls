@@ -14,9 +14,9 @@ else
     exit 1
 fi
 
-splat_urls  () { sed -e 's,\(https\?://\),\n\1,g' "$@"; }
+splat_urls  () { sed -E -e 's,(https?://),\t\1,g' "$@" | tr '\t' '\n'; }
 filter_urls () { grep 'https\?:\/\/' "$@"; }
-extract_url () { sed -e 's,^.*\(https\?://[^][ ()<>]*\).*$,\1,' "$@"; }
+extract_url () { sed -E -e 's,^.*(https?://[^][ ()<>]*).*$,\1,' "$@"; }
 
 for url in $(cat "$@" | splat_urls | filter_urls | extract_url); do
     sleep 0.2

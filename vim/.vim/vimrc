@@ -81,6 +81,10 @@ if &term =~# '256color$' || has('gui')
     let &colorcolumn='+'.join(range(1,256),',+')
 endif
 
+if has('mac') && has('gui')
+    set guifont=Menlo-Regular:h14
+endif
+
 if &term =~# '^\(screen\|tmux\)'
     set ttymouse=sgr
     " :help xterm-true-color
@@ -124,4 +128,6 @@ augroup filetype_config
     autocmd BufRead,BufNewFile TODO,DOING,DONE setfiletype outline
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
+
+    autocmd BufRead,BufNewFile *.mach,*.nc setfiletype clojure
 augroup END
