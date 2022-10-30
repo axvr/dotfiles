@@ -1,12 +1,11 @@
-- LSP clients.
+- Vim LSP.
+  - Pick plugin and configure.
   - Installer for Clojure-LSP.
   - Fix needing to reload file for Bass LSP.
-- Link.vim plugin.
-  - Alternative to Waikiki.vim supporting multiple file extensions.
 - CljDoc equivalent to my HyperSpec command.
   - https://clojuredocs.org/
   - https://cljdoc.org/
-- <C-K> binding to lookup symbol in HyperSpec or ClojureDocs?
+- `<C-K>` binding to lookup symbol in HyperSpec or ClojureDocs?
 - Zepl2
   - zepl-toolkit.vim
   - zepl-clojure.vim

@@ -7,8 +7,6 @@ command! -nargs=0 -bar Helptags
             \ | endfor
             \ | unlet s:dir
 
-let g:org_clean_folds = 1
-let g:org_use_italics = 1
 let g:CoolTotalMatches = 1
 
 runtime ftplugin/man.vim

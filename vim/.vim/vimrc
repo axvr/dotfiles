@@ -48,11 +48,6 @@ if has('mac')
     set clipboard=unnamed
 endif
 
-" Encryption
-if has('sodium')
-    set cryptmethod=xchacha20
-endif
-
 " Completion
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
@@ -79,10 +74,6 @@ if &term =~# '256color$' || has('gui')
     set termguicolors
     colorscheme raider
     let &colorcolumn='+'.join(range(1,256),',+')
-endif
-
-if has('mac') && has('gui')
-    set guifont=Menlo-Regular:h14
 endif
 
 if &term =~# '^\(screen\|tmux\)'
@@ -113,21 +104,21 @@ augroup END
 augroup filetype_config
     autocmd!
 
-    autocmd FileType gitconfig,fstab setlocal noet sts=8 sw=8 ts=8
-    autocmd FileType lisp,clojure,scheme,json,ruby,outline,org setlocal et sts=2 sw=2 ts=8
+    autocmd FileType c,cpp,go,gitconfig,fstab setlocal noet sts=8 sw=8
+    autocmd FileType lisp,clojure,scheme,json,ruby setlocal et sts=2 sw=2
     autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2
     autocmd FileType perl,sh,python,javascript setlocal tw=79
     autocmd FileType gitcommit setlocal spell
     autocmd FileType lisp,clojure,scheme,bass setlocal commentstring=;;%s cpo-=J cpo+=j
     autocmd FileType robots,crontab,spec,desktop setlocal commentstring=#%s
 
-    autocmd FileType cpp setlocal path+=/usr/include
+    autocmd FileType c,cpp setlocal path+=/usr/include
     autocmd FileType tex compiler latexmk
     autocmd FileType sh  compiler shellcheck
 
-    autocmd BufRead,BufNewFile TODO,DOING,DONE setfiletype outline
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
 
+    autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal ft=markdown et sts=2 sw=2
     autocmd BufRead,BufNewFile *.mach,*.nc setfiletype clojure
 augroup END
