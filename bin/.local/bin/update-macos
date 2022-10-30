@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Run a bunch of update commands for my macOS installs.
+
+set -ex
+
+brew update
+brew upgrade
+brew autoremove
+(cd ~/Projects/dotfiles/ && git submodule-pull && vim +Helptags +qall)
+
+# TODO: install Bass.
+
+set +x
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && . "$SDKMAN_DIR/bin/sdkman-init.sh"
+echo '+ sdk selfupdate'
+sdk selfupdate
+echo '+ sdk update java'
+sdk update java
+set -x
