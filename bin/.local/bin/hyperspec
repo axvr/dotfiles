@@ -5,7 +5,7 @@
 symbol_table="$HOME/.local/share/hyperspec/symbols.lisp"
 
 if [ ! -f "$symbol_table" ]; then
-    url="https://paste.sr.ht/blob/c2bcd5ee1c00af10d8540cdaec5260cf3ab096f6"
+    url="https://gist.githubusercontent.com/axvr/fd3ca01cafe32dee67317c6bf6ab5be1/raw/12a10597f8d89a22beb6ccbad7d032cf0b380c8b/symbols.lisp"
     curl --silent -L "$url" --create-dirs -o "$symbol_table"
 fi
 
