@@ -31,6 +31,3 @@
 [submodule "vim/.vim/pack/core/opt/dirvish"]
 	path = vim/.vim/pack/core/opt/dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
-[submodule "vim/.vim/pack/lang/start/julia"]
-	path = vim/.vim/pack/lang/start/julia
-	url = https://github.com/JuliaEditorSupport/julia-vim.git

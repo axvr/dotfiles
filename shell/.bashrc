@@ -44,9 +44,9 @@ alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 
-export LEDGER_FILE="$HOME/Documents/Ledger/personal.dat"
-alias ledger='ledger -f "$LEDGER_FILE"'
+export LEDGER_FILE="$HOME/Documents/Ledger/Personal.journal"
 alias ledger-record='$EDITOR "$LEDGER_FILE"'
+alias ledger-web='hledger web -- --serve'
 
 
 # This must be at the end of the file for SDKMAN! to work.
