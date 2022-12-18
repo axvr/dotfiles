@@ -45,9 +45,13 @@ alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 
 export LEDGER_FILE="$HOME/Documents/Ledger/Personal.journal"
+alias ledger='hledger'
 alias ledger-record='$EDITOR "$LEDGER_FILE"'
-alias ledger-web='hledger web -- --serve'
+alias ledger-web='echo "http://127.0.0.1:5000" | open-urls && hledger web -- --serve'
 
+alias fix_dir='chmod a=rx,u=rwx'
+alias fix_file='chmod a=r,u=rw'
+alias unquarantine='xattr -d com.apple.quarantine'
 
 # This must be at the end of the file for SDKMAN! to work.
 export SDKMAN_DIR="$HOME/.sdkman"

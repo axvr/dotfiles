@@ -7,7 +7,7 @@ command! -nargs=0 -bar Helptags
             \ | endfor
             \ | unlet s:dir
 
-let g:CoolTotalMatches = 1
+let g:cool_total_matches = 1
 
 runtime ftplugin/man.vim
 set keywordprg=:Man

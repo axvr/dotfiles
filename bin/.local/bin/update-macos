@@ -5,13 +5,27 @@
 set -ex
 
 brew update
-brew upgrade
-brew autoremove
-(cd ~/Projects/dotfiles/ && git submodule-pull && vim +Helptags +qall)
+brew upgrade -n
+
+{ set +x; } 2>/dev/null
+read -p "Update? [y/n]: " ans
+case "$ans" in
+    [Yy]*)
+        brew upgrade
+        brew autoremove
+        ;;
+esac
+set -x
+
+(
+  cd ~/Projects/dotfiles/
+  git submodule-pull
+  vim +Helptags +qall
+)
 
 # TODO: install Bass.
 
-set +x
+{ set +x; } 2>/dev/null
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && . "$SDKMAN_DIR/bin/sdkman-init.sh"
 echo '+ sdk selfupdate'
