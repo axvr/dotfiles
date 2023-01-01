@@ -31,8 +31,8 @@ fi
 DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
 mkdir -p $DOCKER_CONFIG/cli-plugins
 
-DEST="$DOCKER_CONFIG/cli-plugins/docker-compose"
-curl -L "https://github.com/docker/compose/releases/download/v${v}/docker-compose-linux-$(uname -m)" -o "$DEST"
-chmod +x "$DEST"
+dest="$DOCKER_CONFIG/cli-plugins/docker-compose"
+curl -L "https://github.com/docker/compose/releases/download/v${v}/docker-compose-linux-$(uname -m)" -o "$dest"
+chmod +x "$dest"
 
 echo "Changelog: https://github.com/docker/compose/releases/tag/v${v}"

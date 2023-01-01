@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Script to make installing and updating Bass on Linux easier.
+# Script to make installing and updating Bass easier.
 #
 # Website:  <https://bass-lang.org>
 # Releases: <https://github.com/vito/bass/releases/latest>
@@ -29,7 +29,12 @@ else
     echo "Installing Bass v${v}"
 fi
 
-curl -L "https://github.com/vito/bass/releases/download/v${v}/bass.linux-amd64.tgz" -o '/tmp/bass.tgz'
+case "$(uname -s)" in
+    "Darwin") os="darwin";;
+    *) os="linux" ;;
+esac
+
+curl -L "https://github.com/vito/bass/releases/download/v${v}/bass.${os}-$(uname -m).tgz" -o '/tmp/bass.tgz'
 (cd /tmp && tar zxf '/tmp/bass.tgz')
 sudo cp /tmp/bass /usr/local/bin/bass
 

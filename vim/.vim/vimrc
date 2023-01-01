@@ -51,7 +51,7 @@ endif
 " Completion
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
-set wildignore+=*/.git/*,*/node_modules/*,tags
+set wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store
 set path=.,,**
 set dictionary=/usr/dict/words,/usr/share/dict/words
 
@@ -120,5 +120,5 @@ augroup filetype_config
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
 
     autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal ft=markdown et sts=2 sw=2
-    autocmd BufRead,BufNewFile *.mach,*.nc setfiletype clojure
+    autocmd BufRead,BufNewFile *.mach setfiletype clojure
 augroup END
