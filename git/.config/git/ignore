@@ -24,8 +24,9 @@ cscope.out
 cscope.in.out
 cscope.po.out
 
-# PGP keys, encrypted files and password vaults
+# Keys, encrypted files and password vaults
 secring.*
+*.pem
 *.pgp
 *.gpg
 *.asc
@@ -34,7 +35,8 @@ secring.*
 *.kdb
 *.key
 *.pass
-id_rsa
+id_rsa*
+id_ed25519*
 
 # Clojure
 .clj_port
