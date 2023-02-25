@@ -24,6 +24,7 @@ set ruler
 set belloff=all
 set showmatch
 set scrolloff=0
+set smoothscroll
 set nofoldenable
 
 " Search

@@ -3,7 +3,7 @@ vim9script
 b:repl_config = {
       'cmd': filereadable('project.clj') ? 'lein repl' : 'clj-socket',
       'rlwrap': filereadable('project.clj') ? 0 : 1,
-      'load_file': '(load-file "%s")'
+      'load_file': '(clojure.core/load-file "%s")'
     }
 
 g:clojure_discard_macro = 1
