@@ -28,6 +28,8 @@ set -x
 { set +x; } 2>/dev/null
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && . "$SDKMAN_DIR/bin/sdkman-init.sh"
+echo '+ sdk upgrade java'
+sdk upgrade java
 echo '+ sdk selfupdate'
 sdk selfupdate
 echo '+ sdk update java'
