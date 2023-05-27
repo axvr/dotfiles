@@ -36,13 +36,14 @@ PS2="> "
 
 # == Aliases & functions ==
 
-alias vi="vim"
-alias svim="vim -S Session.vim"
+alias vi='vim'
+alias svim='vim -S Session.vim'
 
-alias ls="ls --color=auto"
-alias grep="grep --color=auto"
-alias egrep="egrep --color=auto"
-alias fgrep="fgrep --color=auto"
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias ip='ip --color=auto'
 
 export LEDGER_FILE="$HOME/Documents/Ledger/Personal.journal"
 alias ledger='hledger'

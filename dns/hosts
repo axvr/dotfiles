@@ -12,7 +12,7 @@
 173.195.146.142 git.sr.ht
 
 # Unblock sites.
-192.95.5.67     wireguard.com www.wireguard.com
+136.144.57.121  wireguard.com www.wireguard.com
 198.252.153.59  tails.boum.org
 116.202.120.165 torproject.org www.torproject.org
 95.216.163.36   torproject.org www.torproject.org
