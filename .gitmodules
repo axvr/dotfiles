@@ -31,3 +31,6 @@
 [submodule "vim/.vim/pack/core/opt/dirvish"]
 	path = vim/.vim/pack/core/opt/dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
+[submodule "vim/.vim/pack/core/opt/colortemplate"]
+	path = vim/.vim/pack/core/opt/colortemplate
+	url = https://github.com/lifepillar/vim-colortemplate
