@@ -8,8 +8,11 @@
              :main-opts ["-m" "antq.core"]}
 
   ;; Run Clj-kondo linter.  <https://github.com/clj-kondo/clj-kondo>
-  :kondo {:extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
-          :main-opts ["-m" "clj-kondo.main"]}
+  :clj-kondo {:extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+              :main-opts ["-m" "clj-kondo.main"]}
+
+  :clj-kondo-copy-configs {:extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+                           :main-opts ["-m" "clj-kondo.main" "--lint" "$(clojure -Spath)" "--dependencies" "--parallel" "--copy-configs"]}
 
   ;; Start a Socket REPL on port 5555.
   :socket {:jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/repl}"]}
