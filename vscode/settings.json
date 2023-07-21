@@ -1,9 +1,4 @@
 {
-    "workbench.colorTheme": "GitHub Dark",
-    "window.autoDetectColorScheme": true,
-    "workbench.preferredDarkColorTheme": "GitHub Dark",
-    "workbench.preferredLightColorTheme": "GitHub Light",
-    "editor.fontSize": 14,
     "terminal.integrated.fontSize": 14,
     "debug.console.fontSize": 14,
     "telemetry.telemetryLevel": "crash",
@@ -42,7 +37,6 @@
     "update.showReleaseNotes": false,
     "workbench.startupEditor": "none",
     "breadcrumbs.enabled": false,
-    "editor.glyphMargin": false,
     "editor.lineNumbers": "off",
     "calva.highlight.highlightActiveIndent": false,
     "editor.guides.indentation": false,
@@ -50,5 +44,17 @@
     "editor.folding": false,
     "todo-tree.filtering.ignoreGitSubmodules": true,
     "todo-tree.filtering.includeHiddenFiles": true,
-    "todo-tree.highlights.enabled": false
+    "todo-tree.highlights.enabled": false,
+    "editor.lightbulb.enabled": false,
+    "scm.inputFontSize": 14,
+    "calva.autoOpenJackInTerminal": false,
+    "editor.glyphMargin": false,
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "editor.fontSize": 14,
+    "redhat.telemetry.enabled": false,
+    "window.autoDetectColorScheme": true,
+    "extensions.ignoreRecommendations": true
 }
