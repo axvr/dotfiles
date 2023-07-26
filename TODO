@@ -6,8 +6,3 @@
   - https://clojuredocs.org/
   - https://cljdoc.org/
 - `<C-K>` binding to lookup symbol in HyperSpec or ClojureDocs?
-- Zepl2
-  - zepl-toolkit.vim
-  - zepl-clojure.vim
-  - zepl-common-lisp.vim
-- Some way to connect multiple REPLs to the same SBCL instance?  SWANK?
