@@ -11,10 +11,13 @@
 #      the port number to .clj_port.  On exit, delete .clj_port file.
 
 readline () {
-    rlwrap --command-name clj -pWhite \
-        --quote-characters '"' \
-        --break-chars '(){}[],%;"' \
-        "$@"
+    rlwrap --command-name clj \
+           --prompt-colour=White \
+           --quote-characters '"' \
+           --break-chars '(){}[],%;"' \
+           --no-children \
+           --multi-line-ext .clj \
+           "$@"
 }
 
 finish () {

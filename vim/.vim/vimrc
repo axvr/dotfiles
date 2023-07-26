@@ -52,7 +52,7 @@ endif
 " Completion
 set omnifunc=syntaxcomplete#Complete
 set wildmenu
-set wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store
+set wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store,*/.cpcache/*
 set path=.,,**
 set dictionary=/usr/dict/words,/usr/share/dict/words
 
