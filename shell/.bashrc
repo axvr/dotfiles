@@ -57,7 +57,3 @@ alias unquarantine='xattr -d com.apple.quarantine'
 
 asdf_install="/opt/homebrew/opt/asdf/libexec/asdf.sh"
 [[ -s "$asdf_install" ]] && . "$asdf_install"
-
-# This must be at the end of the file for SDKMAN! to work.
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && . "$SDKMAN_DIR/bin/sdkman-init.sh"
