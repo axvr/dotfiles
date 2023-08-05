@@ -13,9 +13,7 @@ runtime ftplugin/man.vim
 set keywordprg=:Man
 
 packadd matchit
-packadd commentary
 packadd traces
-" packadd apart
 packadd qf
 
 " Replace netrw with dirvish.
