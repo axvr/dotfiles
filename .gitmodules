@@ -25,9 +25,6 @@
 [submodule "vim/.vim/pack/core/start/raider"]
 	path = vim/.vim/pack/core/start/raider
 	url = https://github.com/axvr/raider.vim
-[submodule "vim/.vim/pack/lang/start/bass"]
-	path = vim/.vim/pack/lang/start/bass
-	url = https://github.com/vito/bass.vim.git
 [submodule "vim/.vim/pack/core/opt/dirvish"]
 	path = vim/.vim/pack/core/opt/dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
