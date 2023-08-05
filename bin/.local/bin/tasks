@@ -3,4 +3,4 @@
 # Open a simple Kanban board in Vim.
 
 [ "$1" = '-v' ] && o='-O' || o='-o'
-vim "$o" TODO DOING DONE
+nvim "$o" TODO DOING DONE

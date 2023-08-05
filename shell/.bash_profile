@@ -14,8 +14,8 @@ export LANG=en_GB.UTF-8
 # export LC_ALL=POSIX
 
 # Set default editor
-export VISUAL=vim
-export EDITOR=vim
+export VISUAL=nvim
+export EDITOR=nvim
 
 prepend_to() {
     opt="$1"

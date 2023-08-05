@@ -2,7 +2,7 @@
 	name = Alex Vear
 	email = alex@vear.uk
 [core]
-	editor = vim
+	editor = nvim
 [alias]
 	graph = log --all --decorate --oneline --graph
 	submodule-pull = submodule update --remote --merge
@@ -28,7 +28,7 @@
 [commit]
 	verbose = true
 [merge]
-	tool = vimdiff
+	tool = nvim -d
 [init]
 	defaultBranch = master
 [help]

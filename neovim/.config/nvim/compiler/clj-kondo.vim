@@ -1,5 +1,4 @@
-" Description:  Clj-Kondo linter integration.
-" File:         compiler/clj-kondo.vim
+" Clj-Kondo linter integration.
 
 let s:cpo_save = &cpo
 set cpo&vim

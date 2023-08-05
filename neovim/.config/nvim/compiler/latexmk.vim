@@ -1,5 +1,4 @@
-" Description:  Latexmk compiler integration.
-" File:         compiler/latexmk.vim
+" Latexmk compiler integration.
 
 let s:cpo_save = &cpo
 set cpo&vim
