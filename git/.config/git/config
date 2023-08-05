@@ -12,6 +12,7 @@
 	amendne = commit --amend --no-edit
 	rebaser = rebase -i --autosquash
 	git = !git
+	root = rev-parse --show-toplevel
 	open = "! open_remote() { \
 		  git remote get-url \"${1-origin}\" \
 		    | sed -e 's,\\.git$,,' \

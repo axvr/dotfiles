@@ -55,5 +55,6 @@ alias fix_dir='chmod a=rx,u=rwx'
 alias fix_file='chmod a=r,u=rw'
 alias unquarantine='xattr -d com.apple.quarantine'
 
-asdf_install="/opt/homebrew/opt/asdf/libexec/asdf.sh"
-[[ -s "$asdf_install" ]] && . "$asdf_install"
+# ASDF.
+# asdf_install="/opt/homebrew/opt/asdf/libexec/asdf.sh"
+# [[ -s "$asdf_install" ]] && . "$asdf_install"
