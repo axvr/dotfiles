@@ -1,33 +1,30 @@
-[submodule "vim/.vim/pack/core/opt/zepl"]
-	path = neovim/.config/nvim/pack/core/opt/zepl
-	url = https://github.com/axvr/zepl.vim
-[submodule "vim/.vim/pack/core/opt/cool"]
+[submodule "neovim/.config/nvim/pack/core/start/cool"]
 	path = neovim/.config/nvim/pack/core/start/cool
 	url = https://github.com/romainl/vim-cool
-[submodule "vim/.vim/pack/core/opt/qf"]
+[submodule "neovim/.config/nvim/pack/core/opt/qf"]
 	path = neovim/.config/nvim/pack/core/opt/qf
 	url = https://github.com/romainl/vim-qf
-[submodule "vim/.vim/pack/core/opt/traces"]
+[submodule "neovim/.config/nvim/pack/core/opt/traces"]
 	path = neovim/.config/nvim/pack/core/opt/traces
 	url = https://github.com/markonm/traces.vim
-[submodule "vim/.vim/pack/core/opt/commentary"]
+[submodule "neovim/.config/nvim/pack/core/start/commentary"]
 	path = neovim/.config/nvim/pack/core/start/commentary
 	url = https://github.com/tpope/vim-commentary
-[submodule "vim/.vim/pack/core/start/ascribe"]
+[submodule "neovim/.config/nvim/pack/core/start/ascribe"]
 	path = neovim/.config/nvim/pack/core/start/ascribe
 	url = https://github.com/axvr/ascribe.vim
-[submodule "vim/.vim/pack/lang/start/ledger"]
+[submodule "neovim/.config/nvim/pack/lang/start/ledger"]
 	path = neovim/.config/nvim/pack/lang/start/ledger
 	url = https://github.com/ledger/vim-ledger
-[submodule "vim/.vim/pack/core/start/raider"]
+[submodule "neovim/.config/nvim/pack/core/start/raider"]
 	path = neovim/.config/nvim/pack/core/start/raider
 	url = https://github.com/axvr/raider.vim
-[submodule "vim/.vim/pack/core/opt/dirvish"]
+[submodule "neovim/.config/nvim/pack/core/opt/dirvish"]
 	path = neovim/.config/nvim/pack/core/opt/dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
-[submodule "vim/.vim/pack/core/opt/colortemplate"]
-	path = neovim/.config/nvim/pack/core/opt/colortemplate
+[submodule "neovim/.config/nvim/pack/lang/opt/colortemplate"]
+	path = neovim/.config/nvim/pack/lang/opt/colortemplate
 	url = https://github.com/lifepillar/vim-colortemplate
-[submodule "neovim/.config/nvim/pack/core/opt/conjure"]
-	path = neovim/.config/nvim/pack/core/opt/conjure
+[submodule "neovim/.config/nvim/pack/lang/opt/conjure"]
+	path = neovim/.config/nvim/pack/lang/opt/conjure
 	url = https://github.com/Olical/conjure.git

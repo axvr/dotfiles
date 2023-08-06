@@ -7,8 +7,6 @@ command! -nargs=0 -bar Helptags
             \ | endfor
             \ | unlet s:dir
 
-" let g:cool_total_matches = 1
-
 runtime ftplugin/man.vim
 set keywordprg=:Man
 
@@ -24,9 +22,3 @@ let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
 packadd dirvish
 let g:dirvish_mode = ':sort | sort ,^.*/,'
-
-" packadd zepl
-" runtime zepl/contrib/load_files.vim
-
-" command! -bar -nargs=0 ReplClear call zepl#send("\<C-l>", 1)
-" nnoremap gz<C-l> :ReplClear<CR>

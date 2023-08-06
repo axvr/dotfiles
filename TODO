@@ -1,9 +1,11 @@
 - Trial switch to Neovim.
   - Conjure plugin for Neovim.
     - Maybe archive Zepl?
+    - Add Zepl's `gz` binding.
   - LSP.
     - Installer for Clojure-LSP.
   - Find replacement for Apart.vim
+    - Need to bring back lispy J (respect Neovim's `joinspaces` opt)
 - CljDoc equivalent to my HyperSpec command.
   - https://clojuredocs.org/
   - https://cljdoc.org/

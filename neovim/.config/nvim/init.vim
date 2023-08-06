@@ -10,6 +10,7 @@ set mouse=a
 set spelllang=en_gb
 set formatoptions+=jpl1n
 set cpoptions+=J
+set joinspaces
 set showmatch
 set nofoldenable
 
