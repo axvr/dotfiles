@@ -15,7 +15,7 @@ function! s:scratch(mods, bang, filetype)
     endif
 endfunction
 
-command! -nargs=? -bar -bang Scratch silent call s:scratch(<q-mods>, <q-bang>, <q-args>)
+command! -nargs=? -bar -bang -complete=filetype Scratch silent call s:scratch(<q-mods>, <q-bang>, <q-args>)
 
 " Custom version of <https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7>
 command! -nargs=+ -complete=command -bar Redirect call appendbufline(bufnr(),
