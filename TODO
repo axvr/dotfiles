@@ -1,7 +1,9 @@
-- Vim LSP.
-  - Pick plugin and configure.
-  - Installer for Clojure-LSP.
-  - Fix needing to reload file for Bass LSP.
+- Trial switch to Neovim.
+  - Conjure plugin for Neovim.
+    - Maybe archive Zepl?
+  - LSP.
+    - Installer for Clojure-LSP.
+  - Find replacement for Apart.vim
 - CljDoc equivalent to my HyperSpec command.
   - https://clojuredocs.org/
   - https://cljdoc.org/

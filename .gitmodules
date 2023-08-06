@@ -28,3 +28,6 @@
 [submodule "vim/.vim/pack/core/opt/colortemplate"]
 	path = neovim/.config/nvim/pack/core/opt/colortemplate
 	url = https://github.com/lifepillar/vim-colortemplate
+[submodule "neovim/.config/nvim/pack/core/opt/conjure"]
+	path = neovim/.config/nvim/pack/core/opt/conjure
+	url = https://github.com/Olical/conjure.git
