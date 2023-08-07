@@ -3,10 +3,12 @@
     - Maybe archive Zepl?
     - Add Zepl's `gz` binding.
   - LSP.
-    - Installer for Clojure-LSP.
+    - Configure and create installer for Clojure-LSP.
   - Find replacement for Apart.vim
     - Need to bring back lispy J (respect Neovim's `joinspaces` opt)
+    - Or rewrite in legacy Vim script?
+  - Add custom `gx` mapping.
 - CljDoc equivalent to my HyperSpec command.
   - https://clojuredocs.org/
   - https://cljdoc.org/
-- `<C-K>` binding to lookup symbol in HyperSpec or ClojureDocs?
+- `<C-K>` binding to lookup symbol in HyperSpec, ClojureDocs or Javadoc?

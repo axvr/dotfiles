@@ -13,6 +13,7 @@ set cpoptions+=J
 set joinspaces
 set showmatch
 set nofoldenable
+set startofline
 
 " Backup, swap and undo
 set backup
