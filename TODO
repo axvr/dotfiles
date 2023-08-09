@@ -8,6 +8,7 @@
     - Need to bring back lispy J (respect Neovim's `joinspaces` opt)
     - Or rewrite in legacy Vim script?
   - Add custom `gx` mapping.
+  - Keep a minimal Vim config (share some with Neovim?)
 - CljDoc equivalent to my HyperSpec command.
   - https://clojuredocs.org/
   - https://cljdoc.org/
