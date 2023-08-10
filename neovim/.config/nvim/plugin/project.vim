@@ -36,7 +36,7 @@ command! -nargs=0 -bar DiffOrig
 
 " Create parent directories on buffer write if they don't exist.
 function! s:create_parent_dirs()
-    let dir = expand("%:h")
+    let dir = expand("%:p:h")
     if !isdirectory(dir) && confirm('Create directory "'.dir.'"?', "&Yes\n&No") == 1
         call mkdir(dir, 'p')
     endif
