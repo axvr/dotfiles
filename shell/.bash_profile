@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# ~/.bash_profile
-
 # Source `.bashrc` if Bash is the default shell
 if [ -n "$BASH_VERSION" ]; then
     if [ -f "$HOME/.bashrc" ]; then
@@ -65,6 +63,11 @@ if [ "$(uname -s)" = "Darwin" ]; then
     [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 fi
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# ASDF
+# asdf_install="/opt/homebrew/opt/asdf/libexec/asdf.sh"
+# [[ -s "$asdf_install" ]] && . "$asdf_install"
+# asdf_completion="/opt/homebrew/opt/asdf/etc/bash_completion.d/asdf.bash"
+# [[ -s "$asdf_completion" ]] && . "$asdf_completion"
+
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

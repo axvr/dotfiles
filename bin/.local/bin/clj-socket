@@ -12,7 +12,7 @@
 
 readline () {
     rlwrap --command-name clj \
-           --prompt-colour=White \
+           --prompt-colour=${REPL_PROMPT_COLOUR:=White} \
            --quote-characters '"' \
            --break-chars '(){}[],%;"' \
            --no-children \
