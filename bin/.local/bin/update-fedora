@@ -6,7 +6,6 @@ set -ex
 
 sudo dnf upgrade --refresh
 install-docker-compose
-install-bass
 install-clojure
 yes y | sudo lein upgrade
 (cd ~/Projects/dotfiles/ && git submodule-pull && vim +Helptags +qall)
