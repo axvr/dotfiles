@@ -17,8 +17,10 @@ case "$ans" in
 esac
 set -x
 
+rtx upgrade
+
 (
-  cd ~/Projects/dotfiles/
+  pushd ~/Projects/dotfiles/
   git submodule-pull
   vim +Helptags +qall
 )

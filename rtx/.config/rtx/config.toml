@@ -1,0 +1,15 @@
+[tools]
+java = 'temurin-21'
+clojure = 'latest'
+lein = 'latest'
+
+[plugins]
+clojure = 'https://github.com/b-social/asdf-clojure'
+lein = 'https://github.com/b-social/asdf-lein'
+babashka = 'https://github.com/b-social/asdf-babashka'
+clj-kondo = 'https://github.com/b-social/asdf-clj-kondo'
+cljfmt = 'https://github.com/b-social/asdf-cljfmt'
+terraform = 'https://github.com/b-social/asdf-hashicorp'
+
+[settings]
+experimental = true

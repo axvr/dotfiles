@@ -63,11 +63,5 @@ if [ "$(uname -s)" = "Darwin" ]; then
     [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 fi
 
-# ASDF
-# asdf_install="/opt/homebrew/opt/asdf/libexec/asdf.sh"
-# [[ -s "$asdf_install" ]] && . "$asdf_install"
-# asdf_completion="/opt/homebrew/opt/asdf/etc/bash_completion.d/asdf.bash"
-# [[ -s "$asdf_completion" ]] && . "$asdf_completion"
+eval "$(rtx activate bash)"
 
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

@@ -6,18 +6,14 @@ set -ex
 
 sudo dnf upgrade --refresh
 install-docker-compose
-install-clojure
-yes y | sudo lein upgrade
-(cd ~/Projects/dotfiles/ && git submodule-pull && vim +Helptags +qall)
-
-set +x
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && . "$SDKMAN_DIR/bin/sdkman-init.sh"
-echo '+ sdk selfupdate'
-sdk selfupdate
-echo '+ sdk update java'
-sdk update java
-set -x
 
 install-font-juliamono
 install-font-inter
+
+rtx upgrade
+
+(
+  pushd ~/Projects/dotfiles/
+  git submodule-pull
+  vim +Helptags +qall
+)
