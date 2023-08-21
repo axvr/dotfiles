@@ -37,6 +37,7 @@ PS2="> "
 alias vi='nvim'
 alias vim='nvim'
 alias svim='nvim -S Session.vim'
+alias vimdiff='nvim -d'
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'

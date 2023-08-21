@@ -1,7 +1,10 @@
 [tools]
-java = 'temurin-21'
+java = 'temurin-20'
 clojure = 'latest'
 lein = 'latest'
+babashka = 'latest'
+clj-kondo = 'latest'
+cljfmt = 'latest'
 
 [plugins]
 clojure = 'https://github.com/b-social/asdf-clojure'
