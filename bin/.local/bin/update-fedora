@@ -5,10 +5,9 @@
 set -ex
 
 sudo dnf upgrade --refresh
-install-docker-compose
 
+install-docker-compose
 install-font-juliamono
-install-font-inter
 
 rtx upgrade
 
