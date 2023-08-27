@@ -10,6 +10,7 @@ install-docker-compose
 install-font-juliamono
 
 rtx upgrade
+rtx prune --yes
 
 (
   pushd ~/Projects/dotfiles/

@@ -94,6 +94,8 @@ augroup filetype_config
     autocmd FileType tex compiler latexmk
     autocmd FileType sh  compiler shellcheck
 
+    autocmd FileType jsonl setlocal nowrap
+
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
 
