@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Tmux project manager.  Switch to and open projects as Tmux sessions.
+# Based on: <https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer>
+
+if [[ $# -eq 1 ]]; then
+    session="$1"
+else
+    session="$(find ~/Projects ~/Projects/vim ~/Projects/Archive ~/Projects/Experiments ~/Projects/Work -mindepth 1 -maxdepth 1 -type d | sort -u | fzf --reverse)"
+fi
+
+if ! [ -d "$session" ]; then
+    exit 0
+fi
+
+session_name="$(basename "$session" | tr . _)"
+tmux_running="$(pgrep tmux)"
+
+if [ -z "$TMUX" ] && [ -z "$tmux_running" ]; then
+    tmux new-session -s "$session_name" -c "$session"
+    exit 0
+fi
+
+if ! tmux has-session -t="$session_name" 2> /dev/null; then
+    tmux new-session -ds "$session_name" -c "$session"
+fi
+
+tmux switch-client -t "$session_name"
