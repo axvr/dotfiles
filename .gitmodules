@@ -28,3 +28,6 @@
 [submodule "neovim/.config/nvim/pack/lang/opt/conjure"]
 	path = neovim/.config/nvim/pack/lang/opt/conjure
 	url = https://github.com/Olical/conjure.git
+[submodule "neovim/.config/nvim/pack/lang/start/terraform"]
+	path = neovim/.config/nvim/pack/lang/start/terraform
+	url = https://github.com/hashivim/vim-terraform
