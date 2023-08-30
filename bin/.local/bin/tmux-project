@@ -13,7 +13,12 @@ if ! [ -d "$session" ]; then
     exit 0
 fi
 
-session_name="$(basename "$session" | tr . _)"
+if [ "$HOME" = "$session" ]; then
+    session_name='>_'  # "#"
+else
+    session_name="$(basename "$session" | tr . _)"
+fi
+
 tmux_running="$(pgrep tmux)"
 
 if [ -z "$TMUX" ] && [ -z "$tmux_running" ]; then
