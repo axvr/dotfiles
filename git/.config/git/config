@@ -43,3 +43,15 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[url "ssh://git@github.com/"]
+	insteadOf = "https://github.com/"
+[url "ssh://git@github.com/"]
+	pushInsteadOf = "https://github.com/"
+[url "ssh://git@gitlab.com/"]
+	insteadOf = "https://gitlab.com/"
+[url "ssh://git@gitlab.com/"]
+	pushInsteadOf = "https://gitlab.com/"
+[url "ssh://git@git.sr.ht/"]
+	insteadOf = "https://git.sr.ht/"
+[url "ssh://git@git.sr.ht/"]
+	pushInsteadOf = "https://git.sr.ht/"
