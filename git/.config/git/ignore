@@ -57,6 +57,7 @@ Session.vim
 errors.err
 .netrwhist
 %*
+.scratch/*
 
 # GNU Emacs
 *~
