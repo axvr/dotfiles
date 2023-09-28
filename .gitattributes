@@ -1,4 +1,4 @@
-*                           text=auto final-newline eol=lf trim-trailing-whitespace
+*                           text=auto
 common-lisp/**              linguist-language=lisp
 git/.config/git/attributes  linguist-language=gitattributes
 git/.config/git/config      linguist-language=gitconfig

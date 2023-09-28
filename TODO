@@ -1,15 +1,12 @@
-- Trial switch to Neovim.
-  - Conjure plugin for Neovim.
-    - Maybe archive Zepl?
-    - Add Zepl's `gz` binding.
-  - LSP.
-    - Configure and create installer for Clojure-LSP.
+- Vim
+  - Conjure: add Zepl's `gz` binding?
+  - Clojure-LSP?
   - Find replacement for Apart.vim
     - Need to bring back lispy J (respect Neovim's `joinspaces` opt)
     - Or rewrite in legacy Vim script?
   - Add custom `gx` mapping.
   - Keep a minimal Vim config (share some with Neovim?)
+  - `<C-K>` binding to lookup symbol in HyperSpec, ClojureDocs or Javadoc?
 - CljDoc equivalent to my HyperSpec command.
   - https://clojuredocs.org/
   - https://cljdoc.org/
-- `<C-K>` binding to lookup symbol in HyperSpec, ClojureDocs or Javadoc?

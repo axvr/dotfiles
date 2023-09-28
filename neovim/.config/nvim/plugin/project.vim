@@ -46,3 +46,13 @@ augroup create_parent_dirs
     autocmd!
     autocmd BufWritePre * :call <SID>create_parent_dirs()
 augroup END
+
+function! s:trim_whitespace()
+    let view = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(view)
+endfunction
+
+augroup trim_trailing_whitespace
+    autocmd BufWritePre * call s:trim_whitespace()
+augroup END

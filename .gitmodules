@@ -10,9 +10,6 @@
 [submodule "neovim/.config/nvim/pack/core/start/commentary"]
 	path = neovim/.config/nvim/pack/core/start/commentary
 	url = https://github.com/tpope/vim-commentary
-[submodule "neovim/.config/nvim/pack/core/start/ascribe"]
-	path = neovim/.config/nvim/pack/core/start/ascribe
-	url = https://github.com/axvr/ascribe.vim
 [submodule "neovim/.config/nvim/pack/lang/start/ledger"]
 	path = neovim/.config/nvim/pack/lang/start/ledger
 	url = https://github.com/ledger/vim-ledger
