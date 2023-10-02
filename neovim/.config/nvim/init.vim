@@ -101,5 +101,4 @@ augroup filetype_config
 
     autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal ft=markdown et sts=2 sw=2
     autocmd BufRead,BufNewFile *.gt setfiletype clojure
-    autocmd BufRead,BufNewFile *.tfbackend setfiletype terraform
 augroup END
