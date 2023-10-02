@@ -22,3 +22,7 @@ let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
 packadd dirvish
 let g:dirvish_mode = ':sort | silent! g,\v/\.DS_Store$,d'
+
+if ! get(g:, 'conjure#client#clojure#nrepl#connection#auto_repl#cmd', 0)
+    let g:conjure#client#clojure#nrepl#connection#auto_repl#cmd = 'clojure -M:repl/nrepl'
+endif
