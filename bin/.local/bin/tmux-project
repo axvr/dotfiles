@@ -6,7 +6,7 @@
 if [[ $# -eq 1 ]]; then
     session="$1"
 else
-    session="$(find ~/Projects ~/Projects/vim ~/Projects/Archive ~/Projects/Experiments ~/Projects/Work -mindepth 1 -maxdepth 1 -type d | sort -u | fzf --reverse)"
+    session="$(find ~/Projects ~/Projects/Archive ~/Projects/Experiments ~/Projects/Work -mindepth 1 -maxdepth 1 -type d | sort -u | fzf --reverse)"
 fi
 
 if ! [ -d "$session" ]; then

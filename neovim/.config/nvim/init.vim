@@ -87,7 +87,7 @@ augroup filetype_config
     autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2
     autocmd FileType perl,sh,python,javascript setlocal tw=79
     autocmd FileType gitcommit setlocal spell
-    autocmd FileType lisp,clojure,scheme,bass setlocal commentstring=;;%s cpo-=J
+    autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s cpo-=J
     autocmd FileType robots,crontab,spec,desktop setlocal commentstring=#%s
 
     autocmd FileType c,cpp setlocal path+=/usr/include
@@ -100,5 +100,4 @@ augroup filetype_config
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
 
     autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal ft=markdown et sts=2 sw=2
-    autocmd BufRead,BufNewFile *.gt setfiletype clojure
 augroup END

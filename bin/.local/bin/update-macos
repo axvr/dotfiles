@@ -25,5 +25,5 @@ rtx prune --yes
 (
   pushd ~/Projects/dotfiles/
   git submodule-pull
-  vim +Helptags +qall
+  nvim +Helptags +qall
 )

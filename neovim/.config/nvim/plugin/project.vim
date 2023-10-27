@@ -22,9 +22,6 @@ command! -nargs=+ -complete=file GitGrep call TempGrep('git grep -n', <q-args>)
 com! -nargs=? -range GitBlame ec join(systemlist("git -C ".shellescape(expand('%:p:h')).
             \ " blame -L <line1>,<line2> <args> -- ".expand('%:t')),"\n")
 
-" Open GNU Texinfo documentation.
-" command! -nargs=+ -bar Info terminal ++close ++kill=int info <args>
-
 " Command to diff unsaved changes to current file.  Deactivate with :diffoff!
 command! -nargs=0 -bar DiffOrig
             \ <mods> new
