@@ -31,7 +31,7 @@
 [commit]
 	verbose = true
 [merge]
-	tool = nvim -d
+	tool = nvimdiff
 [init]
 	defaultBranch = master
 [help]
