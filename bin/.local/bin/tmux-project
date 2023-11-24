@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
-# Tmux project manager.  Switch to and open projects as Tmux sessions.
+# Tmux project switcher.  Switch to and open projects as Tmux sessions.
 # Based on: <https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer>
 
 if [[ $# -eq 1 ]]; then
     session="$1"
 else
-    session="$(find ~/Projects ~/Projects/Archive ~/Projects/Experiments ~/Projects/Work -mindepth 1 -maxdepth 1 -type d | sort -u | fzf --reverse)"
+    session="$(find ~/Projects ~/Projects/Archive ~/Projects/Experiments ~/Projects/Work \
+                      -mindepth 1 -maxdepth 1 -type d \
+                    | sort -u \
+                    | sed -e "s@^$HOME/@~/@" \
+                    | fzf --reverse \
+                    | sed -e "s@^~/@$HOME/@")"
 fi
 
 if ! [ -d "$session" ]; then

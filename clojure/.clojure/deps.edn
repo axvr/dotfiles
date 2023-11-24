@@ -36,8 +36,10 @@
   ;;   - Benchmarking: <https://github.com/hugoduncan/criterium>
   ;;     - criterium.core/bench
   ;;     - criterium.core/quick-bench
+  ;;   - Profiler: <https://github.com/clojure-goes-fast/clj-async-profiler>
   ;;   - Decompilation: <https://github.com/clojure-goes-fast/clj-java-decompiler>
   ;;     - clj-java-decompiler.core/decompile
   ;;     - clj-java-decompiler.core/disassemble
   :perf {:extra-deps {criterium/criterium {:mvn/version "RELEASE"}
+                      com.clojure-goes-fast/clj-async-profiler {:mvn/version "RELEASE"}
                       com.clojure-goes-fast/clj-java-decompiler {:mvn/version "RELEASE"}}}}}
