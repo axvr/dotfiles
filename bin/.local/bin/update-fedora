@@ -9,8 +9,8 @@ sudo dnf upgrade --refresh
 install-docker-compose
 install-font-juliamono
 
-rtx upgrade
-rtx prune --yes
+mise upgrade
+mise prune --yes
 
 (
   pushd ~/Projects/dotfiles/

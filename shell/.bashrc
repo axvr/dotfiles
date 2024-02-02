@@ -50,8 +50,9 @@ alias ledger='hledger'
 alias ledger-record='$EDITOR "$LEDGER_FILE"'
 alias ledger-web='echo "http://127.0.0.1:5000" | open-urls && hledger web -- --serve'
 
-alias sdk='rtx'
-alias asdf='rtx'
+alias rtx='mise'
+alias sdk='mise'
+alias asdf='mise'
 
 # Aliases to fix files on Apple computers.
 alias fix_dir='chmod a=rx,u=rwx'

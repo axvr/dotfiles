@@ -63,5 +63,5 @@ if [ "$(uname -s)" = "Darwin" ]; then
     [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 fi
 
-eval "$(rtx activate bash)"
+eval "$(mise activate bash)"
 

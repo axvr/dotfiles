@@ -19,8 +19,8 @@ set -x
 
 brew cleanup
 
-rtx upgrade
-rtx prune --yes
+mise upgrade
+mise prune --yes
 
 (
   pushd ~/Projects/dotfiles/
