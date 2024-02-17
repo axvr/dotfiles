@@ -25,3 +25,5 @@ packadd conjure
 if ! get(g:, 'conjure#client#clojure#nrepl#connection#auto_repl#cmd', 0)
     let g:conjure#client#clojure#nrepl#connection#auto_repl#cmd = 'clojure -M:repl/nrepl'
 endif
+
+packadd ionide
