@@ -1,5 +1,7 @@
 let g:clojure_discard_macro = 1
 
+setlocal nojoinspaces
+
 compiler clj-kondo
 
 setlocal suffixesadd=.clj,.cljc,.cljs,.cljx,.edn,.bb
