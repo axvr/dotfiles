@@ -28,3 +28,5 @@ if ! get(g:, 'conjure#client#clojure#nrepl#connection#auto_repl#cmd', 0)
 endif
 
 packadd ionide
+
+let g:colortemplate_toolbar = 0
