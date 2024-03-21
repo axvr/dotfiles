@@ -2,7 +2,7 @@
 
 # List TODOs and other comment tags in specified files or a git repo.
 
-pattern="\b\(TO[-_ ]\?DO\|FIX[-_ ]\?ME\|NOTE\|XXX\|BUG\|HACK\)\b"
+pattern="\b\(TO[-_ ]\?DO\|FIX[-_ ]\?ME\|XXX\|BUG\|HACK\)\b"
 
 if [ -n "$1" ]; then
     grep -nH --color=auto "$pattern" $*
