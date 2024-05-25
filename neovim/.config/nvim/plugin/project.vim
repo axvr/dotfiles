@@ -1,5 +1,8 @@
 " Project management helpers.
 
+" Match column numbers in 'grepformat'
+set grepformat^=%f:%l:%c:%m
+
 function! TempSetBufOpt(opt, val, callback)
     let buf = bufnr('%')
     let prevval = getbufvar(buf, a:opt)
@@ -18,7 +21,7 @@ command! -nargs=0 -bar Tasks tabe DONE | split DOING | split TODO
 command! -nargs=* -complete=file Todos call TempGrep('todos', <q-args>)
 
 " Git integration.
-command! -nargs=+ -complete=file GitGrep call TempGrep('git grep -n', <q-args>)
+command! -nargs=+ -complete=file GitGrep call TempGrep('git grep -n --column', <q-args>)
 com! -nargs=? -range GitBlame ec join(systemlist("git -C ".shellescape(expand('%:p:h')).
             \ " blame -L <line1>,<line2> <args> -- ".expand('%:t')),"\n")
 

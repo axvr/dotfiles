@@ -13,7 +13,7 @@ done
 if [[ $# -eq 1 ]]; then
     session="$1"
 else
-    session="$(find ${proj_dirs[*]} -maxdepth 1 -mindepth 1 -type d \
+    session="$(find ${proj_dirs[*]} \( ! -path '*/.*' \) -maxdepth 1 -mindepth 1 -type d \
                     | sort -u \
                     | sed -e "s@^$HOME/@~/@" \
                     | fzf --reverse \
@@ -31,6 +31,10 @@ else
 fi
 
 tmux_running="$(pgrep tmux)"
+
+if [ -n "$tmux_running" ] && [ -z "$TMUX" ]; then
+    tmux attach
+fi
 
 if [ -z "$TMUX" ] && [ -z "$tmux_running" ]; then
     tmux new-session -s "$session_name" -c "$session"
