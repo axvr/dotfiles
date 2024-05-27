@@ -10,7 +10,12 @@ size = 14.0
 normal = { family = 'Monaco', style = 'Regular' }
 
 [window]
+title = 'Terminal Emulator'
 decorations_theme_variant = 'Dark'
+dimensions = { columns = 120, lines = 40 }
+padding = { x = 3, y = 3 }
+dynamic_padding = true
+resize_increments = true
 
 [mouse]
 hide_when_typing = true
