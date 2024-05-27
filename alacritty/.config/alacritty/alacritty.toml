@@ -1,0 +1,53 @@
+[shell]
+program = '/bin/bash'
+args = ['-l', '-c', 'tmux-project ~']
+
+[env]
+TERM = 'xterm-256color'
+
+[font]
+size = 14.0
+normal = { family = 'Monaco', style = 'Regular' }
+
+[window]
+decorations_theme_variant = 'Dark'
+
+[mouse]
+hide_when_typing = true
+
+[keyboard]
+bindings = [
+    { key = 'Enter', mods = 'Command', action = 'ToggleFullscreen' },
+    { key = '+', mods = 'Command', action = 'IncreaseFontSize' },
+    { key = '-', mods = 'Command', action = 'DecreaseFontSize' },
+    { key = '0', mods = 'Command', action = 'ResetFontSize' }
+]
+
+[colors.primary]
+background = '#222222'
+foreground = '#c9c9c9'
+dim_foreground = '#707070'
+
+[colors.normal]
+black = '#2a2a2a'
+red = '#cf4c4c'
+green = '#679d80'
+yellow = '#a79180'
+blue = '#94baca'
+magenta = '#c061cb'
+cyan = '#858ca6'
+white = '#c9c9c9'
+
+[colors.bright]
+black = '#222222'
+red = '#88766f'
+green = '#2bb469'
+yellow = '#ecb55d'
+blue = '#3465a4'
+magenta = '#75507b'
+cyan = '#29acc1'
+white = '#707070'
+
+[colors.search]
+matches = { foreground = '#222222', background = '#94baca' }
+focused_match = { foreground = '#222222', background = '#ecb55d' }
