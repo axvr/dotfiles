@@ -1,11 +1,9 @@
 # dotfiles
 
-![Image of Vim config](https://raw.githubusercontent.com/axvr/raider.vim/d692fad234334f52a2260e3da823d4eef36754cb/raider1.png)
+![Image of Vim config](https://raw.githubusercontent.com/axvr/raider.vim/ae8e48395b70a518824fb29c84ab8a2d6dddc01f/raider2.png)
 
 _The above image shows my Vim configuration.  The colour scheme is
-[Raider.vim](https://github.com/axvr/raider.vim) and the font is
-[Inconsolata](https://levien.com/type/myfonts/inconsolata.html) by
-[Raph Levien](https://levien.com/)._
+[Raider.vim](https://github.com/axvr/raider.vim)._
 
 These configuration files are managed using [GNU Stow (`stow(8)`)](https://www.gnu.org/software/stow/).
 
