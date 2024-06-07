@@ -63,5 +63,6 @@ if [ "$(uname -s)" = "Darwin" ]; then
     [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 fi
 
-eval "$(mise activate bash)"
+export MANPAGER="less --RAW-CONTROL-CHARS --use-color --color=d+y --color=u+R"
 
+eval "$(mise activate bash)"

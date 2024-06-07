@@ -20,7 +20,7 @@ let g:netrw_banner = 0
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
 packadd dirvish
-let g:dirvish_mode = ':sort | silent! g,\v/\.DS_Store$,d'
+let g:dirvish_mode = ':sort | silent! g,\v/\.DS_Store$,d _'
 
 packadd conjure
 packadd ionide
