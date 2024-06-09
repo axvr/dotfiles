@@ -14,12 +14,8 @@ else
     exit 1
 fi
 
-splat_urls  () { sed -E -e 's,(https?://),\t\1,g' "$@" | tr '\t' '\n'; }
-filter_urls () { grep 'https\?:\/\/' "$@"; }
-extract_url () { sed -E -e 's,^.*(https?://[^][ ()<>"'']*).*$,\1,' "$@"; }
-
-for url in $(cat "$@" | splat_urls | filter_urls | extract_url); do
+for url in $(extract-uris "$@"); do
     sleep 0.2
-    echo "opening: $url"
+    >&2 echo "opening: $url"
     "$open_cmd" "$url"
 done
