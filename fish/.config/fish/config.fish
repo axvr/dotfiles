@@ -1,6 +1,9 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 
+    # Hide greeting.
+    set fish_greeting
+
     # Improve colours in prompt.
     set fish_color_cwd blue
     set -g __fish_git_prompt_showcolorhints 1
