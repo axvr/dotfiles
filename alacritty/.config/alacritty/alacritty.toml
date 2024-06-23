@@ -25,7 +25,8 @@ bindings = [
     { key = 'Enter', mods = 'Command', action = 'ToggleFullscreen' },
     { key = '+', mods = 'Command', action = 'IncreaseFontSize' },
     { key = '-', mods = 'Command', action = 'DecreaseFontSize' },
-    { key = '0', mods = 'Command', action = 'ResetFontSize' }
+    { key = '0', mods = 'Command', action = 'ResetFontSize' },
+    { key = '6', mods = 'Control', chars = "\u001E" }
 ]
 
 [colors.primary]
