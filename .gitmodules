@@ -34,3 +34,6 @@
 [submodule "neovim/.config/nvim/pack/lang/opt/ionide"]
 	path = neovim/.config/nvim/pack/lang/opt/ionide
 	url = https://github.com/ionide/Ionide-vim
+[submodule "neovim/.config/nvim/pack/lang/start/ical"]
+	path = neovim/.config/nvim/pack/lang/start/ical
+	url = https://github.com/axvr/ical.vim
