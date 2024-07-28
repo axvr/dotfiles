@@ -26,3 +26,5 @@ packadd conjure
 packadd ionide
 
 let g:colortemplate_toolbar = 0
+
+let g:tex_flavor = "latex"

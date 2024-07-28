@@ -24,6 +24,7 @@
 	show-tag = "! show_tag() { \
 		      git for-each-ref \"refs/tags/$1\" --format='%(contents)'; \
 		    }; [ -n \"$1\" ] && show_tag"
+	purge-path = filter-repo --invert-paths --path
 [pull]
 	ff = only
 [log]

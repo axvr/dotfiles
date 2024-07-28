@@ -5,7 +5,7 @@ set cpo&vim
 
 let current_compiler = 'latexmk'
 
-setlocal makeprg=latexmk\ -pdf\ %
+setlocal makeprg=latexmk\ -interaction=nonstopmode\ -Werror\ -lualatex\ %
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
