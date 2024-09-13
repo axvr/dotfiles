@@ -50,6 +50,8 @@ alias ledger='hledger'
 alias ledger-record='$EDITOR "$LEDGER_FILE"'
 alias ledger-web='echo "http://127.0.0.1:5000" | open-urls && hledger web -- --serve'
 
+alias notes='nvim +Notes +tabonly'
+
 alias rtx='mise'
 alias sdk='mise'
 alias asdf='mise'

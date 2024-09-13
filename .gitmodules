@@ -40,3 +40,6 @@
 [submodule "neovim/.config/nvim/pack/lang/start/org"]
 	path = neovim/.config/nvim/pack/lang/start/org
 	url = https://github.com/axvr/org.vim
+[submodule "neovim/.config/nvim/pack/core/opt/waikiki"]
+	path = neovim/.config/nvim/pack/core/opt/waikiki
+	url = https://github.com/fcpg/vim-waikiki.git
