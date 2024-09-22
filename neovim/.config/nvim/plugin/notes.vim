@@ -13,7 +13,7 @@ augroup Waikiki
     autocmd User setup nnoremap gf <Plug>(waikikiFollowLink)
 augroup END
 
-function! s:JournalEntry()
+function! s:JournalEntry() abort
     let l:date = trim(system(['date', '+%Y-%m-%d']))
     exec 'tabe' $NOTES_DIR .. '/Journal/' .. l:date .. '.md'
 endfunction
