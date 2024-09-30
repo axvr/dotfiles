@@ -64,6 +64,9 @@ if &term =~# '^\(screen\|tmux\)'
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+" Match column numbers in 'grepformat'
+set grepformat^=%f:%l:%c:%m
+
 " "<Leader>" and "<LocalLeader>" prefixes
 let g:mapleader = " "
 let g:maplocalleader = "\\"
@@ -76,7 +79,7 @@ augroup cursor_restore
     " When editing a file, jump to the last known cursor position.
     autocmd BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
     " Reset cursor position to line 1 when writing a Git commit/tag message.
-    autocmd BufReadPost COMMIT_EDITMSG,TAG_EDITMSG normal! gg0
+    autocmd BufReadPost COMMIT_EDITMSG,TAG_EDITMSG,NOTES_EDITMSG normal! gg0
 augroup END
 
 augroup filetype_config

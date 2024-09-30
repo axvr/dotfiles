@@ -14,6 +14,7 @@ packadd matchit
 packadd traces
 packadd qf
 packadd apart
+packadd fugitive
 
 " Replace netrw with dirvish.
 let g:netrw_banner = 0

@@ -1,8 +1,5 @@
 " Project management helpers.
 
-" Match column numbers in 'grepformat'
-set grepformat^=%f:%l:%c:%m
-
 function! TempSetBufOpt(opt, val, callback)
     let buf = bufnr('%')
     let prevval = getbufvar(buf, a:opt)
@@ -37,15 +34,10 @@ command! -nargs=0 -bar DiffOrig
 " Create parent directories on buffer write if they don't exist.
 function! s:create_parent_dirs()
     let dir = expand("%:p:h")
-    if !isdirectory(dir) && confirm('Create directory "'.dir.'"?', "&Yes\n&No") == 1
+    if ! isdirectory(dir) && confirm('Create directory "'.dir.'"?', "&Yes\n&No") == 1
         call mkdir(dir, 'p')
     endif
 endfunction
-
-augroup create_parent_dirs
-    autocmd!
-    autocmd BufWritePre * :call <SID>create_parent_dirs()
-augroup END
 
 function! s:trim_whitespace()
     let view = winsaveview()
@@ -53,6 +45,8 @@ function! s:trim_whitespace()
     call winrestview(view)
 endfunction
 
-augroup trim_trailing_whitespace
+augroup file_utils
+    autocmd!
+    autocmd BufWritePre * call s:create_parent_dirs()
     autocmd BufWritePre * call s:trim_whitespace()
 augroup END
