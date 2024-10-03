@@ -7,6 +7,7 @@ command! -nargs=0 -bar Helptags
             \ | endfor
             \ | unlet s:dir
 
+" Enable the built-in Man page viewer.
 runtime ftplugin/man.vim
 set keywordprg=:Man
 
@@ -20,8 +21,8 @@ packadd fugitive
 let g:netrw_banner = 0
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
-packadd dirvish
 let g:dirvish_mode = ':sort | silent! g,\v/\.DS_Store$,d _'
+packadd dirvish
 
 packadd conjure
 packadd ionide

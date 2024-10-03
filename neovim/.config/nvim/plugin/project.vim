@@ -19,8 +19,6 @@ command! -nargs=* -complete=file Todos call TempGrep('todos', <q-args>)
 
 " Git integration.
 command! -nargs=+ -complete=file GitGrep call TempGrep('git grep -n --column', <q-args>)
-com! -nargs=? -range GitBlame ec join(systemlist("git -C ".shellescape(expand('%:p:h')).
-            \ " blame -L <line1>,<line2> <args> -- ".expand('%:t')),"\n")
 
 " Command to diff unsaved changes to current file.  Deactivate with :diffoff!
 command! -nargs=0 -bar DiffOrig
@@ -30,23 +28,3 @@ command! -nargs=0 -bar DiffOrig
             \ | exe 'setfiletype ' . getbufvar('#', '&l:filetype')
             \ | exe 'silent file [Diff] ' . bufname('#')
             \ | wincmd p | diffthis
-
-" Create parent directories on buffer write if they don't exist.
-function! s:create_parent_dirs()
-    let dir = expand("%:p:h")
-    if ! isdirectory(dir) && confirm('Create directory "'.dir.'"?', "&Yes\n&No") == 1
-        call mkdir(dir, 'p')
-    endif
-endfunction
-
-function! s:trim_whitespace()
-    let view = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(view)
-endfunction
-
-augroup file_utils
-    autocmd!
-    autocmd BufWritePre * call s:create_parent_dirs()
-    autocmd BufWritePre * call s:trim_whitespace()
-augroup END

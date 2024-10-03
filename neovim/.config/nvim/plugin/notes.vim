@@ -9,13 +9,12 @@ packadd waikiki
 augroup Waikiki
     autocmd!
     autocmd User setup nmap <buffer> <2-LeftMouse> <Plug>(waikikiFollowLink)
-    autocmd user setup silent! delcommand WaikikiTags
-    autocmd User setup nnoremap gf <Plug>(waikikiFollowLink)
+    autocmd User setup nnoremap <buffer> gf <Plug>(waikikiFollowLink)
 augroup END
 
 function! s:JournalEntry() abort
     let l:date = trim(system(['date', '+%Y-%m-%d']))
-    exec 'tabe' $NOTES_DIR .. '/Journal/' .. l:date .. '.md'
+    exec 'tabe' $NOTES_DIR . '/Journal/' . l:date . '.md'
 endfunction
 
 command -nargs=0 Notes tabe ~/Documents/Notes
