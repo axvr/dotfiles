@@ -127,4 +127,6 @@ augroup filetype_config
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
 
     autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal ft=markdown et sts=2 sw=2
+
+    autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=100
 augroup END

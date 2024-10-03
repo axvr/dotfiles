@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Shorten Amazon links.
-
-if [ -n "$1" ]; then echo "$@"
-else cat
-fi | extract-uris \
-   | sed -Ee 's,^https://([[:alpha:]\.]+)(/.*)?/dp/([[:alnum:]]+)[/?].*$,https://\1/dp/\3,'

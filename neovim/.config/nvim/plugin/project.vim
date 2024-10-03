@@ -18,6 +18,7 @@ command! -nargs=0 -bar Tasks tabe DONE | split DOING | split TODO
 command! -nargs=* -complete=file Todos call TempGrep('todos', <q-args>)
 
 " Git integration.
+" TODO: replace Fugitive's :Ggrep with this?
 command! -nargs=+ -complete=file GitGrep call TempGrep('git grep -n --column', <q-args>)
 
 " Command to diff unsaved changes to current file.  Deactivate with :diffoff!

@@ -3,7 +3,7 @@
 # Tmux project switcher.  Switch to and open projects as Tmux sessions.
 # Based on: <https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer>
 
-default_dirs=("$HOME/Projects" "$HOME/Projects/Archive" "$HOME/Projects/Experiments" "$HOME/Projects/Work")
+default_dirs=("$HOME/Projects" "$HOME/Projects/vim" "$HOME/Projects/Archive" "$HOME/Projects/Experiments" "$HOME/Projects/Work")
 PROJ_DIRS=("${PROJ_DIRS[@]:-${default_dirs[@]}}")
 
 for dir in "${PROJ_DIRS[@]}"; do
