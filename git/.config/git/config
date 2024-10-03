@@ -31,8 +31,12 @@
 	follow = true
 [commit]
 	verbose = true
+[difftool]
+	trustExitCode = true
 [merge]
 	tool = nvimdiff
+[mergetool "nvimdiff"]
+	trustExitCode = true
 [init]
 	defaultBranch = master
 [help]
