@@ -1,5 +1,5 @@
 [tools]
-java = 'temurin-20'
+java = 'temurin-21'
 clojure = 'latest'
 lein = 'latest'
 babashka = 'latest'
