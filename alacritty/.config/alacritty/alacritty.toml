@@ -18,7 +18,7 @@ dynamic_padding = true
 resize_increments = true
 
 [mouse]
-hide_when_typing = true
+hide_when_typing = false
 
 [keyboard]
 bindings = [

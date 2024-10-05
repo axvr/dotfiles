@@ -30,3 +30,4 @@ packadd ionide
 let g:colortemplate_toolbar = 0
 
 let g:tex_flavor = "latex"
+let g:markdown_minlines = 200
