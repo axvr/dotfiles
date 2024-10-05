@@ -7,12 +7,11 @@ TERM = 'xterm-256color'
 
 [font]
 size = 15.0
-# normal = { family = 'Monaco', style = 'Regular' }
-normal = { family = 'JuliaMono', style = 'Light' }
-bold = { family = 'JuliaMono', style = 'Bold' }
-italic = { family = 'JuliaMono', style = 'LightItalic' }
-bold_italic = { family = 'JuliaMono', style = 'BoldItalic' }
-offset = { x = 0, y = 3 }  # X = Letter spacing, Y = Line spacing.
+normal = { family = 'IBM Plex Mono', style = 'Text' }
+italic = { family = 'IBM Plex Mono', style = 'Text Italic' }
+bold = { family = 'IBM Plex Mono', style = 'Bold' }
+bold_italic = { family = 'IBM Plex Mono', style = 'Bold Italic' }
+offset = { x = 0, y = 0 }  # X = Letter spacing, Y = Line spacing.
 builtin_box_drawing = false
 
 [window]
