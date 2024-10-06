@@ -7,10 +7,10 @@ TERM = 'xterm-256color'
 
 [font]
 size = 15.0
-normal = { family = 'IBM Plex Mono', style = 'Text' }
-italic = { family = 'IBM Plex Mono', style = 'Text Italic' }
-bold = { family = 'IBM Plex Mono', style = 'Bold' }
-bold_italic = { family = 'IBM Plex Mono', style = 'Bold Italic' }
+normal = { family = 'IBM Plex Mono', style = 'Regular' }
+italic = { family = 'IBM Plex Mono', style = 'Italic' }
+bold = { family = 'IBM Plex Mono', style = 'SemiBold' }
+bold_italic = { family = 'IBM Plex Mono', style = 'SemiBold Italic' }
 offset = { x = 0, y = 0 }  # X = Letter spacing, Y = Line spacing.
 builtin_box_drawing = false
 
