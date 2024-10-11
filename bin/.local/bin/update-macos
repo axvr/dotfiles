@@ -5,15 +5,14 @@
 set -ex
 
 brew update
-brew upgrade --dry-run
-brew upgrade --cask --greedy --verbose
+brew outdated --greedy --verbose
 
 { set +x; } 2>/dev/null
 read -p "Update? [y/n]: " ans
 case "$ans" in
     [Yy]*)
         brew upgrade
-        brew outdated --cask --greedy --verbose
+        brew upgrade --cask --greedy --verbose
         brew autoremove
         ;;
 esac

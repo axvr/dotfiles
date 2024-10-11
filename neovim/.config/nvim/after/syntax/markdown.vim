@@ -1,11 +1,11 @@
 " Basic syntax highlighting for GitHub Markdown Alerts:
 " https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
 
-syntax match markdownGitHubAlertNote /\[!NOTE\]/
-syntax match markdownGitHubAlertTip  /\[!TIP\]/
-syntax match markdownGitHubAlertImportant /\[!IMPORTANT\]/
-syntax match markdownGitHubAlertWarning /\[!WARNING\]/
-syntax match markdownGitHubAlertCaution /\[!CAUTION\]/
+syntax match markdownGitHubAlertNote /\m\[!NOTE\]/
+syntax match markdownGitHubAlertTip  /\m\[!TIP\]/
+syntax match markdownGitHubAlertImportant /\m\[!IMPORTANT\]/
+syntax match markdownGitHubAlertWarning /\m\[!WARNING\]/
+syntax match markdownGitHubAlertCaution /\m\[!CAUTION\]/
 
 hi def link markdownGitHubAlertTip DiagnosticOk
 hi def link markdownGitHubAlertNote DiagnosticHint

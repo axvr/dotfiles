@@ -25,14 +25,24 @@ dynamic_padding = true
 resize_increments = true
 option_as_alt = "OnlyLeft"
 
+[scrolling]
+history = 0
+
 [mouse]
 hide_when_typing = false
 
 [keyboard]
 bindings = [
     { key = 'Enter', mods = 'Command', action = 'ToggleFullscreen' },
+
+    # Font size controls.
     { key = '+', mods = 'Command', action = 'IncreaseFontSize' },
     { key = '-', mods = 'Command', action = 'DecreaseFontSize' },
     { key = '0', mods = 'Command', action = 'ResetFontSize' },
-    { key = '6', mods = 'Control', chars = "\u001E" }
+
+    # Map CTRL-6 to CTRL-^
+    { key = '6', mods = 'Control', chars = "\u001E" },
+
+    # Convert Alt-# on macOS to #
+    { key = '3', mods = 'Alt', chars = '#' }
 ]
