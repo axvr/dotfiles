@@ -8,8 +8,10 @@ packadd waikiki
 
 augroup Waikiki
     autocmd!
-    autocmd User setup nmap <buffer> <2-LeftMouse> <Plug>(waikikiFollowLink)
-    autocmd User setup nnoremap <buffer> gf <Plug>(waikikiFollowLink)
+    autocmd User setup nnoremap <unique> <buffer> <2-LeftMouse> <Plug>(waikikiFollowLink)
+    autocmd User setup nnoremap <unique> <buffer> gf <Plug>(waikikiFollowLink)
+    " Undo "<2-LeftMouse>" mapping in Vim help files.
+    autocmd FileType help silent! nunmap <buffer> <2-LeftMouse>
 augroup END
 
 function! s:JournalEntry() abort
