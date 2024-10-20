@@ -44,5 +44,9 @@ bindings = [
     { key = '6', mods = 'Control', chars = "\u001E" },
 
     # Convert Alt-# on macOS to #
-    { key = '3', mods = 'Alt', chars = '#' }
+    { key = '3', mods = 'Alt', chars = '#' },
+
+    # Type em-dash and en-dash.
+    { key = '-', mods = 'Alt', chars = "\u2013" },
+    { key = '-', mods = 'Alt|Shift', chars = "\u2014" }
 ]

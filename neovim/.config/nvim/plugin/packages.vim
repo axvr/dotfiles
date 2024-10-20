@@ -31,3 +31,5 @@ let g:colortemplate_toolbar = 0
 
 let g:tex_flavor = "latex"
 let g:markdown_minlines = 200
+
+let g:ledger_is_hledger = v:true

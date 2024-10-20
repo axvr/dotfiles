@@ -3,6 +3,10 @@
 	email = alex@vear.uk
 [core]
 	editor = nvim
+[init]
+	defaultBranch = master
+[help]
+	autocorrect = 10
 [alias]
 	graph = log --all --decorate --oneline --graph
 	submodule-pull = submodule update --remote --merge
@@ -25,27 +29,25 @@
 		      git for-each-ref \"refs/tags/$1\" --format='%(contents)'; \
 		    }; [ -n \"$1\" ] && show_tag"
 	purge-path = filter-repo --invert-paths --path
+[sendemail]
+	smtpserver = smtp.fastmail.com
+	smtpuser = alex@vear.uk
+	smtpencryption = tls
+	smtpserverport = 587
 [pull]
 	ff = only
 [log]
 	follow = true
 [commit]
 	verbose = true
+[apply]
+	whitespace = fix
 [difftool]
 	trustExitCode = true
 [merge]
 	tool = nvimdiff
 [mergetool "nvimdiff"]
 	trustExitCode = true
-[init]
-	defaultBranch = master
-[help]
-	autocorrect = 10
-[sendemail]
-	smtpserver = smtp.fastmail.com
-	smtpuser = alex@vear.uk
-	smtpencryption = tls
-	smtpserverport = 587
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
@@ -63,5 +65,3 @@
 	insteadOf = "https://git.sr.ht/"
 [url "ssh://git@git.sr.ht/"]
 	pushInsteadOf = "https://git.sr.ht/"
-[apply]
-	whitespace = fix
