@@ -32,7 +32,6 @@ if has('mac')
 endif
 
 " Completion
-set omnifunc=syntaxcomplete#Complete
 set wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store,*/.cpcache/*
 set path=.,,**
 set dictionary=/usr/dict/words,/usr/share/dict/words
@@ -73,6 +72,11 @@ let g:maplocalleader = "\\"
 
 " Sensible default mappings
 nnoremap Q gq
+
+if exists(':menu')
+    aunmenu PopUp.-1-
+    aunmenu PopUp.How-to\ disable\ mouse
+endif
 
 " Create parent directories on buffer write if they don't exist.
 function! s:create_parent_dirs()
