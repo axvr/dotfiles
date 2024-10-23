@@ -40,7 +40,6 @@ command! -nargs=0 -bar LspHoverDoc   call v:lua.vim.lsp.buf.hover()
 command! -nargs=0 -bar LspImplementation call v:lua.vim.lsp.buf.implementation()
 command! -nargs=? -bar LspRename     call v:lua.vim.lsp.buf.rename(<f-args>)
 command! -nargs=0 -bar LspTypeDef    call v:lua.vim.lsp.buf.type_definition()
-command! -nargs=0 -bar LspSignature  call v:lua.vim.lsp.buf.signature_help()
 
 nnoremap <C-.> :<C-u>LspCodeAction<CR>
 
