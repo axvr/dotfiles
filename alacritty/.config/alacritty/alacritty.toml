@@ -1,6 +1,7 @@
+[general]
 import = ["~/.config/alacritty/raider-theme.toml"]
 
-[shell]
+[terminal.shell]
 program = '/bin/bash'
 args = ['-l', '-c', 'tmux-project ~']
 

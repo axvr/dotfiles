@@ -7,7 +7,6 @@ endfunction
 call execute('syn region markdownLink ' . s:GetSynCmd('markdownLink') . ' conceal')
 call execute('syn region markdownId ' . s:GetSynCmd('markdownId') . ' conceal')
 call execute('syn region markdownLinkText ' . s:GetSynCmd('markdownLinkText') . ' concealends')
-call execute('syn region markdownCode ' . s:GetSynCmd('markdownCode') . ' concealends')
 
 " Set colour of text within Markdown code blocks.
 hi! link markdownCodeBlock Function
