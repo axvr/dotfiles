@@ -51,8 +51,8 @@ alias ledger-record='$EDITOR "$LEDGER_FILE"'
 alias ledger-web='echo "http://127.0.0.1:5000" | open-urls && hledger web -- --serve'
 
 export NOTES_DIR="$HOME/Documents/Notes"
-alias notes='nvim +Notes +tabonly'
-alias jrnl='nvim +Journal +tabonly'
+alias notes='nvim +Notes +only'
+alias journal='nvim +Journal +only'
 
 alias rtx='mise'
 alias sdk='mise'
