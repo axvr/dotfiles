@@ -18,12 +18,13 @@ git submodule update
 git submodule add -f <url> neovim/.config/nvim/pack/core/.../...
 
 # Update Vim plugins
-git submodule update --remote --merge
+git submodule-pull
 
 # Remove Vim plugins
-git submodule deinit -f neovim/.config/nvim/pack/core/.../...
-git rm -f !$
-rm -rf .git/modules/!$
+git submodule-purge neovim/.config/nvim/pack/core/.../...
+
+# List Vim plugins
+git submodule-list
 ```
 
 ## Legal

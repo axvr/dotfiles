@@ -8,15 +8,21 @@
 [help]
 	autocorrect = 10
 [alias]
-	ui = !nvim +Git +only
+	ui = ! nvim +Git +only
 	graph = log --all --decorate --oneline --graph
+	submodule-list = "! git submodule foreach | sed -e \"s/^Entering '//\" -e \"s/'$//\""
 	submodule-pull = submodule update --remote --merge
-	markers = !git ls-files -u | awk '{ print $4 }' | uniq | xargs grep -Hn '^<<<<<<<'
+	submodule-purge = "! submodule_purge() { \
+			     git submodule deinit -f \"$1\" \
+			       && git rm -f \"$1\" \
+			       && rm -rf \".git/modules/$1\"; \
+			   }; submodule_purge"
+	markers = ! git ls-files -u | awk '{ print $4 }' | uniq | xargs grep -Hn '^<<<<<<<'
 	fixup = commit --fixup
 	amend = commit --amend
 	amendne = commit --amend --no-edit
 	rebaser = rebase -i --autosquash
-	git = !git
+	git = ! git
 	root = rev-parse --show-toplevel
 	open = "! open_remote() { \
 		  git remote get-url \"${1-origin}\" \

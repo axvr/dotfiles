@@ -14,6 +14,7 @@ set joinspaces
 set showmatch
 set nofoldenable
 set startofline
+set nrformats=bin,hex,unsigned
 
 " Backup, swap and undo
 set backup

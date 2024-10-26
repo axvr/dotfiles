@@ -14,8 +14,11 @@ set keywordprg=:Man
 packadd matchit
 packadd traces
 packadd qf
-packadd apart
 packadd fugitive
+
+packadd sandwich
+nmap s <NOP>
+xmap s <NOP>
 
 " Replace netrw with dirvish.
 let g:netrw_banner = 0
