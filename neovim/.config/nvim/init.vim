@@ -74,6 +74,15 @@ let g:maplocalleader = "\\"
 " Sensible default mappings
 nnoremap Q gq
 
+function! s:ToggleReadingMode() abort
+    if &l:conceallevel
+        setl conceallevel=0 wrap | echo 'Edit mode'
+    else
+        setl conceallevel=2 nowrap | echo 'Reading mode'
+    endif
+endfunction
+noremap <F3> :<C-u>call <SID>ToggleReadingMode()<CR>
+
 if exists(':menu')
     aunmenu PopUp.-1-
     aunmenu PopUp.How-to\ disable\ mouse
@@ -115,7 +124,7 @@ augroup filetype_config
     autocmd!
 
     autocmd FileType c,cpp,go,gitconfig,fstab setlocal noet sts=8 sw=8
-    autocmd FileType lisp,clojure,scheme,json,ruby setlocal et sts=2 sw=2
+    autocmd FileType lisp,clojure,scheme,json,ruby,markdown setlocal et sts=2 sw=2
     autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2
     autocmd FileType perl,sh,python,javascript setlocal tw=79
     autocmd FileType gitcommit setlocal spell
@@ -131,7 +140,7 @@ augroup filetype_config
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
 
-    autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal ft=markdown et sts=2 sw=2
+    autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal ft=markdown
 
     autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=100
 augroup END
