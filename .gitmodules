@@ -51,3 +51,6 @@
 [submodule "neovim/.config/nvim/pack/lang/opt/ionide"]
 	path = neovim/.config/nvim/pack/lang/opt/ionide
 	url = https://github.com/ionide/Ionide-vim
+[submodule "neovim/.config/nvim/pack/lang/start/d2"]
+	path = neovim/.config/nvim/pack/lang/start/d2
+	url = https://github.com/terrastruct/d2-vim
