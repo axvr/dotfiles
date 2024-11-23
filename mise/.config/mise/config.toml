@@ -6,13 +6,13 @@ babashka = 'latest'
 clj-kondo = 'latest'
 cljfmt = 'latest'
 
-[plugins]
-clojure = 'https://github.com/b-social/asdf-clojure'
-lein = 'https://github.com/b-social/asdf-lein'
-babashka = 'https://github.com/b-social/asdf-babashka'
-clj-kondo = 'https://github.com/b-social/asdf-clj-kondo'
-cljfmt = 'https://github.com/b-social/asdf-cljfmt'
-terraform = 'https://github.com/b-social/asdf-hashicorp'
+[alias]
+clojure = 'asdf:b-social/asdf-clojure'
+lein = 'asdf:b-social/asdf-lein'
+babashka = 'asdf:b-social/asdf-babashka'
+clj-kondo = 'asdf:b-social/asdf-clj-kondo'
+cljfmt = 'asdf:b-social/asdf-cljfmt'
+terraform = 'asdf:b-social/asdf-hashicorp'
 
 [settings]
 experimental = true
