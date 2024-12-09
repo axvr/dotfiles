@@ -137,6 +137,8 @@ augroup filetype_config
 
     autocmd FileType jsonl setlocal nowrap
 
+    autocmd BufRead,BufNewFile *.prolog,*.pro,*.PRO,*.pg setfiletype prolog
+
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
 
