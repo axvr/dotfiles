@@ -1,0 +1,14 @@
+Enabled
+    .NET Install Tool
+    C#
+    C# Dev Kit
+    Dummy IL .NET
+    Hex Editor
+    vscode-icons
+
+Disabled
+    Ionide for F#
+    VSCode Neovim
+
+Not installed
+    Calva
