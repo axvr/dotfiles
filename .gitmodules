@@ -48,9 +48,6 @@
 [submodule "neovim/.config/nvim/pack/lang/start/terraform"]
 	path = neovim/.config/nvim/pack/lang/start/terraform
 	url = https://github.com/hashivim/vim-terraform
-[submodule "neovim/.config/nvim/pack/lang/opt/ionide"]
-	path = neovim/.config/nvim/pack/lang/opt/ionide
-	url = https://github.com/ionide/Ionide-vim
 [submodule "neovim/.config/nvim/pack/lang/start/d2"]
 	path = neovim/.config/nvim/pack/lang/start/d2
 	url = https://github.com/terrastruct/d2-vim
