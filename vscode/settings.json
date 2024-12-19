@@ -1,0 +1,77 @@
+// ~/Library/Application Support/Code/User/settings.json
+{
+    // Fonts.
+    "editor.fontFamily": "IBM Plex Mono, JuliaMono, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": false,
+    "editor.fontSize": 14,
+    "terminal.integrated.fontSize": 14,
+    "debug.console.fontSize": 14,
+    "scm.inputFontSize": 14,
+
+    // UI.
+    "editor.minimap.renderCharacters": false,
+    "editor.minimap.enabled": false,
+    "editor.lineNumbers": "off",
+    "editor.guides.indentation": false,
+    "workbench.tree.renderIndentGuides": "none",
+    "editor.lightbulb.enabled": "off",
+    "breadcrumbs.enabled": false,
+    "editor.glyphMargin": true,
+    "window.autoDetectColorScheme": true,
+    "workbench.iconTheme": "vscode-icons",
+    "editor.folding": false,
+    "editor.showFoldingControls": "mouseover",
+    "editor.rulers": [80, 120],
+    // "git.enabled": false,
+
+    // More sensible defaults.
+    "workbench.startupEditor": "none",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.renderFinalNewline": "off",
+    "editor.renderWhitespace": "trailing",
+    "editor.snippetSuggestions": "none",
+    "extensions.autoUpdate": "onlyEnabledExtensions",
+    "debug.showBreakpointsInOverviewRuler": true,
+    "git.defaultBranchName": "",
+
+    // Disable telemetry and other rubbish.
+    "telemetry.telemetryLevel": "off",
+    "update.showReleaseNotes": false,
+    "chat.commandCenter.enabled": false,
+    "extensions.ignoreRecommendations": true,
+    "dotnetAcquisitionExtension.enableTelemetry": false,
+    "redhat.telemetry.enabled": false,
+    "vsicons.dontShowNewVersionMessage": true,
+
+    // Files.
+    "files.associations": {
+        "TODO": "markdown",
+        "DOING": "markdown",
+        "DONE": "markdown",
+        "*.cil": "il",
+        "*.il": "il",
+        "*.fsproj": "xml"
+    },
+    "files.exclude": {
+        "**/.calva": true,
+        "**/.clj-kondo/.cache": true,
+        "**/.cpcache": true,
+        "**/.lein-repl-history": true,
+        "**/.lsp": true,
+        "**/.nrepl-port": true,
+        "**/Session.vim": true
+    },
+
+    // Extension config.
+    "calva.fmt.configPath": ".cljfmt.edn",
+    "calva.showCalvaSaysOnStart": false,
+    "calva.highlight.highlightActiveIndent": false,
+    "calva.autoOpenJackInTerminal": false,
+    "FSharp.suggestGitignore": false,
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    }
+}
