@@ -51,3 +51,6 @@
 [submodule "neovim/.config/nvim/pack/lang/start/d2"]
 	path = neovim/.config/nvim/pack/lang/start/d2
 	url = https://github.com/terrastruct/d2-vim
+[submodule "neovim/.config/nvim/pack/lang/start/typst"]
+	path = neovim/.config/nvim/pack/lang/start/typst
+	url = https://github.com/kaarmu/typst.vim
