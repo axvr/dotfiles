@@ -1,0 +1,58 @@
+# Ghostty port of the Raider.vim theme by Alex Vear.
+#
+# Public domain.  No rights reserved.
+#
+# https://github.com/axvr/raider.vim/blob/contrib/ghostty/raider
+#
+# Place this file at `$HOME/.config/ghostty/themes/raider`
+
+background = 222222
+foreground = c9c9c9
+
+selection-background =
+selection-foreground =
+
+cursor-color =
+cursor-invert-fg-bg = true
+
+# ----------
+# Normal
+
+# Black
+palette = 0=#2a2a2a
+# Red
+palette = 1=#cf4c4c
+# Green
+palette = 2=#679d80
+# Yellow
+palette = 3=#a79180
+# Blue
+palette = 4=#94baca
+# Magenta
+palette = 5=#c061cb
+# Cyan
+palette = 6=#858ca6
+# White
+palette = 7=#c9c9c9
+
+# ----------
+# Bright
+
+# Black
+palette = 8=#222222
+# Red
+palette = 9=#88766f
+# Green
+palette = 10=#2bb469
+# Yellow
+palette = 11=#ecb55d
+# Blue
+palette = 12=#3465a4
+# Magenta
+palette = 13=#75507b
+# Cyan
+palette = 14=#29acc1
+# White
+palette = 15=#707070
+
+# vim: ft=conf :
