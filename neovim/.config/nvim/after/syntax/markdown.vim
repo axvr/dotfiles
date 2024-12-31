@@ -1,13 +1,3 @@
-function! s:GetSynCmd(name)
-    return execute('syn list ' . a:name)->split("\n")[1]
-                \->trim()->substitute('\m\C^' . a:name . '\s*xxx\s*', '', '')
-endfunction
-
-" Extend Markdown concealing to other syntax elements.
-call execute('syn region markdownLink ' . s:GetSynCmd('markdownLink') . ' conceal')
-call execute('syn region markdownId ' . s:GetSynCmd('markdownId') . ' conceal')
-call execute('syn region markdownLinkText ' . s:GetSynCmd('markdownLinkText') . ' concealends')
-
 " Set colour of text within Markdown code blocks.
 hi! link markdownCodeBlock Function
 hi! link markdownCode markdownCodeBlock

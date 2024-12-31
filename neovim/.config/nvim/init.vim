@@ -74,15 +74,6 @@ let g:maplocalleader = "\\"
 " Sensible default mappings
 nnoremap Q gq
 
-function! s:ToggleReadingMode() abort
-    if &l:conceallevel
-        setl conceallevel=0 wrap | echo 'Edit mode'
-    else
-        setl conceallevel=2 nowrap | echo 'Reading mode'
-    endif
-endfunction
-noremap <F3> :<C-u>call <SID>ToggleReadingMode()<CR>
-
 if exists(':menu')
     aunmenu PopUp.-1-
     aunmenu PopUp.How-to\ disable\ mouse
