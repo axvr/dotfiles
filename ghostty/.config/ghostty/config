@@ -9,27 +9,30 @@ font-style = "Regular"
 font-style-bold = "SemiBold"
 font-style-italic = "Italic"
 font-style-bold-italic = "SemiBold Italic"
+font-thicken = true
 # Disable ligatures.
 font-feature = "-calt"
 font-feature = "-liga"
 font-feature = "-dlig"
-font-thicken = true
 
 theme = raider
 
 window-height = 40
 window-width = 120
 window-step-resize = true
-window-padding-x = 3
-window-padding-y = 3
+window-padding-x = 5
+window-padding-y = 5
 window-padding-balance = true
 macos-titlebar-proxy-icon = hidden
-window-save-state = never
 quit-after-last-window-closed = true
 
-cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
-macos-option-as-alt = right
 clipboard-trim-trailing-spaces = true
+
+# Retro terminal logo!
+macos-icon = custom-style
+macos-icon-frame = beige
+macos-icon-ghost-color = 2bb469
+macos-icon-screen-color = 2a2a2a,2bb469
