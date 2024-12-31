@@ -22,7 +22,7 @@
     "editor.folding": false,
     "editor.showFoldingControls": "mouseover",
     "editor.rulers": [80, 120],
-    // "git.enabled": false,
+    "git.enabled": false,
 
     // More sensible defaults.
     "workbench.startupEditor": "none",
@@ -53,6 +53,7 @@
         "DONE": "markdown",
         "*.cil": "il",
         "*.il": "il",
+        "*.msil": "il",
         "*.fsproj": "xml"
     },
     "files.exclude": {
@@ -71,6 +72,7 @@
     "calva.highlight.highlightActiveIndent": false,
     "calva.autoOpenJackInTerminal": false,
     "FSharp.suggestGitignore": false,
+    "dotnet.codeLens.enableReferencesCodeLens": false,
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     }

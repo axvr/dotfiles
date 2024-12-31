@@ -13,7 +13,6 @@ selection-background =
 selection-foreground =
 
 cursor-color = c9c9c9
-cursor-invert-fg-bg = true
 
 # ----------
 # Normal
