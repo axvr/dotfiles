@@ -2,7 +2,7 @@
 #
 # Public domain.  No rights reserved.
 #
-# https://github.com/axvr/raider.vim/blob/contrib/ghostty/raider
+# https://github.com/axvr/raider.vim/blob/master/ports/ghostty/raider
 #
 # Place this file at `$HOME/.config/ghostty/themes/raider`
 
@@ -12,7 +12,7 @@ foreground = c9c9c9
 selection-background =
 selection-foreground =
 
-cursor-color =
+cursor-color = c9c9c9
 cursor-invert-fg-bg = true
 
 # ----------
@@ -39,7 +39,7 @@ palette = 7=#c9c9c9
 # Bright
 
 # Black
-palette = 8=#222222
+palette = 8=#707070
 # Red
 palette = 9=#88766f
 # Green
@@ -53,6 +53,6 @@ palette = 13=#75507b
 # Cyan
 palette = 14=#29acc1
 # White
-palette = 15=#707070
+palette = 15=#c9c9c9
 
 # vim: ft=conf :
