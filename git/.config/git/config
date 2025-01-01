@@ -8,7 +8,7 @@
 [help]
 	autocorrect = 10
 [alias]
-	ui = ! nvim +Git +only
+	i = ! nvim +Git +only
 	graph = log --all --decorate --oneline --graph
 	submodule-list = "! git submodule foreach | sed -e \"s/^Entering '//\" -e \"s/'$//\""
 	submodule-pull = submodule update --remote --merge
