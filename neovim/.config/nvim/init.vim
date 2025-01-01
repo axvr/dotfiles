@@ -121,19 +121,16 @@ augroup filetype_config
     autocmd FileType gitcommit setlocal spell
     autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s cpo-=J
     autocmd FileType robots,crontab,spec,desktop setlocal commentstring=#%s
-
     autocmd FileType c,cpp setlocal path+=/usr/include
     autocmd FileType tex compiler latexmk
     autocmd FileType sh  compiler shellcheck
-
     autocmd FileType jsonl setlocal nowrap
+    autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=100
 
+    autocmd BufRead,BufNewFile .bashrc,.bash_profile,.bash_completion,.bash_logout setl ft=bash
+    autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal ft=markdown
     autocmd BufRead,BufNewFile *.prolog,*.pro,*.PRO,*.pg setfiletype prolog
 
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
-
-    autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal ft=markdown
-
-    autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=100
 augroup END

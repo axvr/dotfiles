@@ -1,28 +1,28 @@
-#!/usr/bin/env bash
-
-[[ $- != *i* ]] && return            # Abort if not running interactively.
-[ -f /etc/bashrc ] && . /etc/bashrc  # Source global definitions.
+[[ $- != *i* ]] && return            # Abort if not running interactively
+[ -f /etc/bashrc ] && . /etc/bashrc  # Source global definitions
 
 export EDITOR=nvim VISUAL=nvim
 export MANPAGER="less --RAW-CONTROL-CHARS --use-color --color=d+y --color=u+R"
 
-# Better Bash defaults
 export HISTSIZE=10000 HISTFILESIZE=1000000 HISTCONTROL=ignoreboth:erasedups
 shopt -s histappend globstar checkwinsize
 
-# Prompts
 if (($COLUMNS >= 60)) && test "$(command -v git)"; then
     git_branch() { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/^\*//'; }
     PS1="[\u@\h \[\e[0;34m\]\W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\$ "
 elif (($COLUMNS >= 40)); then
     PS1="[\u@\h \[\e[0;34m\]\W\[\e[0;00m\]]\$ "
 else
-    PS1="[\[\e[0;34m\]\W\[\e[0;00m\]]\$ "
+    PS1='$ '
 fi
 PS2="> "
 
-# Aliases & functions
+[[ -s "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] \
+    && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
 
+# ---------------------------------
+
+alias ex='nvim -E'
 alias vi='nvim'
 alias vim='nvim'
 alias svim='nvim -S Session.vim'
@@ -46,6 +46,6 @@ alias journal='nvim +Journal +only'
 alias asdf='mise'
 
 # Aliases to fix files on Apple computers.
+alias unquarantine='xattr -d com.apple.quarantine'
 alias fix_dir='chmod a=rx,u=rwx'
 alias fix_file='chmod a=r,u=rw'
-alias unquarantine='xattr -d com.apple.quarantine'
