@@ -1,25 +1,16 @@
 #!/usr/bin/env bash
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
+[[ $- != *i* ]] && return            # Abort if not running interactively.
+[ -f /etc/bashrc ] && . /etc/bashrc  # Source global definitions.
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+export EDITOR=nvim VISUAL=nvim
+export MANPAGER="less --RAW-CONTROL-CHARS --use-color --color=d+y --color=u+R"
 
-# History config
-export HISTSIZE=10000
-export HISTFILESIZE=1000000
-export HISTCONTROL=ignoreboth:erasedups
-shopt -s histappend
+# Better Bash defaults
+export HISTSIZE=10000 HISTFILESIZE=1000000 HISTCONTROL=ignoreboth:erasedups
+shopt -s histappend globstar checkwinsize
 
-# Bash enhancements
-shopt -s globstar checkwinsize
-
-
-# == Bash prompts ==
-
+# Prompts
 if (($COLUMNS >= 60)) && test "$(command -v git)"; then
     git_branch() { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/^\*//'; }
     PS1="[\u@\h \[\e[0;34m\]\W\[\e[0;32m\]\`git_branch\`\[\e[0;00m\]]\$ "
@@ -28,11 +19,9 @@ elif (($COLUMNS >= 40)); then
 else
     PS1="[\[\e[0;34m\]\W\[\e[0;00m\]]\$ "
 fi
-
 PS2="> "
 
-
-# == Aliases & functions ==
+# Aliases & functions
 
 alias vi='nvim'
 alias vim='nvim'
@@ -54,8 +43,6 @@ export NOTES_DIR="$HOME/Documents/Notes"
 alias notes='nvim +Notes +only'
 alias journal='nvim +Journal +only'
 
-alias rtx='mise'
-alias sdk='mise'
 alias asdf='mise'
 
 # Aliases to fix files on Apple computers.

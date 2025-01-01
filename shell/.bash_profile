@@ -1,37 +1,20 @@
 #!/usr/bin/env bash
 
-# Source `.bashrc` if Bash is the default shell
-if [ -n "$BASH_VERSION" ]; then
-    if [ -f "$HOME/.bashrc" ]; then
-        . "$HOME/.bashrc"
-    fi
-fi
+[ -f "$HOME/.profile" ] && . "$HOME/.profile"
 
-# Set locale and language
 export LANG=en_GB.UTF-8
-# export LC_ALL=POSIX
-
-# Set default editor
-export VISUAL=nvim
-export EDITOR=nvim
 
 prepend_to() {
-    opt="$1"
-    shift
+    opt="$1"; shift
     for v in "$@"; do
-        if ! [[ "${!opt}" =~ "$v" ]]; then
-            eval "$opt='$v${!opt+:}${!opt}'"
-        fi
+        [[ "${!opt}" =~ "$v" ]] || eval "$opt='$v${!opt+:}${!opt}'"
     done
 }
 
 append_to() {
-    opt="$1"
-    shift
+    opt="$1"; shift
     for v in "$@"; do
-        if ! [[ "${!opt}" =~ "$v" ]]; then
-            eval "$opt='${!opt}${!opt+:}$v'"
-        fi
+        [[ "${!opt}" =~ "$v" ]] || eval "$opt='${!opt}${!opt+:}$v'"
     done
 }
 
@@ -42,27 +25,24 @@ prepend_to PATH "$HOME/.local/bin"
 
 # .NET Core settings
 append_to PATH "$HOME/.dotnet/tools"
-export ASPNETCORE_ENVIRONMENT=Development
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export DOTNET_CLI_TELEMETRY_OPTOUT=1 ASPNETCORE_ENVIRONMENT=Development
 
 # Go environment
-export GOPROXY=direct
-export GOPATH="$HOME/.local/share/go"
+export GOPATH="$HOME/.local/share/go" GOPROXY=direct
 prepend_to PATH "$GOPATH/bin"
 
 export PATH MANPATH INFOPATH
 
-# Other configs
-export FONT_DIR="$HOME/.fonts"
-
+# Homebrew
 if [ "$(uname -s)" = "Darwin" ]; then
-    # Homebrew.
     eval "$(/opt/homebrew/bin/brew shellenv)"
-
-    # Bash completion.
-    [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+    [[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] \
+        && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
 fi
 
-export MANPAGER="less --RAW-CONTROL-CHARS --use-color --color=d+y --color=u+R"
-
 eval "$(mise activate bash)"
+
+# Source interactive bash config.
+if [ -n "$BASH_VERSION" ]; then
+    [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+fi
