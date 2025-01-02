@@ -26,10 +26,7 @@ window-padding-balance = true
 macos-titlebar-proxy-icon = hidden
 quit-after-last-window-closed = true
 
-cursor-invert-fg-bg = true
-cursor-style-blink = false
-shell-integration-features = no-cursor
-
+adjust-cursor-thickness = 2
 macos-option-as-alt = right
 clipboard-trim-trailing-spaces = true
 
