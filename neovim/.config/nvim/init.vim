@@ -8,18 +8,23 @@ endif
 " Essentials
 set mouse=a
 set spelllang=en_gb
-set formatoptions+=jpl1n
-set cpoptions+=J
-set joinspaces
+set formatoptions+=jpl1n cpoptions+=J joinspaces
 set showmatch
 set nofoldenable
 set startofline
 set nrformats=bin,hex,unsigned
+set grepformat^=%f:%l:%c:%m     " Match column numbers in 'grepformat'
+set expandtab tabstop=8 softtabstop=4 shiftwidth=4
+set shiftround autoindent
+set wrap showbreak=>>>\  linebreak breakindent
+if has('mac') | set clipboard=unnamed | endif
+set wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store,*/.cpcache/*
+set path=.,,**
+set dictionary=/usr/dict/words,/usr/share/dict/words
 
 " Backup, swap and undo
-set backup
+set backup backupdir-=.
 set undofile
-set backupdir-=.
 for s:dir in [&backupdir, &directory, &undodir]
     if !isdirectory(s:dir)
         call mkdir(s:dir, 'p')
@@ -27,29 +32,9 @@ for s:dir in [&backupdir, &directory, &undodir]
 endfor
 unlet s:dir
 
-" Clipboard
-if has('mac')
-    set clipboard=unnamed
-endif
-
-" Completion
-set wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store,*/.cpcache/*
-set path=.,,**
-set dictionary=/usr/dict/words,/usr/share/dict/words
-
-" Indentation
-set tabstop=8
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-set shiftround
-set autoindent
-
-" Line wrap
-let &showbreak='>>> '
-set wrap
-set linebreak
-set breakindent
+" "<Leader>" and "<LocalLeader>" prefixes
+let g:mapleader = " "
+let g:maplocalleader = "\\"
 
 " Theming
 if &term =~# '256color$' || has('gui')
@@ -64,17 +49,10 @@ if &term =~# '^\(screen\|tmux\)'
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-" Enable blinking cursor.
+" Enable blinking cursor
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
             \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
             \,sm:block-blinkwait175-blinkoff150-blinkon175
-
-" Match column numbers in 'grepformat'
-set grepformat^=%f:%l:%c:%m
-
-" "<Leader>" and "<LocalLeader>" prefixes
-let g:mapleader = " "
-let g:maplocalleader = "\\"
 
 " Sensible default mappings
 nnoremap Q gq
@@ -120,21 +98,21 @@ augroup filetype_config
     autocmd!
 
     autocmd FileType c,cpp,go,gitconfig,fstab setlocal noet sts=8 sw=8
-    autocmd FileType lisp,clojure,scheme,json,ruby,markdown setlocal et sts=2 sw=2
+    autocmd FileType lisp,clojure,scheme,json,ruby,markdown setl et sts=2 sw=2
     autocmd FileType html,css setlocal noet sts=2 sw=2 ts=2
     autocmd FileType perl,sh,python,javascript setlocal tw=79
-    autocmd FileType gitcommit setlocal spell
     autocmd FileType lisp,clojure,scheme setlocal commentstring=;;%s cpo-=J
     autocmd FileType robots,crontab,spec,desktop setlocal commentstring=#%s
     autocmd FileType c,cpp setlocal path+=/usr/include
     autocmd FileType tex compiler latexmk
     autocmd FileType sh  compiler shellcheck
     autocmd FileType jsonl setlocal nowrap
-    autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=100
+    autocmd FileType gitcommit setlocal spell
+    autocmd FileType git,gitcommit,diff setlocal foldmethod=syntax foldlevel=100
 
-    autocmd BufRead,BufNewFile .bashrc,.bash_profile,.bash_completion,.bash_logout setl ft=bash
-    autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal ft=markdown
+    autocmd BufRead,BufNewFile .bash{rc,_profile,_completion,_logout} setl ft=bash
     autocmd BufRead,BufNewFile *.prolog,*.pro,*.PRO,*.pg setfiletype prolog
+    autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal ft=markdown
 
     " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
     autocmd BufRead,BufNewFile *.do setlocal filetype=sh
