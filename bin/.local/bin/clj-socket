@@ -10,6 +10,8 @@
 #   3. If no .clj_port file, start Clojure with socket REPL (+ args) and write
 #      the port number to .clj_port.  On exit, delete .clj_port file.
 
+file='.clj_port'
+cleanup () { [ -f "$file" ] && rm "$file"; }
 readline () {
     rlwrap --command-name clj \
            --prompt-colour=${REPL_PROMPT_COLOUR:=White} \
@@ -20,12 +22,6 @@ readline () {
            "$@"
 }
 
-finish () {
-    [ -f "$file" ] && rm "$file"
-}
-
-file='.clj_port'
-
 if [ $# -ne 0 ] && [[ "$1" != -* ]]; then
     # If args given and don't begin with a hyphen connect to specified REPL.
     readline nc "$@"
@@ -33,7 +29,9 @@ elif [ -f "$file" ]; then
     # If .clj_port file exists.
     if [ $# -eq 0 ]; then
         # No arguments were given, connect to running socket REPL.
-        readline nc localhost "$(< "$file")"
+        port="$(< "$file")"
+        echo "Connecting to Clojure socket REPL on port: $port"
+        readline nc localhost "$port"
     else
         # Arguments given with intention of starting another socket REPL.
         echo "Socket REPL already running on port: $(< "$file")"
@@ -41,7 +39,7 @@ elif [ -f "$file" ]; then
     fi
 else
     # Start new socket REPL.
-    trap finish EXIT
+    trap cleanup EXIT
     port="$(rand-port)"
     echo "$port" > "$file"
     echo "Starting Clojure with socket REPL on port: $port"

@@ -46,3 +46,6 @@
 [submodule "vim/.vim/pack/lang/start/typst"]
 	path = vim/.vim/pack/lang/start/typst
 	url = https://github.com/kaarmu/typst.vim
+[submodule "vim/.vim/pack/core/opt/info"]
+	path = vim/.vim/pack/core/opt/info
+	url = https://github.com/hiphish/info.vim

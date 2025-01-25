@@ -11,6 +11,8 @@ command! -nargs=0 -bar Helptags
 runtime ftplugin/man.vim
 set keywordprg=:Man
 
+packadd info
+
 packadd matchit
 packadd traces
 packadd qf  " or cfilter?
