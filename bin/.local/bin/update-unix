@@ -36,5 +36,5 @@ fi
 (
   pushd ~/Projects/dotfiles/
   git submodule-pull
-  nvim +Helptags +qall
+  vim +Helptags +qall
 )

@@ -31,7 +31,7 @@ let g:loaded_netrwPlugin = 1
 let g:dirvish_mode = ':sort | silent! g,\v/\.DS_Store$,d _'
 packadd dirvish
 
-let g:colortemplate_toolbar = 0
+let g:colortemplate_toolbar = !has('nvim')
 let g:tex_flavor = "latex"
 let g:markdown_minlines = 200
 let g:ledger_is_hledger = v:true
