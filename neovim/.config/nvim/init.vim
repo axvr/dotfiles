@@ -6,25 +6,41 @@ if !exists('g:syntax_on')
 endif
 
 " Essentials
-set mouse=a
+set hidden autoread display=truncate
+set backspace=indent,eol,start
+set history=10000
+set mouse=a belloff=all
+set hlsearch incsearch
 set spelllang=en_gb
 set formatoptions+=jpl1n cpoptions+=J joinspaces
-set showmatch
+set sessionoptions+=slash,unix sessionoptions-=options
+set viewoptions+=slash,unix sessionoptions-=options
+set shortmess=ltToOCF
+set showmatch showcmd ruler
+set scrolloff=0 sidescroll=1
 set nofoldenable
 set startofline
 set nrformats=bin,hex,unsigned
 set grepformat^=%f:%l:%c:%m     " Match column numbers in 'grepformat'
 set expandtab tabstop=8 softtabstop=4 shiftwidth=4
-set shiftround autoindent
+set shiftround autoindent nosmarttab
 set wrap showbreak=>>>\  linebreak breakindent
 if has('mac') | set clipboard=unnamed | endif
-set wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store,*/.cpcache/*
+set wildmenu wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store,*/.cpcache/*
 set path=.,,**
 set dictionary=/usr/dict/words,/usr/share/dict/words
+set ttimeout ttimeoutlen=50
 
 " Backup, swap and undo
-set backup backupdir-=.
-set undofile
+" TODO: unify these between editors.
+if has('nvim')
+    set backupdir-=.
+else
+    let &backupdir = expand($HOME.'/.vim/backup')
+    let &directory = expand($HOME.'/.vim/swap')
+    let &undodir = expand($HOME.'/.vim/undo')
+endif
+set backup undofile
 for s:dir in [&backupdir, &directory, &undodir]
     if !isdirectory(s:dir)
         call mkdir(s:dir, 'p')
@@ -55,9 +71,10 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
             \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 " Sensible default mappings
-nnoremap Q gq
+map Q gq | sunmap Q
+inoremap <C-U> <C-G>u<C-U>
 
-if exists(':menu')
+if has('nvim') && exists(':menu')
     aunmenu PopUp.-1-
     aunmenu PopUp.How-to\ disable\ mouse
 endif
