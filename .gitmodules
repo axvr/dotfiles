@@ -13,8 +13,8 @@
 [submodule "vim/.vim/pack/core/opt/traces"]
 	path = vim/.vim/pack/core/opt/traces
 	url = https://github.com/markonm/traces.vim
-[submodule "vim/.vim/pack/core/start/commentary"]
-	path = vim/.vim/pack/core/start/commentary
+[submodule "vim/.vim/pack/core/opt/commentary"]
+	path = vim/.vim/pack/core/opt/commentary
 	url = https://github.com/tpope/vim-commentary
 [submodule "vim/.vim/pack/core/opt/fugitive"]
 	path = vim/.vim/pack/core/opt/fugitive

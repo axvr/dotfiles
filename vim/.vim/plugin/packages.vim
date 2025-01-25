@@ -21,8 +21,7 @@ if has('nvim')
     packadd conjure
 else
     packadd comment
-    " packadd editorconfig
-    " Revive Ascribe?
+    " packadd editorconfig  (Revive Ascribe?)
 endif
 
 " Replace netrw with dirvish.
