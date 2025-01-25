@@ -36,9 +36,9 @@ set ttimeout ttimeoutlen=50
 if has('nvim')
     set backupdir-=.
 else
-    let &backupdir = expand($HOME.'/.vim/backup')
-    let &directory = expand($HOME.'/.vim/swap')
-    let &undodir = expand($HOME.'/.vim/undo')
+    let &backupdir = expand($HOME.'/.vim/state/backup')
+    let &directory = expand($HOME.'/.vim/state/swap')
+    let &undodir = expand($HOME.'/.vim/state/undo')
 endif
 set backup undofile
 for s:dir in [&backupdir, &directory, &undodir]
