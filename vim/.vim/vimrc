@@ -38,7 +38,7 @@ if has('nvim')
 else
     let &backupdir = expand($HOME.'/.vim/state/backup')
     let &directory = expand($HOME.'/.vim/state/swap')
-    let &undodir = expand($HOME.'/.vim/state/undo')
+    let &undodir   = expand($HOME.'/.vim/state/undo')
 endif
 set backup undofile
 for s:dir in [&backupdir, &directory, &undodir]
