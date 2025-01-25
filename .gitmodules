@@ -1,0 +1,48 @@
+[submodule "vim/.vim/pack/core/start/raider"]
+	path = vim/.vim/pack/core/start/raider
+	url = https://github.com/axvr/raider.vim
+[submodule "vim/.vim/pack/core/start/apart"]
+	path = vim/.vim/pack/core/start/apart
+	url = https://github.com/axvr/apart.vim
+[submodule "vim/.vim/pack/core/start/cool"]
+	path = vim/.vim/pack/core/start/cool
+	url = https://github.com/romainl/vim-cool
+[submodule "vim/.vim/pack/core/opt/qf"]
+	path = vim/.vim/pack/core/opt/qf
+	url = https://github.com/romainl/vim-qf
+[submodule "vim/.vim/pack/core/opt/traces"]
+	path = vim/.vim/pack/core/opt/traces
+	url = https://github.com/markonm/traces.vim
+[submodule "vim/.vim/pack/core/start/commentary"]
+	path = vim/.vim/pack/core/start/commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "vim/.vim/pack/core/opt/fugitive"]
+	path = vim/.vim/pack/core/opt/fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "vim/.vim/pack/core/opt/dirvish"]
+	path = vim/.vim/pack/core/opt/dirvish
+	url = https://github.com/justinmk/vim-dirvish
+[submodule "vim/.vim/pack/lang/start/ical"]
+	path = vim/.vim/pack/lang/start/ical
+	url = https://github.com/axvr/ical.vim
+[submodule "vim/.vim/pack/lang/start/org"]
+	path = vim/.vim/pack/lang/start/org
+	url = https://github.com/axvr/org.vim
+[submodule "vim/.vim/pack/lang/start/ledger"]
+	path = vim/.vim/pack/lang/start/ledger
+	url = https://github.com/ledger/vim-ledger
+[submodule "vim/.vim/pack/lang/opt/conjure"]
+	path = vim/.vim/pack/lang/opt/conjure
+	url = https://github.com/Olical/conjure
+[submodule "vim/.vim/pack/lang/opt/colortemplate"]
+	path = vim/.vim/pack/lang/opt/colortemplate
+	url = https://github.com/lifepillar/vim-colortemplate
+[submodule "vim/.vim/pack/lang/start/terraform"]
+	path = vim/.vim/pack/lang/start/terraform
+	url = https://github.com/hashivim/vim-terraform
+[submodule "vim/.vim/pack/lang/start/d2"]
+	path = vim/.vim/pack/lang/start/d2
+	url = https://github.com/terrastruct/d2-vim
+[submodule "vim/.vim/pack/lang/start/typst"]
+	path = vim/.vim/pack/lang/start/typst
+	url = https://github.com/kaarmu/typst.vim
