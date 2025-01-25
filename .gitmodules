@@ -25,11 +25,6 @@
 [submodule "neovim/.config/nvim/pack/core/opt/dirvish"]
 	path = neovim/.config/nvim/pack/core/opt/dirvish
 	url = https://github.com/justinmk/vim-dirvish
-[submodule "neovim/.config/nvim/pack/core/opt/sandwich"]
-	path = neovim/.config/nvim/pack/core/opt/sandwich
-	url = https://github.com/machakann/vim-sandwich
-
-# Vim programming language packs.
 [submodule "neovim/.config/nvim/pack/lang/start/ical"]
 	path = neovim/.config/nvim/pack/lang/start/ical
 	url = https://github.com/axvr/ical.vim

@@ -15,34 +15,10 @@ packadd matchit
 packadd traces
 packadd qf
 packadd fugitive
-packadd conjure
 
-let g:sandwich_no_default_key_mappings = 1
-packadd sandwich
-" Switch Sandwich to use "S" instead of "s".
-nmap S <Nop>
-xmap S <Nop>
-" add
-nmap Sa <Plug>(sandwich-add)
-xmap Sa <Plug>(sandwich-add)
-omap Sa <Plug>(sandwich-add)
-" delete
-nmap Sd <Plug>(sandwich-delete)
-xmap Sd <Plug>(sandwich-delete)
-nmap Sdb <Plug>(sandwich-delete-auto)
-" replace
-nmap Sr <Plug>(sandwich-replace)
-xmap Sr <Plug>(sandwich-replace)
-nmap Srb <Plug>(sandwich-replace-auto)
-" text-objects (if you need)
-omap iS <Plug>(textobj-sandwich-auto-i)
-xmap iS <Plug>(textobj-sandwich-auto-i)
-omap aS <Plug>(textobj-sandwich-auto-a)
-xmap aS <Plug>(textobj-sandwich-auto-a)
-omap iS <Plug>(textobj-sandwich-query-i)
-xmap iS <Plug>(textobj-sandwich-query-i)
-omap aS <Plug>(textobj-sandwich-query-a)
-xmap aS <Plug>(textobj-sandwich-query-a)
+if has('nvim')
+    packadd conjure
+endif
 
 " Replace netrw with dirvish.
 let g:netrw_banner = 0
