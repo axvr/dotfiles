@@ -2,7 +2,7 @@
 
 " Regenerate help tags for plugins.
 command! -nargs=0 -bar Helptags
-            \ for s:dir in glob('~/.config/nvim/pack/*/*/*/doc', 1, 1)
+            \ for s:dir in glob('~/.vim/pack/*/*/*/doc', 1, 1)
             \ |   execute 'helptags ' . s:dir
             \ | endfor
             \ | unlet s:dir
@@ -13,11 +13,16 @@ set keywordprg=:Man
 
 packadd matchit
 packadd traces
-packadd qf
+packadd qf  " or cfilter?
 packadd fugitive
 
 if has('nvim')
+    packadd commentary
     packadd conjure
+else
+    packadd comment
+    " packadd editorconfig
+    " Revive Ascribe?
 endif
 
 " Replace netrw with dirvish.

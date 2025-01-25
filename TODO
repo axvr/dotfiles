@@ -1,7 +1,6 @@
 - Vim
   - Conjure: add Zepl's `gz` binding?
   - Clojure-LSP?
-  - Keep a minimal Vim config (share some with Neovim?)
   - `<C-K>` binding to lookup symbol in HyperSpec, ClojureDocs or Javadoc?
 - CljDoc equivalent to my HyperSpec command.
   - https://clojuredocs.org/

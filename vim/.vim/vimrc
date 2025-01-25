@@ -1,4 +1,4 @@
-" ~/.config/nvim/init.vim
+" ~/.vim/vimrc
 
 filetype plugin indent on
 if !exists('g:syntax_on')
