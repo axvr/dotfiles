@@ -54,6 +54,7 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias ip='ip --color=auto'
+alias diff='diff --color=auto'
 
 export LEDGER_FILE="$HOME/Documents/Ledger/Personal.journal"
 alias ledger='hledger'

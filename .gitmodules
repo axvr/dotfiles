@@ -49,3 +49,6 @@
 [submodule "vim/.vim/pack/core/opt/info"]
 	path = vim/.vim/pack/core/opt/info
 	url = https://github.com/hiphish/info.vim
+[submodule "vim/.vim/pack/core/start/characterize"]
+	path = vim/.vim/pack/core/start/characterize
+	url = https://github.com/tpope/vim-characterize
