@@ -43,10 +43,10 @@ PS2="\[\e[0;00m\]> "
 [[ -s "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] \
     && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
 
-alias ex='nvim -E'
-alias vi='nvim'
+alias ex='vim -E'
+alias vi='vim'
 alias vim='nvim'
-alias svim='nvim -S Session.vim'
+alias svim='vim -S Session.vim'
 alias vimdiff='nvim -d'
 
 alias ls='ls --color=auto'
@@ -62,8 +62,8 @@ alias ledger-record='$EDITOR "$LEDGER_FILE"'
 alias ledger-web='echo "http://127.0.0.1:5000" | open-urls && hledger web -- --serve'
 
 export NOTES_DIR="$HOME/Documents/Notes"
-alias notes='nvim +Notes +only'
-alias journal='nvim +Journal +only'
+alias notes='vim +Notes +only'
+alias journal='vim +Journal +only'
 
 alias asdf='mise'
 
