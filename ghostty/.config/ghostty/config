@@ -15,6 +15,7 @@ font-feature = "-calt"
 font-feature = "-liga"
 font-feature = "-dlig"
 
+auto-update = off
 theme = raider
 
 window-height = 40
