@@ -30,6 +30,17 @@ command! -nargs=0 -bar DiffOrig
             \ | exe 'silent file [Diff] ' . bufname('#')
             \ | wincmd p | diffthis
 
+" Prompt loading a ".axvr.vim" file to load extra configs.
+" TODO: checksum and ask to trust file on load.
+" TODO: create an autoload file containing trust functions.
+" confirm('".axvr.vim" file changed.  Load and trust?', "&Yes\n&No", 2, 'Question') == 1
+if filereadable('.axvr.vim')
+    source .axvr.vim
+    echohl WarningMsg
+    echomsg 'Loaded additional config from ".axvr.vim"'
+    echohl NONE
+endif
+
 " LSP config.
 " :help lsp.txt
 if has('nvim')
