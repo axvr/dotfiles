@@ -7,6 +7,10 @@ export MANPAGER="less --RAW-CONTROL-CHARS --use-color --color=d+y --color=u+R"
 export HISTSIZE=10000 HISTFILESIZE=1000000 HISTCONTROL=ignoreboth:erasedups
 shopt -s histappend globstar checkwinsize
 
+# Disable TTY pausing (start/stop control).
+# Enables CTRL-S to search forward in history.
+stty -ixon
+
 # ---------------------------------
 
 PROMPT_COMMAND=()

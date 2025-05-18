@@ -10,6 +10,8 @@ command! -nargs=0 -bar Helptags
 " Enable the built-in Man page viewer.
 runtime ftplugin/man.vim
 set keywordprg=:Man
+" TODO: move this?
+autocmd! FileType sh,bash setlocal keywordprg=:Man
 
 packadd info
 
@@ -33,6 +35,7 @@ let g:loaded_netrwPlugin = 1
 let g:dirvish_mode = ':sort | silent! g,\v/\.DS_Store$,d _'
 packadd dirvish
 
+let g:qf_number = 0
 let g:colortemplate_toolbar = !has('nvim')
 let g:tex_flavor = "latex"
 let g:markdown_minlines = 200
