@@ -1,45 +1,15 @@
-;;;; Clojure deps.edn global config.
-;;;; ~/.clojure/deps.edn
-
 {:aliases
- {;; Check for outdated dependencies.  <https://github.com/liquidz/antq>
-  :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}
-                          org.slf4j/slf4j-nop     {:mvn/version "RELEASE"}}
-             :main-opts ["-m" "antq.core"]}
-
-  ;; Run Clj-kondo linter.  <https://github.com/clj-kondo/clj-kondo>
-  :clj-kondo {:extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
-              :main-opts ["-m" "clj-kondo.main"]}
-
-  :clj-kondo/copy-configs {:extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
-                           :main-opts ["-m" "clj-kondo.main" "--lint" "$(clojure -Spath)" "--dependencies" "--parallel" "--copy-configs"]}
-
-  ;; Start a Socket REPL on port 5555.
-  :repl/socket {:jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/repl}"]}
-
-  ;; Start a Socket pREPL on port 6666.
-  :repl/prepl {:jvm-opts ["-Dclojure.server.repl={:port,6666,:accept,clojure.core.server/io-prepl}"]}
-
-  ;; Start an nREPL server.
-  :repl/nrepl {:extra-deps {nrepl/nrepl       {:mvn/version "RELEASE"}
-                            cider/cider-nrepl {:mvn/version "RELEASE"}}
-                 :main-opts  ["-m" "nrepl.cmdline"
-                              "--middleware" "[cider.nrepl/cider-middleware]"
-                              "--interactive"]}
-
-  ;; Generate dependency graph image.  <https://github.com/clojure/tools.deps.graph>
-  :deps-graph {:replace-deps {org.clojure/tools.deps.graph {:mvn/version "RELEASE"}}
-               :exec-fn clojure.tools.deps.graph/graph
-               :exec-args {:output "deps.png"}}
-
-  ;; Useful deps for performance testing and tuning.
-  ;;   - Benchmarking: <https://github.com/hugoduncan/criterium>
-  ;;     - criterium.core/bench
-  ;;     - criterium.core/quick-bench
-  ;;   - Profiler: <https://github.com/clojure-goes-fast/clj-async-profiler>
-  ;;   - Decompilation: <https://github.com/clojure-goes-fast/clj-java-decompiler>
-  ;;     - clj-java-decompiler.core/decompile
-  ;;     - clj-java-decompiler.core/disassemble
-  :perf {:extra-deps {criterium/criterium {:mvn/version "RELEASE"}
-                      com.clojure-goes-fast/clj-async-profiler {:mvn/version "RELEASE"}
-                      com.clojure-goes-fast/clj-java-decompiler {:mvn/version "RELEASE"}}}}}
+ {:repl/socket {#_ "Start a Socket REPL on port 5555."
+                :jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/repl}"]}
+  :repl/prepl  {#_ "Start a Socket pREPL on port 6666."
+                :jvm-opts ["-Dclojure.server.repl={:port,6666,:accept,clojure.core.server/io-prepl}"]}
+  :repl/nrepl  {#_ "Start an nREPL server."
+                :extra-deps {nrepl/nrepl       {:mvn/version "RELEASE"}
+                             cider/cider-nrepl {:mvn/version "RELEASE"}}
+                :main-opts  ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]" "--interactive"]}
+  :clj-kondo   {#_ "Run clj-kondo linter."
+                :extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+                :main-opts ["-m" "clj-kondo.main"]}
+  :clj-kondo/import-configs {#_ "Import clj-kondo configs from libraries."
+                           :extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+                           :main-opts ["-m" "clj-kondo.main" "--lint" "$(clojure -Spath)" "--dependencies" "--parallel" "--copy-configs"]}}}
