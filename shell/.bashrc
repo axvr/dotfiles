@@ -67,7 +67,6 @@ alias ledger-web='echo "http://127.0.0.1:5000" | open-urls && hledger web -- --s
 
 export NOTES_DIR="$HOME/Documents/Notes"
 alias notes='vim +Notes +only'
-alias journal='vim +Journal +only'
 
 alias asdf='mise'
 

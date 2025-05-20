@@ -31,7 +31,10 @@ fi
 if [ "$(command -v mise)" ]; then
     mise upgrade
     mise prune
+    mise install
 fi
+
+clojure -Ttools install-latest
 
 (
   pushd ~/Projects/dotfiles/

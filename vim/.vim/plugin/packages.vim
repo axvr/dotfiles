@@ -10,15 +10,12 @@ command! -nargs=0 -bar Helptags
 " Enable the built-in Man page viewer.
 runtime ftplugin/man.vim
 set keywordprg=:Man
-" TODO: move this?
-autocmd! FileType sh,bash setlocal keywordprg=:Man
 
 packadd info
-
 packadd matchit
 packadd traces
-packadd qf  " or cfilter?
 packadd fugitive
+packadd qf
 
 if has('nvim')
     packadd commentary
@@ -40,3 +37,5 @@ let g:colortemplate_toolbar = !has('nvim')
 let g:tex_flavor = "latex"
 let g:markdown_minlines = 200
 let g:ledger_is_hledger = v:true
+
+command -nargs=0 Notes split | lcd $NOTES_DIR | edit $NOTES_DIR
