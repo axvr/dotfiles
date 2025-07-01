@@ -7,12 +7,9 @@ clj-kondo = 'latest'
 cljfmt = 'latest'
 
 [alias]
-clojure = 'asdf:b-social/asdf-clojure'
-lein = 'asdf:b-social/asdf-lein'
 babashka = 'asdf:b-social/asdf-babashka'
 clj-kondo = 'asdf:b-social/asdf-clj-kondo'
 cljfmt = 'asdf:b-social/asdf-cljfmt'
-terraform = 'asdf:b-social/asdf-hashicorp'
 
 [settings]
 experimental = true
