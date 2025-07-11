@@ -3,7 +3,8 @@
 # Tmux project switcher.  Switch to and open projects as Tmux sessions.
 # Based on: <https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer>
 
-default_dirs=("$HOME/Projects" "$HOME/Projects/Experiments" "$HOME/Projects/Work")
+PROJ_ROOT="$HOME/Projects"
+default_dirs=("$PROJ_ROOT" "$PROJ_ROOT/Work")
 PROJ_DIRS=("${PROJ_DIRS[@]:-${default_dirs[@]}}")
 
 for dir in "${PROJ_DIRS[@]}"; do
@@ -11,21 +12,25 @@ for dir in "${PROJ_DIRS[@]}"; do
 done
 
 if [[ $# -eq 1 ]]; then
-    session="$1"
+    project="$1"
 else
-    session="$(find ${proj_dirs[*]} \( ! -path '*/.*' \) -maxdepth 1 -mindepth 1 -type d \
-                    | sort -u \
-                    | sed -e "s@^$HOME/@~/@" \
-                    | fzf --reverse \
-                    | sed -e "s@^~/@$HOME/@")"
+    project="$(find ${proj_dirs[*]} \( ! -path '*/.*' \) -maxdepth 1 -mindepth 1 -type d \
+                    | sort --unique --ignore-case \
+                    | sed -e "s@^$PROJ_ROOT/@@" \
+                    | grep -v '^Work$' \
+                    | fzf --layout=reverse --no-color --info=right)"
 fi
 
-[ -d "$session" ] || exit 0
+if [ "$project" = '' ]; then exit 0
+elif ! [ -d "$project" ]; then
+    project="$PROJ_ROOT/$project"
+    [ -d "$project" ] || exit 0
+fi
 
 if [ "$HOME" = "$session" ]; then
     session_name='>_ '
 else
-    session_name="$(basename "$session" | tr . _)"
+    session_name="$(basename "$project" | tr . _)"
 fi
 
 tmux_running="$(pgrep tmux)"
@@ -33,12 +38,12 @@ tmux_running="$(pgrep tmux)"
 [ -n "$tmux_running" ] && [ -z "$TMUX" ] && tmux attach
 
 if [ -z "$TMUX" ] && [ -z "$tmux_running" ]; then
-    tmux new-session -s "$session_name" -c "$session"
+    tmux new-session -s "$session_name" -c "$project"
     exit 0
 fi
 
 if ! tmux has-session -t="$session_name" 2> /dev/null; then
-    tmux new-session -ds "$session_name" -c "$session"
+    tmux new-session -ds "$session_name" -c "$project"
 fi
 
 tmux switch-client -t "$session_name"

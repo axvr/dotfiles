@@ -20,7 +20,7 @@ theme = raider
 
 window-height = 40
 window-width = 120
-window-step-resize = true
+window-step-resize = false
 window-padding-x = 5
 window-padding-y = 5
 window-padding-balance = true
