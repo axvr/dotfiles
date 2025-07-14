@@ -22,7 +22,7 @@ set spelllang=en_gb dictionary=/usr/dict/words,/usr/share/dict/words
 set sessionoptions+=slash,unix sessionoptions-=options
 set viewoptions+=slash,unix viewoptions-=options
 
-" Backup, swap and undo.  (TODO: unify these between editors.)
+" Backup, swap and undo.  (TODO: unify these between editors?)
 if has('nvim')
     set backupdir-=.
 else
@@ -35,6 +35,9 @@ for s:dir in [&backupdir, &directory, &undodir]
     if !isdirectory(s:dir) | call mkdir(s:dir, 'p') | endif
 endfor
 unlet s:dir
+
+" :help i_CTRL-U-default
+inoremap <C-U> <C-G>u<C-U>
 
 " "<Leader>" and "<LocalLeader>" prefixes.
 let g:mapleader = " "
@@ -57,45 +60,12 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
             \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
             \,sm:block-blinkwait175-blinkoff150-blinkon175
 
-" :help i_CTRL-U-default
-inoremap <C-U> <C-G>u<C-U>
-
+" Clean up Neovim PopUp menu.
 if has('nvim') && exists(':menu')
     aunmenu PopUp.-1-
+    aunmenu PopUp.-2-
     aunmenu PopUp.How-to\ disable\ mouse
 endif
-
-" Create parent directories on buffer write if they don't exist.
-function! s:create_parent_dirs()
-    let dir = expand("%:p:h")
-    if ! isdirectory(dir) && confirm('Create directory "'.dir.'"?', "&Yes\n&No", 0, 'Question') == 1
-        call mkdir(dir, 'p')
-    endif
-endfunction
-
-function! s:trim_whitespace()
-    if ! get(b:, 'no_whitespace_trim')
-        let view = winsaveview()
-        keeppatterns %s/\s\+$//e
-        call winrestview(view)
-    endif
-endfunction
-
-augroup file_utils
-    autocmd!
-    autocmd BufWritePre * call s:create_parent_dirs()
-    autocmd BufWritePre * call s:trim_whitespace()
-    " Don't trim whitespace on diff files as it breaks syntax highlighting.
-    autocmd FileType gitcommit,diff let b:no_whitespace_trim = 1
-augroup END
-
-augroup cursor_restore
-    autocmd!
-    " When editing a file, jump to the last known cursor position.
-    autocmd BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-    " Reset cursor position to top of file for these patterns.
-    autocmd BufReadPost */.git/* normal! gg0
-augroup END
 
 augroup filetype_config
     autocmd!
@@ -107,7 +77,6 @@ augroup filetype_config
     autocmd FileType robots,crontab,spec,desktop setl commentstring=#%s
     autocmd FileType c,cpp setl path+=/usr/include
     autocmd FileType tex compiler latexmk
-    autocmd FileType jsonl setl nowrap
     autocmd FileType gitcommit setl spell
     autocmd FileType git,gitcommit,diff setl foldmethod=syntax foldlevel=100
     autocmd FileType sh,bash setl keywordprg=:Man | compiler shellcheck

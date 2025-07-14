@@ -1,10 +1,10 @@
 " Left:  [Git branch][File name][Modified][Read-only][Help][Preview]
 "        [Block 1   ][Block 2                                      ]
-" Right: [Encoding][File type][Position in file][Column number]
-"        [Block 3 ][Block 4  ][Block 5                        ]
+" Right: [Percentage][Line number][Column number][Encoding][File type]
+"        [Block 3                               ][Block 4 ][Block 5  ]
 
 set ruler laststatus=2
-set rulerformat=%32(%=%(%{&fenc?&fenc:&enc}\ %)%(%{&ft==''?'':'\ '.&ft.'\ '}%)%(\ %P\ \ %6{!&nu?line('.').'\ :\ ':''}%2c%)%)
+set rulerformat=%32(%=%(%{!&nu?line('.').':':''}%c\ \ %P\ \ %)%(%{&fenc?&fenc:&enc}\ %)%(%{&ft==''?'\ text':'\ '.&ft}%)%)
 
 function! s:GitBranch()
     return systemlist('git branch --contains HEAD 2> /dev/null')
