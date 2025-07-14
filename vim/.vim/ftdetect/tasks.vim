@@ -1,1 +1,1 @@
-autocmd BufRead,BufNewFile TODO,DOING,DONE setlocal filetype=markdown
+autocmd BufRead,BufNewFile TODO,DOING,DONE setfiletype markdown
