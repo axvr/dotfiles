@@ -5,7 +5,7 @@ if !exists('g:syntax_on')
     syntax enable
 endif
 
-" Essentials
+" Essentials.  (TODO: review these.)
 set startofline hidden autoread display=truncate
 set backspace=indent,eol,start nrformats=bin,hex,unsigned
 set showmatch showcmd ruler history=10000 shortmess=ltToOCF
@@ -16,14 +16,13 @@ set formatoptions+=jpl1n cpoptions+=J joinspaces
 set grepformat^=%f:%l:%c:%m   " Match column numbers in 'grepformat'
 set expandtab tabstop=8 softtabstop=4 shiftwidth=4
 set shiftround autoindent nosmarttab
-set wrap showbreak=>>>\  linebreak breakindent
+set wrap showbreak=↳\  linebreak breakindent
 set path=.,,** clipboard=unnamed
 set spelllang=en_gb dictionary=/usr/dict/words,/usr/share/dict/words
 set sessionoptions+=slash,unix sessionoptions-=options
 set viewoptions+=slash,unix viewoptions-=options
 
-" Backup, swap and undo
-" TODO: unify these between editors.
+" Backup, swap and undo.  (TODO: unify these between editors.)
 if has('nvim')
     set backupdir-=.
 else
@@ -33,17 +32,15 @@ else
 endif
 set backup undofile
 for s:dir in [&backupdir, &directory, &undodir]
-    if !isdirectory(s:dir)
-        call mkdir(s:dir, 'p')
-    endif
+    if !isdirectory(s:dir) | call mkdir(s:dir, 'p') | endif
 endfor
 unlet s:dir
 
-" "<Leader>" and "<LocalLeader>" prefixes
+" "<Leader>" and "<LocalLeader>" prefixes.
 let g:mapleader = " "
 let g:maplocalleader = "\\"
 
-" Theming
+" Theming.
 if &term =~# '256color$' || has('gui')
     set termguicolors
     colorscheme raider
@@ -55,13 +52,12 @@ if &term =~# '^\(screen\|tmux\)'
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-" Enable blinking cursor
+" Enable blinking cursor.
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
             \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
             \,sm:block-blinkwait175-blinkoff150-blinkon175
 
-" Sensible default mappings
-map Q gq | sunmap Q
+" :help i_CTRL-U-default
 inoremap <C-U> <C-G>u<C-U>
 
 if has('nvim') && exists(':menu')
@@ -103,7 +99,6 @@ augroup END
 
 augroup filetype_config
     autocmd!
-
     autocmd FileType c,cpp,go,gitconfig,fstab setl noet sts=8 sw=8
     autocmd FileType lisp,clojure,scheme,json,ruby,markdown setl et sts=2 sw=2
     autocmd FileType html,css setl noet sts=2 sw=2 ts=2
@@ -115,12 +110,5 @@ augroup filetype_config
     autocmd FileType jsonl setl nowrap
     autocmd FileType gitcommit setl spell
     autocmd FileType git,gitcommit,diff setl foldmethod=syntax foldlevel=100
-    autocmd FileType sh,bash compiler shellcheck
-    autocmd FileType sh,bash setl keywordprg=:Man
-
-    autocmd BufRead,BufNewFile .bash{rc,_profile,_completion,_logout} setl ft=bash
-    autocmd BufRead,BufNewFile *.prolog,*.pro,*.PRO,*.pg setfiletype prolog
-    autocmd BufRead,BufNewFile TODO,DOING,DONE setl ft=markdown
-    " Redo <https://cr.yp.to/redo.html> <http://news.dieweltistgarnichtso.net/bin/redo-sh.html>
-    autocmd BufRead,BufNewFile *.do setl filetype=sh
+    autocmd FileType sh,bash setl keywordprg=:Man | compiler shellcheck
 augroup END
