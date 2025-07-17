@@ -4,7 +4,7 @@
 "        [Block 3                               ][Block 4 ][Block 5  ]
 
 set ruler laststatus=2
-set rulerformat=%26(%=%(%{!&nu?line('.').':':''}%c\ \ %P\ \ %)%(%{&fenc?&fenc:&enc}\ %)%(%{&ft==''?'\ text':'\ '.&ft}%)%)
+set rulerformat=%26(%=%(%{!&nu?line('.').':':''}%c\ \ %P\ \ %)%(%{&fenc?&fenc:&enc}\ %)%(%{&ft==''?'\ text':'\ '.&ft}%)%<%)
 
 function! s:GitBranch()
     return systemlist('git branch --contains HEAD 2> /dev/null')

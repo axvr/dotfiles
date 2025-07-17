@@ -20,21 +20,23 @@ if [ "$(command -v git)" ]; then
         | sed -e '/^[^*]/d' -e 's/^\* //')"; }
     PROMPT_COMMAND+=('ps1_git_head')
 fi
-ps1_git() { [ -n "$GIT_HEAD" ] && printf "\e[0;32m%s " "$GIT_HEAD"; }
-
-# Display SSH user and host info when SSH'd into a machine with this config.
-[ -n "$SSH_CLIENT" ] && PROMPT_COMMAND+=('printf "\e[0;31m[%s@%s] " "$USER" "$HOSTNAME"')
 
 # Dynamic length prompt.
 ps1_dynamic() {
+    # Display SSH user and host info when SSH'd into a machine with this config.
+    local ssh
+    [ -n "$SSH_CLIENT" ] && ssh="\[\e[0;31m\][$USER@$HOSTNAME] "
     if (($COLUMNS >= 60)); then
         PROMPT_DIRTRIM=2
-        PS1="\[\e[0;34m\]\w \`ps1_git\`\[\e[0;00m\]\$ "
+        # Display Git branch name.
+        local branch
+        [ -n "$GIT_HEAD" ] && branch="\[\e[0;32m\]$GIT_HEAD "
+        PS1="$ssh\[\e[0;34m\]\w $branch\[\e[0;00m\]\$ "
     elif (($COLUMNS >= 40)); then
         PROMPT_DIRTRIM=1
-        PS1="\[\e[0;34m\]\w \[\e[0;00m\]\$ "
+        PS1="$ssh\[\e[0;34m\]\w \[\e[0;00m\]\$ "
     else
-        PS1="\[\e[0;00m\]\$ "
+        PS1="$ssh\[\e[0;00m\]\$ "
     fi
 }
 
