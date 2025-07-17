@@ -3,6 +3,7 @@
 export LANG=en_GB.UTF-8
 
 prepend_to() {
+    local opt
     opt="$1"; shift
     for v in "$@"; do
         [[ "${!opt}" =~ "$v" ]] || eval "$opt='$v${!opt+:}${!opt}'"
@@ -10,6 +11,7 @@ prepend_to() {
 }
 
 append_to() {
+    local opt
     opt="$1"; shift
     for v in "$@"; do
         [[ "${!opt}" =~ "$v" ]] || eval "$opt='${!opt}${!opt+:}$v'"
