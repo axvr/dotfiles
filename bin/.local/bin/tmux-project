@@ -27,7 +27,7 @@ elif ! [ -d "$project" ]; then
     [ -d "$project" ] || exit 0
 fi
 
-if [ "$HOME" = "$session" ]; then
+if [ "$HOME" = "$project" ]; then
     session_name='>_ '
 else
     session_name="$(basename "$project" | tr . _)"
