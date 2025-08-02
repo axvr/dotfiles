@@ -34,9 +34,6 @@
 [submodule "vim/.vim/pack/lang/opt/conjure"]
 	path = vim/.vim/pack/lang/opt/conjure
 	url = https://github.com/Olical/conjure
-[submodule "vim/.vim/pack/lang/opt/colortemplate"]
-	path = vim/.vim/pack/lang/opt/colortemplate
-	url = https://github.com/lifepillar/vim-colortemplate
 [submodule "vim/.vim/pack/lang/start/terraform"]
 	path = vim/.vim/pack/lang/start/terraform
 	url = https://github.com/hashivim/vim-terraform

@@ -33,7 +33,7 @@ let g:dirvish_mode = ':sort | silent! g,\v/\.DS_Store$,d _'
 packadd dirvish
 
 let g:qf_number = 0
-let g:colortemplate_toolbar = !has('nvim')
 let g:tex_flavor = "latex"
 let g:markdown_minlines = 200
 let g:ledger_is_hledger = v:true
+let g:org_clean_folds = 1
