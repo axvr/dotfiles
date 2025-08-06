@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env -S execlineb -WP
 
 # Open a simple Kanban board in Vim.
 
-"$VISUAL" -o TODO DOING DONE
+importas -i edit VISUAL
+$edit -o TODO DOING DONE

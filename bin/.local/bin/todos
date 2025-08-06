@@ -1,14 +1,18 @@
-#!/bin/sh
+#!/usr/bin/env -S execlineb -W
 
 # List TODOs and other comment tags in specified files or a git repo.
 
-pattern="\b\(TO[-_ ]\?DO\|FIX[-_ ]\?ME\|XXX\|BUG\|HACK\)\b"
+define pattern "\\b\\(TO[-_ ]\\?DO\\|FIX[-_ ]\\?ME\\|XXX\\|BUG\\|HACK\\)\\b"
+importas file_count \#
 
-if [ -n "$1" ]; then
-    grep -nH --color=auto "$pattern" $*
-elif [ $(git ls-files 2> /dev/null | wc -l) -ne 0 ]; then
-    grep -nH --color=auto "$pattern" $(git ls-files) 2> /dev/null
-else
-    echo "No files specified nor in a Git repo."
-    exit 1
-fi
+ifelse { test $file_count -ne 0 }
+{ pipeline { dollarat } xargs grep -nH --color=auto $pattern }
+
+backtick -ED "" git_files { redirfd -w 2 /dev/null git ls-files }
+ifelse { test -n $git_files }
+{
+  redirfd -w 2 /dev/null
+  pipeline { echo $git_files } xargs grep -nH --color=auto $pattern
+}
+
+foreground { echo "No files specified nor in a Git repo." } exit 1
