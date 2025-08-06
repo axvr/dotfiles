@@ -9,6 +9,6 @@ if [ -n "$1" ]; then
 elif [ $(git ls-files 2> /dev/null | wc -l) -ne 0 ]; then
     grep -nH --color=auto "$pattern" $(git ls-files) 2> /dev/null
 else
-    echo "No files given"
+    echo "No files specified nor in a Git repo."
     exit 1
 fi
