@@ -2,17 +2,17 @@
 
 # List TODOs and other comment tags in specified files or a git repo.
 
-define pattern "\\b\\(TO[-_ ]\\?DO\\|FIX[-_ ]\\?ME\\|XXX\\|BUG\\|HACK\\)\\b"
-importas file_count \#
-
-ifelse { test $file_count -ne 0 }
-{ pipeline { dollarat } xargs grep -nH --color=auto $pattern }
-
-backtick -ED "" git_files { redirfd -w 2 /dev/null git ls-files }
-ifelse { test -n $git_files }
+backtick -ED "" git_files*
 {
-  redirfd -w 2 /dev/null
-  pipeline { echo $git_files } xargs grep -nH --color=auto $pattern
+    importas -Si \#
+    if { test $# -eq 0 } git ls-files
 }
 
-foreground { echo "No files specified nor in a Git repo." } exit 1
+multisubstitute
+{
+    elgetpositionals
+    define regex "\\b\\(TO[-_ ]\\?DO\\|FIX[-_ ]\\?ME\\|XXX\\|BUG\\|HACK\\)\\b"
+    define -s git_files $git_files*
+}
+
+grep -nsH --color=auto $regex -- . $@ $git_files
