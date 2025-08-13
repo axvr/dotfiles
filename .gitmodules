@@ -49,3 +49,6 @@
 [submodule "vim/.vim/pack/core/start/characterize"]
 	path = vim/.vim/pack/core/start/characterize
 	url = https://github.com/tpope/vim-characterize
+[submodule "vim/.vim/pack/lang/start/execline"]
+	path = vim/.vim/pack/lang/start/execline
+	url = git@github.com:djpohly/vim-execline.git
