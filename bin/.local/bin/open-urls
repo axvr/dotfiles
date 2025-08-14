@@ -14,7 +14,7 @@ else
     exit 1
 fi
 
-for url in $(extract-uris "$@"); do
+for url in $(extract-urls "$@"); do
     sleep 0.2
     >&2 echo "opening: $url"
     "$open_cmd" "$url"

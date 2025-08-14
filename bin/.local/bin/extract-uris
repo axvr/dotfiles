@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# Extract URIs from an input.
-
-splat_urls  () { sed -E -e 's,(https?://),\t\1,g' "$@" | tr '\t' '\n'; }
-filter_urls () { grep 'https\?:\/\/' "$@"; }
-extract_url () { sed -E -e 's,^.*(https?://[^][ ()<>"'']*).*$,\1,' "$@"; }
-
-cat "$@" | splat_urls | filter_urls | extract_url

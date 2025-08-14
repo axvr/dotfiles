@@ -1,0 +1,15 @@
+#!/usr/bin/env -S execlineb -W
+
+# Extract URLs from given files.
+
+pipeline { elgetpositionals cat $@ }
+
+# Spread URLs
+pipeline { sed -E -e "s,(https?://),\\t\\1,g" }
+pipeline { tr "\\t" "\\n" }
+
+# Filter URLs
+pipeline { grep "https\\?:\\/\\/" }
+
+# Extract URLs
+sed -E -e "s,^.*(https?://[^][ ()<>\"']*).*$,\\1,"
