@@ -36,6 +36,7 @@
 		      git for-each-ref \"refs/tags/$1\" --format='%(contents)'; \
 		    }; [ -n \"$1\" ] && show_tag"
 	purge-path = filter-repo --invert-paths --path
+	prep-archive = git filter-repo --to-subdirectory-filter
 [sendemail]
 	smtpserver = smtp.fastmail.com
 	smtpuser = alex@vear.uk

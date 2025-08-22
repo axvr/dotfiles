@@ -1,4 +1,4 @@
-#!/usr/bin/env -S execlineb -WP
+#!/usr/bin/env -S execlineb -W
 
 # Open a simple Kanban board in Vim.
 
