@@ -1,3 +1,3 @@
 {:lib io.github.weavejester/cljfmt,
  :coord
- {:git/tag "0.13.1", :git/sha "7de2860", :git/url "https://github.com/weavejester/cljfmt.git"}}
+ {:git/tag "0.13.4", :git/sha "d56ac42", :git/url "https://github.com/weavejester/cljfmt.git"}}
