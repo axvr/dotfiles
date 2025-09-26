@@ -52,3 +52,6 @@
 [submodule "vim/.vim/pack/lang/start/execline"]
 	path = vim/.vim/pack/lang/start/execline
 	url = git@github.com:djpohly/vim-execline.git
+[submodule "vim/.vim/pack/lang/start/elixir"]
+	path = vim/.vim/pack/lang/start/elixir
+	url = https://github.com/elixir-editors/vim-elixir.git

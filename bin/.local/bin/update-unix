@@ -34,7 +34,9 @@ if [ "$(command -v mise)" ]; then
     mise install
 fi
 
-clojure -Ttools install-latest
+if [ "$(command -v clojure)" ]; then
+    clojure -Ttools install-latest
+fi
 
 (
   pushd ~/Projects/dotfiles/
