@@ -16,4 +16,6 @@ if has('nvim')
     anoremenu PopUp.LSP\ definition <Cmd>LspDefinition<CR>
     anoremenu PopUp.LSP\ code\ action <Cmd>LspCodeAction<CR>
     anoremenu PopUp.LSP\ rename <Cmd>LspRename<CR>
+
+    call v:lua.vim.lsp.enable('elixirls')
 endif

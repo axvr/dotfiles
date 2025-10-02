@@ -1,10 +1,15 @@
 [tools]
-java = 'temurin-21'
+java = 'temurin-25'
+
 clojure = 'latest'
-lein = 'latest'
+leiningen = 'latest'
 babashka = 'latest'
 clj-kondo = 'latest'
 cljfmt = 'latest'
+
+erlang = 'latest'
+elixir = 'latest'
+elixir-ls = 'latest'
 
 [alias]
 babashka = 'asdf:b-social/asdf-babashka'

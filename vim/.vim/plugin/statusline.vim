@@ -1,10 +1,14 @@
 " Left:  [Git branch][File name][Modified][Read-only][Help][Preview]
 "        [Block 1   ][Block 2                                      ]
-" Right: [Percentage][Line number][Column number][Encoding][File type]
+" Right: [Line number][Column number][Percentage][Encoding][File type]
 "        [Block 3                               ][Block 4 ][Block 5  ]
 
+function! StatusLineFileEncoding()
+    return &fenc =~? '^\(\|utf-8\)$' ? '' : ' ' . &fenc
+endfunction
+
 set ruler laststatus=2
-set rulerformat=%26(%=%(%{!&nu?line('.').':':''}%c\ \ %P\ \ %)%(%{&fenc?&fenc:&enc}\ %)%(%{&ft==''?'\ text':'\ '.&ft}%)%<%)
+set rulerformat=%26(%=%(%{!&nu?line('.').':':''}%c\ \ %P\ %)%(%{StatusLineFileEncoding()}\ %)%(%{&ft==''?'\ text':'\ '.&ft}%)%<%)
 
 function! s:GitBranch()
     return systemlist('git branch --contains HEAD 2> /dev/null')
@@ -16,7 +20,7 @@ function! StatusLineGitBranch()
 endfunction
 
 function! StatusLine(active)
-    return "%(%#DiffAdd#%{&co>85?StatusLineGitBranch():''}%)".
+    return "%(%<%#DiffAdd#%{&co>85?StatusLineGitBranch():''}%)".
                 \ "%(%#".a:active."#\ %f\ %m%r%h%w\ %)".
                 \ "%#".a:active."#%=".&rulerformat."\ "
 endfunction

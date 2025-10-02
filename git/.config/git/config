@@ -37,17 +37,14 @@
 		    }; [ -n \"$1\" ] && show_tag"
 	purge-path = filter-repo --invert-paths --path
 	prep-archive = git filter-repo --to-subdirectory-filter
-[sendemail]
-	smtpserver = smtp.fastmail.com
-	smtpuser = alex@vear.uk
-	smtpencryption = tls
-	smtpserverport = 587
 [pull]
 	ff = only
 [log]
 	follow = true
 [commit]
 	verbose = true
+[blame]
+	date = short
 [apply]
 	whitespace = fix
 [difftool]
@@ -65,6 +62,10 @@
 	insteadOf = "https://github.com/"
 [url "ssh://git@github.com/"]
 	pushInsteadOf = "https://github.com/"
+[url "ssh://git@codeberg.com/"]
+	insteadOf = "https://codeberg.com/"
+[url "ssh://git@codeberg.com/"]
+	pushInsteadOf = "https://codeberg.com/"
 [url "ssh://git@gitlab.com/"]
 	insteadOf = "https://gitlab.com/"
 [url "ssh://git@gitlab.com/"]
