@@ -37,6 +37,7 @@
 		    }; [ -n \"$1\" ] && show_tag"
 	purge-path = filter-repo --invert-paths --path
 	prep-archive = git filter-repo --to-subdirectory-filter
+	branch-name = ! git branch --no-color --contains HEAD 2> /dev/null | sed -e '/^[^*]/d' -e 's/^* //'
 [pull]
 	ff = only
 [log]

@@ -11,8 +11,7 @@ set ruler laststatus=2
 set rulerformat=%26(%=%(%{!&nu?line('.').':':''}%c\ \ %P\ %)%(%{StatusLineFileEncoding()}\ %)%(%{&ft==''?'\ text':'\ '.&ft}%)%<%)
 
 function! s:GitBranch()
-    return systemlist('git branch --contains HEAD 2> /dev/null')
-                \->get(0, '')->substitute('\m^\*', '', '')->trim()
+    return system('git branch-name')->trim()
 endfunction
 
 function! StatusLineGitBranch()

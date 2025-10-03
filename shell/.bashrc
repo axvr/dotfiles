@@ -16,8 +16,7 @@ stty -ixon
 PROMPT_COMMAND=()
 
 if [ "$(command -v git)" ]; then
-    ps1_git_head() { GIT_HEAD="$(git branch --contains HEAD --no-color 2> /dev/null \
-        | sed -e '/^[^*]/d' -e 's/^\* //')"; }
+    ps1_git_head() { GIT_HEAD="$(git branch-name)"; }
     PROMPT_COMMAND+=('ps1_git_head')
 fi
 
