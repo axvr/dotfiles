@@ -21,6 +21,7 @@ set path=.,,** clipboard=unnamed
 set spelllang=en_gb dictionary=/usr/dict/words,/usr/share/dict/words
 set sessionoptions+=slash,unix sessionoptions-=options
 set viewoptions+=slash,unix viewoptions-=options
+if has('nvim') | set winborder=single | endif
 
 " Backup, swap and undo.  (TODO: unify these between editors?)
 if has('nvim')
@@ -62,7 +63,6 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 
 " Clean up Neovim PopUp menu.
 if has('nvim') && exists(':menu')
-    aunmenu PopUp.-1-
     aunmenu PopUp.-2-
     aunmenu PopUp.How-to\ disable\ mouse
 endif

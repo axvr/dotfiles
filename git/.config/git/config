@@ -61,17 +61,13 @@
 	process = git-lfs filter-process
 [url "ssh://git@github.com/"]
 	insteadOf = "https://github.com/"
-[url "ssh://git@github.com/"]
 	pushInsteadOf = "https://github.com/"
 [url "ssh://git@codeberg.com/"]
 	insteadOf = "https://codeberg.com/"
-[url "ssh://git@codeberg.com/"]
 	pushInsteadOf = "https://codeberg.com/"
 [url "ssh://git@gitlab.com/"]
 	insteadOf = "https://gitlab.com/"
-[url "ssh://git@gitlab.com/"]
 	pushInsteadOf = "https://gitlab.com/"
 [url "ssh://git@git.sr.ht/"]
 	insteadOf = "https://git.sr.ht/"
-[url "ssh://git@git.sr.ht/"]
 	pushInsteadOf = "https://git.sr.ht/"

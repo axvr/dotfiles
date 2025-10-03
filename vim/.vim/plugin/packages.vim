@@ -11,18 +11,18 @@ command! -nargs=0 -bar Helptags
 runtime ftplugin/man.vim
 set keywordprg=:Man
 
-packadd info
+packadd qf
 packadd matchit
 packadd traces
 packadd fugitive
-packadd qf
+packadd info
 
 if has('nvim')
     packadd commentary
     packadd conjure
 else
     packadd comment
-    " packadd editorconfig  (Revive Ascribe?)
+    packadd editorconfig
 endif
 
 " Replace netrw with dirvish.
