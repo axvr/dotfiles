@@ -70,8 +70,6 @@ alias ledger-web='echo "http://127.0.0.1:5000" | open-urls && hledger web -- --s
 export NOTES_DIR="$HOME/Documents/Notes"
 alias notes='vim +Notes +only'
 
-alias asdf='mise'
-
 # Aliases to fix files on Apple computers.
 alias unquarantine='xattr -d com.apple.quarantine'
 alias fix_dir='chmod a=rx,u=rwx'

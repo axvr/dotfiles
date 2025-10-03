@@ -1,20 +1,20 @@
 [tools]
-java = 'temurin-25'
-
-clojure = 'latest'
+java      = 'temurin-25'
+clojure   = 'latest'
 leiningen = 'latest'
-babashka = 'latest'
+babashka  = 'latest'
 clj-kondo = 'latest'
-cljfmt = 'latest'
+cljfmt    = 'latest'
 
-erlang = 'latest'
-elixir = 'latest'
+erlang    = 'latest'
+elixir    = 'latest'
 elixir-ls = 'latest'
+lfe       = 'latest'
 
 [alias]
-babashka = 'asdf:b-social/asdf-babashka'
+babashka  = 'asdf:b-social/asdf-babashka'
 clj-kondo = 'asdf:b-social/asdf-clj-kondo'
-cljfmt = 'asdf:b-social/asdf-cljfmt'
+cljfmt    = 'asdf:b-social/asdf-cljfmt'
 
 [settings]
 experimental = true

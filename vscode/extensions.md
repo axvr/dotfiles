@@ -1,0 +1,10 @@
+- Core
+  - [x] vscode-icons
+  - [x] Hex Editor
+  - [ ] VSCode Neovim
+- .NET
+  - [x] .NET Install Tool
+  - [x] C#
+  - [x] C# Dev Kit
+  - [x] Dummy IL .NET
+  - [ ] Ionide for F#

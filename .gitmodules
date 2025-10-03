@@ -37,9 +37,6 @@
 [submodule "vim/.vim/pack/lang/start/terraform"]
 	path = vim/.vim/pack/lang/start/terraform
 	url = https://github.com/hashivim/vim-terraform
-[submodule "vim/.vim/pack/lang/start/d2"]
-	path = vim/.vim/pack/lang/start/d2
-	url = https://github.com/terrastruct/d2-vim
 [submodule "vim/.vim/pack/lang/start/typst"]
 	path = vim/.vim/pack/lang/start/typst
 	url = https://github.com/kaarmu/typst.vim
