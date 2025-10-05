@@ -2,14 +2,23 @@
 	name = Alex Vear
 	email = alex@vear.uk
 [core]
-	editor = nvim
+	editor = $EDITOR
 [init]
 	defaultBranch = master
 [help]
 	autocorrect = 10
 [alias]
-	i = ! nvim +Git +only
+	git = ! git
+	root = rev-parse --show-toplevel
 	graph = log --all --decorate --oneline --graph
+	markers = ! git ls-files -u | awk '{ print $4 }' | uniq | xargs grep -Hn '^<<<<<<<'
+	content = "! show_content() { \
+		      git for-each-ref \"refs/tags/$1\" --format='%(contents)'; \
+		    }; [ -n \"$1\" ] && show_content"
+	fixup = commit --fixup
+	amend = commit --amend
+	amendne = commit --amend --no-edit
+	rebaser = rebase -i --autosquash
 	submodule-list = "! git submodule foreach | sed -e \"s/^Entering '//\" -e \"s/'$//\""
 	submodule-pull = submodule update --remote --merge
 	submodule-purge = "! submodule_purge() { \
@@ -17,13 +26,7 @@
 			       && git rm -f \"$1\" \
 			       && rm -rf \".git/modules/$1\"; \
 			   }; submodule_purge"
-	markers = ! git ls-files -u | awk '{ print $4 }' | uniq | xargs grep -Hn '^<<<<<<<'
-	fixup = commit --fixup
-	amend = commit --amend
-	amendne = commit --amend --no-edit
-	rebaser = rebase -i --autosquash
-	git = ! git
-	root = rev-parse --show-toplevel
+	i = ! $EDITOR +Git +only
 	open = "! open_remote() { \
 		  git remote get-url \"${1-origin}\" \
 		    | sed -e 's,\\.git$,,' \
@@ -32,12 +35,9 @@
 		          -e 's,^git@,https://,' \
 		    | open-urls; \
 		}; open_remote"
-	show-tag = "! show_tag() { \
-		      git for-each-ref \"refs/tags/$1\" --format='%(contents)'; \
-		    }; [ -n \"$1\" ] && show_tag"
+	branch-name = ! git branch --no-color --contains HEAD 2> /dev/null | sed -e '/^[^*]/d' -e 's/^* //'
 	purge-path = filter-repo --invert-paths --path
 	prep-archive = git filter-repo --to-subdirectory-filter
-	branch-name = ! git branch --no-color --contains HEAD 2> /dev/null | sed -e '/^[^*]/d' -e 's/^* //'
 [pull]
 	ff = only
 [log]

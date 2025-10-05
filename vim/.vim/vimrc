@@ -19,8 +19,7 @@ set shiftround autoindent nosmarttab
 set wrap showbreak=↳\  linebreak breakindent
 set path=.,,** clipboard=unnamed
 set spelllang=en_gb dictionary=/usr/dict/words,/usr/share/dict/words
-set sessionoptions+=slash,unix sessionoptions-=options
-set viewoptions+=slash,unix viewoptions-=options
+set sessionoptions=buffers,curdir,tabpages viewoptions=folds,cursor,curdir
 if has('nvim') | set winborder=single | endif
 
 " Backup, swap and undo.  (TODO: unify these between editors?)
