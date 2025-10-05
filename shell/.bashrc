@@ -1,15 +1,16 @@
 [[ $- != *i* ]] && return            # Abort if not running interactively
 [ -f /etc/bashrc ] && . /etc/bashrc  # Source global definitions
 
-export EDITOR=nvim VISUAL=nvim
-export MANPAGER="less --RAW-CONTROL-CHARS --use-color --color=d+y --color=u+R"
-
 export HISTSIZE=10000 HISTFILESIZE=1000000 HISTCONTROL=ignoreboth:erasedups
 shopt -s histappend globstar checkwinsize
 
 # Disable TTY pausing (start/stop control).
 # Enables CTRL-S to search forward in history.
 stty -ixon
+
+DEFAULT_VIM=nvim
+export EDITOR="$DEFAULT_VIM" VISUAL="$DEFAULT_VIM"
+export MANPAGER="less --RAW-CONTROL-CHARS --use-color --color=d+y --color=u+R"
 
 # ---------------------------------
 
@@ -50,9 +51,9 @@ PS2="\[\e[0;00m\]> "
 
 alias ex='vim -E'
 alias vi='vim'
-alias vim='nvim'
+alias vim="$DEFAULT_VIM"
 alias svim='vim -S Session.vim'
-alias vimdiff='nvim -d'
+[ "$DEFAULT_VIM" = 'nvim' ] && alias vimdiff='nvim -d'
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -67,7 +68,7 @@ alias ledger-record='$EDITOR "$LEDGER_FILE"'
 alias ledger-web='echo "http://127.0.0.1:5000" | open-urls && hledger web -- --serve'
 
 export NOTES_DIR="$HOME/Documents/Notes"
-alias notes='vim +Notes +only'
+alias notes='vim +Notes +tabonly'
 
 # Aliases to fix files on Apple computers.
 alias unquarantine='xattr -d com.apple.quarantine'

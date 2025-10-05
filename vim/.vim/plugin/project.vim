@@ -18,7 +18,7 @@ command! -nargs=0 -bar Tasks tabe DONE | split DOING | split TODO
 command! -nargs=* -complete=file Todos call TempGrep('todos', <q-args>)
 
 " Notes.
-command -nargs=0 Notes split | lcd $NOTES_DIR | edit $NOTES_DIR
+command -nargs=0 Notes split | lcd $NOTES_DIR | tabedit $NOTES_DIR
 
 " Git integration.
 " TODO: replace Fugitive's :Ggrep with this?
