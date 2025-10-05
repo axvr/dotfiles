@@ -1,16 +1,12 @@
-[[ $- != *i* ]] && return            # Abort if not running interactively
-[ -f /etc/bashrc ] && . /etc/bashrc  # Source global definitions
+# ~/.bashrc - Interactive Bash config.
+
+[[ $- != *i* ]] && return            # Abort if not running interactively.
+[ -f /etc/bashrc ] && . /etc/bashrc  # Source global definitions.
 
 export HISTSIZE=10000 HISTFILESIZE=1000000 HISTCONTROL=ignoreboth:erasedups
 shopt -s histappend globstar checkwinsize
 
-# Disable TTY pausing (start/stop control).
-# Enables CTRL-S to search forward in history.
-stty -ixon
-
-DEFAULT_VIM=nvim
-export EDITOR="$DEFAULT_VIM" VISUAL="$DEFAULT_VIM"
-export MANPAGER="less --RAW-CONTROL-CHARS --use-color --color=d+y --color=u+R"
+stty -ixon  # Disable TTY start/stop control.  CTRL-S / CTRL-Q
 
 # ---------------------------------
 
@@ -49,11 +45,14 @@ PS2="\[\e[0;00m\]> "
 [[ -s "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] \
     && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
 
+DEFAULT_VIM=nvim
+export EDITOR="$DEFAULT_VIM" VISUAL="$DEFAULT_VIM"
 alias ex='vim -E'
 alias vi='vim'
 alias vim="$DEFAULT_VIM"
 alias svim='vim -S Session.vim'
 [ "$DEFAULT_VIM" = 'nvim' ] && alias vimdiff='nvim -d'
+unset DEFAULT_VIM
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -61,6 +60,8 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias ip='ip --color=auto'
 alias diff='diff --color=auto'
+
+export MANPAGER='less --RAW-CONTROL-CHARS --use-color --color=d+y --color=u+R'
 
 export LEDGER_FILE="$HOME/Documents/Ledger/Personal.journal"
 alias ledger='hledger'

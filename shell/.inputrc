@@ -1,6 +1,7 @@
-# ~/.inputrc
+# ~/.inputrc - GNU Readline config.
 
 $include /etc/inputrc
+
 set colored-stats On
 set colored-completion-prefix On
 set blink-matching-paren On
