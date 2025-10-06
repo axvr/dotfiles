@@ -7,22 +7,14 @@ export HISTSIZE=10000 HISTFILESIZE=1000000 HISTCONTROL=ignoreboth:erasedups
 shopt -s histappend globstar checkwinsize
 stty -ixon  # Disable TTY start/stop control.  (CTRL-S / CTRL-Q)
 
-# ---------------------------------
-
-PROMPT_COMMAND=()
-
-if [ "$(command -v git)" ]; then
-    ps1_git_head() { PS1_GIT_HEAD="$(git branch-name)"; }
-    PROMPT_COMMAND+=('ps1_git_head')
-fi
-
 ps1_dynamic() {
-    # Display [user@host] when SSH'd into a machine with this config.
+    # Prefix with [user@host] when SSH'd into a machine with this config.
     [ -n "$SSH_CLIENT" ] && local ssh="\[\e[0;31m\][$USER@$HOSTNAME] "
     if (($COLUMNS >= 60)); then
         PROMPT_DIRTRIM=2
-        # Display Git branch name.
-        [ -n "$PS1_GIT_HEAD" ] && local branch="\[\e[0;32m\]$PS1_GIT_HEAD "
+        # Suffix with Git branch name.
+        local git_head="$(git head 2> /dev/null)"
+        [ -n "$git_head" ] && local branch="\[\e[0;32m\]$git_head "
         PS1="$ssh\[\e[0;34m\]\w $branch\[\e[0;00m\]\$ "
     elif (($COLUMNS >= 40)); then
         PROMPT_DIRTRIM=1
@@ -31,12 +23,9 @@ ps1_dynamic() {
         PS1="$ssh\[\e[0;00m\]\$ "
     fi
 }
-
-PROMPT_COMMAND+=('ps1_dynamic')
+PROMPT_COMMAND=ps1_dynamic
 PS1="\[\e[0;00m\]\$ "
 PS2="\[\e[0;00m\]> "
-
-# ---------------------------------
 
 [ -s "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ] \
     && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"

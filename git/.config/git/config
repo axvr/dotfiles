@@ -19,7 +19,6 @@
 	amend = commit --amend
 	amendne = commit --amend --no-edit
 	rebaser = rebase -i --autosquash
-	submodule-list = "! git submodule foreach | sed -e \"s/^Entering '//\" -e \"s/'$//\""
 	submodule-pull = submodule update --remote --merge
 	submodule-purge = "! submodule_purge() { \
 			     git submodule deinit -f \"$1\" \
@@ -35,7 +34,7 @@
 		          -e 's,^git@,https://,' \
 		    | open-urls; \
 		}; open_remote"
-	branch-name = ! git branch --no-color --contains HEAD 2> /dev/null | sed -e '/^[^*]/d' -e 's/^* //'
+	head = ! git branch --no-color --contains HEAD | sed -e '/^[^*]/d' -e 's/^* //'
 	purge-path = filter-repo --invert-paths --path
 	prep-archive = git filter-repo --to-subdirectory-filter
 [pull]

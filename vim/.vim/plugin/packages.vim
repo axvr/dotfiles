@@ -22,6 +22,7 @@ if has('nvim')
     packadd conjure
 else
     packadd comment
+    packadd unimpaired
     packadd editorconfig
 endif
 

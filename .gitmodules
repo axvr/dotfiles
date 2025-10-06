@@ -45,7 +45,10 @@
 	url = https://github.com/tpope/vim-characterize
 [submodule "vim/.vim/pack/lang/start/execline"]
 	path = vim/.vim/pack/lang/start/execline
-	url = git@github.com:djpohly/vim-execline.git
+	url = git@github.com:djpohly/vim-execline
 [submodule "vim/.vim/pack/lang/start/elixir"]
 	path = vim/.vim/pack/lang/start/elixir
-	url = https://github.com/elixir-editors/vim-elixir.git
+	url = https://github.com/elixir-editors/vim-elixir
+[submodule "vim/.vim/pack/core/opt/unimpaired"]
+	path = vim/.vim/pack/core/opt/unimpaired
+	url = https://github.com/tpope/vim-unimpaired
