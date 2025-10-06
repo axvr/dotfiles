@@ -5,28 +5,24 @@
 
 export HISTSIZE=10000 HISTFILESIZE=1000000 HISTCONTROL=ignoreboth:erasedups
 shopt -s histappend globstar checkwinsize
-
-stty -ixon  # Disable TTY start/stop control.  CTRL-S / CTRL-Q
+stty -ixon  # Disable TTY start/stop control.  (CTRL-S / CTRL-Q)
 
 # ---------------------------------
 
 PROMPT_COMMAND=()
 
 if [ "$(command -v git)" ]; then
-    ps1_git_head() { GIT_HEAD="$(git branch-name)"; }
+    ps1_git_head() { PS1_GIT_HEAD="$(git branch-name)"; }
     PROMPT_COMMAND+=('ps1_git_head')
 fi
 
-# Dynamic length prompt.
 ps1_dynamic() {
-    # Display SSH user and host info when SSH'd into a machine with this config.
-    local ssh
-    [ -n "$SSH_CLIENT" ] && ssh="\[\e[0;31m\][$USER@$HOSTNAME] "
+    # Display [user@host] when SSH'd into a machine with this config.
+    [ -n "$SSH_CLIENT" ] && local ssh="\[\e[0;31m\][$USER@$HOSTNAME] "
     if (($COLUMNS >= 60)); then
         PROMPT_DIRTRIM=2
         # Display Git branch name.
-        local branch
-        [ -n "$GIT_HEAD" ] && branch="\[\e[0;32m\]$GIT_HEAD "
+        [ -n "$PS1_GIT_HEAD" ] && local branch="\[\e[0;32m\]$PS1_GIT_HEAD "
         PS1="$ssh\[\e[0;34m\]\w $branch\[\e[0;00m\]\$ "
     elif (($COLUMNS >= 40)); then
         PROMPT_DIRTRIM=1
@@ -42,24 +38,17 @@ PS2="\[\e[0;00m\]> "
 
 # ---------------------------------
 
-[[ -s "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] \
+[ -s "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ] \
     && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
 
-DEFAULT_VIM=nvim
-export EDITOR="$DEFAULT_VIM" VISUAL="$DEFAULT_VIM"
-alias ex='vim -E'
-alias vi='vim'
-alias vim="$DEFAULT_VIM"
-alias svim='vim -S Session.vim'
-[ "$DEFAULT_VIM" = 'nvim' ] && alias vimdiff='nvim -d'
-unset DEFAULT_VIM
+export EDITOR='nvim' VISUAL="$EDITOR"
+alias ex='vim -E' vi='vim' svim='vim -S Session.vim'
+[ "$EDITOR" = 'nvim' ] && alias vim="nvim" vimdiff='nvim -d'
 
 alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
 alias ip='ip --color=auto'
 alias diff='diff --color=auto'
+alias grep='grep --color=auto' egrep='egrep --color=auto' fgrep='fgrep --color=auto'
 
 export MANPAGER='less --RAW-CONTROL-CHARS --use-color --color=d+y --color=u+R'
 

@@ -7,14 +7,13 @@ if status is-interactive
     set fish_color_cwd blue
     set -g __fish_git_prompt_showcolorhints 1
 
-    set --local VIM 'nvim'
-    set --export VISUAL $VIM
-    set --export EDITOR $VIM
+    set --export EDITOR 'nvim'
+    set --export VISUAL $EDITOR
     abbr --add -- vi vim
     alias ex 'vim -E'
-    alias vim $VIM
     alias svim 'vim -S Session.vim'
-    if test 'nvim' = $VIM
+    if test 'nvim' = $EDITOR
+        alias vim 'nvim'
         alias vimdiff 'nvim -d'
     end
 
