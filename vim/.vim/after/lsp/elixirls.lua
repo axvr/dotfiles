@@ -14,10 +14,11 @@ vim.lsp.config['elixirls'] = {
     end,
     settings = {
         elixirLS = {
-            dialyzerEnabled = true,
-            enableTestLenses = false,
             fetchDeps = false,
-            suggestSpecs = false
+            dialyzerEnabled = false,
+            suggestSpecs = false,
+            enableTestLenses = false,
+            mcpEnabled = false
         }
     }
 }

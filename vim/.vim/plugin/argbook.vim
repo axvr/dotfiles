@@ -56,6 +56,10 @@ function! OpenArgbook() abort
             " autocmd! BufEnter    <buffer> call ReloadArgbook()
             " TODO: update after manually running arglist commands.
         augroup END
+        " TODO: change selected arglist entry.
+        nnoremap <buffer> <CR> gf
+        " TODO: mapping to jump to selected arglist entry.
+        " FIXME: ensure :wall doesn't save this file while hidden.
         edit
     endif
 endfunction

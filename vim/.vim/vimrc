@@ -73,7 +73,7 @@ augroup filetype_config
     autocmd FileType html,css setl noet sts=2 sw=2 ts=2
     autocmd FileType perl,sh,python,javascript setl tw=79
     autocmd FileType lisp,clojure,scheme setl commentstring=;;%s cpo-=J
-    autocmd FileType robots,crontab,spec,desktop setl commentstring=#%s
+    autocmd FileType robots,crontab,spec,desktop,execline setl commentstring=#%s
     autocmd FileType c,cpp setl path+=/usr/include
     autocmd FileType tex compiler latexmk
     autocmd FileType gitcommit setl spell

@@ -11,6 +11,7 @@ if has('nvim')
     command! -nargs=0 -bar LspImplementation call v:lua.vim.lsp.buf.implementation()
     command! -nargs=? -bar LspRename     call v:lua.vim.lsp.buf.rename(<f-args>)
     command! -nargs=0 -bar LspTypeDef    call v:lua.vim.lsp.buf.type_definition()
+    command! -nargs=0 -bar LspKillAll    call v:lua.vim.lsp.stop_client(v:lua.vim.lsp.get_clients())
 
     " Default keymaps -> :help diagnostic-defaults
     command! -nargs=0 -bar DiagExplain   call v:lua.vim.diagnostic.open_float({"scope": "line"})
