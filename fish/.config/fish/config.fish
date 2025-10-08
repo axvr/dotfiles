@@ -1,11 +1,11 @@
 # ~/.config/fish/config.fish
 
 if status is-interactive
+    # Prompt tweaks.
     set fish_greeting  # Hide greeting.
-
-    # Improve colours in prompt.
     set fish_color_cwd blue
     set -g __fish_git_prompt_showcolorhints 1
+    set -g fish_prompt_pwd_full_dirs 2
 
     set --export EDITOR 'nvim'
     set --export VISUAL $EDITOR
