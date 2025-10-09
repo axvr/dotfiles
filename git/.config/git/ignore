@@ -45,6 +45,8 @@ id_ed25519*
 
 # LSP
 .lsp/*
+.elixir_ls/*
+.expert/*
 
 # Vim
 *~

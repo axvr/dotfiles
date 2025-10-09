@@ -9,6 +9,8 @@
 " - Like harpoon but simpler
 " - Write as normal file and it'll update the arglist.
 " - Render as dirvish file?
+" - can use ## in Ex-commands to get arglist files for a command.  E.g. :Todos ##
+"   - :help :_##
 
 " TODO: <plug>
 " TODO: commands
