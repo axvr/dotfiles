@@ -8,7 +8,7 @@ endif
 " Essentials.  (TODO: review these.)
 set startofline hidden autoread display=truncate
 set backspace=indent,eol,start nrformats=bin,hex,unsigned
-set showmatch showcmd ruler history=10000 shortmess=ltToOCF
+set showmatch showcmd ruler history=10000 shortmess=aoOT
 set wildmenu wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store,*/.cpcache/*
 set mouse=a belloff=all smoothscroll scrolloff=0 sidescroll=1 nofoldenable
 set hlsearch incsearch ttimeout ttimeoutlen=50
@@ -79,4 +79,5 @@ augroup filetype_config
     autocmd FileType gitcommit setl spell
     autocmd FileType git,gitcommit,diff setl foldmethod=syntax foldlevel=100
     autocmd FileType sh,bash setl keywordprg=:Man | compiler shellcheck
+    autocmd FileType markdown setl formatprg=pandoc\ -t\ commonmark_x\ --columns=80
 augroup END
