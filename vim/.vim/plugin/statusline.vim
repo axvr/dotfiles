@@ -22,9 +22,8 @@ set rulerformat=%14(%=%(%{!&nu?line('.').':':''}%c%)%(\ \ %P%)%<%)
 
 function! StatusLine(active)
     let hl = a:active ? 'StatusLine' : 'StatusLineNc'
-    let fhl = a:active ? 'Title' : 'Comment'
     return "%#".hl."#%<"
-        \ ."%(\ %#".fhl."#%f\ %)"
+        \ ."%(\ %f\ %)"
         \ ."%#".hl."#"
         \ ."%(%m%r%h%w%{StatusLineFileFormat()}%{StatusLineFileEncoding()}\ %)"
         \ ."%=".&rulerformat."\ "
