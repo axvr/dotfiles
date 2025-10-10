@@ -1,7 +1,3 @@
-function! argbook#args(winid) abort
-    return argv(-1, a:winid)
-endfunction
-
 function! argbook#jump(name) abort
     " FIXME: broken name normalisation breaks jumping.
     " TODO: custom error messgae if not found.
@@ -43,6 +39,7 @@ function! argbook#open() abort
     endif
 
     " TODO: jump to in current tab if already open.
+    " TODO: apply <q-mods>
     exec 'buffer' bufnr
 endfunction
 

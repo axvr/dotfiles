@@ -14,7 +14,7 @@ function! TempGrep(prg, args)
 endfunction
 
 " Task management.
-command! -nargs=0 -bar Tasks tabe DONE | split DOING | split TODO
+command! -nargs=0 -bar Tasks tabedit DONE | split DOING | split TODO
 command! -nargs=* -complete=file Todos call TempGrep('todos', <q-args>)
 
 " Notes.

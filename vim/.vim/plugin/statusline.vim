@@ -1,21 +1,37 @@
-" Left:  [File name][Modified?][RO?][Help?][Preview?]
-"        [Block 1  ][Block 2                        ]
-" Right: [Line][Column][Percentage][Encoding?]
-"        [Block 3     ][Block 4   ][Block 5  ]
+" Improved Vim status line.
+"
+" The left side displays file information, the right shows location info.
+"
+" Left:  [File name][+][RO][Help][Preview][Format][Enc]
+"        [Block 1  ][Block 2                          ]
+" Right: [Line][Column][Percentage]
+"        [Block 3     ][Block 4   ]
 
 function! StatusLineFileEncoding()
-    return &fenc =~? '^\(\|utf-8\)$' ? '' : '  ' . &fenc
+    " Only display if not UTF-8 encoding.
+    return &fenc =~? '^\(\|utf-8\)$' ? '' : '['.&fenc.']'
+endfunction
+
+function! StatusLineFileFormat()
+    " Only display if not Unix format.
+    return &ff ==# 'unix' ? '' : '['.&ff.']'
 endfunction
 
 set ruler laststatus=2
-set rulerformat=%16(%=%(%{!&nu?line('.').':':''}%c%)%(\ \ %P%)%(%{StatusLineFileEncoding()}%)%<%)
+set rulerformat=%14(%=%(%{!&nu?line('.').':':''}%c%)%(\ \ %P%)%<%)
 
 function! StatusLine(active)
-    return "%<%(%#".a:active."#\ %f\ %m%r%h%w\ %)%#".a:active."#%=".&rulerformat."\ "
+    let hl = a:active ? 'StatusLine' : 'StatusLineNc'
+    let fhl = a:active ? 'Title' : 'Comment'
+    return "%#".hl."#%<"
+        \ ."%(\ %#".fhl."#%f\ %)"
+        \ ."%#".hl."#"
+        \ ."%(%m%r%h%w%{StatusLineFileFormat()}%{StatusLineFileEncoding()}\ %)"
+        \ ."%=".&rulerformat."\ "
 endfunction
 
 augroup set_statusline
     autocmd!
-    autocmd WinEnter,BufEnter * setlocal statusline=%!StatusLine('StatusLine')
-    autocmd WinLeave,BufLeave * setlocal statusline=%!StatusLine('StatusLineNC')
+    autocmd WinEnter,BufEnter * setlocal statusline=%!StatusLine(1)
+    autocmd WinLeave,BufLeave * setlocal statusline=%!StatusLine(0)
 augroup END

@@ -2,10 +2,8 @@
 
 " Regenerate help tags for plugins.
 command! -nargs=0 -bar Helptags
-            \ for s:dir in glob('~/.vim/pack/*/*/*/doc', 1, 1)
-            \ |   execute 'helptags ' . s:dir
-            \ | endfor
-            \ | unlet s:dir
+            \ call glob('~/.vim/pack/*/*/*/doc', 1, 1)
+            \ ->foreach("exec 'helptags' v:val")
 
 " Enable the built-in Man page viewer.
 runtime ftplugin/man.vim
