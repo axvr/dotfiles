@@ -3,6 +3,7 @@
 " Regenerate help tags for plugins.
 command! -nargs=0 -bar Helptags
             \ call glob('~/.vim/pack/*/*/*/doc', 1, 1)
+            \ ->add(expand('~/.vim/doc'))
             \ ->foreach("exec 'helptags' v:val")
 
 " Enable the built-in Man page viewer.

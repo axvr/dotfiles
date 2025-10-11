@@ -1,0 +1,71 @@
+*axvr.txt*                                      Docs for my Vim customisations.
+
+
+                      Axvr Vim Manual by Alex Vear~
+
+
+Welcome to the Axvr Vim user manual.                 *axvr*  *axvr.vim*  *vim-axvr*
+
+    1. Grep ....................................... |axvr/grep|
+    2. Local configs ...................... |axvr/local-config|
+    3. Scratch buffers ......................... |axvr/scratch|
+
+==============================================================================
+ 1. GREP                                                            *axvr/grep*
+>
+    :grep[!]
+    :GrepWith[!]
+    :GrepaddWith[!]
+    :LgrepWith[!]
+    :LgrepaddWith[!]
+<
+==============================================================================
+ 2. LOCAL CONFIGS                                           *axvr/local-config*
+
+When Vim starts (i.e. the |VimEnter| autocmd executes) any trusted *.axvr.vim*
+file within the current working directory will be automatically sourced.  If
+the file has not been trusted, Vim will ask if you want to trust it.
+
+This enables safe per-project local configurations for Vim.
+
+==============================================================================
+ 3. SCRATCH BUFFERS                                              *axvr/scratch*
+
+An easy scratch buffer creation facility is provided.  Use the *:Scratch*
+command to list existing and create new scratch buffers.
+>
+    :Scratch           <-  list scratch buffers.
+    :Scratch filetype  <-  opens a new scratch buffer of given filetype.
+<
+When creating a new scratch buffer the |:Scratch| command optionally accepts
+|:command-modifiers|.  For example:
+>
+    :tab Scratch ft    <-  open new scratch buffer in a new tab.
+    :hori Scratch ft   <-  open new scratch buffer in a horizontal split.
+    :vert Scratch ft   <-  open new scratch buffer in a vertical split.
+<
+Additionally the *:Redir* command is supplied which will redirect the output of
+any Vim command into the current buffer.
+
+Note: use standard Vim commands to interact with created scratch buffers.
+    * Open with |:sbuffer| and |:buffer|.
+    * Save buffer contents with |:write|.
+    * Load file contents in with |:read|.
+
+==============================================================================
+ 4. CONVERT TO SCRIPT                                             *axvr/script*
+
+Quickly convert an open buffer/file into an executable script with *:ToScript*
+followed by a |filetype| (tab-completes).
+
+    1. It will set the specified filetype.
+    2. If the given filetype has a registered shebang it will be prepended.
+    3. If the buffer is a valid file, it will `chmod +x fname` it.
+
+The filetype to shebang registry is a dictionary in the *g:axvr_ft2shebang*
+variable.
+>
+    :edit do/my-script | ToScript bash
+<
+------------------------------------------------------------------------------
+vim:et:ts=4:sts=4:sw=4:tw=78:ft=help:norl:

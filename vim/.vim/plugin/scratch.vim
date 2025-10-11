@@ -1,17 +1,5 @@
-" Easy scratch buffer management and creation.
-"
-" Help:
-"   :Scratch     ->  list scratch buffers.
-"   :Scratch ft  ->  open new scratch buffer for filetype.
-"   :hori Sc ft  ->  open new scratch buffer for filetype in horizontal split.
-"   :vert Sc ft  ->  open new scratch buffer for filetype in vertical split.
-"   :tab Sc ft   ->  open new scratch buffer for filetype in a new tab.
-"   :Redir cmd   ->  redirect output of Vim command to the current buffer.
-"
-" Tip: use standanrd Vim commands!
-"   - Open existing scratch buffers with `:sbuffer b` and `:buffer b`.
-"   - Save scratch buffers with `:write file`.
-"   - Load files into scratch buffer with `:read file`
+" Summary: Easy scratch buffer management and creation.
+" Help:    :help axvr/scratch
 
 function! s:scratch(mods, filetype) abort
     if empty(a:filetype)

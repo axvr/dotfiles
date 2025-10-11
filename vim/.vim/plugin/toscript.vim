@@ -1,10 +1,5 @@
-" Quickly convert the current file into an executable script.
-"
-" Help:
-"   :ToScript filetype  <-  Makes the file executable + adds shebang line.
-"
-" Tips:
-"   - Register new filetypes by editing the `g:axvr_ft2shebang` dictionary.
+" Summary: Quickly convert the current file into an executable script.
+" Help:    :help axvr/script
 
 " TODO: change this into a per-buffer 'b:axvr_shebang' option?
 let g:axvr_ft2shebang = {

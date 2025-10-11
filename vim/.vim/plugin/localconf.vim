@@ -1,5 +1,5 @@
-" Load additional project-local config into Vim.  My standard file for this is
-" ".axvr.vim".  Only automatically loads "trusted" config files.
+" Summary: Load additional project-local config into Vim.
+" Help:    :help axvr/local-config
 
 function! s:load_local_config(file) abort
     if filereadable(a:file)

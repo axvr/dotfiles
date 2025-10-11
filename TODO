@@ -1,6 +1,21 @@
-- Vim
-  - Conjure: add Zepl's `gz` binding?
-  - `<C-K>` binding to lookup symbol in HyperSpec, ClojureDocs or Javadoc?
-- CljDoc equivalent to my HyperSpec command.
-  - https://clojuredocs.org/
-  - https://cljdoc.org/
+- Vim:
+  - Vim arglist bookmarks + helpers.  (Name: Argbook, Barge, Darg?)
+  - Return of qfsign.vim?  (Update to work with location list and marks too?)
+  - `:Point` // -> :mark MatchParen // `<cword>`
+  - More `<leader>` mappings.  E.g. notes file mappings, `<leader>b` for `:buffer`?
+    - Notes mappings: goto root, new note?
+  - REPL plugins?  Conjure, Zepl, Zepl2, Something Tmux-based?
+    - Conjure's jump to source (incl. Java source) is useful.
+    - Conjure's REPL currently sucks for Common Lisp, a plain REPL is better.
+      - Common Lisp (and Clojure) need interactive REPL TUIs with mouse support.
+        - Similar to what Julia has.
+        - Maybe an idea for Vila?
+    - Conjure: add Zepl's `gz` binding?
+  - `<C-K>` binding in Vim to lookup symbol in HyperSpec, ClojureDocs or Javadoc?
+
+- Tmux:
+  - Add tmux-restore script.
+
+- Scripts:
+  - CljDoc equivalent to my HyperSpec command.
+    - <https://clojuredocs.org/>, <https://cljdoc.org/>
