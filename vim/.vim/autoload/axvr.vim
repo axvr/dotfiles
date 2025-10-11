@@ -24,8 +24,12 @@ function! axvr#TempSetBufOpt(opt, val, callback)
     call setbufvar(buf, a:opt, prevval)
 endfunction
 
-function! axvr#TempGrep(prg, args)
-    call axvr#TempSetBufOpt('&grepprg', a:prg, {-> execute('grep ' . a:args, 'silent')})
+function! axvr#GrepWith(prg, args = '', opts = {})
+    let jump = get(a:opts, 'jump', 1) ? ''    : '!'
+    let add  = get(a:opts, 'add', 0)  ? 'add' : ''
+    let loc  = get(a:opts, 'loc', 0)  ? 'l'   : ''
+    let grep =  loc..'grep'..add..jump..' '
+    call axvr#TempSetBufOpt('&grepprg', a:prg, {-> execute(grep . a:args, 'silent')})
 endfunction
 
 let s:trust_store = expand($HOME . '/.vim/state/trust/')
