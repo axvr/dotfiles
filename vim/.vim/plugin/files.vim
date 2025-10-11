@@ -1,6 +1,6 @@
 function! s:create_parent_dirs()
     let dir = expand("%:p:h")
-    if ! isdirectory(dir) && confirm('Create directory "'.dir.'"?', "&Yes\n&No", 0, 'Question') == 1
+    if ! isdirectory(dir) && axvr#YN('Create directory?')
         call mkdir(dir, 'p')
     endif
 endfunction

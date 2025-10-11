@@ -1,28 +1,22 @@
 " Project management helpers.
 
-function! TempSetBufOpt(opt, val, callback)
-    let buf = bufnr('%')
-    let prevval = getbufvar(buf, a:opt)
-    call setbufvar(buf, a:opt, a:val)
-    call a:callback()
-    call setbufvar(buf, a:opt, prevval)
+" Faster `:find` for significantly faster searching and fuzzy search.
+nnoremap <leader>f :find<space>
+function! s:find_fuzzy(cmdarg, _) abort
+    return axvr#FuzzyMatch(systemlist('fd -HE .git -d 8 .'), a:cmdarg)
 endfunction
-
-function! TempGrep(prg, args)
-    call TempSetBufOpt('&grepprg', a:prg, {-> execute('grep ' . a:args)})
-    redraw!
-endfunction
+if executable('fd') | set findfunc=s:find_fuzzy | endif
 
 " Task management.
 command! -nargs=0 -bar Tasks tabedit DONE | split DOING | split TODO
-command! -nargs=* -complete=file Todos call TempGrep('todos', <q-args>)
+command! -nargs=* -complete=file_in_path Todos call axvr#TempGrep('todos', <q-args>)
 
 " Notes.
 command -nargs=0 Notes split | lcd $NOTES_DIR | tabedit $NOTES_DIR
 
 " Git integration.
 " TODO: replace Fugitive's :Ggrep with this?
-command! -nargs=+ -complete=file GitGrep call TempGrep('git grep -n --column', <q-args>)
+command! -nargs=+ -complete=file_in_path GitGrep call axvr#TempGrep('git grep -n --column', <q-args>)
 
 " Command to diff unsaved changes to current file.  Deactivate with :diffoff!
 command! -nargs=0 -bar DiffOrig
@@ -32,9 +26,3 @@ command! -nargs=0 -bar DiffOrig
             \ | exe 'setfiletype ' . getbufvar('#', '&l:filetype')
             \ | exe 'silent file [Diff] ' . bufname('#')
             \ | wincmd p | diffthis
-
-function! s:FuzzyFindFunc(cmdarg, cmdcomplete) abort
-    return systemlist('fd -HE .git -d 8 . | fzf --filter=' . shellescape(a:cmdarg))
-endfunction
-if executable('fd') | set findfunc=s:FuzzyFindFunc | endif
-nnoremap <leader>f :find<space>

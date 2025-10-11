@@ -1,6 +1,7 @@
+bin/.local/*/
+!bin/.local/bin/
 clojure/.clojure/.cpcache/
-vim/.vim/state/
-vim/.vim/trust/
-vim/.vim/pack/*/*/*/
 fish/.config/fish/conf.d/
 fish/.config/fish/fish_variables
+vim/.vim/pack/*/*/*/
+vim/.vim/state/

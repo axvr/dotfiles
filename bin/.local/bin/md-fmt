@@ -1,0 +1,11 @@
+#!/usr/bin/env -S execlineb -W
+
+# Format Markdown files.  Primarily useful for formatting Markdown tables.
+
+# I don't connect this to `formatprg` in Vim as it doesn't preserve 2-space
+# sentence separation.
+
+importas -d 80 columns 1
+
+pipeline { cat }
+pandoc -t commonmark_x --columns=$columns
