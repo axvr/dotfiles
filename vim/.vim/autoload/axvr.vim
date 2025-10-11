@@ -12,8 +12,8 @@ function! axvr#YN(qn) abort
     return confirm(a:qn, "&Yes\n&No", 0, 'Question') == 1
 endfunction
 
-function! axvr#FuzzyMatch(list, search) abort
-    return empty(a:search) ? a:list : matchfuzzy(a:list, a:search)
+function! axvr#FuzzyMatch(list, search, opts = {}) abort
+    return empty(a:search) ? a:list : matchfuzzy(a:list, a:search, a:opts)
 endfunction
 
 function! axvr#TempSetBufOpt(opt, val, callback)
@@ -25,7 +25,7 @@ function! axvr#TempSetBufOpt(opt, val, callback)
 endfunction
 
 function! axvr#TempGrep(prg, args)
-    call axvr#TempSetBufOpt('&grepprg', a:prg, {-> execute('grep ' . a:args)})
+    call axvr#TempSetBufOpt('&grepprg', a:prg, {-> execute('grep ' . a:args, 'silent')})
 endfunction
 
 let s:trust_store = expand($HOME . '/.vim/state/trust/')

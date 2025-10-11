@@ -5,7 +5,7 @@ if !exists('g:syntax_on')
     syntax enable
 endif
 
-" Essentials.  (TODO: review these.)
+" Essentials.
 set startofline hidden autoread display=truncate
 set backspace=indent,eol,start nrformats=bin,hex,unsigned
 set showmatch showcmd ruler history=10000 shortmess=aoOT
@@ -14,7 +14,7 @@ set wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store,*/.cpcache/*
 set mouse=a belloff=all smoothscroll scrolloff=0 sidescroll=1 nofoldenable
 set hlsearch incsearch ttimeout ttimeoutlen=50
 set formatoptions+=jpl1n cpoptions+=J joinspaces
-set grepformat^=%f:%l:%c:%m   " Match column numbers in 'grepformat'
+set grepformat=%f:%l:%c:%m,%f:%l:%m
 set expandtab tabstop=8 softtabstop=4 shiftwidth=4
 set shiftround autoindent nosmarttab
 set wrap showbreak=↳\  linebreak breakindent

@@ -2,17 +2,9 @@
 
 # List TODOs and other comment tags in specified files or a git repo.
 
-backtick -ED "" git_files*
-{
-    importas -Si \#
-    if { test $# -eq 0 } git ls-files
-}
-
 multisubstitute
 {
     elgetpositionals
-    define regex "\\b\\(TO[-_ ]\\?DO\\|FIX[-_ ]\\?ME\\|XXX\\|BUG\\|HACK\\)\\b"
-    define -s git_files $git_files*
+    define regex "\\b(TO[-_ ]?DO|FIX[-_ ]?ME|XXX|BUG|HACK)\\b"
 }
-
-grep -nsH --color=auto $regex -- . $@ $git_files
+rg --vimgrep --hidden -g "!.git/*" -e $regex -- $@
