@@ -3,6 +3,8 @@
 # vim: ft=conf :
 # -*- mode: gitignore; -*-
 
+.git/
+
 # To do files
 DOING
 DONE
@@ -44,9 +46,9 @@ id_ed25519*
 .lein-repl-history
 
 # LSP
-.lsp/*
-.elixir_ls/*
-.expert/*
+.lsp/
+.elixir_ls/
+.expert/
 
 # Vim
 *~
@@ -59,7 +61,8 @@ Session.vim
 errors.err
 .netrwhist
 %*
-.scratch/*
+.axvr.vim
+.scratch/
 
 # GNU Emacs
 *~
@@ -74,8 +77,8 @@ tramp
 .dir-locals.el
 
 # Visual Studio Code
-.vscode/*
-.calva/*
+.vscode/
+.calva/
 
 # Linux
 *~

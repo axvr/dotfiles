@@ -32,3 +32,9 @@ command! -nargs=0 -bar DiffOrig
             \ | exe 'setfiletype ' . getbufvar('#', '&l:filetype')
             \ | exe 'silent file [Diff] ' . bufname('#')
             \ | wincmd p | diffthis
+
+function! s:FuzzyFindFunc(cmdarg, cmdcomplete) abort
+    return systemlist('fd -HE .git -d 8 . | fzf --filter=' . shellescape(a:cmdarg))
+endfunction
+if executable('fd') | set findfunc=s:FuzzyFindFunc | endif
+nnoremap <leader>f :find<space>

@@ -24,7 +24,6 @@ function! StatusLine(active)
     let hl = a:active ? 'StatusLine' : 'StatusLineNc'
     return "%#".hl."#%<"
         \ ."%(\ %f\ %)"
-        \ ."%#".hl."#"
         \ ."%(%m%r%h%w%{StatusLineFileFormat()}%{StatusLineFileEncoding()}\ %)"
         \ ."%=".&rulerformat."\ "
 endfunction

@@ -9,7 +9,8 @@ endif
 set startofline hidden autoread display=truncate
 set backspace=indent,eol,start nrformats=bin,hex,unsigned
 set showmatch showcmd ruler history=10000 shortmess=aoOT
-set wildmenu wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store,*/.cpcache/*
+set wildmenu wildoptions+=fuzzy wildmode=lastused:full
+set wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store,*/.cpcache/*
 set mouse=a belloff=all smoothscroll scrolloff=0 sidescroll=1 nofoldenable
 set hlsearch incsearch ttimeout ttimeoutlen=50
 set formatoptions+=jpl1n cpoptions+=J joinspaces
