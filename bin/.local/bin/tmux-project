@@ -1,49 +1,26 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # Tmux project switcher.  Switch to and open projects as Tmux sessions.
-# Based on: <https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer>
 
-PROJ_ROOT="$HOME/Projects"
-default_dirs=("$PROJ_ROOT" "$PROJ_ROOT/Work")
-PROJ_DIRS=("${PROJ_DIRS[@]:-${default_dirs[@]}}")
-
-for dir in "${PROJ_DIRS[@]}"; do
-    [[ -d "$dir" ]] && proj_dirs+=("$dir")
-done
-
-if [[ $# -eq 1 ]]; then
+if [ -n "$1" ]; then
     project="$1"
 else
-    project="$(find ${proj_dirs[*]} \( ! -path '*/.*' \) -maxdepth 1 -mindepth 1 -type d \
-                    | sort --unique --ignore-case \
-                    | sed -e "s@^$PROJ_ROOT/@@" \
-                    | grep -v '^Work$' \
-                    | fzf --layout=reverse --no-color --info=right)"
+    proj_root="$HOME/Projects"
+    project="$(fd --base-directory "$proj_root" --exact-depth 1 \
+                  --exclude Work --type d . . Work \
+               | sed -e 's,^\./,,' -e 's,/$,,' \
+               | fzf --layout=reverse --no-color --info=right)"
+    [ -z "$project" ] && exit 1
+    project="$proj_root/$project"
 fi
 
-if [ "$project" = '' ]; then exit 0
-elif ! [ -d "$project" ]; then
-    project="$PROJ_ROOT/$project"
-    [ -d "$project" ] || exit 0
-fi
+[ -d "$project" ] || exit 1
 
-if [ "$HOME" = "$project" ]; then
-    session_name='>_ '
-else
-    session_name="$(basename "$project" | tr . _)"
-fi
+session_name="$([ "$HOME" = "$project" ] && echo '>_ ' || basename "$project" | tr . _)"
 
-tmux_running="$(pgrep tmux)"
+tmux has-session -t "$session_name" 2> /dev/null \
+    || tmux new-session -ds "$session_name" -c "$project"
 
-[ -n "$tmux_running" ] && [ -z "$TMUX" ] && tmux attach
-
-if [ -z "$TMUX" ] && [ -z "$tmux_running" ]; then
-    tmux new-session -s "$session_name" -c "$project"
-    exit 0
-fi
-
-if ! tmux has-session -t="$session_name" 2> /dev/null; then
-    tmux new-session -ds "$session_name" -c "$project"
-fi
-
-tmux switch-client -t "$session_name"
+[ -n "$TMUX" ] \
+    && tmux switch-client  -t "$session_name" \
+    || tmux attach-session -t "$session_name"

@@ -1,7 +1,7 @@
 # vim: ft=conf :
 
 command =
-initial-command = "/bin/bash -l -c 'exec tmux-project ~'"
+initial-command = "/bin/bash -lc 'exec tmux-project ~'"
 
 font-size = 15
 font-family = "IBM Plex Mono"

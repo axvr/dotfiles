@@ -1,4 +1,4 @@
-*axvr.txt*                                      Docs for my Vim customisations.
+*axvr.txt*                             Docs for my personal Vim customisations.
 
 
                       Axvr Vim Manual by Alex Vear~
@@ -6,9 +6,28 @@
 
 Welcome to the Axvr Vim user manual.                 *axvr*  *axvr.vim*  *vim-axvr*
 
-    1. Grep ....................................... |axvr/grep|
-    2. Local configs ...................... |axvr/local-config|
-    3. Scratch buffers ......................... |axvr/scratch|
+    1. Grep ............................................... |axvr/grep|
+    2. Local configs .............................. |axvr/local-config|
+    3. Scratch buffers ................................. |axvr/scratch|
+    4. Convert to script ................................ |axvr/script|
+
+------------------------------------------------------------------------------
+
+TODO
+    Write |axvr/grep| section.
+TODO
+    Add a section on |:find| and `<leader>f`.
+TODO
+    Add a section on `<leader>` and `<localleader>` bindings.  List all custom
+    ones.
+TODO
+    Add a section on `:Todos`, `:Tasks` and `:Notes`.
+TODO
+    Add a section on automatic whitespace trimming.
+TODO
+    Add section on `:Helptags`.
+TODO
+    Add section on my autoload helper functions.
 
 ==============================================================================
  1. GREP                                                            *axvr/grep*
@@ -18,7 +37,9 @@ Welcome to the Axvr Vim user manual.                 *axvr*  *axvr.vim*  *vim-ax
     :GrepaddWith[!]
     :LgrepWith[!]
     :LgrepaddWith[!]
+    <leader>g
 <
+
 ==============================================================================
  2. LOCAL CONFIGS                                           *axvr/local-config*
 
