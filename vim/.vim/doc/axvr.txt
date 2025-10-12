@@ -9,25 +9,18 @@ Welcome to the Axvr Vim user manual.                 *axvr*  *axvr.vim*  *vim-ax
     1. Grep ............................................... |axvr/grep|
     2. Local configs .............................. |axvr/local-config|
     3. Scratch buffers ................................. |axvr/scratch|
-    4. Convert to script ................................ |axvr/script|
+    4. Convert to script ............................. |axvr/to-script|
 
 ------------------------------------------------------------------------------
 
 TODO
-    Write |axvr/grep| section.
-TODO
-    Add a section on |:find| and `<leader>f`.
-TODO
-    Add a section on `<leader>` and `<localleader>` bindings.  List all custom
-    ones.
-TODO
-    Add a section on `:Todos`, `:Tasks` and `:Notes`.
-TODO
-    Add a section on automatic whitespace trimming.
-TODO
-    Add section on `:Helptags`.
-TODO
-    Add section on my autoload helper functions.
+    * Write |axvr/grep| section.
+    * Add section on |:find| and `<leader>f`.
+    * Add section on `<leader>` and `<localleader>` bindings.  List all custom.
+    * Add section on `:Todos`, `:Tasks` and `:Notes`.
+    * Add section on automatic whitespace trimming.
+    * Add section on `:Helptags`.
+    * Add section on my autoload helper functions.
 
 ==============================================================================
  1. GREP                                                            *axvr/grep*
@@ -74,7 +67,7 @@ Note: use standard Vim commands to interact with created scratch buffers.
     * Load file contents in with |:read|.
 
 ==============================================================================
- 4. CONVERT TO SCRIPT                                             *axvr/script*
+ 4. CONVERT TO SCRIPT                                          *axvr/to-script*
 
 Quickly convert an open buffer/file into an executable script with *:ToScript*
 followed by a |filetype| (tab-completes).
@@ -87,6 +80,13 @@ The filetype to shebang registry is a dictionary in the *g:axvr_ft2shebang*
 variable.
 >
     :edit do/my-script | ToScript bash
+<
+A few helper |Normal-mode| mappings are provided to more rapidly create new
+do-scripts.  After typing these you're prompted to finish the file name.
+>
+    <leader>de  <-  Create a new do-script of execline filetype.
+    <leader>db  <-  Create a new do-script of bash filetype.
+    <leader>ds  <-  Create a new do-script of sh filetype.
 <
 ------------------------------------------------------------------------------
 vim:et:ts=4:sts=4:sw=4:tw=78:ft=help:norl:

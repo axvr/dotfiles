@@ -1,5 +1,6 @@
 - Vim:
   - Vim arglist bookmarks + helpers.  (Name: Argbook, Barge, Darg?)
+    - Convert into a plugin?
   - Return of qfsign.vim?  (Update to work with location list and marks too?)
   - `:Point` // -> :mark MatchParen // `<cword>`
   - More `<leader>` mappings.  E.g. notes file mappings, `<leader>b` for `:buffer`?
@@ -12,6 +13,12 @@
         - Maybe an idea for Vila?
     - Conjure: add Zepl's `gz` binding?
   - `<C-K>` binding in Vim to lookup symbol in HyperSpec, ClojureDocs or Javadoc?
+  - Plugins to create?
+    - execline.vim?   <https://skarnet.org/software/execline/>
+      - vim-execline is closed source.
+      - Add/open links to the Web manual?
+      - Include in Vim?
+    - netstring.vim?  <https://cr.yp.to/proto/netstrings.txt>
 
 - Tmux:
   - Add tmux-restore script.

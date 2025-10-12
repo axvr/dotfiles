@@ -22,7 +22,7 @@ nnoremap gA :argument<CR>
 if has('nvim')
     augroup argbook_arglocal
         autocmd!
-        autocmd TabNewEntered * arglocal | %argdelete
+        " autocmd TabNewEntered * arglocal | %argdelete
     augroup END
 endif
 

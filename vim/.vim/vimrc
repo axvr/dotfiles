@@ -9,7 +9,7 @@ endif
 set startofline hidden autoread display=truncate
 set backspace=indent,eol,start nrformats=bin,hex,unsigned
 set showmatch showcmd ruler history=10000 shortmess=aoOT
-set wildmenu wildoptions+=fuzzy wildmode=lastused:full
+set wildmenu wildoptions=pum,tagfile,fuzzy wildmode=lastused:full
 set wildignore+=*/.git/*,*/node_modules/*,tags,.DS_Store,*/.cpcache/*
 set mouse=a belloff=all smoothscroll scrolloff=0 sidescroll=1 nofoldenable
 set hlsearch incsearch ttimeout ttimeoutlen=50
@@ -21,6 +21,7 @@ set wrap showbreak=↳\  linebreak breakindent
 set path=.,,** clipboard=unnamed
 set spelllang=en_gb dictionary=/usr/dict/words,/usr/share/dict/words
 set sessionoptions=buffers,curdir,tabpages viewoptions=folds,cursor,curdir
+set complete=.,w,b,u,t completeopt=menu,menuone,popup,fuzzy
 if has('nvim') | set winborder=single | endif
 
 " Backup, swap and undo.  (TODO: unify these between editors?)

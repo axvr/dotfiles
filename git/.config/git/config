@@ -3,10 +3,6 @@
 	email = alex@vear.uk
 [core]
 	editor = $EDITOR
-[init]
-	defaultBranch = master
-[help]
-	autocorrect = 10
 [alias]
 	git = ! git
 	root = rev-parse --show-toplevel
@@ -15,6 +11,7 @@
 	content = "! show_content() { \
 		      git for-each-ref \"refs/tags/$1\" --format='%(contents)'; \
 		    }; [ -n \"$1\" ] && show_content"
+	pushf = push --force-with-lease
 	fixup = commit --fixup
 	amend = commit --amend
 	amendne = commit --amend --no-edit
@@ -37,6 +34,10 @@
 	head = ! git branch --no-color --contains HEAD | sed -e '/^[^*]/d' -e 's/^* //'
 	purge-path = filter-repo --invert-paths --path
 	prep-archive = git filter-repo --to-subdirectory-filter
+[help]
+	autocorrect = 10
+[init]
+	defaultBranch = master
 [pull]
 	ff = only
 [log]
@@ -45,6 +46,8 @@
 	verbose = true
 [blame]
 	date = short
+[rebase]
+	autoStash = true
 [apply]
 	whitespace = fix
 [difftool]

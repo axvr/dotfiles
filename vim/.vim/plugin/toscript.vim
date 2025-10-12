@@ -1,5 +1,5 @@
 " Summary: Quickly convert the current file into an executable script.
-" Help:    :help axvr/script
+" Help:    :help axvr/to-script
 
 " TODO: change this into a per-buffer 'b:axvr_shebang' option?
 let g:axvr_ft2shebang = {
@@ -24,7 +24,6 @@ function! s:to_script(ft) abort
     let bufnr = bufnr('%')
     call setbufvar(bufnr, '&filetype', a:ft)
 
-    " Set shebang if match.
     let shebang = get(g:axvr_ft2shebang, a:ft, '')
     if !empty(shebang)
         call appendbufline(bufnr, 0, shebang)
@@ -37,18 +36,21 @@ function! s:to_script(ft) abort
         update
     endif
 
-    " Make executable if file.
     let fpath = expand('%:.')
     if filereadable(fpath)
         call system(['chmod', '+x', fpath])
-        edit
     else
         call axvr#Warn('Unable to make executable as buffer is not a real file.')
     endif
 endfunction
 
 function! s:file_types(arglead, _cmdline, _curpos)
-    return axvr#FuzzyMatch(sort(keys(g:axvr_ft2shebang)), a:arglead)
+    return axvr#MatchFuzzy(sort(keys(g:axvr_ft2shebang)), a:arglead)
 endfunction
 
 command -bar -nargs=1 -complete=customlist,s:file_types ToScript call s:to_script(<f-args>)
+
+" Rapidly start creating a new do-script.
+nnoremap <leader>ds :<C-u> <bar> ToScript sh<home>edit<space>do/
+nnoremap <leader>db :<C-u> <bar> ToScript bash<home>edit<space>do/
+nnoremap <leader>de :<C-u> <bar> ToScript execline<home>edit<space>do/

@@ -2,9 +2,8 @@
 
 # Tmux project switcher.  Switch to and open projects as Tmux sessions.
 
-if [ -n "$1" ]; then
-    project="$1"
-else
+project="$1"
+if [ -z "$1" ]; then
     proj_root="$HOME/Projects"
     project="$(fd --base-directory "$proj_root" --exact-depth 1 \
                   --exclude Work --type d . . Work \
@@ -13,7 +12,6 @@ else
     [ -z "$project" ] && exit 1
     project="$proj_root/$project"
 fi
-
 [ -d "$project" ] || exit 1
 
 session_name="$([ "$HOME" = "$project" ] && echo '>_ ' || basename "$project" | tr . _)"
