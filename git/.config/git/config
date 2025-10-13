@@ -8,14 +8,17 @@
 	root = rev-parse --show-toplevel
 	graph = log --all --decorate --oneline --graph
 	markers = ! git ls-files -u | awk '{ print $4 }' | uniq | xargs grep -Hn '^<<<<<<<'
-	content = "! show_content() { \
-		      git for-each-ref \"refs/tags/$1\" --format='%(contents)'; \
-		    }; [ -n \"$1\" ] && show_content"
+	tag-annotation = "! show_anno() { \
+		            git for-each-ref \"refs/tags/$1\" --format='%(contents)'; \
+		          }; [ -n \"$1\" ] && show_anno"
+	branch-description = "! show_desc() { git config \"branch.$1.description\"; }; \
+			        [ -n \"$1\" ] && show_desc"
 	pushf = push --force-with-lease
 	fixup = commit --fixup
 	amend = commit --amend
 	amendne = commit --amend --no-edit
 	rebaser = rebase -i --autosquash
+	grepl = grep --line-number --column
 	submodule-pull = submodule update --remote --merge
 	submodule-purge = "! submodule_purge() { \
 			     git submodule deinit -f \"$1\" \
@@ -35,7 +38,7 @@
 	purge-path = filter-repo --invert-paths --path
 	prep-archive = git filter-repo --to-subdirectory-filter
 [help]
-	autocorrect = 10
+	autoCorrect = 10
 [init]
 	defaultBranch = master
 [pull]
@@ -54,6 +57,7 @@
 	trustExitCode = true
 [merge]
 	tool = nvimdiff
+	autoStash = true
 [mergetool "nvimdiff"]
 	trustExitCode = true
 [filter "lfs"]

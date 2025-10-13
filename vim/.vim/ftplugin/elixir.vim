@@ -1,9 +1,9 @@
 setlocal signcolumn=yes
 
 " I still find Elixir code hard to read, so make declarations high contrast.
-hi link elixirFunctionDeclaration MatchParen
-hi link elixirPrivateFunctionDeclaration WildMenu
-hi link elixirModuleDeclaration MatchParen
-hi link elixirMacroDeclaration MatchParen
+hi link elixirModuleDeclaration IncSearch
+hi link elixirMacroDeclaration IncSearch
+hi link elixirFunctionDeclaration IncSearch
+hi link elixirPrivateFunctionDeclaration Substitute
 hi link elixirExceptionDefine Error
 hi link elixirStructDefine Warning

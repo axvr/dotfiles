@@ -2,7 +2,7 @@
 
 " Faster `:find` and `:grep`.
 nnoremap <leader>f :find<space>
-nnoremap <leader>g :silent grep ''<left>
+nnoremap <leader>/ :silent grep ''<left>
 function! s:find_fuzzy(cmdarg, _) abort
     return axvr#MatchFuzzy(systemlist('fd -HE .git -d 8 .'), a:cmdarg)
 endfunction
@@ -30,7 +30,7 @@ command! -nargs=* -bang -complete=file_in_path Todos
             \ exec 'GrepWith'.<q-bang> 'todos' <q-args>
 
 " Notes.
-command -nargs=0 Notes split | lcd $NOTES_DIR | tabedit $NOTES_DIR
+command -nargs=0 Notes <mods> tabedit $NOTES_DIR/index.md | silent lcd $NOTES_DIR | arglocal
 
 " Command to diff unsaved changes to current file.  Deactivate with :diffoff!
 command! -nargs=0 -bar DiffOrig

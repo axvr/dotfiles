@@ -30,7 +30,7 @@ TODO
     :GrepaddWith[!]
     :LgrepWith[!]
     :LgrepaddWith[!]
-    <leader>g
+    <leader>/
 <
 
 ==============================================================================
