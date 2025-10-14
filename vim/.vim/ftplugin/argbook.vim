@@ -1,0 +1,12 @@
+set buftype=acwrite nobuflisted noswapfile hidden
+
+augroup argbook_buffer
+    autocmd! BufWriteCmd <buffer>  call argbook#Write()
+    autocmd! BufReadCmd  <buffer>  call argbook#Load()
+    autocmd! BufEnter    <buffer>  call argbook#Reload()
+    " TODO: update after running :argadd/argedit commands while in the argbook buffer.
+augroup END
+
+nnoremap <silent> <buffer> <CR> :call argbook#Jump(getbufline(bufnr('%'), line('.'))[0])<CR>
+
+" FIXME: ensure :wall doesn't save this file while hidden.

@@ -1,19 +1,22 @@
-function! argbook#jump(name) abort
-    " FIXME: broken name normalisation breaks jumping.
-    " TODO: custom error messgae if not found.
-    exec 'argument' 1 + index(argv()->map({_, v -> fnamemodify(v, ':p:.')}), a:name)
+function! argbook#Jump(name) abort
+    if !empty(a:name)
+        " FIXME: broken name normalisation breaks jumping.
+        " TODO: custom error messgae if not found.
+        exec 'argument' 1 + index(argv()->map({_, v -> fnamemodify(v, ':p:.')}), a:name)
+    else
+        call axvr#Warn('argbook#Jump: No file under cursor.')
+    endif
 endfunction
 
-function! argbook#load() abort
-    " FIXME: doesn't remove extra lines correctly.
-    normal "_%d
+function! argbook#Load() abort
+    %delete _
     call argv()->map({_, v -> fnamemodify(v, ':p:.')})
-              \->map({i, l -> setbufline(bufnr('%'), i+1, l)})
+              \->map({i, l -> setbufline(bufnr('%'), i + 1, l)})
     setlocal nomodified
 endfunction
 
 " TODO: maintain previously selected arg?  I.e. delete/replace around it.
-function! argbook#write() abort
+function! argbook#Write() abort
     %argdelete
     for arg in getbufline(bufnr('%'), 1, '$')
         if !empty(arg)
@@ -25,7 +28,7 @@ endfunction
 
 let s:arglist_bufnr = 0
 
-function! argbook#open() abort
+function! argbook#Open() abort
     let arglistid = arglistid()
     let winid = win_getid()
 
@@ -43,7 +46,7 @@ function! argbook#open() abort
     exec 'buffer' bufnr
 endfunction
 
-function! argbook#reload() abort
+function! argbook#Reload() abort
     set nobuflisted  " Vim will enable this each time the buffer is edited.
-    if !&l:modified | call argbook#load() | endif
+    if !&l:modified | call argbook#Load() | endif
 endfunction

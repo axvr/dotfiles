@@ -7,7 +7,7 @@ function! s:find_fuzzy(cmdarg, _) abort
     return axvr#MatchFuzzy(systemlist('fd -HE .git -d 8 .'), a:cmdarg)
 endfunction
 if executable('fd') | set findfunc=s:find_fuzzy | endif
-if executable('rg') | set grepprg=rg\ --vimgrep\ --hidden\ -g\ '!.git/*' | endif
+if executable('rg') | set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ -g\ '!.git/*' | endif
 
 " Quickly use alternate grep-style output tools.
 "   :GrepWith todos % | grep src
