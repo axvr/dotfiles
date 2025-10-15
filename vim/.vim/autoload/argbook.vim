@@ -9,14 +9,23 @@ function! argbook#Jump(name) abort
 endfunction
 
 function! argbook#Load() abort
-    %delete _
+    silent %delete _
     call argv()->map({_, v -> fnamemodify(v, ':p:.')})
               \->map({i, l -> setbufline(bufnr('%'), i + 1, l)})
     setlocal nomodified
 endfunction
 
+" TODO: partial writes.
+function! argbook#Write2() abort
+    " Used for partial writes.
+    " echo 'Write2' v:cmdarg v:cmdbang expand('<amatch>')
+endfunction
+
 " TODO: maintain previously selected arg?  I.e. delete/replace around it.
+" TODO: handle `<afile>` and the like.
+"   <https://stackoverflow.com/questions/12324696/bufwritecmd-handler>
 function! argbook#Write() abort
+    " echo 'Write1' v:cmdarg v:cmdbang expand('<amatch>')
     %argdelete
     for arg in getbufline(bufnr('%'), 1, '$')
         if !empty(arg)
