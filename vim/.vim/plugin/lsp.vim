@@ -1,6 +1,6 @@
-" Neovim LSP and diagnostic config.
-"   :help lsp.txt
-"   :help diagnostic.txt
+" Summary: Neovim LSP and diagnostic config.
+" Help:    :help lsp.txt  |  :help diagnostic.txt
+
 if has('nvim')
     " Default keymaps -> :help lsp-defaults
     command! -nargs=0 -bar LspReferences call v:lua.vim.lsp.buf.references()
