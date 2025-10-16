@@ -10,6 +10,7 @@ Welcome to the Axvr Vim user manual.                 *axvr*  *axvr.vim*  *vim-ax
     2. Local configs .............................. |axvr/local-config|
     3. Scratch buffers ................................. |axvr/scratch|
     4. Convert to script ............................. |axvr/to-script|
+    5. Point to word ..................................... |axvr/point|
 
 ------------------------------------------------------------------------------
 
@@ -88,5 +89,21 @@ do-scripts.  After typing these you're prompted to finish the file name.
     <leader>db  <-  Create a new do-script of bash filetype.
     <leader>ds  <-  Create a new do-script of sh filetype.
 <
+==============================================================================
+ 5. POINT TO WORD                                                  *axvr/point*
+
+Quickly point to the word under the cursor to more easily keep track of it and
+mentions.  This is just a thin wrapper around |:match|.  Use the *:Point* command
+to create and remove pointers.
+>
+    :[N]Point[!] [N]
+<
+`N` is the number of a pointer.  There are 3 pointers: `1` (default), `2` and `3`.
+Each pointer has a different style.  If a `!` is used, the pointer will be
+removed.
+
+To clear all 3 pointers at once, use *:NoPoint*.
+
+Some pointer commands have been added to the |popup-menu|.
 ------------------------------------------------------------------------------
 vim:et:ts=4:sts=4:sw=4:tw=78:ft=help:norl:
