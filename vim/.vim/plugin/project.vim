@@ -11,6 +11,6 @@ command! -nargs=0 -bar DiffOrig
             \ <mods> new
             \ | read ++edit # | 0d_ | diffthis
             \ | setl buftype=nofile readonly noswapfile bufhidden=wipe nobuflisted nomodifiable
-            \ | exe 'setfiletype ' . getbufvar('#', '&l:filetype')
-            \ | exe 'silent file [Diff] ' . bufname('#')
+            \ | exe 'setfiletype ' .. getbufvar('#', '&l:filetype')
+            \ | exe 'silent file [Diff] ' .. bufname('#')
             \ | wincmd p | diffthis

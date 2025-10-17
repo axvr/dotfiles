@@ -26,4 +26,4 @@ command! -nargs=+ -bang -complete=shellcmdline LgrepaddWith
             \ call axvr#GrepWith('exec', <q-args>, {"jump": empty(<q-bang>), "add": 1, "loc": 1})
 
 command! -nargs=* -bang -complete=file_in_path Todos
-            \ exec 'GrepWith'.<q-bang> 'todos' <q-args>
+            \ exec 'GrepWith'..<q-bang> 'todos' <q-args>

@@ -6,9 +6,9 @@ function! s:scratch(mods, filetype) abort
         echo 'Scratch buffers:'
         filter /\M^[Scratch]/ buffers
     else
-        let bufnr = bufadd('[Scratch] ' . a:filetype)
+        let bufnr = bufadd('[Scratch] ' .. a:filetype)
         call setbufvar(bufnr, '&filetype', a:filetype)
-        exec a:mods . (empty(a:mods) ? ' buffer ' : ' sbuffer ') . bufnr
+        exec a:mods .. (empty(a:mods) ? ' buffer ' : ' sbuffer ') .. bufnr
         setlocal buftype=nofile noswapfile buflisted
     endif
 endfunction

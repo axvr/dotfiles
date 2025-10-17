@@ -1,4 +1,5 @@
 - Vim:
+  - Better learn to use marks and registers.
   - `:h shada-file`
   - Arglist bookmarks + helpers.  (Name: Argbook, Barge, Darg?)
     - Convert into a plugin?

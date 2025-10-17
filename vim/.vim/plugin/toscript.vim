@@ -29,7 +29,7 @@ function! s:to_script(ft) abort
         call appendbufline(bufnr, 0, shebang)
         call appendbufline(bufnr, 1, '')
     else
-        call axvr#Warn('No matching shebang identified for filetype: ' . a:ft)
+        call axvr#Warn('No matching shebang identified for filetype: ' .. a:ft)
     endif
 
     if &modifiable && !empty(bufname(bufnr))

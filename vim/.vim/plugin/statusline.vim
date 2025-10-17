@@ -9,23 +9,23 @@
 
 function! StatusLineFileEncoding()
     " Only display if not UTF-8 encoding.
-    return &fenc =~? '^\(\|utf-8\)$' ? '' : '['.&fenc.']'
+    return &fenc =~? '^\(\|utf-8\)$' ? '' : '['..&fenc..']'
 endfunction
 
 function! StatusLineFileFormat()
     " Only display if not Unix format.
-    return &ff ==# 'unix' ? '' : '['.&ff.']'
+    return &ff ==# 'unix' ? '' : '['..&ff..']'
 endfunction
 
 set ruler laststatus=2
-set rulerformat=%14(%=%(%{!&nu?line('.').':':''}%c%)%(\ \ %P%)%<%)
+set rulerformat=%14(%=%(%{!&nu?line('.')..':':''}%c%)%(\ \ %P%)%<%)
 
 function! StatusLine(active)
     let hl = a:active ? 'StatusLine' : 'StatusLineNc'
-    return "%#".hl."#%<"
-        \ ."%(\ %f\ %)"
-        \ ."%(%m%r%h%w%{StatusLineFileFormat()}%{StatusLineFileEncoding()}\ %)"
-        \ ."%=".&rulerformat."\ "
+    return "%#"..hl.."#%<"
+        \ .."%(\ %f\ %)"
+        \ .."%(%m%r%h%w%{StatusLineFileFormat()}%{StatusLineFileEncoding()}\ %)"
+        \ .."%="..&rulerformat.."\ "
 endfunction
 
 augroup set_statusline

@@ -33,20 +33,20 @@ function! axvr#GrepWith(prg, args = '', opts = {})
     let add  = get(a:opts, 'add', 0)  ? 'add' : ''
     let loc  = get(a:opts, 'loc', 0)  ? 'l'   : ''
     let grep =  loc..'grep'..add..jump..' '
-    call axvr#TempSetBufOpt('&grepprg', a:prg, {-> execute(grep . a:args, 'silent')})
+    call axvr#TempSetBufOpt('&grepprg', a:prg, {-> execute(grep .. a:args, 'silent')})
 endfunction
 
-let s:trust_store = expand($HOME . '/.vim/state/trust/')
+let s:trust_store = expand($HOME .. '/.vim/state/trust/')
 call mkdir(s:trust_store, 'p')
 
 function! axvr#IsTrusted(uid) abort
-    return filereadable(s:trust_store . a:uid)
+    return filereadable(s:trust_store .. a:uid)
 endfunction
 
 function! axvr#Trust(uid) abort
-    return writefile([], s:trust_store . a:uid)
+    return writefile([], s:trust_store .. a:uid)
 endfunction
 
 function! axvr#Untrust(uid) abort
-    call delete(s:trust_store . a:uid, 'rf')
+    call delete(s:trust_store .. a:uid, 'rf')
 endfunction
