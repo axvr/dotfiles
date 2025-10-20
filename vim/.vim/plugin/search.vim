@@ -1,14 +1,16 @@
 " Summary: Better searching and search tools.
+" Help:    N/A
 
 " Faster `:find` and `:grep`.
-if executable('fd') | set findfunc=s:find_fuzzy | endif
-if executable('rg') | set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ -g\ '!.git/*' | endif
 function! s:find_fuzzy(cmdarg, _) abort
     return axvr#MatchFuzzy(systemlist('fd -HE .git -d 8 .'), a:cmdarg)
 endfunction
+if executable('fd') | set findfunc=s:find_fuzzy | endif
+if executable('rg') | set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ -g\ '!.git/*' | endif
 
-nnoremap <leader>f :find<space>
 nnoremap <leader>/ :silent grep ''<left>
+nnoremap <leader>f :find<space>
+nnoremap <leader>b :buffer<space>
 
 " Quickly use alternate grep-style output tools.
 "   :GrepWith todos % | grep src

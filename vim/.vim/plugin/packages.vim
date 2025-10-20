@@ -1,4 +1,5 @@
-" Configure packages.
+" Summary: Configure and enable packages.
+" Help:    :help packages
 
 " Regenerate help tags for plugins.
 command! -nargs=0 -bar Helptags
@@ -6,34 +7,22 @@ command! -nargs=0 -bar Helptags
             \ ->add(expand('~/.vim/doc'))
             \ ->foreach("exec 'helptags' v:val")
 
-" Enable the built-in Man page viewer.
+" Add `:Man` and `:Info`.
 runtime ftplugin/man.vim
 set keywordprg=:Man
-
-packadd qf
-packadd matchit
-packadd traces
-packadd fugitive
 packadd info
 
+packadd qf
+let g:qf_number = 0
+
+packadd matchit
+packadd fugitive
 if has('nvim')
     packadd commentary
     packadd conjure
 else
     packadd comment
+    packadd traces
     packadd unimpaired
     packadd editorconfig
 endif
-
-" Replace netrw with dirvish.
-let g:netrw_banner = 0
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
-let g:dirvish_mode = ':sort | silent! g,\v/\.DS_Store$,d _'
-packadd dirvish
-
-let g:qf_number = 0
-let g:tex_flavor = "latex"
-let g:markdown_minlines = 200
-let g:ledger_is_hledger = v:true
-let g:org_clean_folds = 1

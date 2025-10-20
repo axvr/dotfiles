@@ -1,10 +1,10 @@
 *axvr.txt*                             Docs for my personal Vim customisations.
 
 
-                      Axvr Vim Manual by Alex Vear~
+                      Axvr Vim manual by Alex Vear~
 
 
-Welcome to the Axvr Vim user manual.                 *axvr*  *axvr.vim*  *vim-axvr*
+Welcome to the Axvr Vim config user manual.          *axvr*  *axvr.vim*  *vim-axvr*
 
     1. Grep ............................................... |axvr/grep|
     2. Local configs .............................. |axvr/local-config|

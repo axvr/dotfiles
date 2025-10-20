@@ -3,9 +3,6 @@
   - `:h shada-file`
   - Arglist bookmarks + helpers.  (Name: Argbook, Barge, Darg?)
     - Convert into a plugin?
-  - Return of qfsign.vim?  (Update to work with location list and marks too?)
-  - More `<leader>` mappings.  E.g. notes file mappings, `<leader>b` for `:buffer`?
-    - Notes mappings: goto root, new note?
   - REPL plugins?  Conjure, Zepl, Zepl2, Something Tmux-based?
     - Conjure's jump to source (incl. Java source) is useful.
     - Conjure's REPL currently sucks for Common Lisp, a plain REPL is better.
@@ -13,7 +10,7 @@
         - Similar to what Julia has.
         - Maybe an idea for Vila?
     - Conjure: add Zepl's `gz` binding?
-  - `<C-K>` binding in Vim to lookup symbol in HyperSpec, ClojureDocs or Javadoc?
+  - `<C-K>` binding to lookup symbol in ClojureDocs or Javadoc?
   - Plugins to create?
     - execline.vim?   <https://skarnet.org/software/execline/>
       - vim-execline is closed source.

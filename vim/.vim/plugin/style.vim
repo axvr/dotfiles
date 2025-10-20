@@ -1,11 +1,27 @@
-" Improved Vim status line.
+" Summary: Vim styling.  E.g. colours and statusline config.
+" Help:    N/A
+
+if &term =~# '256color$' || has('gui')
+    set termguicolors
+    colorscheme raider
+    let &colorcolumn='+'.join(range(1,256),',+')
+endif
+
+if &term =~# '^\(screen\|tmux\)'
+    " :help xterm-true-color
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+" Enable blinking cursor.
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+            \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+            \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+" Configure Vim status line.  Left, file info; right, location info.
 "
-" The left side displays file information, the right shows location info.
-"
-" Left:  [File name][+][RO][Help][Preview][Format][Enc]
-"        [Block 1  ][Block 2                          ]
-" Right: [Line][Column][Percentage]
-"        [Block 3     ][Block 4   ]
+" Left:  ([File name])     ([+][RO][Help][Preview][Format][Enc])
+" Right: ([Line] [Column]) ([Percentage])
 
 function! StatusLineFileEncoding()
     " Only display if not UTF-8 encoding.
@@ -28,7 +44,7 @@ function! StatusLine(active)
         \ .."%="..&rulerformat.."\ "
 endfunction
 
-augroup set_statusline
+augroup axvr/statusline
     autocmd!
     autocmd WinEnter,BufEnter * setlocal statusline=%!StatusLine(1)
     autocmd WinLeave,BufLeave * setlocal statusline=%!StatusLine(0)

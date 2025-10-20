@@ -1,9 +1,7 @@
 " ~/.vim/vimrc
 
 filetype plugin indent on
-if !exists('g:syntax_on')
-    syntax enable
-endif
+if !exists('g:syntax_on') | syntax enable | endif
 
 " Essentials.
 set startofline hidden autoread display=truncate
@@ -45,40 +43,17 @@ inoremap <C-U> <C-G>u<C-U>
 let g:mapleader = " "
 let g:maplocalleader = "\\"
 
-" Theming.
-if &term =~# '256color$' || has('gui')
-    set termguicolors
-    colorscheme raider
-    let &colorcolumn='+'.join(range(1,256),',+')
-endif
-if &term =~# '^\(screen\|tmux\)'
-    " :help xterm-true-color
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
-" Enable blinking cursor.
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-            \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-            \,sm:block-blinkwait175-blinkoff150-blinkon175
-
 " Clean up Neovim PopUp menu.
 if has('nvim') && exists(':menu')
     aunmenu PopUp.-2-
     aunmenu PopUp.How-to\ disable\ mouse
 endif
 
-augroup filetype_config
-    autocmd!
-    autocmd FileType c,cpp,go,gitconfig,fstab setl noet sts=8 sw=8
-    autocmd FileType lisp,clojure,scheme,json,ruby,markdown setl et sts=2 sw=2
-    autocmd FileType html,css setl noet sts=2 sw=2 ts=2
-    autocmd FileType perl,sh,python,javascript setl tw=79
-    autocmd FileType lisp,clojure,scheme setl commentstring=;;%s cpo-=J
-    autocmd FileType robots,crontab,spec,desktop,execline setl commentstring=#%s
-    autocmd FileType c,cpp setl path+=/usr/include
-    autocmd FileType tex compiler latexmk
-    autocmd FileType gitcommit setl spell
-    autocmd FileType git,gitcommit,diff setl foldmethod=syntax foldlevel=100
-    autocmd FileType sh,bash setl keywordprg=:Man | compiler shellcheck
-augroup END
+" Add custom text objects.
+" <https://www.reddit.com/r/vim/comments/8iwuyq/substituting_vimsurround_snippet_plugins_with/dyvz96k/>
+for s:char in ['_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '-', '%', '`']
+    exec 'xnoremap i' .. s:char .. ' :<C-u>normal! T' .. s:char .. 'vt' .. s:char .. '<CR>'
+    exec 'onoremap i' .. s:char .. ' :normal vi'      .. s:char .. '<CR>'
+    exec 'xnoremap a' .. s:char .. ' :<C-u>normal! F' .. s:char .. 'vf' .. s:char .. '<CR>'
+    exec 'onoremap a' .. s:char .. ' :normal va'      .. s:char .. '<CR>'
+endfor

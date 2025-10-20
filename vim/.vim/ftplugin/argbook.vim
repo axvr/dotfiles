@@ -1,6 +1,6 @@
 set buftype=acwrite nobuflisted noswapfile hidden
 
-augroup argbook_buffer
+augroup axvr/argbook_buffer
     autocmd! FileWriteCmd <buffer> call argbook#Write2()
     autocmd! BufWriteCmd  <buffer> call argbook#Write()
     autocmd! BufReadCmd   <buffer> call argbook#Load()

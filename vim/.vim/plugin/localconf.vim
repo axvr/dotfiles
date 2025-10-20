@@ -18,7 +18,7 @@ function! s:load_local_config(file) abort
     endif
 endfunction
 
-augroup AxvrLocalConf
+augroup axvr/local-config
     autocmd!
     autocmd VimEnter * call s:load_local_config('.axvr.vim')
 augroup END

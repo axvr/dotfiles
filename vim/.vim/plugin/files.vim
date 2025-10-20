@@ -1,3 +1,8 @@
+" Replace netrw with dirvish.
+let [g:netrw_banner, g:loaded_netrw, g:loaded_netrwPlugin] = [0, 1, 1]
+let g:dirvish_mode = ':sort | silent! g,\v/\.(DS_Store|git/)$,d _'
+packadd dirvish
+
 function! s:create_parent_dirs()
     let dir = expand("%:p:h")
     if ! isdirectory(dir) && axvr#YN('Create directory?')
@@ -13,7 +18,7 @@ function! s:trim_whitespace()
     endif
 endfunction
 
-augroup file_utils
+augroup axvr/file_utils
     autocmd!
     autocmd BufWritePre * call s:create_parent_dirs()
     autocmd BufWritePre * call s:trim_whitespace()
@@ -22,7 +27,7 @@ augroup file_utils
 augroup END
 
 " When opening a file, jump to the last known cursor position.
-augroup cursor_restore
+augroup axvr/cursor_restore
     autocmd!
     autocmd BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
     " Reset cursor position to top of file for these files.
