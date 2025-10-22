@@ -8,6 +8,21 @@ nnoremap <leader>gs :Git<CR>
 nnoremap <leader>ga :Git add -p<CR>
 nnoremap <leader>gd :Gvdiffsplit<CR>
 
+" Quickly save/update session files.
+function! s:mksession(file = '') abort
+    let sfile = a:file->axvr#Else(v:this_session)->axvr#Else('Session.vim')->fnamemodify(':.')
+    echohl Question
+    call inputsave()
+    let sfile = input('Save session to: ', sfile)
+    call inputrestore()
+    if !empty(sfile)
+        exec 'mksession!' sfile
+        echohl SuccessMsg | echo "\nSession saved!"
+    endif
+    echohl NONE
+endfunction
+nnoremap <silent> <leader>S :<C-u>call <SID>mksession()<CR>
+
 " Notes and task management.
 command! -nargs=0 -bar Tasks tabedit DONE | split DOING | split TODO
 command! -nargs=0 -bar Notes <mods> tabedit $NOTES_DIR | silent lcd $NOTES_DIR | arglocal
@@ -15,12 +30,12 @@ command! -nargs=0 -bar Notes <mods> tabedit $NOTES_DIR | silent lcd $NOTES_DIR |
 
 " :help diff-original-file
 command! -nargs=0 -bar DiffOrig
-            \ <mods> new
-            \ | read ++edit # | 0d_ | diffthis
-            \ | setl buftype=nofile readonly noswapfile bufhidden=wipe nobuflisted nomodifiable
-            \ | exe 'setfiletype ' .. getbufvar('#', '&l:filetype')
-            \ | exe 'silent file [Diff] ' .. bufname('#')
-            \ | wincmd p | diffthis
+    \ <mods> new
+    \ | read ++edit # | 0d_ | diffthis
+    \ | setl buftype=nofile readonly noswapfile bufhidden=wipe nobuflisted nomodifiable
+    \ | exe 'setfiletype ' .. getbufvar('#', '&l:filetype')
+    \ | exe 'silent file [Diff] ' .. bufname('#')
+    \ | wincmd p | diffthis
 
 " Neovim LSP and diagnostic config.
 if ! has('nvim') | finish | endif

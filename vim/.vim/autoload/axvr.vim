@@ -16,6 +16,10 @@ function! axvr#ReEscape(str) abort
     return escape(a:str, './\^$~*')
 endfunction
 
+function! axvr#Else(str_or_col, fallback)
+    return empty(a:str_or_col) ? a:fallback : a:str_or_col
+endfunction
+
 function! axvr#MatchFuzzy(list, search, opts = {}) abort
     return empty(a:search) ? a:list : matchfuzzy(a:list, a:search, a:opts)
 endfunction

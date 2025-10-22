@@ -15,4 +15,4 @@ endfunction
 
 command! -nargs=? -bar -complete=filetype Scratch call s:scratch(<q-mods>, <q-args>)
 command! -nargs=+ -complete=command Redir
-            \ call appendbufline(bufnr(), getcurpos('.')[1] - 1, split(execute(<q-args>), "\n"))
+    \ call appendbufline(bufnr(), getcurpos('.')[1] - 1, split(execute(<q-args>), "\n"))

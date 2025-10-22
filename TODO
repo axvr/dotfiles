@@ -1,7 +1,7 @@
 - Vim:
   - Better learn to use marks and registers.
   - `:h shada-file`
-  - Finish arglist bookmarks.  Convert into a plugin?
+  - Finish arglist bookmarks plugin.  Publish?
   - Alternate REPL plugins?  Zepl, Zepl2, Something Tmux-based?
     - Conjure's jump to source (incl. Java source) is useful.
     - Common Lisp, Clojure, Julia, Elixir need interactive REPL TUIs with mouse support which Conjure doesn't do well.

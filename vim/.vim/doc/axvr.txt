@@ -22,6 +22,8 @@ TODO
     * Add section on automatic whitespace trimming.
     * Add section on `:Helptags`.
     * Add section on my autoload helper functions.
+    * Add section on session quick save: `<leader>S`.
+    * Add section on Git `<leader>` bindings.
 
 ==============================================================================
  1. GREP                                                            *axvr/grep*

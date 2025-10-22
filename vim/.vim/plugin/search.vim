@@ -19,13 +19,13 @@ nnoremap <leader>b :buffer<space>
 "   :LgrepWith git markers
 "   :LgrepaddWith todos %
 command! -nargs=+ -bang -complete=shellcmdline GrepWith
-            \ call axvr#GrepWith('exec', <q-args>, {"jump": empty(<q-bang>)})
+    \ call axvr#GrepWith('exec', <q-args>, {"jump": empty(<q-bang>)})
 command! -nargs=+ -bang -complete=shellcmdline GrepaddWith
-            \ call axvr#GrepWith('exec', <q-args>, {"jump": empty(<q-bang>), "add": 1})
+    \ call axvr#GrepWith('exec', <q-args>, {"jump": empty(<q-bang>), "add": 1})
 command! -nargs=+ -bang -complete=shellcmdline LgrepWith
-            \ call axvr#GrepWith('exec', <q-args>, {"jump": empty(<q-bang>), "loc": 1})
+    \ call axvr#GrepWith('exec', <q-args>, {"jump": empty(<q-bang>), "loc": 1})
 command! -nargs=+ -bang -complete=shellcmdline LgrepaddWith
-            \ call axvr#GrepWith('exec', <q-args>, {"jump": empty(<q-bang>), "add": 1, "loc": 1})
+    \ call axvr#GrepWith('exec', <q-args>, {"jump": empty(<q-bang>), "add": 1, "loc": 1})
 
 command! -nargs=* -bang -complete=file_in_path Todos
-            \ exec 'GrepWith'..<q-bang> 'todos' <q-args>
+    \ exec 'GrepWith'..<q-bang> 'todos' <q-args>

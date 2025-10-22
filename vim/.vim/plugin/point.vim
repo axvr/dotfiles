@@ -9,7 +9,7 @@ function! s:Point(bang, count, cword) abort
 endfunction
 
 command! -count -bar -bang -nargs=0 Point
-            \ call s:Point(<q-bang> ==# '!', <f-count>, expand('<cword>'))
+    \ call s:Point(<q-bang> ==# '!', <f-count>, expand('<cword>'))
 
 command! -bar -nargs=0 NoPoint :Point! <bar> Point!2 <bar> Point!3
 
