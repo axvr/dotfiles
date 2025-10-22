@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Save and restore Tmux sessions and windows.  (Good enough for most uses.)
+# Based on: <https://github.com/mislav/dotfiles/blob/master/bin/tmux-session>
+
+set -e
+
+LAYOUT_FILE="$HOME/.local/state/tmux/layout.csv"
+mkdir -p "$(dirname "$LAYOUT_FILE")"
+
+case "$1" in
+    capture)
+        tmux list-windows -aF "#S	#W	#{pane_current_path}" \
+            > "$LAYOUT_FILE" ;;
+    restore)
+        tmux start-server
+        while IFS="	" read sname wname cwd; do
+            ! [ -d "$cwd" ] && continue
+            if tmux has-session -t "$sname" 2> /dev/null; then
+                tmux new-window -Pdt "$sname" -n "$wname" -c "$cwd"
+            else
+                tmux new-session -Pds "$sname" -n "$wname" -c "$cwd"
+            fi
+        done < "$LAYOUT_FILE" ;;
+    *) echo "$0 [ capture | restore ]" >&2 && exit 1 ;;
+esac

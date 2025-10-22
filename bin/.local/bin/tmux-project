@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Tmux project switcher.  Switch to and open projects as Tmux sessions.
+# Based on: <https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer>
 
 project="$1"
 if [ -z "$1" ]; then

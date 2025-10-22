@@ -1,26 +1,14 @@
 - Vim:
   - Better learn to use marks and registers.
   - `:h shada-file`
-  - Arglist bookmarks + helpers.  (Name: Argbook, Barge, Darg?)
-    - Convert into a plugin?
-  - REPL plugins?  Conjure, Zepl, Zepl2, Something Tmux-based?
+  - Finish arglist bookmarks.  Convert into a plugin?
+  - Alternate REPL plugins?  Zepl, Zepl2, Something Tmux-based?
     - Conjure's jump to source (incl. Java source) is useful.
-    - Conjure's REPL currently sucks for Common Lisp, a plain REPL is better.
-      - Common Lisp (and Clojure) need interactive REPL TUIs with mouse support.
-        - Similar to what Julia has.
-        - Maybe an idea for Vila?
-    - Conjure: add Zepl's `gz` binding?
-  - `<C-K>` binding to lookup symbol in ClojureDocs or Javadoc?
-  - Plugins to create?
-    - execline.vim?   <https://skarnet.org/software/execline/>
-      - vim-execline is closed source.
-      - Add/open links to the Web manual?
-      - Include in Vim?
-    - netstring.vim?  <https://cr.yp.to/proto/netstrings.txt>
-
-- Tmux:
-  - Add tmux-restore script.
+    - Common Lisp, Clojure, Julia, Elixir need interactive REPL TUIs with mouse support which Conjure doesn't do well.
+  - Create an execline plugin <https://skarnet.org/software/execline/>
+    - vim-execline is closed source and cannot be included in Vim.
+    - Open Web docs binding or include links in Vim help doc?
 
 - Scripts:
-  - CljDoc equivalent to my HyperSpec command.
+  - Clojure equivalent to my HyperSpec command (+ `<C-K>` Vim mapping).
     - <https://clojuredocs.org/>, <https://cljdoc.org/>

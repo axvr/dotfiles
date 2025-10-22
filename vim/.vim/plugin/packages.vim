@@ -5,7 +5,7 @@
 command! -nargs=0 -bar Helptags
             \ call glob('~/.vim/pack/*/*/*/doc', 1, 1)
             \ ->add(expand('~/.vim/doc'))
-            \ ->foreach("exec 'helptags' v:val")
+            \ ->foreach("exec '<mods> helptags' v:val")
 
 " Regenerate spell files from word lists.
 command! -nargs=0 -bar -bang Mkspell

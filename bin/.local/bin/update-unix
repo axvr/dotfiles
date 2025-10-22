@@ -30,7 +30,7 @@ fi
 
 if [ "$(command -v mise)" ]; then
     mise upgrade
-    mise prune
+    # mise prune
     mise install
 fi
 
