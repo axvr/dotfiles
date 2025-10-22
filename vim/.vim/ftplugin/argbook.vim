@@ -10,3 +10,4 @@ augroup axvr/argbook_buffer
 augroup END
 
 nnoremap <silent> <buffer> <CR> :call argbook#Jump(getbufline(bufnr('%'), line('.'))[0])<CR>
+nmap <silent> <buffer> <2-LeftMouse> <CR>

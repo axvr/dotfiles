@@ -1,5 +1,5 @@
-vim.lsp.config['elixirls'] = {
-    cmd = { vim.env.HOME .. '/.local/share/mise/installs/elixir-ls/latest/language_server.sh' },
+vim.lsp.config['expert'] = {
+    cmd = { 'expert' },
     filetypes = { 'elixir', 'eelixir', 'heex', 'surface' },
     -- Taken from: https://github.com/neovim/nvim-lspconfig/blob/e688b486fe9291f151eae7e5c0b5a5c4ef980847/lsp/elixirls.lua#L36-L45
     root_dir = function(bufnr, on_dir)
@@ -11,13 +11,5 @@ vim.lsp.config['elixirls'] = {
         local root_dir = vim.fs.dirname(maybe_umbrella_path or child_or_root_path)
         on_dir(root_dir)
     end,
-    settings = {
-        elixirLS = {
-            fetchDeps = false,
-            dialyzerEnabled = false,
-            suggestSpecs = false,
-            enableTestLenses = false,
-            mcpEnabled = false
-        }
-    }
+    settings = { }
 }

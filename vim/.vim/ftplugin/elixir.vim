@@ -1,4 +1,5 @@
 setlocal signcolumn=yes
+compiler mix
 
 " I still find Elixir code hard to read, so make declarations high contrast.
 hi link elixirModuleDeclaration IncSearch

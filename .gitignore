@@ -5,3 +5,4 @@ fish/.config/fish/conf.d/
 fish/.config/fish/fish_variables
 vim/.vim/pack/*/*/*/
 vim/.vim/state/
+vim/.vim/spell/*.spl

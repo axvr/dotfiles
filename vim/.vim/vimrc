@@ -17,7 +17,8 @@ set expandtab tabstop=8 softtabstop=4 shiftwidth=4
 set shiftround autoindent nosmarttab
 set wrap showbreak=↳\  linebreak breakindent
 set path=.,,** clipboard=unnamed
-set spelllang=en_gb dictionary=/usr/dict/words,/usr/share/dict/words
+set spelllang=en_gb spellfile=~/.vim/spell/en.utf-8.add
+set dictionary=/usr/dict/words,/usr/share/dict/words
 set sessionoptions=buffers,curdir,tabpages viewoptions=folds,cursor,curdir
 set complete=.,w,b,u,t completeopt=menu,menuone,popup,fuzzy
 if has('nvim') | set winborder=single | endif
