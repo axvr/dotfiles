@@ -15,7 +15,7 @@ endfunction
 function! axvr#Ask(opts) abort
     echohl Question
     call inputsave()
-    let resp = input(opts)
+    let resp = input(a:opts)
     call inputrestore()
     return resp
 endfunction

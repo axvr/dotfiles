@@ -1,0 +1,5 @@
+#!/usr/bin/env -S execlineb -W
+
+# Print a random lowercase UUID.
+
+pipeline { uuidgen } tr A-Z a-z

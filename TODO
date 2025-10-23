@@ -3,6 +3,7 @@
   - `:h shada-file`
   - Finish arglist bookmarks plugin.  Publish?
   - Alternate REPL plugins?  Zepl, Zepl2, Something Tmux-based?
+    - Restore Zepl REPL configs from commit `67395567abeff763ba50f6c52bb0a1ff04db3bdd`
     - Conjure's jump to source (incl. Java source) is useful.
     - Common Lisp, Clojure, Julia, Elixir need interactive REPL TUIs with mouse support which Conjure doesn't do well.
   - Create an execline plugin <https://skarnet.org/software/execline/>

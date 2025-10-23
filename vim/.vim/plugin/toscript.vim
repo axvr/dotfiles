@@ -4,7 +4,7 @@
 " TODO: change this into a per-buffer 'b:axvr_shebang' option?
 let g:axvr_ft2shebang = {
     \   'awk':        '#!/usr/bin/env -S awk -f',
-    \   'bash':       '#!/usr/bin/env bash',
+    \   'bash':       ['#!/usr/bin/env bash', '', 'set -eo pipefail'],
     \   'bass':       '#!/usr/bin/env bass',
     \   'bb':         '#!/usr/bin/env bb',
     \   'elixir':     '#!/usr/bin/env -S ERL_FLAGS=+B elixir',
@@ -16,7 +16,7 @@ let g:axvr_ft2shebang = {
     \   'perl':       '#!/usr/bin/env perl',
     \   'python':     '#!/usr/bin/env python3',
     \   'scheme':     '#!/usr/bin/env -S csi -script',
-    \   'sh':         '#!/bin/sh',
+    \   'sh':         ['#!/bin/sh', '', 'set -e'],
     \   'vim':        '#!/usr/bin/env vim -S'
     \ }
 
@@ -24,10 +24,15 @@ function! s:to_script(ft) abort
     let bufnr = bufnr('%')
     call setbufvar(bufnr, '&filetype', a:ft)
 
-    let shebang = get(g:axvr_ft2shebang, a:ft, '')
+    let shebang = get(g:axvr_ft2shebang, a:ft, [])
+    if type(shebang) == v:t_string
+        let shebang = [shebang]
+    endif
     if !empty(shebang)
-        call appendbufline(bufnr, 0, shebang)
-        call appendbufline(bufnr, 1, '')
+        for i in range(0, len(shebang) - 1)
+            call appendbufline(bufnr, i, shebang[i])
+        endfor
+        call appendbufline(bufnr, len(shebang), '')
     else
         call axvr#Warn('No matching shebang identified for filetype: ' .. a:ft)
     endif

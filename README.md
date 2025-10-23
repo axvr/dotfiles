@@ -15,7 +15,7 @@ git submodule init
 git submodule update
 
 # Add Vim plugins
-git submodule add <url> vim/.vim/pack/core/.../...
+git submodule add -f <url> vim/.vim/pack/core/.../...
 
 # Update Vim plugins
 git submodule-pull
