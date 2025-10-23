@@ -12,6 +12,14 @@ function! axvr#YN(qn) abort
     return confirm(a:qn, "&Yes\n&No", 0, 'Question') == 1
 endfunction
 
+function! axvr#Ask(opts) abort
+    echohl Question
+    call inputsave()
+    let resp = input(opts)
+    call inputrestore()
+    return resp
+endfunction
+
 function! axvr#ReEscape(str) abort
     return escape(a:str, './\^$~*')
 endfunction

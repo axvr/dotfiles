@@ -25,6 +25,7 @@ packadd matchit
 packadd fugitive
 if has('nvim')
     packadd commentary
+    let g:conjure#filetypes = ['clojure']
     packadd conjure
 else
     packadd comment
