@@ -7,6 +7,7 @@ Clojure
 ClojureCLR
 ClojureScript
 Datalog
+EditorConfig
 GC
 GCs
 Graal
@@ -16,6 +17,7 @@ JIT
 JSON
 JVM
 LLVM
+Logback
 Lua
 MessagePack
 MoarVM
@@ -31,6 +33,7 @@ RPC
 RPi
 Regex
 SBCL
+SLF4J
 STPA
 Smalltalk
 Tmux
@@ -44,11 +47,13 @@ Zotero
 async/?
 autoiconic/?
 autoiconicity/?
+axvr
 config/?
 footgun
 footguns
 homoiconic
 homoiconicity
+iCal
 iCalendar
 inlining
 metaobject
@@ -63,3 +68,4 @@ struct
 structs
 vCard
 walkthrough
+whitespace

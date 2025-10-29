@@ -20,10 +20,8 @@ function! s:mksession(file = '') abort
 endfunction
 nnoremap <silent> <leader>S :<C-u>call <SID>mksession()<CR>
 
-" Notes and task management.
+" Task management.
 command! -nargs=0 -bar Tasks tabedit DONE | split DOING | split TODO
-command! -nargs=0 -bar Notes <mods> tabedit $NOTES_DIR | silent lcd $NOTES_DIR | arglocal
-" TODO: <leader>n mappings?  Go to root, up dir?
 
 " :help diff-original-file
 command! -nargs=0 -bar DiffOrig

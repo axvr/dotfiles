@@ -52,3 +52,6 @@
 [submodule "vim/.vim/pack/core/opt/unimpaired"]
 	path = vim/.vim/pack/core/opt/unimpaired
 	url = https://github.com/tpope/vim-unimpaired
+[submodule "vim/.vim/pack/core/opt/waikiki"]
+	path = vim/.vim/pack/core/opt/waikiki
+	url = https://github.com/fcpg/vim-waikiki
