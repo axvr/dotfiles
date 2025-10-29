@@ -52,6 +52,3 @@
 [submodule "vim/.vim/pack/core/opt/unimpaired"]
 	path = vim/.vim/pack/core/opt/unimpaired
 	url = https://github.com/tpope/vim-unimpaired
-[submodule "vim/.vim/pack/core/opt/zepl"]
-	path = vim/.vim/pack/core/opt/zepl
-	url = https://github.com/axvr/zepl.vim

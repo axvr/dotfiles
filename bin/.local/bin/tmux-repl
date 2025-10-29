@@ -1,0 +1,8 @@
+#!/usr/bin/env -S execlineb -W
+
+# Start a REPL in Tmux without a shell process behind it.
+
+# TODO: Options between new pane, veritcal/horizontal split.
+
+elgetpositionals
+tmux split-window -c "#{pane_current_path}" -- $@

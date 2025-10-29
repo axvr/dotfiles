@@ -21,11 +21,6 @@ packadd info
 packadd qf
 let g:qf_number = 0
 
-packadd zepl
-runtime zepl/contrib/load_files.vim
-command! -bar -nargs=0 ReplClear call zepl#send("\<C-l>", 1)
-nnoremap gz<C-l> :ReplClear<CR>
-
 packadd matchit
 packadd fugitive
 if has('nvim')

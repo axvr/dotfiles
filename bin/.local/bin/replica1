@@ -1,0 +1,5 @@
+#!/usr/bin/env -S execlineb -W
+
+# Connect to my Replica 1 computer via Serial over USB.
+
+picocom -b 9600 /dev/tty.usbserial-AC00JRMK
