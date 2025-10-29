@@ -40,6 +40,9 @@ unlet s:dir
 " :help i_CTRL-U-default
 inoremap <C-U> <C-G>u<C-U>
 
+" :help Y-default  |  :help Y
+nnoremap Y y$
+
 " "<Leader>" and "<LocalLeader>" prefixes.
 let g:mapleader = " "
 let g:maplocalleader = "\\"

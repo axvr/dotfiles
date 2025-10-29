@@ -4,5 +4,16 @@
 
 # TODO: Options between new pane, veritcal/horizontal split.
 
+backtick -ED v direction
+{
+    backtick -ED 1 columns { tput cols }
+    if { test 121 -lt $columns } echo h
+}
+
+backtick -ED 14 size
+{
+    if { test $direction = "h" } echo 67
+}
+
 elgetpositionals
-tmux split-window -c "#{pane_current_path}" -- $@
+tmux split-window -${direction}c "#{pane_current_path}" -l $size -- $@
