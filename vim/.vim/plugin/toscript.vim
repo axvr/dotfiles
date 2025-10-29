@@ -1,8 +1,7 @@
 " Summary: Quickly convert the current file into an executable script.
 " Help:    :help axvr/to-script
 
-" TODO: change this into a per-buffer 'b:axvr_shebang' option?
-let g:axvr_ft2shebang = {
+let g:axvr_shebang = {
     \   'awk':        '#!/usr/bin/env -S awk -f',
     \   'bash':       ['#!/usr/bin/env bash', '', 'set -eo pipefail'],
     \   'bass':       '#!/usr/bin/env bass',
@@ -11,9 +10,9 @@ let g:axvr_ft2shebang = {
     \   'erlang':     '#!/usr/bin/env escript',
     \   'execline':   '#!/usr/bin/env -S execlineb -W',
     \   'fish':       '#!/usr/bin/env fish',
-    \   'javascript': '#!/usr/bin/env node',
+    \   'javascript': ['#!/usr/bin/env node', '', '"use strict";'],
     \   'julia':      '#!/usr/bin/env julia',
-    \   'perl':       '#!/usr/bin/env perl',
+    \   'perl':       ['#!/usr/bin/env perl', '', 'use v5.34.0;', 'use strict;', 'use warnings;'],
     \   'python':     '#!/usr/bin/env python3',
     \   'scheme':     '#!/usr/bin/env -S csi -script',
     \   'sh':         ['#!/bin/sh', '', 'set -e'],
@@ -24,15 +23,13 @@ function! s:to_script(ft) abort
     let bufnr = bufnr('%')
     call setbufvar(bufnr, '&filetype', a:ft)
 
-    let shebang = get(g:axvr_ft2shebang, a:ft, [])
-    if type(shebang) == v:t_string
-        let shebang = [shebang]
-    endif
+    let shebang = get(g:axvr_shebang, a:ft, [])
+    let shebang = type(shebang) == v:t_string ? [shebang] : shebang
     if !empty(shebang)
+        let shebang += ['']
         for i in range(0, len(shebang) - 1)
             call appendbufline(bufnr, i, shebang[i])
         endfor
-        call appendbufline(bufnr, len(shebang), '')
     else
         call axvr#Warn('No matching shebang identified for filetype: ' .. a:ft)
     endif
@@ -50,7 +47,7 @@ function! s:to_script(ft) abort
 endfunction
 
 function! s:file_types(arglead, _cmdline, _curpos)
-    return axvr#MatchFuzzy(sort(keys(g:axvr_ft2shebang)), a:arglead)
+    return axvr#MatchFuzzy(sort(keys(g:axvr_shebang)), a:arglead)
 endfunction
 
 command -bar -nargs=1 -complete=customlist,s:file_types ToScript call s:to_script(<f-args>)

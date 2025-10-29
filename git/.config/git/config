@@ -8,11 +8,10 @@
 	root = rev-parse --show-toplevel
 	graph = log --all --decorate --oneline --graph
 	markers = ! git ls-files -u | awk '{ print $4 }' | uniq | xargs grep -Hn '^<<<<<<<'
-	tag-annotation = "! show_anno() { \
-		            git for-each-ref \"refs/tags/$1\" --format='%(contents)'; \
-		          }; [ -n \"$1\" ] && show_anno"
+	tag-annotation = "! show_anno() { git for-each-ref \"refs/tags/$1\" --format='%(contents)'; }; \
+			    [ -n \"$1\" ] && show_anno"
 	branch-description = "! show_desc() { git config \"branch.$1.description\"; }; \
-			        [ -n \"$1\" ] && show_desc"
+				[ -n \"$1\" ] && show_desc"
 	pushf = push --force-with-lease
 	fixup = commit --fixup
 	amend = commit --amend
@@ -21,17 +20,15 @@
 	grepl = grep --line-number --column
 	submodule-pull = submodule update --remote --merge
 	submodule-purge = "! submodule_purge() { \
-			     git submodule deinit -f \"$1\" \
-			       && git rm -f \"$1\" \
-			       && rm -rf \".git/modules/$1\"; \
+			     git submodule deinit -f \"$1\" && git rm -f \"$1\" && rm -rf \".git/modules/$1\"; \
 			   }; submodule_purge"
 	i = ! $EDITOR +Git +only
 	open = "! open_remote() { \
 		  git remote get-url \"${1-origin}\" \
 		    | sed -e 's,\\.git$,,' \
-		          -e 's,:,/,' \
-		          -e 's,^\\(https\\?\\)///,\\1://,' \
-		          -e 's,^git@,https://,' \
+			  -e 's,:,/,' \
+			  -e 's,^\\(https\\?\\)///,\\1://,' \
+			  -e 's,^git@,https://,' \
 		    | open-urls; \
 		}; open_remote"
 	head = ! git branch --no-color --contains HEAD | sed -e '/^[^*]/d' -e 's/^* //'

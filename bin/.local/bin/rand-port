@@ -2,7 +2,7 @@
 
 # Print a random unused port to STDOUT.
 
-use v5.30.0;
+use v5.34.0;
 use strict;
 use warnings;
 

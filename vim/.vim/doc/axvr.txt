@@ -79,7 +79,7 @@ followed by a |filetype| (tab-completes).
     2. If the given filetype has a registered shebang it will be prepended.
     3. If the buffer is a valid file, it will `chmod +x fname` it.
 
-The filetype to shebang registry is a dictionary in the *g:axvr_ft2shebang*
+The filetype to shebang registry is a dictionary in the *g:axvr_shebang*
 variable.
 >
     :edit do/my-script | ToScript bash
