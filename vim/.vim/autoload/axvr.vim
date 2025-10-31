@@ -1,11 +1,23 @@
 " Collection of personal helper functions for Vim.
 
+function! axvr#Info(msg)
+    echo a:msg
+endfunction
+
 function! axvr#Warn(msg)
-    echohl WarningMsg | echomsg a:msg | echohl NONE
+    try
+        echohl WarningMsg | echomsg a:msg
+    finally
+        echohl NONE
+    endtry
 endfunction
 
 function! axvr#Err(msg)
-    echohl ErrorMsg | echomsg a:msg | echohl NONE
+    try
+        echohl ErrorMsg | echomsg a:msg
+    finally
+        echohl NONE
+    endtry
 endfunction
 
 function! axvr#YN(qn) abort
@@ -13,11 +25,15 @@ function! axvr#YN(qn) abort
 endfunction
 
 function! axvr#Ask(opts) abort
-    echohl Question
-    call inputsave()
-    let resp = input(a:opts)
-    call inputrestore()
-    return resp
+    try
+        echohl Question
+        call inputsave()
+        let resp = input(a:opts)
+        call inputrestore()
+        return resp
+    finally
+        echohl NONE
+    endtry
 endfunction
 
 function! axvr#ReEscape(str) abort
@@ -30,6 +46,11 @@ endfunction
 
 function! axvr#MatchFuzzy(list, search, opts = {}) abort
     return empty(a:search) ? a:list : matchfuzzy(a:list, a:search, a:opts)
+endfunction
+
+function! axvr#GetSynCmd(name)
+    return execute('syn list ' . a:name)->split("\n")[1]
+                \->trim()->substitute('\m\C^' .. a:name .. '\s*xxx\s*', '', '')
 endfunction
 
 function! axvr#TempSetBufOpt(opt, val, callback)
