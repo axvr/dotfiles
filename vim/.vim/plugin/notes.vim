@@ -6,12 +6,8 @@
 command! -nargs=0 -bar Notes
             \ <mods> tabedit $NOTES_DIR | silent lcd $NOTES_DIR | arglocal
 
-function! s:GetConf(name, default) abort
-    return get(b:, a:name, get(g:, a:name, a:default))
-endfunction
-
 function! s:GetCurrentLink() abort
-  let link_regex = s:GetConf('axvr#link_regex', '\[[^]]*\](\zs[^)]\+\ze)')
+  let link_regex = axvr#Conf('axvr#link_regex', '\[[^]]*\](\zs[^)]\+\ze)')
   " TODO: <cfile>, get org mode regex from my earlier config, <a href="...">...</a>
   return matchstr(getline('.'),
               \ '\%<'.(col('.')+1).'c'..link_regex..'\%>'.col('.').'c')
@@ -57,7 +53,7 @@ function! GoUp() abort
 endfunction
 
 augroup axvr/links
-    au!
+    autocmd!
     autocmd FileType markdown nnoremap <silent> <buffer> gf :call FollowLink()<CR>
     autocmd FileType markdown nmap <buffer> <2-LeftMouse> gf
     autocmd FileType markdown,dirvish nnoremap <silent> <buffer> <localleader>u :call GoUp()<CR>

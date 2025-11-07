@@ -12,6 +12,7 @@
 			    [ -n \"$1\" ] && show_anno"
 	branch-description = "! show_desc() { git config \"branch.$1.description\"; }; \
 				[ -n \"$1\" ] && show_desc"
+	clean-orig = ! fd --no-ignore --extension orig --exec rm
 	pushf = push --force-with-lease
 	fixup = commit --fixup
 	amend = commit --amend
@@ -55,6 +56,8 @@
 [merge]
 	tool = nvimdiff
 	autoStash = true
+[mergetool]
+	keepBackup = false
 [mergetool "nvimdiff"]
 	trustExitCode = true
 [filter "lfs"]

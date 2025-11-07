@@ -44,6 +44,10 @@ function! axvr#Else(str_or_col, fallback)
     return empty(a:str_or_col) ? a:fallback : a:str_or_col
 endfunction
 
+function! axvr#Conf(name, default) abort
+    return get(b:, a:name, get(g:, a:name, a:default))
+endfunction
+
 function! axvr#MatchFuzzy(list, search, opts = {}) abort
     return empty(a:search) ? a:list : matchfuzzy(a:list, a:search, a:opts)
 endfunction
