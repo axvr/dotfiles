@@ -1,8 +1,10 @@
 - Vim:
   - Better learn to use marks and registers.
   - `:h shada-file`
-  - Finish arglist bookmarks plugin.  Publish?
-  - Alternate REPL plugins?  Zepl, Zepl2, Something Tmux `send-keys` based?
+  - Finish arglist bookmark plugin.  Publish?
+  - Finish file linking plugin.
+  - Alternate REPL plugins?  Zepl, Zepl2, Tmux?
+    - Tmux send-keys: <https://damonkelley.com/blog/2016/09/07/tmux-send-keys/>
     - Restore Zepl and REPL configs?  Commit: `67395567abeff763ba50f6c52bb0a1ff04db3bdd`
     - Conjure's jump to source (incl. Java source) is useful.
     - Common Lisp, Clojure, Julia, Elixir need interactive REPL TUIs with mouse support which Conjure doesn't do well.
