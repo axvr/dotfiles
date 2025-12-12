@@ -6,8 +6,7 @@
 project="$1"
 if [ -z "$1" ]; then
     proj_root="$HOME/Projects"
-    project="$(fd --base-directory "$proj_root" --exact-depth 1 \
-                  --exclude Work --type d . . Work \
+    project="$(fd --base-directory "$proj_root" --exact-depth 1 --type d . . \
                | sed -e 's,^\./,,' -e 's,/$,,' \
                | fzf --layout=reverse --no-color --info=right)"
     [ -z "$project" ] && exit 1

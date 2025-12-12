@@ -25,6 +25,9 @@ append_to PATH "$GOPATH/bin"
 
 export PATH MANPATH INFOPATH LANG=en_GB.UTF-8
 
+export ERL_AFLAGS="-kernel shell_history enabled"
+export ELIXIR_ERL_OPTIONS="-kernel shell_history enabled"
+
 [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 [ "$(command -v mise)" ] && eval "$(mise activate bash)"
 
