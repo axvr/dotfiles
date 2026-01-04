@@ -52,11 +52,6 @@ function! axvr#MatchFuzzy(list, search, opts = {}) abort
     return empty(a:search) ? a:list : matchfuzzy(a:list, a:search, a:opts)
 endfunction
 
-function! axvr#GetSynCmd(name)
-    return execute('syn list ' . a:name)->split("\n")[1]
-                \->trim()->substitute('\m\C^' .. a:name .. '\s*xxx\s*', '', '')
-endfunction
-
 function! axvr#TempSetBufOpt(opt, val, callback)
     let buf = bufnr('%')
     let prevval = getbufvar(buf, a:opt)

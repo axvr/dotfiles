@@ -1,5 +1,5 @@
 {:lib io.github.clojure/tools.deps.graph,
  :coord
- {:git/tag "v1.1.90",
-  :git/sha "f8fb16ee8e10202ed78f2c89e66e4182df6cb6cb",
+ {:git/tag "v1.2.98",
+  :git/sha "d42adcf",
   :git/url "https://github.com/clojure/tools.deps.graph.git"}}
