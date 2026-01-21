@@ -1,6 +1,4 @@
 ;;;; GNU Emacs Configuration
-;;;; `~/.emacs.d/init.el'
-
 
 ;; Add custom elisp files to `load-path'.
 (let ((default-directory (concat user-emacs-directory "elisp")))
@@ -13,20 +11,13 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-
 ;;; ------------------------------------------------------------
 ;;; Packages
 
 (require 'package)
 
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (protocol (if no-ssl "http://" "https://")))
-  (add-to-list 'package-archives (cons "melpa" (concat protocol "melpa.org/packages/")) t))
-
-(setq package-archive-priorities
-      '(("gnu" . 10)
-        ("melpa" . 5)))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(setq package-archive-priorities '(("gnu" . 10) ("melpa" . 5)))
 
 (package-initialize)
 
@@ -37,7 +28,6 @@
   (dolist (package packages)
     (unless (package-installed-p package)
       (package-install package))))
-
 
 ;;; ------------------------------------------------------------
 ;;; Essentials
@@ -61,16 +51,15 @@
       save-place-file (concat user-emacs-directory "places"))
 (save-place-mode 1)
 
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings 'meta))
-
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (setq confirm-kill-emacs 'yes-or-no-p
       vc-follow-symlinks t)
 
-(require 'av-cua)
+;; (when (fboundp 'windmove-default-keybindings)
+;;   (windmove-default-keybindings 'meta))
 
+;; (require 'av-cua)
 
 ;;; ------------------------------------------------------------
 ;;; UI config
@@ -109,8 +98,8 @@
   (av/set-gtk-theme (if mode mode "dark"))
   (load-theme theme t))
 
-(av/package-install 'sketch-themes)
-(av/set-theme 'sketch-black "dark")
+(av/package-install 'alabaster-themes)
+(av/set-theme 'alabaster-themes-light "light")
 
 ;;; ------------------------------------------------------------
 ;;; Default fonts
@@ -134,16 +123,16 @@
     (when font-attrs
       (apply 'set-face-attribute type nil (av/flatten font-attrs)))))
 
-(let ((monospace '(((:family . "JuliaMono")   (:height . 125))
-                   ((:family . "Inconsolata") (:height . 135))
-                   ((:family . "Consolas")    (:height . 110)))))
+(let ((monospace '(((:family . "IBM Plex Mono") (:height . 135))
+                   ((:family . "JuliaMono")     (:height . 125))
+                   ((:family . "Inconsolata")   (:height . 135))
+                   ((:family . "Consolas")      (:height . 110)))))
   (av/set-font 'default monospace)
   (av/set-font 'fixed-pitch monospace))
 
 (av/set-font 'variable-pitch
              '(((:family . "Cantarell")   (:height . 120))
                ((:family . "DejaVu Sans") (:height . 110))))
-
 
 ;;; ------------------------------------------------------------
 ;;; Scrolling
@@ -161,7 +150,6 @@
 ;; Enable horizontal scroll (`C-PgUp' + `C-PgDn')
 (put 'scroll-left 'disabled nil)
 
-
 ;;; ------------------------------------------------------------
 ;;; Programming
 
@@ -178,18 +166,19 @@
 (electric-indent-mode 1)
 (delete-selection-mode 1)
 
-(define-minor-mode av/hl-todos-mode
-  "Highlight TODOs and other common comment keywords"
-  nil
-  :lighter ""
-  (font-lock-add-keywords
-   nil '(("\\<\\(TO[-_ ]?DO\\|FIX[-_ ]?ME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\)\\>"
-          1 '((:foreground "#d75f5f") (:weight bold)) t))))
-;;(add-hook 'prog-mode-hook 'av/hl-todos-mode)
+;; (define-minor-mode av/hl-todos-mode
+;;   "Highlight TODOs and other common comment keywords"
+;;   nil
+;;   :lighter ""
+;;   (font-lock-add-keywords
+;;    nil '(("\\<\\(TO[-_ ]?DO\\|FIX[-_ ]?ME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\)\\>"
+;;           1 '((:foreground "#d75f5f") (:weight bold)) t))))
+;; (add-hook 'prog-mode-hook 'av/hl-todos-mode)
 
 (av/package-install 'paren-face)
 (setq paren-face-regexp "[][(){}]")
-(global-paren-face-mode 1)
+(global-paren-face-mode 1) ; TODO: only on prog mode.
+(add-hook 'prog-mode-hook 'paren-face-mode)
 (set-face-foreground 'parenthesis "#828282")
 
 ;; (fido-mode 1)
@@ -197,12 +186,12 @@
 (av/package-install 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
-(av/package-install 'company)
-(global-company-mode 1)
-(define-key company-active-map (kbd "\C-n") 'company-select-next)
-(define-key company-active-map (kbd "\C-p") 'company-select-previous)
-(define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
-(define-key company-active-map (kbd "M-.")  'company-show-location)
+;; (av/package-install 'company)
+;; (global-company-mode 1)
+;; (define-key company-active-map (kbd "\C-n") 'company-select-next)
+;; (define-key company-active-map (kbd "\C-p") 'company-select-previous)
+;; (define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
+;; (define-key company-active-map (kbd "M-.")  'company-show-location)
 
 (setq inferior-lisp-program "sbcl")
 (av/package-install 'sly)
@@ -211,23 +200,29 @@
 
 (av/package-install 'clojure-mode)
 
-
 ;;; ------------------------------------------------------------
 ;;; Tools
 
 (av/package-install 'undo-fu 'undo-fu-session)
+;; TODO: add other Git files.
 (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
-(global-undo-fu-session-mode)
-(global-unset-key (kbd "C-z"))
-(global-set-key (kbd "C-z")   'undo-fu-only-undo)
-(global-set-key (kbd "C-S-z") 'undo-fu-only-redo)
+(setq evil-undo-system 'undo-fu)
 
-(av/package-install 'org 'markdown-mode 'markless)
+(av/package-install 'org 'markdown-mode)
 (add-hook 'org-mode-hook 'org-indent-mode)
 
 (av/package-install 'restclient)
 (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
 
-(av/package-install 'ledger-mode)  ; FIXME: `ledger-mode-clean-buffer' sort in reverse.
+(av/package-install 'ledger-mode)
 
 ;; (av/package-install 'circe)
+
+(av/package-install 'magit)
+
+(av/package-install 'evil 'evil-collection)
+(setq evil-want-keybinding nil)
+(require 'evil)
+(evil-mode 1)
+(evil-set-undo-system 'undo-fu)
+(evil-collection-init)
