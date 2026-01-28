@@ -6,3 +6,7 @@ fish/.config/fish/fish_variables
 vim/.vim/pack/*/*/*/
 vim/.vim/state/
 vim/.vim/spell/*.spl
+emacs/.config/emacs/*
+!emacs/.config/emacs/elisp/
+!emacs/.config/emacs/init.el
+!emacs/.config/emacs/early-init.el

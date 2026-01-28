@@ -1,3 +1,5 @@
+;;;; -*- lexical-binding: t; -*-
+
 (provide 'av-cua)
 
 (cua-mode t)
