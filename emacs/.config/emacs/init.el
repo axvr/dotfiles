@@ -41,6 +41,8 @@
 (eval-when-compile
   (require 'use-package))
 
+(setq use-package-always-ensure t)
+
 ;;; ----------------------------
 ;;; GUI.
 
@@ -84,8 +86,7 @@
 ;; (av/set-theme 'modus-operandi "light")
 
 (use-package alabaster-themes
-  :ensure t
-  :config (av/set-theme 'alabaster-themes-light "light"))
+  :config (av/set-theme 'alabaster-themes-light-bg "light"))
 
 ;;; ----------------------------
 ;;; Fonts.
@@ -118,21 +119,82 @@
 (global-auto-revert-mode t)
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 
+(require 'project)
 
+(setq require-final-newline 'ask)
+(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
+(define-key global-map (kbd "RET") 'newline-and-indent)
+(setq-default indicate-empty-lines t)
 
+;; Highlight TODOs and more.
+(use-package hl-prog-extra
+  :commands (hl-prog-extra-mode)
+  :init (add-hook 'prog-mode-hook #'hl-prog-extra-mode))
 
+(use-package diff-hl
+  :config (global-diff-hl-mode))
+
+;;; ----------------------------
+;;; File types.
+
+(use-package ledger-mode)
+(use-package markdown-mode)
+(use-package org :hook (org-mode . org-indent-mode))
+
+;; TODO find an alternative.
+;;(av/package-install 'restclient)
+;;(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
+
+;;; ---------------------------
+;;; Evil.
+
+(use-package evil
+  :init
+  (setq evil-undo-system 'undo-fu
+	evil-want-C-u-scroll t
+        evil-search-module 'evil-search
+        evil-ex-search-case 'sensitive
+        evil-want-keybinding nil)
+  :config
+  (evil-mode)
+
+  (evil-set-leader '(normal) (kbd "<SPC>"))
+
+  (evil-define-operator av/evil-commentary (beg end)
+    "Emacs implementation of `tpope/vim-commentary'"
+    :move-point nil
+    (interactive "<r>")
+    (comment-or-uncomment-region beg end))
+
+  (evil-define-key 'normal 'global "gc" 'av/evil-commentary)
+
+  (evil-define-command av/evil-retab (start end)
+    "Emacs implementation of the `:retab' ex command in Vim"
+    (interactive "<r>")
+    (if indent-tabs-mode
+      (tabify start end)
+      (untabify start end)))
+
+  (evil-ex-define-cmd "ret[ab]"    'av/evil-retab)
+  (evil-ex-define-cmd "ter[minal]" 'ansi-term)
+  (evil-ex-define-cmd "pa[ckadd]"  'package-list-packages))
+
+(use-package evil-collection
+  :after evil
+  :config (evil-collection-init))
+
+(use-package undo-fu)
+
+(use-package undo-fu-session
+  :after undo-fu
+  :config
+  ;; TODO: add other Git files.
+  (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+  (undo-fu-session-global-mode))
 
 
 ;;;; Prevent Emacs from appending "custom" stuff to this file.
 ;;(setq custom-file (make-temp-file "emacs-custom"))
-
-;;;;; ------------------------------------------------------------
-;;;;; Packages
-
-;;(defun av/package-install (&rest packages)
-;;  (dolist (package packages)
-;;    (unless (package-installed-p package)
-;;      (package-install package))))
 
 ;;;;; ------------------------------------------------------------
 ;;;;; Essentials
@@ -166,23 +228,10 @@
 ;;(setq-default indent-tabs-mode nil
 ;;              tab-width 4)
 
-;;(setq require-final-newline 'ask)
-;;(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
-;;(define-key global-map (kbd "RET") 'newline-and-indent)
-
 ;;(column-number-mode 1)
 ;;(electric-pair-mode 1)
 ;;(electric-indent-mode 1)
 ;;(delete-selection-mode 1)
-
-;;;; (define-minor-mode av/hl-todos-mode
-;;;;   "Highlight TODOs and other common comment keywords"
-;;;;   nil
-;;;;   :lighter ""
-;;;;   (font-lock-add-keywords
-;;;;    nil '(("\\<\\(TO[-_ ]?DO\\|FIX[-_ ]?ME\\|NOTE\\|XXX\\|BUG\\|HACK\\|UNDONE\\)\\>"
-;;;;           1 '((:foreground "#d75f5f") (:weight bold)) t))))
-;;;; (add-hook 'prog-mode-hook 'av/hl-todos-mode)
 
 ;;(av/package-install 'paren-face)
 ;;(setq paren-face-regexp "[][(){}]")
@@ -212,57 +261,17 @@
 ;;;;; ------------------------------------------------------------
 ;;;;; Tools
 
-;;(av/package-install 'org 'markdown-mode)
-;;(add-hook 'org-mode-hook 'org-indent-mode)
-
 ;;(av/package-install 'restclient)
 ;;(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
-
-;;(av/package-install 'ledger-mode)
 
 ;;;; (av/package-install 'circe)
 
 ;;(av/package-install 'magit)
 
-;;(use-package evil
-;;  :ensure t
-;;  :init (setq evil-want-keybinding nil)
-;;  :config
-;;  (evil-mode 1)
-;;  (evil-set-undo-system 'undo-fu))
-
-;;(use-package evil-collection
-;;  :after evil
-;;  :ensure t
-;;  :config
-;;  (evil-collection-init))
-
-;;(use-package undo-fu :ensure t)
-
-;;(use-package undo-fu-session
-;;  :ensure t
-;;  :after undo-fu
-;;  :config
-;;  ;; TODO: add other Git files.
-;;  (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
-;;  (undo-fu-session-global-mode))
-
-;;;;(av/package-install 'evil 'evil-collection)
-;;;;(setq evil-want-keybinding nil)
-;;;;(require 'evil)
-;;;;(evil-mode 1)
-;;;;(evil-set-undo-system 'undo-fu)
-;;;;(evil-collection-init)
-
-(require 'project)
-
 ;;;; (global-visual-line-mode t)
 ;;(setq-default word-wrap t)
 
 ;; serial-term for Replica 1
-
-;; Show empty lines.
-(setq-default indicate-empty-lines t)
 
 ;; Control +/-/0 to zoom text.
 (global-set-key (kbd "C-=") 'default-font-presets-scale-increase)
