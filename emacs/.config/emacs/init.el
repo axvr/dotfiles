@@ -12,8 +12,8 @@
       delete-old-versions t
       save-place-file (concat user-emacs-directory "places")
       savehist-additional-variables '(register-alist))
-(save-place-mode 1)
-(savehist-mode 1)
+(save-place-mode)
+(savehist-mode)
 
 (let ((default-directory (concat user-emacs-directory "elisp")))
   (when (file-directory-p default-directory)
@@ -49,10 +49,10 @@
 (if (display-graphic-p)
     (progn
       (tool-bar-mode -1)
-      (context-menu-mode 1)
+      (context-menu-mode)
       (setq-default cursor-type 'bar)
       (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
-  (xterm-mouse-mode 1))
+  (xterm-mouse-mode))
 
 (setq inhibit-startup-screen t
       initial-scratch-message ""
@@ -141,6 +141,21 @@
 (global-auto-revert-mode t)
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 
+;; TODO
+(setq-default indent-tabs-mode nil
+              tab-width 4)
+(setq default-tab-width 4
+      tab-width 4)
+
+;; `display-fill-column-indicator-mode' & `fill-column'
+;; (setq default-fill-column 120
+;;       fill-column 120)
+
+;; TODO
+;; (global-visual-line-mode t)
+;; (setq-default word-wrap t)
+;; (setq-default truncate-lines t)
+
 (setq version-control t
       vc-follow-symlinks t)
 
@@ -197,7 +212,10 @@
         evil-search-module 'evil-search
         evil-ex-search-case 'sensitive
         evil-search-wrap t
-        evil-want-keybinding nil)
+        evil-want-keybinding nil
+	evil-shift-round nil
+	evil-shift-width 4
+	evil-indent-convert-tabs nil)
   :config
   (evil-mode)
 
@@ -229,6 +247,14 @@
   :after evil
   :config (evil-collection-init))
 
+(use-package evil-numbers
+  :after evil
+  :config
+  (evil-define-key '(normal visual) 'global (kbd "C-a") 'evil-numbers/inc-at-pt)
+  (evil-define-key '(normal visual) 'global (kbd "C-x") 'evil-numbers/dec-at-pt)
+  (evil-define-key '(normal visual) 'global (kbd "g C-a") 'evil-numbers/inc-at-pt-incremental)
+  (evil-define-key '(normal visual) 'global (kbd "g C-x") 'evil-numbers/dec-at-pt-incremental))
+
 (use-package undo-fu)
 
 (use-package undo-fu-session
@@ -239,53 +265,35 @@
   (undo-fu-session-global-mode))
 
 
-;;;; Prevent Emacs from appending "custom" stuff to this file.
-;;(setq custom-file (make-temp-file "emacs-custom"))
+;; Prevent Emacs from appending "custom" stuff to this file.
+;; (setq custom-file (make-temp-file "emacs-custom"))
 
-;;;;; ------------------------------------------------------------
-;;;;; Essentials
+;; (when (fboundp 'windmove-default-keybindings)
+;;   (windmove-default-keybindings 'meta))
 
-;;;; (when (fboundp 'windmove-default-keybindings)
-;;;;   (windmove-default-keybindings 'meta))
+;; (require 'av-cua)
 
-;;;; (require 'av-cua)
+;; (av/package-install 'paren-face)
+;; (setq paren-face-regexp "[][(){}]")
+;; (global-paren-face-mode) ; TODO: only on prog mode.
+;; (add-hook 'prog-mode-hook 'paren-face-mode)
+;; (set-face-foreground 'parenthesis "#828282")
 
-;;;;; ------------------------------------------------------------
-;;;;; Programming
+;; (fido-mode)
 
-;;;; Indentation.
-;;(setq-default indent-tabs-mode nil
-;;              tab-width 4)
+;; (av/package-install 'expand-region)
+;; (global-set-key (kbd "C-=") 'er/expand-region)
 
-;;(av/package-install 'paren-face)
-;;(setq paren-face-regexp "[][(){}]")
-;;(global-paren-face-mode 1) ; TODO: only on prog mode.
-;;(add-hook 'prog-mode-hook 'paren-face-mode)
-;;(set-face-foreground 'parenthesis "#828282")
-
-;;;; (fido-mode 1)
-
-;;(av/package-install 'expand-region)
-;;(global-set-key (kbd "C-=") 'er/expand-region)
-
-;;;; (av/package-install 'company)
-;;;; (global-company-mode 1)
-;;;; (define-key company-active-map (kbd "\C-n") 'company-select-next)
-;;;; (define-key company-active-map (kbd "\C-p") 'company-select-previous)
-;;;; (define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
-;;;; (define-key company-active-map (kbd "M-.")  'company-show-location)
-
-;;;;; ------------------------------------------------------------
-;;;;; Tools
+;; (av/package-install 'company)
+;; (global-company-mode)
+;; (define-key company-active-map (kbd "\C-n") 'company-select-next)
+;; (define-key company-active-map (kbd "\C-p") 'company-select-previous)
+;; (define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
+;; (define-key company-active-map (kbd "M-.")  'company-show-location)
 
 ;; TODO find an alternative.
-;;(av/package-install 'restclient)
-;;(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
-
-;;;; (av/package-install 'circe)
-
-;;;; (global-visual-line-mode t)
-;;(setq-default word-wrap t)
+;; (av/package-install 'restclient)
+;; (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
 
 ;; serial-term for Replica 1
 
@@ -302,7 +310,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(alabaster-themes clojure-mode dashboard diff-hl evil-collection
+                      evil-numbers hl-prog-extra ledger-mode magit
+                      markdown-mode sly undo-fu undo-fu-session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
