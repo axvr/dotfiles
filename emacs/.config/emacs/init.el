@@ -15,9 +15,6 @@
 (save-place-mode 1)
 (savehist-mode 1)
 
-(setq version-control t
-      vc-follow-symlinks t)
-
 (let ((default-directory (concat user-emacs-directory "elisp")))
   (when (file-directory-p default-directory)
     (add-to-list 'load-path default-directory)
@@ -88,6 +85,31 @@
 (use-package alabaster-themes
   :config (av/set-theme 'alabaster-themes-light-bg "light"))
 
+;; TODO: evaluate if this is worth having.
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook)
+  (setq dashboard-projects-backend 'project-el)
+  (setq dashboard-items '((projects  . 5)
+			  (recents   . 5)
+                          (bookmarks . 5))))
+
+(pixel-scroll-precision-mode)
+
+(mouse-wheel-mode)
+(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))
+      mouse-wheel-progressive-speed nil
+      mouse-wheel-follow-mouse 't
+      ;; Horizontal scroll on trackpad
+      mouse-wheel-tilt-scroll 't
+      mouse-wheel-flip-direction 't
+      ;; Keyboard scrolling
+      scroll-step 1
+      scroll-conservatively 101)
+
+;; Enable horizontal scroll (`C-PgUp' + `C-PgDn')
+(put 'scroll-left 'disabled nil)
+
 ;;; ----------------------------
 ;;; Fonts.
 
@@ -119,6 +141,16 @@
 (global-auto-revert-mode t)
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 
+(setq version-control t
+      vc-follow-symlinks t)
+
+(setq uniquify-buffer-name-style 'forward)
+
+(column-number-mode)
+(electric-pair-mode)
+(electric-indent-mode)
+(delete-selection-mode)
+
 (require 'project)
 
 (setq require-final-newline 'ask)
@@ -131,19 +163,29 @@
   :commands (hl-prog-extra-mode)
   :init (add-hook 'prog-mode-hook #'hl-prog-extra-mode))
 
-(use-package diff-hl
-  :config (global-diff-hl-mode))
+(use-package diff-hl :config (global-diff-hl-mode))
+
+(use-package magit :defer t :functions magit-status)
 
 ;;; ----------------------------
 ;;; File types.
 
-(use-package ledger-mode)
-(use-package markdown-mode)
+(use-package ledger-mode
+  :mode ("\\.journal\\'" "\\.ledger\\'" "\\.hledger\\'")
+  :config
+  (setq ledger-binary-path "hledger"
+        ledger-mode-should-check-version nil
+        ledger-report-auto-width nil
+        ledger-report-links-in-register nil
+        ledger-report-native-highlighting-arguments '("--color=always")))
+
+(use-package markdown-mode :mode ("TODO\\'" "DOING\\'" "DONE\\'"))
 (use-package org :hook (org-mode . org-indent-mode))
 
-;; TODO find an alternative.
-;;(av/package-install 'restclient)
-;;(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
+;; TODO
+(setq scheme-program-name "csi -:c")
+(use-package sly :config (setq inferior-lisp-program "sbcl"))
+(use-package clojure-mode)
 
 ;;; ---------------------------
 ;;; Evil.
@@ -154,11 +196,13 @@
 	evil-want-C-u-scroll t
         evil-search-module 'evil-search
         evil-ex-search-case 'sensitive
+        evil-search-wrap t
         evil-want-keybinding nil)
   :config
   (evil-mode)
 
-  (evil-set-leader '(normal) (kbd "<SPC>"))
+  (evil-set-leader nil (kbd "<SPC>"))
+  (evil-set-leader nil "\\" t)
 
   (evil-define-operator av/evil-commentary (beg end)
     "Emacs implementation of `tpope/vim-commentary'"
@@ -167,6 +211,8 @@
     (comment-or-uncomment-region beg end))
 
   (evil-define-key 'normal 'global "gc" 'av/evil-commentary)
+
+  (evil-define-key 'normal 'global "-" 'dired)
 
   (evil-define-command av/evil-retab (start end)
     "Emacs implementation of the `:retab' ex command in Vim"
@@ -205,33 +251,11 @@
 ;;;; (require 'av-cua)
 
 ;;;;; ------------------------------------------------------------
-;;;;; Scrolling
-
-;;;; FIXME: this is slow!
-;;(mouse-wheel-mode 1)
-;;(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))
-;;      mouse-wheel-progressive-speed nil
-;;      mouse-wheel-follow-mouse 't
-;;      ;; Horizontal scroll on trackpad
-;;      mouse-wheel-tilt-scroll 't
-;;      mouse-wheel-flip-direction 't
-;;      ;; Keyboard scrolling
-;;      scroll-step 1
-;;      scroll-conservatively 10000)
-;;;; Enable horizontal scroll (`C-PgUp' + `C-PgDn')
-;;(put 'scroll-left 'disabled nil)
-
-;;;;; ------------------------------------------------------------
 ;;;;; Programming
 
 ;;;; Indentation.
 ;;(setq-default indent-tabs-mode nil
 ;;              tab-width 4)
-
-;;(column-number-mode 1)
-;;(electric-pair-mode 1)
-;;(electric-indent-mode 1)
-;;(delete-selection-mode 1)
 
 ;;(av/package-install 'paren-face)
 ;;(setq paren-face-regexp "[][(){}]")
@@ -251,22 +275,14 @@
 ;;;; (define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
 ;;;; (define-key company-active-map (kbd "M-.")  'company-show-location)
 
-;;(setq inferior-lisp-program "sbcl")
-;;(av/package-install 'sly)
-
-;;(setq scheme-program-name "csi -:c")
-
-;;(av/package-install 'clojure-mode)
-
 ;;;;; ------------------------------------------------------------
 ;;;;; Tools
 
+;; TODO find an alternative.
 ;;(av/package-install 'restclient)
 ;;(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
 
 ;;;; (av/package-install 'circe)
-
-;;(av/package-install 'magit)
 
 ;;;; (global-visual-line-mode t)
 ;;(setq-default word-wrap t)
