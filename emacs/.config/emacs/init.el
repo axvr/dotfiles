@@ -163,6 +163,7 @@
 ;; (global-visual-line-mode t)
 ;; (setq-default word-wrap t)
 ;; (setq-default truncate-lines t)
+;; (word-wrap-whitespace-mode)
 
 (setq version-control t
       vc-follow-symlinks t)
@@ -186,9 +187,14 @@
   :commands (hl-prog-extra-mode)
   :init (add-hook 'prog-mode-hook #'hl-prog-extra-mode))
 
-(use-package diff-hl :config (global-diff-hl-mode))
-
 (use-package magit :defer t :functions magit-status)
+
+(use-package diff-hl
+  :config (global-diff-hl-mode)
+  :init
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode))
 
 ;;; ----------------------------
 ;;; File types.
@@ -207,7 +213,7 @@
 
 ;; TODO
 (setq scheme-program-name "csi -:c")
-(use-package sly :config (setq inferior-lisp-program "sbcl"))
+(use-package sly :defer t :config (setq inferior-lisp-program "sbcl"))
 (use-package clojure-mode)
 
 (if av/use-evil-mode
