@@ -20,6 +20,9 @@
     (add-to-list 'load-path default-directory)
     (normal-top-level-add-subdirs-to-load-path)))
 
+(defvar av/use-evil-mode nil
+  "When set to `t', Evil mode will be activated on start up.")
+
 (require 'av-helpers)
 
 ;;; ----------------------------
@@ -55,9 +58,9 @@
   (xterm-mouse-mode))
 
 (setq inhibit-startup-screen t
-      initial-scratch-message ""
-      frame-title-format "GNU Emacs")
-;; (setq-default frame-title-format "%b %& emacs")
+      initial-scratch-message "")
+
+(setq-default frame-title-format '("%n %b - %F"))
 
 (defun av/current-frame-name ()
   "Return the name of the current GUI frame."
@@ -79,11 +82,16 @@
 
 (require-theme 'modus-themes)
 (setq modus-themes-bold-constructs t
-      modus-themes-italic-constructs t)
+      modus-themes-italic-constructs t
+      modus-themes-mixed-fonts t)
 ;; (av/set-theme 'modus-operandi "light")
 
 (use-package alabaster-themes
   :config (av/set-theme 'alabaster-themes-light-bg "light"))
+
+;; (use-package ef-themes
+;;   :init (ef-themes-take-over-modus-themes-mode 1)
+;;   :config (modus-themes-load-theme 'ef-frost))
 
 ;; TODO: evaluate if this is worth having.
 (use-package dashboard
@@ -91,7 +99,7 @@
   (dashboard-setup-startup-hook)
   (setq dashboard-projects-backend 'project-el)
   (setq dashboard-items '((projects  . 5)
-			  (recents   . 5)
+                          (recents   . 5)
                           (bookmarks . 5))))
 
 (pixel-scroll-precision-mode)
@@ -202,60 +210,21 @@
 (use-package sly :config (setq inferior-lisp-program "sbcl"))
 (use-package clojure-mode)
 
-;;; ---------------------------
-;;; Evil.
+(if av/use-evil-mode
+  (require 'av-evil)
+  (progn
+    (which-key-mode)
+    (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
+    ;; (require 'av-cua)
+    (when (fboundp 'windmove-default-keybindings)
+      (windmove-default-keybindings 'meta))))
 
-(use-package evil
-  :init
-  (setq evil-undo-system 'undo-fu
-	evil-want-C-u-scroll t
-        evil-search-module 'evil-search
-        evil-ex-search-case 'sensitive
-        evil-search-wrap t
-        evil-want-keybinding nil
-	evil-shift-round nil
-	evil-shift-width 4
-	evil-indent-convert-tabs nil)
+(use-package undo-fu
   :config
-  (evil-mode)
-
-  (evil-set-leader nil (kbd "<SPC>"))
-  (evil-set-leader nil "\\" t)
-
-  (evil-define-operator av/evil-commentary (beg end)
-    "Emacs implementation of `tpope/vim-commentary'"
-    :move-point nil
-    (interactive "<r>")
-    (comment-or-uncomment-region beg end))
-
-  (evil-define-key 'normal 'global "gc" 'av/evil-commentary)
-
-  (evil-define-key 'normal 'global "-" 'dired)
-
-  (evil-define-command av/evil-retab (start end)
-    "Emacs implementation of the `:retab' ex command in Vim"
-    (interactive "<r>")
-    (if indent-tabs-mode
-      (tabify start end)
-      (untabify start end)))
-
-  (evil-ex-define-cmd "ret[ab]"    'av/evil-retab)
-  (evil-ex-define-cmd "ter[minal]" 'ansi-term)
-  (evil-ex-define-cmd "pa[ckadd]"  'package-list-packages))
-
-(use-package evil-collection
-  :after evil
-  :config (evil-collection-init))
-
-(use-package evil-numbers
-  :after evil
-  :config
-  (evil-define-key '(normal visual) 'global (kbd "C-a") 'evil-numbers/inc-at-pt)
-  (evil-define-key '(normal visual) 'global (kbd "C-x") 'evil-numbers/dec-at-pt)
-  (evil-define-key '(normal visual) 'global (kbd "g C-a") 'evil-numbers/inc-at-pt-incremental)
-  (evil-define-key '(normal visual) 'global (kbd "g C-x") 'evil-numbers/dec-at-pt-incremental))
-
-(use-package undo-fu)
+  (unless av/use-evil-mode
+    (global-unset-key (kbd "C-z"))
+    (global-set-key (kbd "C-z")   'undo-fu-only-undo)
+    (global-set-key (kbd "C-S-z") 'undo-fu-only-redo)))
 
 (use-package undo-fu-session
   :after undo-fu
@@ -264,14 +233,8 @@
   (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
   (undo-fu-session-global-mode))
 
-
 ;; Prevent Emacs from appending "custom" stuff to this file.
 ;; (setq custom-file (make-temp-file "emacs-custom"))
-
-;; (when (fboundp 'windmove-default-keybindings)
-;;   (windmove-default-keybindings 'meta))
-
-;; (require 'av-cua)
 
 ;; (av/package-install 'paren-face)
 ;; (setq paren-face-regexp "[][(){}]")
@@ -295,14 +258,18 @@
 ;; (av/package-install 'restclient)
 ;; (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
 
-;; serial-term for Replica 1
+(defun replica-1 ()
+  (interactive)
+  (serial-term (if (memq system-type '(darwin))
+                 "/dev/tty.usbserial-AC00JRMK"
+                 "/dev/ttyUSB")
+               9600))
 
-;; Control +/-/0 to zoom text.
-(global-set-key (kbd "C-=") 'default-font-presets-scale-increase)
-(global-set-key (kbd "C--") 'default-font-presets-scale-decrease)
-(global-set-key (kbd "C-0") 'default-font-presets-scale-reset)
+;; Control +/-/0 to zoom text.  (Do on non macOS only?)
+;; (global-set-key (kbd "C-=") 'default-font-presets-scale-increase)
+;; (global-set-key (kbd "C--") 'default-font-presets-scale-decrease)
+;; (global-set-key (kbd "C-0") 'default-font-presets-scale-reset)
 
-;; which-key?
 ;; some completion stuff is installed by default now.  enable it?
 
 (custom-set-variables
@@ -310,10 +277,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(alabaster-themes clojure-mode dashboard diff-hl evil-collection
-                      evil-numbers hl-prog-extra ledger-mode magit
-                      markdown-mode sly undo-fu undo-fu-session)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
