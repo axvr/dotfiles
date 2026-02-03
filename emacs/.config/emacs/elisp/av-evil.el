@@ -1,5 +1,7 @@
 ;;;; Evil mode configuration.  -*- lexical-binding: t; -*-
 
+(provide 'av-evil)
+
 (use-package evil
   :init
   (setq evil-undo-system 'undo-fu

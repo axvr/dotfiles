@@ -31,7 +31,7 @@
 (require 'package)
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(setq package-archive-priorities '(("gnu" . 30) ("nongnu" . 20) ("melpa" . 10)))
+(setq package-archive-priorities '(("gnu" . 30) ("melpa" . 10) ("nongnu" . 5)))
 
 (package-initialize)
 
@@ -43,11 +43,18 @@
 
 (setq use-package-always-ensure t)
 
+(when (memq window-system '(mac ns x))
+  (use-package exec-path-from-shell
+    :config
+    (exec-path-from-shell-initialize)))
+
 ;;; ----------------------------
 ;;; GUI.
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq confirm-kill-emacs 'yes-or-no-p)
+
+(setopt mode-line-collapse-minor-modes t)
 
 (if (display-graphic-p)
     (progn
@@ -59,6 +66,8 @@
 
 (setq inhibit-startup-screen t
       initial-scratch-message "")
+
+(global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
 
 (setq-default frame-title-format '("%n %b - %F"))
 
@@ -86,12 +95,11 @@
       modus-themes-mixed-fonts t)
 ;; (av/set-theme 'modus-operandi "light")
 
-(use-package alabaster-themes
-  :config (av/set-theme 'alabaster-themes-light-bg "light"))
+;; (use-package alabaster-themes
+;;   :config (av/set-theme 'alabaster-themes-light-bg "light"))
 
-;; (use-package ef-themes
-;;   :init (ef-themes-take-over-modus-themes-mode 1)
-;;   :config (modus-themes-load-theme 'ef-frost))
+(use-package spacemacs-theme
+  :config (av/set-theme 'spacemacs-light "light"))
 
 ;; TODO: evaluate if this is worth having.
 (use-package dashboard
@@ -117,6 +125,15 @@
 
 ;; Enable horizontal scroll (`C-PgUp' + `C-PgDn')
 (put 'scroll-left 'disabled nil)
+
+(use-package multiple-cursors
+  :config
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
+
+(setq completion-styles '(partial-completion substring initials flex))
 
 ;;; ----------------------------
 ;;; Fonts.
@@ -144,6 +161,9 @@
 
 ;;; ----------------------------
 ;;; Files.
+
+(setq grep-command "rg -nS. --no-heading -g '!.git/*' "
+      grep-use-null-device nil)
 
 ;; Update buffers and directory listing when files change on disk.
 (global-auto-revert-mode t)
@@ -230,7 +250,12 @@
   (unless av/use-evil-mode
     (global-unset-key (kbd "C-z"))
     (global-set-key (kbd "C-z")   'undo-fu-only-undo)
-    (global-set-key (kbd "C-S-z") 'undo-fu-only-redo)))
+    (global-set-key (kbd "C-S-z") 'undo-fu-only-redo)
+    ;; Override "super" binding on macOS.
+    (when (memq system-type '(darwin))
+      (global-unset-key (kbd "s-z"))
+      (global-set-key (kbd "s-z") 'undo-fu-only-undo)
+      (global-set-key (kbd "s-Z") 'undo-fu-only-redo))))
 
 (use-package undo-fu-session
   :after undo-fu
@@ -268,7 +293,7 @@
   (interactive)
   (serial-term (if (memq system-type '(darwin))
                  "/dev/tty.usbserial-AC00JRMK"
-                 "/dev/ttyUSB")
+                 "/dev/ttyUSB1")
                9600))
 
 ;; Control +/-/0 to zoom text.  (Do on non macOS only?)
