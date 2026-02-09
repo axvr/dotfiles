@@ -2,6 +2,7 @@
 let g:tex_flavor = "latex"
 let g:markdown_minlines = 200
 let g:ledger_is_hledger = v:true
+let g:ledger_align_at = 50
 let g:org_clean_folds = 1
 
 augroup axvr/filetype_config

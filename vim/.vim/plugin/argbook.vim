@@ -19,11 +19,3 @@ nmap _ <leader>ab
 
 " Use <C-g> to see if file is in the arglist and where it is in it.
 " See: :help arglist-position
-
-" TODO: make optional.
-" if has('nvim')
-"     augroup argbook_arglocal
-"         autocmd!
-"         autocmd TabNewEntered * arglocal | %argdelete
-"     augroup END
-" endif
