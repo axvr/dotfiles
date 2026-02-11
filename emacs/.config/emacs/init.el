@@ -95,11 +95,21 @@
       modus-themes-mixed-fonts t)
 ;; (av/set-theme 'modus-operandi "light")
 
-;; (use-package alabaster-themes
-;;   :config (av/set-theme 'alabaster-themes-light-bg "light"))
+(use-package alabaster-themes
+  :config (av/set-theme 'alabaster-themes-light "light"))
 
-(use-package spacemacs-theme
-  :config (av/set-theme 'spacemacs-light "light"))
+;; (use-package kaolin-themes
+;;   :config
+;;   ;; (av/set-theme 'kaolin-breeze "light")
+;;   ;; (av/set-theme 'kaolin-light "light")
+;;   ;; (av/set-theme 'kaolin-mono-light "light")
+;;   )
+
+;; (use-package immaterial-theme
+;;   :config (av/set-theme 'immaterial-light "light"))
+
+;; (use-package spacemacs-theme
+;;   :config (av/set-theme 'spacemacs-light "light"))
 
 ;; TODO: evaluate if this is worth having.
 (use-package dashboard
