@@ -38,10 +38,14 @@
 	prep-archive = git filter-repo --to-subdirectory-filter
 [help]
 	autoCorrect = 10
+[advice]
+	skippedCherryPicks = false
 [init]
 	defaultBranch = master
 [pull]
 	ff = only
+[push]
+	autoSetupRemote = true
 [log]
 	follow = true
 [commit]
