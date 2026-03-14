@@ -82,34 +82,24 @@
              (memq system-type '(gnu/linux))
              (not (null (executable-find "xprop"))))
     (call-process-shell-command
-     (concat "xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT \""
-             variant "\" -name \"" (av/current-frame-name) "\""))))
+     (format "xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT \"%s\" -name \"%s\""
+             variant (av/current-frame-name)))))
 
 (defun av/set-theme (theme &optional mode)
-  (av/set-gtk-theme (if mode mode "dark"))
+  (av/set-gtk-theme (or mode av/theme))
   (load-theme theme t))
 
 (require-theme 'modus-themes)
 (setq modus-themes-bold-constructs t
       modus-themes-italic-constructs t
       modus-themes-mixed-fonts t)
-;; (av/set-theme 'modus-operandi "light")
+;; (av/set-theme 'modus-operandi)
 
 (use-package alabaster-themes
-  :config (av/set-theme 'alabaster-themes-light "light"))
-
-;; (use-package kaolin-themes
-;;   :config
-;;   ;; (av/set-theme 'kaolin-breeze "light")
-;;   ;; (av/set-theme 'kaolin-light "light")
-;;   ;; (av/set-theme 'kaolin-mono-light "light")
-;;   )
-
-;; (use-package immaterial-theme
-;;   :config (av/set-theme 'immaterial-light "light"))
+  :config (av/set-theme 'alabaster-themes-light-bg))
 
 ;; (use-package spacemacs-theme
-;;   :config (av/set-theme 'spacemacs-light "light"))
+;;   :config (av/set-theme 'spacemacs-light))
 
 ;; TODO: evaluate if this is worth having.
 (use-package dashboard
@@ -171,6 +161,8 @@
 
 ;;; ----------------------------
 ;;; Files.
+
+;; TODO: dired configuration.
 
 (setq grep-command "rg -nS. --no-heading -g '!.git/*' "
       grep-use-null-device nil)
