@@ -20,17 +20,26 @@
     (add-to-list 'load-path default-directory)
     (normal-top-level-add-subdirs-to-load-path)))
 
-(defvar av/use-evil-mode nil
-  "When set to `t', Evil mode will be activated on start up.")
+(require 'axvr-helpers)
 
-(require 'av-helpers)
+;; Prevent Emacs from appending "custom" stuff to this file.
+(setq custom-file (locate-user-emacs-file "custom.el"))
+;; (setq custom-file (make-temp-file "emacs-custom"))
+(load custom-file :no-error-if-file-is-missing)
 
 ;;; ----------------------------
 ;;; Packages.
 
+;; TODO: package-vc or alternatives.
+
+(add-to-list 'display-buffer-alist
+             '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
+               (display-buffer-no-window)
+               (allow-no-window . t)))
+
 (require 'package)
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (setq package-archive-priorities '(("gnu" . 30) ("melpa" . 10) ("nongnu" . 5)))
 
 (package-initialize)
@@ -70,36 +79,53 @@
 (global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
 
 (setq-default frame-title-format '("%n %b - %F"))
+(setq project-mode-line t)
 
-(defun av/current-frame-name ()
+(defun axvr/current-frame-name ()
   "Return the name of the current GUI frame."
   (substring-no-properties
    (cdr (assoc 'name (frame-parameters)))))
 
-(defun av/set-gtk-theme (variant)
+(defun axvr/set-gtk-theme (variant)
   "Set the GTK theme variant for the current Emacs session."
   (when (and (display-graphic-p)
              (memq system-type '(gnu/linux))
              (not (null (executable-find "xprop"))))
     (call-process-shell-command
      (format "xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT \"%s\" -name \"%s\""
-             variant (av/current-frame-name)))))
+             variant (axvr/current-frame-name)))))
 
-(defun av/set-theme (theme &optional mode)
-  (av/set-gtk-theme (or mode av/theme))
+(defun axvr/set-theme (theme &optional mode)
+  (axvr/set-gtk-theme (or mode axvr/theme))
   (load-theme theme t))
 
 (require-theme 'modus-themes)
 (setq modus-themes-bold-constructs t
       modus-themes-italic-constructs t
       modus-themes-mixed-fonts t)
-;; (av/set-theme 'modus-operandi)
+;;(axvr/set-theme 'modus-operandi)
 
-(use-package alabaster-themes
-  :config (av/set-theme 'alabaster-themes-light-bg))
+(use-package doric-themes
+  :demand t
+  :config
+  ;; These are the default values.
+  (setq doric-themes-to-toggle '(doric-light doric-dark))
+  (setq doric-themes-to-rotate doric-themes-collection)
+
+  (doric-themes-select 'doric-marble)
+
+  ;; ;; For optimal results, also define your preferred font family (or use my `fontaine' package):
+  ;;
+  ;; (set-face-attribute 'default nil :family "Aporetic Sans Mono" :height 160)
+  ;; (set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 1.0)
+  ;; (set-face-attribute 'fixed-pitch nil :family "Aporetic Sans Mono" :height 1.0)
+  )
+
+;; (use-package alabaster-themes
+;;   :config (axvr/set-theme 'alabaster-themes-light))
 
 ;; (use-package spacemacs-theme
-;;   :config (av/set-theme 'spacemacs-light))
+;;   :config (axvr/set-theme 'spacemacs-light))
 
 ;; TODO: evaluate if this is worth having.
 (use-package dashboard
@@ -135,19 +161,25 @@
 
 (setq completion-styles '(partial-completion substring initials flex))
 
+(use-package vertico
+  :config (vertico-mode))
+
+(use-package marginalia
+  :hook (after-init . marginalia-mode))
+
 ;;; ----------------------------
 ;;; Fonts.
 
-(defun av/first-installed-font (fonts)
+(defun axvr/first-installed-font (fonts)
   (seq-find (lambda (x)
               (member (cdr (assoc :family x))
                       (font-family-list)))
             fonts))
 
-(defun av/set-font (type fonts)
-  (let ((font-attrs (av/first-installed-font fonts)))
+(defun axvr/set-font (type fonts)
+  (let ((font-attrs (axvr/first-installed-font fonts)))
     (when font-attrs
-      (apply 'set-face-attribute type nil (av/flatten font-attrs)))))
+      (apply 'set-face-attribute type nil (axvr/flatten font-attrs)))))
 
 (let ((monospace '(((:family . "IBM Plex Mono") (:height . 135))
                    ((:family . "JuliaMono")     (:height . 125))
@@ -155,9 +187,9 @@
                    ((:family . "Consolas")      (:height . 110))))
       (variable  '(((:family . "Cantarell")     (:height . 120))
                    ((:family . "DejaVu Sans")   (:height . 110)))))
-  (av/set-font 'default monospace)
-  (av/set-font 'fixed-pitch monospace)
-  (av/set-font 'variable-pitch variable))
+  (axvr/set-font 'default monospace)
+  (axvr/set-font 'fixed-pitch monospace)
+  (axvr/set-font 'variable-pitch variable))
 
 ;;; ----------------------------
 ;;; Files.
@@ -236,28 +268,23 @@
 ;; TODO
 (setq scheme-program-name "csi -:c")
 (use-package sly :defer t :config (setq inferior-lisp-program "sbcl"))
-(use-package clojure-mode)
+(use-package clojure-mode) ; TODO: clojure-ts-mode?
 
-(if av/use-evil-mode
-  (require 'av-evil)
-  (progn
-    (which-key-mode)
-    (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
-    ;; (require 'av-cua)
-    (when (fboundp 'windmove-default-keybindings)
-      (windmove-default-keybindings 'meta))))
+(which-key-mode)
+(global-set-key (kbd "C-/") 'comment-or-uncomment-region)
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings 'meta))
 
 (use-package undo-fu
   :config
-  (unless av/use-evil-mode
-    (global-unset-key (kbd "C-z"))
-    (global-set-key (kbd "C-z")   'undo-fu-only-undo)
-    (global-set-key (kbd "C-S-z") 'undo-fu-only-redo)
-    ;; Override "super" binding on macOS.
-    (when (memq system-type '(darwin))
-      (global-unset-key (kbd "s-z"))
-      (global-set-key (kbd "s-z") 'undo-fu-only-undo)
-      (global-set-key (kbd "s-Z") 'undo-fu-only-redo))))
+  (global-unset-key (kbd "C-z"))
+  (global-set-key (kbd "C-z")   'undo-fu-only-undo)
+  (global-set-key (kbd "C-S-z") 'undo-fu-only-redo)
+  ;; Override "super" binding on macOS.
+  (when (memq system-type '(darwin))
+    (global-unset-key (kbd "s-z"))
+    (global-set-key (kbd "s-z") 'undo-fu-only-undo)
+    (global-set-key (kbd "s-Z") 'undo-fu-only-redo)))
 
 (use-package undo-fu-session
   :after undo-fu
@@ -266,10 +293,7 @@
   (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
   (undo-fu-session-global-mode))
 
-;; Prevent Emacs from appending "custom" stuff to this file.
-;; (setq custom-file (make-temp-file "emacs-custom"))
-
-;; (av/package-install 'paren-face)
+;; (axvr/package-install 'paren-face)
 ;; (setq paren-face-regexp "[][(){}]")
 ;; (global-paren-face-mode) ; TODO: only on prog mode.
 ;; (add-hook 'prog-mode-hook 'paren-face-mode)
@@ -277,10 +301,10 @@
 
 ;; (fido-mode)
 
-;; (av/package-install 'expand-region)
+;; (axvr/package-install 'expand-region)
 ;; (global-set-key (kbd "C-=") 'er/expand-region)
 
-;; (av/package-install 'company)
+;; (axvr/package-install 'company)
 ;; (global-company-mode)
 ;; (define-key company-active-map (kbd "\C-n") 'company-select-next)
 ;; (define-key company-active-map (kbd "\C-p") 'company-select-previous)
@@ -288,13 +312,14 @@
 ;; (define-key company-active-map (kbd "M-.")  'company-show-location)
 
 ;; TODO find an alternative.
-;; (av/package-install 'restclient)
+;; (axvr/package-install 'restclient)
 ;; (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
 
 (defun replica-1 ()
+  "Start a serial term that connects to my Replica 1 Plus."
   (interactive)
   (serial-term (if (memq system-type '(darwin))
-                 "/dev/tty.usbserial-AC00JRMK"
+                   "/dev/tty.usbserial-AC00JRMK"
                  "/dev/ttyUSB1")
                9600))
 
@@ -302,18 +327,3 @@
 ;; (global-set-key (kbd "C-=") 'default-font-presets-scale-increase)
 ;; (global-set-key (kbd "C--") 'default-font-presets-scale-decrease)
 ;; (global-set-key (kbd "C-0") 'default-font-presets-scale-reset)
-
-;; some completion stuff is installed by default now.  enable it?
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
