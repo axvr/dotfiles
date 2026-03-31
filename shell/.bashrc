@@ -30,7 +30,7 @@ PS2="\[\e[0;00m\]> "
 [ -s "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ] \
     && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
 
-export EDITOR='nvim' VISUAL="$EDITOR"
+export EDITOR='vim' VISUAL="$EDITOR"
 alias ex='vim -E' vi='vim' svim='vim -S Session.vim'
 [ "$EDITOR" = 'nvim' ] && alias vim="nvim" vimdiff='nvim -d'
 

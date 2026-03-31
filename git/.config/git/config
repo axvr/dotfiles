@@ -59,7 +59,7 @@
 [difftool]
 	trustExitCode = true
 [merge]
-	tool = nvimdiff
+	tool = vimdiff
 	autoStash = true
 [mergetool]
 	keepBackup = false

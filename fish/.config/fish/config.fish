@@ -7,7 +7,7 @@ if status is-interactive
     set -g __fish_git_prompt_showcolorhints 1
     set -g fish_prompt_pwd_full_dirs 2
 
-    set --export EDITOR 'nvim'
+    set --export EDITOR 'vim'
     set --export VISUAL $EDITOR
     abbr --add -- vi vim
     alias ex 'vim -E'
