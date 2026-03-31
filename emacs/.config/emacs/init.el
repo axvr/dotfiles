@@ -1,10 +1,9 @@
-;;;; GNU Emacs -*- lexical-binding: t; -*-
+;;;; GNU Emacs configuration. -*- lexical-binding: t; -*-
 
 ;;; ----------------------------
 ;;; Core.
 
-(setq user-mail-address "alex@vear.uk"
-      user-full-name "Alex Vear")
+(setq user-full-name "Alex Vear" user-mail-address "alex@vear.uk")
 
 ;; File backups, save last cursor position and register persistence.
 (setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backup")))
@@ -14,6 +13,9 @@
       savehist-additional-variables '(register-alist))
 (save-place-mode)
 (savehist-mode)
+(recentf-mode)
+
+;; expand-file-name
 
 (let ((default-directory (concat user-emacs-directory "elisp")))
   (when (file-directory-p default-directory)
@@ -21,16 +23,17 @@
     (normal-top-level-add-subdirs-to-load-path)))
 
 (require 'axvr-helpers)
+(require 'axvr-default-keys)
 
 ;; Prevent Emacs from appending "custom" stuff to this file.
 (setq custom-file (locate-user-emacs-file "custom.el"))
 ;; (setq custom-file (make-temp-file "emacs-custom"))
-(load custom-file :no-error-if-file-is-missing)
+(load custom-file 'noerror 'nomessage)
 
 ;;; ----------------------------
 ;;; Packages.
 
-;; TODO: package-vc or alternatives.
+;; TODO: package-vc, vc-use-package or alternatives.
 
 (add-to-list 'display-buffer-alist
              '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
@@ -52,13 +55,15 @@
 
 (setq use-package-always-ensure t)
 
-(when (memq window-system '(mac ns x))
+(when axvr/macos?
   (use-package exec-path-from-shell
     :config
     (exec-path-from-shell-initialize)))
 
 ;;; ----------------------------
 ;;; GUI.
+
+;; TODO: orderless.
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq confirm-kill-emacs 'yes-or-no-p)
@@ -68,6 +73,7 @@
 (if (display-graphic-p)
     (progn
       (tool-bar-mode -1)
+      (unless axvr/macos? (menu-bar-mode -1))
       (context-menu-mode)
       (setq-default cursor-type 'bar)
       (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
@@ -78,7 +84,10 @@
 
 (global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
 
+(setq ring-bell-function #'ignore)
+
 (setq-default frame-title-format '("%n %b - %F"))
+;; (project-mode-line project-mode-line-format)
 (setq project-mode-line t)
 
 (defun axvr/current-frame-name ()
@@ -89,7 +98,7 @@
 (defun axvr/set-gtk-theme (variant)
   "Set the GTK theme variant for the current Emacs session."
   (when (and (display-graphic-p)
-             (memq system-type '(gnu/linux))
+             axvr/linux?
              (not (null (executable-find "xprop"))))
     (call-process-shell-command
      (format "xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT \"%s\" -name \"%s\""
@@ -138,7 +147,6 @@
 
 (pixel-scroll-precision-mode)
 
-(mouse-wheel-mode)
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1))
       mouse-wheel-progressive-speed nil
       mouse-wheel-follow-mouse 't
@@ -162,7 +170,9 @@
 (setq completion-styles '(partial-completion substring initials flex))
 
 (use-package vertico
-  :config (vertico-mode))
+  :config
+  (vertico-mode)
+  (vertico-mouse-mode))
 
 (use-package marginalia
   :hook (after-init . marginalia-mode))
@@ -281,7 +291,7 @@
   (global-set-key (kbd "C-z")   'undo-fu-only-undo)
   (global-set-key (kbd "C-S-z") 'undo-fu-only-redo)
   ;; Override "super" binding on macOS.
-  (when (memq system-type '(darwin))
+  (when axvr/macos?
     (global-unset-key (kbd "s-z"))
     (global-set-key (kbd "s-z") 'undo-fu-only-undo)
     (global-set-key (kbd "s-Z") 'undo-fu-only-redo)))
@@ -304,26 +314,23 @@
 ;; (axvr/package-install 'expand-region)
 ;; (global-set-key (kbd "C-=") 'er/expand-region)
 
-;; (axvr/package-install 'company)
-;; (global-company-mode)
-;; (define-key company-active-map (kbd "\C-n") 'company-select-next)
-;; (define-key company-active-map (kbd "\C-p") 'company-select-previous)
-;; (define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
-;; (define-key company-active-map (kbd "M-.")  'company-show-location)
-
 ;; TODO find an alternative.
 ;; (axvr/package-install 'restclient)
 ;; (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
 
+(setq reb-re-syntax 'string)
+
+(use-package pdf-tools
+  :mode "\\.pdf\\'"
+  :hook
+  (pdf-view-mode . pdf-view-roll-minor-mode) ; enable continuous scrolling
+  :init
+  (pdf-loader-install))
+
 (defun replica-1 ()
   "Start a serial term that connects to my Replica 1 Plus."
   (interactive)
-  (serial-term (if (memq system-type '(darwin))
+  (serial-term (if axvr/macos?
                    "/dev/tty.usbserial-AC00JRMK"
                  "/dev/ttyUSB1")
                9600))
-
-;; Control +/-/0 to zoom text.  (Do on non macOS only?)
-;; (global-set-key (kbd "C-=") 'default-font-presets-scale-increase)
-;; (global-set-key (kbd "C--") 'default-font-presets-scale-decrease)
-;; (global-set-key (kbd "C-0") 'default-font-presets-scale-reset)
