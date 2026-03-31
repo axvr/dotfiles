@@ -12,4 +12,9 @@
     (append (axvr/flatten (car mylist))
             (axvr/flatten (cdr mylist))))))
 
+(defun axvr/current-frame-name ()
+  "Return the name of the current GUI frame."
+  (substring-no-properties
+   (cdr (assoc 'name (frame-parameters)))))
+
 (provide 'axvr-helpers)

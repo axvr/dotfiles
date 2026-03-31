@@ -57,30 +57,17 @@
 
 (when axvr/macos?
   (use-package exec-path-from-shell
-    :config
-    (exec-path-from-shell-initialize)))
+    :config (exec-path-from-shell-initialize)))
 
 ;;; ----------------------------
 ;;; GUI.
 
 ;; TODO: orderless.
 
+(require 'axvr-style)
+
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq confirm-kill-emacs 'yes-or-no-p)
-
-(setopt mode-line-collapse-minor-modes t)
-
-(if (display-graphic-p)
-    (progn
-      (tool-bar-mode -1)
-      (unless axvr/macos? (menu-bar-mode -1))
-      (context-menu-mode)
-      (setq-default cursor-type 'bar)
-      (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
-  (xterm-mouse-mode))
-
-(setq inhibit-startup-screen t
-      initial-scratch-message "")
 
 (global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
 
@@ -90,116 +77,12 @@
 ;; (project-mode-line project-mode-line-format)
 (setq project-mode-line t)
 
-(defun axvr/current-frame-name ()
-  "Return the name of the current GUI frame."
-  (substring-no-properties
-   (cdr (assoc 'name (frame-parameters)))))
-
-(defun axvr/set-gtk-theme (variant)
-  "Set the GTK theme variant for the current Emacs session."
-  (when (and (display-graphic-p)
-             axvr/linux?
-             (not (null (executable-find "xprop"))))
-    (call-process-shell-command
-     (format "xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT \"%s\" -name \"%s\""
-             variant (axvr/current-frame-name)))))
-
-(defun axvr/set-theme (theme &optional mode)
-  (axvr/set-gtk-theme (or mode axvr/theme))
-  (load-theme theme t))
-
-(require-theme 'modus-themes)
-(setq modus-themes-bold-constructs t
-      modus-themes-italic-constructs t
-      modus-themes-mixed-fonts t)
-;;(axvr/set-theme 'modus-operandi)
-
-(use-package doric-themes
-  :demand t
-  :config
-  ;; These are the default values.
-  (setq doric-themes-to-toggle '(doric-light doric-dark))
-  (setq doric-themes-to-rotate doric-themes-collection)
-
-  (doric-themes-select 'doric-marble)
-
-  ;; ;; For optimal results, also define your preferred font family (or use my `fontaine' package):
-  ;;
-  ;; (set-face-attribute 'default nil :family "Aporetic Sans Mono" :height 160)
-  ;; (set-face-attribute 'variable-pitch nil :family "Aporetic Sans" :height 1.0)
-  ;; (set-face-attribute 'fixed-pitch nil :family "Aporetic Sans Mono" :height 1.0)
-  )
-
-;; (use-package alabaster-themes
-;;   :config (axvr/set-theme 'alabaster-themes-light))
-
-;; (use-package spacemacs-theme
-;;   :config (axvr/set-theme 'spacemacs-light))
-
-;; TODO: evaluate if this is worth having.
-(use-package dashboard
-  :config
-  (dashboard-setup-startup-hook)
-  (setq dashboard-projects-backend 'project-el)
-  (setq dashboard-items '((projects  . 5)
-                          (recents   . 5)
-                          (bookmarks . 5))))
-
-(pixel-scroll-precision-mode)
-
-(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))
-      mouse-wheel-progressive-speed nil
-      mouse-wheel-follow-mouse 't
-      ;; Horizontal scroll on trackpad
-      mouse-wheel-tilt-scroll 't
-      mouse-wheel-flip-direction 't
-      ;; Keyboard scrolling
-      scroll-step 1
-      scroll-conservatively 101)
-
-;; Enable horizontal scroll (`C-PgUp' + `C-PgDn')
-(put 'scroll-left 'disabled nil)
-
 (use-package multiple-cursors
   :config
   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
-
-(setq completion-styles '(partial-completion substring initials flex))
-
-(use-package vertico
-  :config
-  (vertico-mode)
-  (vertico-mouse-mode))
-
-(use-package marginalia
-  :hook (after-init . marginalia-mode))
-
-;;; ----------------------------
-;;; Fonts.
-
-(defun axvr/first-installed-font (fonts)
-  (seq-find (lambda (x)
-              (member (cdr (assoc :family x))
-                      (font-family-list)))
-            fonts))
-
-(defun axvr/set-font (type fonts)
-  (let ((font-attrs (axvr/first-installed-font fonts)))
-    (when font-attrs
-      (apply 'set-face-attribute type nil (axvr/flatten font-attrs)))))
-
-(let ((monospace '(((:family . "IBM Plex Mono") (:height . 135))
-                   ((:family . "JuliaMono")     (:height . 125))
-                   ((:family . "Inconsolata")   (:height . 135))
-                   ((:family . "Consolas")      (:height . 110))))
-      (variable  '(((:family . "Cantarell")     (:height . 120))
-                   ((:family . "DejaVu Sans")   (:height . 110)))))
-  (axvr/set-font 'default monospace)
-  (axvr/set-font 'fixed-pitch monospace)
-  (axvr/set-font 'variable-pitch variable))
 
 ;;; ----------------------------
 ;;; Files.
