@@ -1,6 +1,6 @@
 ;;;; -*- lexical-binding: t; -*-
 
-(defconst axvr/theme 'light
+(defconst axvr/theme 'dark
   "Use this to set the default theme for Emacs to `light' or `dark'.")
 
 ;; Having this in `early-init` stops the window opening off the edge of the screen.

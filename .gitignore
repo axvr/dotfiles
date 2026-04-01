@@ -7,6 +7,7 @@ vim/.vim/pack/*/*/*/
 vim/.vim/state/
 vim/.vim/spell/*.spl
 emacs/.config/emacs/*
-!emacs/.config/emacs/elisp/
+!emacs/.config/emacs/axvr/
+!emacs/.config/emacs/themes/
 !emacs/.config/emacs/init.el
 !emacs/.config/emacs/early-init.el

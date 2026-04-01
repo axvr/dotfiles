@@ -11,8 +11,7 @@
     (xterm-mouse-mode)
     (menu-bar-mode -1)))
 
-(setq inhibit-startup-screen t
-      initial-scratch-message "")
+(setq inhibit-startup-screen t)
 
 (defun axvr/set-gtk-theme (variant)
   "Set the GTK theme variant for the current Emacs session."
@@ -27,15 +26,19 @@
   (axvr/set-gtk-theme (or mode axvr/theme))
   (load-theme theme t))
 
+(setq custom-theme-directory (concat user-emacs-directory "themes/"))
+
 (require-theme 'modus-themes)
 (setq modus-themes-bold-constructs t
       modus-themes-italic-constructs t
       modus-themes-mixed-fonts t)
 ;;(axvr/set-theme 'modus-operandi)
 
-(use-package doric-themes
-  :demand t
-  :config (doric-themes-select 'doric-marble))
+(axvr/set-theme 'raider)
+
+;; (use-package doric-themes
+;;   :demand t
+;;   :config (doric-themes-select 'doric-marble))
 
 ;; (use-package alabaster-themes
 ;;   :config (axvr/set-theme 'alabaster-themes-light))
@@ -44,13 +47,13 @@
 ;;   :config (axvr/set-theme 'spacemacs-light))
 
 ;; TODO: evaluate if this is worth having.
-(use-package dashboard
-  :config
-  (dashboard-setup-startup-hook)
-  (setq dashboard-projects-backend 'project-el)
-  (setq dashboard-items '((projects  . 5)
-                          (recents   . 5)
-                          (bookmarks . 5))))
+;; (use-package dashboard
+;;   :config
+;;   (dashboard-setup-startup-hook)
+;;   (setq dashboard-projects-backend 'project-el)
+;;   (setq dashboard-items '((projects  . 5)
+;;                           (recents   . 5)
+;;                           (bookmarks . 5))))
 
 (pixel-scroll-precision-mode)
 

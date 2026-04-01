@@ -1,5 +1,8 @@
 ;;;; GNU Emacs configuration. -*- lexical-binding: t; -*-
 
+;; TODO: move most of this file into the axvr directory.  E.g. axvr-init.el
+;; TODO: symbolic link it and early-init.el
+
 ;;; ----------------------------
 ;;; Core.
 
@@ -17,7 +20,7 @@
 
 ;; expand-file-name
 
-(let ((default-directory (concat user-emacs-directory "elisp")))
+(let ((default-directory (concat user-emacs-directory "axvr")))
   (when (file-directory-p default-directory)
     (add-to-list 'load-path default-directory)
     (normal-top-level-add-subdirs-to-load-path)))
@@ -26,32 +29,24 @@
 (require 'axvr-default-keys)
 
 ;; Prevent Emacs from appending "custom" stuff to this file.
-(setq custom-file (locate-user-emacs-file "custom.el"))
-;; (setq custom-file (make-temp-file "emacs-custom"))
-(load custom-file 'noerror 'nomessage)
+(setq custom-file (make-temp-file "emacs-custom"))
 
 ;;; ----------------------------
 ;;; Packages.
 
-;; TODO: package-vc, vc-use-package or alternatives.
+;; (require 'package)
+(require 'axvr-packages)
 
-(add-to-list 'display-buffer-alist
-             '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
-               (display-buffer-no-window)
-               (allow-no-window . t)))
+;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+;;(setq package-archive-priorities '(("gnu" . 30) ("melpa" . 10) ("nongnu" . 5)))
 
-(require 'package)
+;; (package-initialize)
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(setq package-archive-priorities '(("gnu" . 30) ("melpa" . 10) ("nongnu" . 5)))
+;; (unless package-archive-contents
+;;   (package-refresh-contents))
 
-(package-initialize)
-
-(unless package-archive-contents
-  (package-refresh-contents))
-
-(eval-when-compile
-  (require 'use-package))
+;; (eval-when-compile
+;;   (require 'use-package))
 
 (setq use-package-always-ensure t)
 
@@ -96,6 +91,45 @@
 (global-auto-revert-mode t)
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 
+(use-package dired
+  :ensure nil
+  :commands (dired)
+  :hook
+  ((dired-mode . dired-hide-details-mode)
+   (dired-mode . hl-line-mode))
+  :config
+  (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
+  (setq delete-by-moving-to-trash t)
+  (setq dired-dwim-target t))
+
+(use-package dired-subtree
+  :after dired
+  :bind
+  ( :map dired-mode-map
+    ("<tab>" . dired-subtree-toggle)
+    ("TAB" . dired-subtree-toggle)
+    ("<backtab>" . dired-subtree-remove)
+    ("S-TAB" . dired-subtree-remove))
+  :config
+  (setq dired-subtree-use-backgrounds nil))
+
+;; (use-package dirvish
+;;   :demand t
+;;   :defer 2
+;;   :init (dirvish-override-dired-mode)
+;;   ;;:custom
+;;   ;;(dirvish-default-layout '(0 0.4 0.6))
+;;   )
+
+;; ;; https://codeberg.org/shinmera/.emacs/src/commit/43d39efc8d87a2c913b8e8c193c33582082af225/shinmera-general.el
+;; (use-package server
+;;   :demand t
+;;   :config
+;;   (define-hook after-init-hook ()
+;;     (unless (or (server-running-p) axvr/windows?)
+;;       (server-start))))
+
 ;; TODO
 (setq-default indent-tabs-mode nil
               tab-width 4)
@@ -122,6 +156,8 @@
 (electric-indent-mode)
 (delete-selection-mode)
 
+(global-prettify-symbols-mode)
+
 (require 'project)
 
 (setq require-final-newline 'ask)
@@ -134,7 +170,8 @@
   :commands (hl-prog-extra-mode)
   :init (add-hook 'prog-mode-hook #'hl-prog-extra-mode))
 
-(use-package magit :defer t :functions magit-status)
+(use-package transient)
+(use-package magit :after (transient) :defer t :functions magit-status)
 
 (use-package diff-hl
   :config (global-diff-hl-mode)
@@ -209,5 +246,8 @@
   (pdf-view-mode . pdf-view-roll-minor-mode) ; enable continuous scrolling
   :init
   (pdf-loader-install))
+
+;; (use-package erlang
+;;   :vc (:url "https://github.com/erlang/otp" :lisp-dir "lib/tools/emacs" :make ""))
 
 (require 'axvr-tools)

@@ -1,7 +1,19 @@
 ;;;; Override default key bindings. -*- lexical-binding: t; -*-
 
+;; TODO: should these bindings be in a custom minor mode map?
+
+;; UK keyboard has `#' as `M-3', but this isn't accessible from Emacs by default.
+(global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
+(define-key isearch-mode-map (kbd "M-3") '(lambda () (interactive) (isearch-process-search-char ?\#)))
+
 ;; Use Ibuffer instead of `list-buffers'.
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; Use regex with isearch by default.
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
 
 ;; When using a trackpad and the control key is was very common to accidentally
 ;; increase/decrease the font size.  Let's remove those bindings.

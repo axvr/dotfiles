@@ -4,13 +4,14 @@
 (defconst axvr/linux?   (memq system-type '(gnu/linux gnu android)))
 (defconst axvr/windows? (memq system-type '(windows-nt ms-dos cygwin)))
 
-(defun axvr/flatten (mylist)
+(defun axvr/flatten (lst)
+  "Flatten a list of lists (of lists...)."
   (cond
-   ((null mylist) nil)
-   ((atom mylist) (list mylist))
+   ((null lst) nil)
+   ((atom lst) (list lst))
    (t
-    (append (axvr/flatten (car mylist))
-            (axvr/flatten (cdr mylist))))))
+    (append (axvr/flatten (car lst))
+            (axvr/flatten (cdr lst))))))
 
 (defun axvr/current-frame-name ()
   "Return the name of the current GUI frame."
