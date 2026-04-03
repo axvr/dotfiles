@@ -6,6 +6,7 @@
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-sources-directory (expand-file-name "sources/" elpaca-directory))
+;;(defvar elpaca-lock-file (expand-file-name "package-lock.el" elpaca-directory))
 (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
                               :ref nil :depth 1 :inherit ignore
                               :files (:defaults "elpaca-test.el" (:exclude "extensions"))
@@ -45,5 +46,7 @@
 
 (elpaca elpaca-use-package
   (elpaca-use-package-mode))
+
+(setq use-package-always-ensure t)
 
 (provide 'axvr-packages)

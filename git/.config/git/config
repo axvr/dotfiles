@@ -78,9 +78,9 @@
 [url "ssh://git@codeberg.com/"]
 	insteadOf = "https://codeberg.com/"
 	pushInsteadOf = "https://codeberg.com/"
-[url "ssh://git@gitlab.com/"]
-	insteadOf = "https://gitlab.com/"
-	pushInsteadOf = "https://gitlab.com/"
-[url "ssh://git@git.sr.ht/"]
-	insteadOf = "https://git.sr.ht/"
-	pushInsteadOf = "https://git.sr.ht/"
+; [url "ssh://git@gitlab.com/"]
+; 	insteadOf = "https://gitlab.com/"
+; 	pushInsteadOf = "https://gitlab.com/"
+; [url "ssh://git@git.sr.ht/"]
+; 	insteadOf = "https://git.sr.ht/"
+; 	pushInsteadOf = "https://git.sr.ht/"

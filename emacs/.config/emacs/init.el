@@ -34,25 +34,17 @@
 ;;; ----------------------------
 ;;; Packages.
 
-;; (require 'package)
 (require 'axvr-packages)
-
-;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-;;(setq package-archive-priorities '(("gnu" . 30) ("melpa" . 10) ("nongnu" . 5)))
-
-;; (package-initialize)
-
-;; (unless package-archive-contents
-;;   (package-refresh-contents))
-
-;; (eval-when-compile
-;;   (require 'use-package))
-
-(setq use-package-always-ensure t)
 
 (when axvr/macos?
   (use-package exec-path-from-shell
-    :config (exec-path-from-shell-initialize)))
+    :ensure (:wait t)
+    :init
+    (exec-path-from-shell-initialize)
+    (setq elpaca-makeinfo-executable (executable-find "makeinfo"))
+    (setq elpaca-install-info-executable (executable-find "install-info"))
+    (unless (file-exists-p (expand-file-name "elpaca/dir" elpaca-builds-directory))
+      (elpaca-rebuild 'elpaca))))
 
 ;;; ----------------------------
 ;;; GUI.
@@ -103,24 +95,16 @@
   (setq delete-by-moving-to-trash t)
   (setq dired-dwim-target t))
 
-(use-package dired-subtree
-  :after dired
-  :bind
-  ( :map dired-mode-map
-    ("<tab>" . dired-subtree-toggle)
-    ("TAB" . dired-subtree-toggle)
-    ("<backtab>" . dired-subtree-remove)
-    ("S-TAB" . dired-subtree-remove))
-  :config
-  (setq dired-subtree-use-backgrounds nil))
-
-;; (use-package dirvish
-;;   :demand t
-;;   :defer 2
-;;   :init (dirvish-override-dired-mode)
-;;   ;;:custom
-;;   ;;(dirvish-default-layout '(0 0.4 0.6))
-;;   )
+;; (use-package dired-subtree
+;;   :after dired
+;;   :bind
+;;   ( :map dired-mode-map
+;;     ("<tab>" . dired-subtree-toggle)
+;;     ("TAB" . dired-subtree-toggle)
+;;     ("<backtab>" . dired-subtree-remove)
+;;     ("S-TAB" . dired-subtree-remove))
+;;   :config
+;;   (setq dired-subtree-use-backgrounds nil))
 
 ;; ;; https://codeberg.org/shinmera/.emacs/src/commit/43d39efc8d87a2c913b8e8c193c33582082af225/shinmera-general.el
 ;; (use-package server
@@ -171,7 +155,10 @@
   :init (add-hook 'prog-mode-hook #'hl-prog-extra-mode))
 
 (use-package transient)
-(use-package magit :after (transient) :defer t :functions magit-status)
+(use-package magit
+  :after (transient)
+  :defer t
+  :functions magit-status)
 
 (use-package diff-hl
   :config (global-diff-hl-mode)
@@ -192,13 +179,19 @@
         ledger-report-links-in-register nil
         ledger-report-native-highlighting-arguments '("--color=always")))
 
-(use-package markdown-mode :mode ("TODO\\'" "DOING\\'" "DONE\\'"))
-(use-package org :hook (org-mode . org-indent-mode))
+(use-package markdown-mode
+  :mode ("TODO\\'" "DOING\\'" "DONE\\'"))
+
+(use-package org
+  :hook (org-mode . org-indent-mode))
 
 ;; TODO
 (setq scheme-program-name "csi -:c")
 (use-package sly :defer t :config (setq inferior-lisp-program "sbcl"))
 (use-package clojure-mode) ; TODO: clojure-ts-mode?
+
+(use-package execline
+  :ensure (:host gitlab :repo "KAction/emacs-execline" :protocol https))
 
 (which-key-mode)
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
