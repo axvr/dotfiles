@@ -30,16 +30,6 @@
 
 (axvr/set-theme 'raider)
 
-;; (use-package doric-themes
-;;   :demand t
-;;   :config
-;;   (require-theme 'modus-themes)
-;;   (setq modus-themes-bold-constructs t
-;;         modus-themes-italic-constructs t
-;;         modus-themes-mixed-fonts t)
-;;   ;; (axvr/set-theme 'modus-operandi)
-;;   (doric-themes-select 'doric-marble))
-
 ;; (use-package alabaster-themes
 ;;   :config (axvr/set-theme 'alabaster-themes-light))
 

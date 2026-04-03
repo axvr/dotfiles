@@ -1,26 +1,24 @@
 ;;;; GNU Emacs configuration. -*- lexical-binding: t; -*-
 
-;; TODO: move most of this file into the axvr directory.  E.g. axvr-init.el
-;; TODO: symbolic link it and early-init.el
+;; TODO: move most of this file into the axvr directory.  `axvr-init.el' and symbolic link it.
 
 ;;; ----------------------------
 ;;; Core.
 
-(setq user-full-name "Alex Vear" user-mail-address "alex@vear.uk")
+(setq user-full-name "Alex Vear"
+      user-mail-address "alex@vear.uk")
 
 ;; File backups, save last cursor position and register persistence.
-(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backup")))
+(setq backup-directory-alist `(("." . ,(expand-file-name "backup" user-emacs-directory)))
       backup-by-copying t
       delete-old-versions t
-      save-place-file (concat user-emacs-directory "places")
+      save-place-file (expand-file-name "places" user-emacs-directory)
       savehist-additional-variables '(register-alist))
 (save-place-mode)
 (savehist-mode)
 (recentf-mode)
 
-;; expand-file-name
-
-(let ((default-directory (concat user-emacs-directory "axvr")))
+(let ((default-directory (expand-file-name "axvr" user-emacs-directory)))
   (when (file-directory-p default-directory)
     (add-to-list 'load-path default-directory)
     (normal-top-level-add-subdirs-to-load-path)))
@@ -41,8 +39,10 @@
     :ensure (:wait t)
     :init
     (exec-path-from-shell-initialize)
+    ;; Elpaca needs these values to be reset now that `PATH' is correct.
     (setq elpaca-makeinfo-executable (executable-find "makeinfo"))
     (setq elpaca-install-info-executable (executable-find "install-info"))
+    ;; Rebuild Elpaca's docs if not built due to missing the above executables.
     (unless (file-exists-p (expand-file-name "elpaca/dir" elpaca-builds-directory))
       (elpaca-rebuild 'elpaca))))
 
@@ -78,8 +78,6 @@
 ;;; ----------------------------
 ;;; Files.
 
-;; TODO: dired configuration.
-
 (setq grep-command "rg -nS. --no-heading -g '!.git/*' "
       grep-use-null-device nil)
 
@@ -87,6 +85,7 @@
 (global-auto-revert-mode t)
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 
+;; TODO: dired configuration.
 (use-package dired
   :ensure nil
   :commands (dired)
@@ -148,12 +147,14 @@
 
 (require 'project)
 
+;; TODO: trim trailing whitespace on save.
 (setq require-final-newline 'ask)
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (setq-default indicate-empty-lines t)
 
 ;; Highlight TODOs and more.
+;; TODO: set colours.
 (use-package hl-prog-extra
   :commands (hl-prog-extra-mode)
   :init (add-hook 'prog-mode-hook #'hl-prog-extra-mode))
@@ -197,7 +198,9 @@
 (use-package execline)
 
 (which-key-mode)
+
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
+
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings 'meta))
 

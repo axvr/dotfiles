@@ -1,7 +1,6 @@
-;; -*- lexical-binding: t; -*-
+;;;; Install and configure Elpaca and `use-package'.  -*- lexical-binding: t; -*-
 
-;; Install and configure Elpaca.
-
+;; <https://github.com/progfolio/elpaca?tab=readme-ov-file#installer>
 (defvar elpaca-installer-version 0.12)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
