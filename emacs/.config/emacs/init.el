@@ -49,7 +49,11 @@
 ;;; ----------------------------
 ;;; GUI.
 
-;; TODO: orderless.
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles partial-completion))))
+  (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
 
 (require 'axvr-style)
 
@@ -190,8 +194,7 @@
 (use-package sly :defer t :config (setq inferior-lisp-program "sbcl"))
 (use-package clojure-mode) ; TODO: clojure-ts-mode?
 
-(use-package execline
-  :ensure (:host gitlab :repo "KAction/emacs-execline" :protocol https))
+(use-package execline)
 
 (which-key-mode)
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region)

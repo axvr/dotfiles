@@ -28,32 +28,23 @@
 
 (setq custom-theme-directory (concat user-emacs-directory "themes/"))
 
-(require-theme 'modus-themes)
-(setq modus-themes-bold-constructs t
-      modus-themes-italic-constructs t
-      modus-themes-mixed-fonts t)
-;;(axvr/set-theme 'modus-operandi)
-
 (axvr/set-theme 'raider)
 
 ;; (use-package doric-themes
 ;;   :demand t
-;;   :config (doric-themes-select 'doric-marble))
+;;   :config
+;;   (require-theme 'modus-themes)
+;;   (setq modus-themes-bold-constructs t
+;;         modus-themes-italic-constructs t
+;;         modus-themes-mixed-fonts t)
+;;   ;; (axvr/set-theme 'modus-operandi)
+;;   (doric-themes-select 'doric-marble))
 
 ;; (use-package alabaster-themes
 ;;   :config (axvr/set-theme 'alabaster-themes-light))
 
 ;; (use-package spacemacs-theme
 ;;   :config (axvr/set-theme 'spacemacs-light))
-
-;; TODO: evaluate if this is worth having.
-;; (use-package dashboard
-;;   :config
-;;   (dashboard-setup-startup-hook)
-;;   (setq dashboard-projects-backend 'project-el)
-;;   (setq dashboard-items '((projects  . 5)
-;;                           (recents   . 5)
-;;                           (bookmarks . 5))))
 
 (pixel-scroll-precision-mode)
 
@@ -69,8 +60,6 @@
 
 ;; Enable horizontal scroll (`C-PgUp' + `C-PgDn')
 (put 'scroll-left 'disabled nil)
-
-(setq completion-styles '(partial-completion substring initials flex))
 
 (use-package vertico
   :config
@@ -97,7 +86,8 @@
                    ((:family . "JuliaMono")     (:height . 125))
                    ((:family . "Inconsolata")   (:height . 135))
                    ((:family . "Consolas")      (:height . 110))))
-      (variable  '(((:family . "Cantarell")     (:height . 120))
+      (variable  '(((:family . "Inter")         (:height . 135))
+                   ((:family . "Cantarell")     (:height . 120))
                    ((:family . "DejaVu Sans")   (:height . 110)))))
   (axvr/set-font 'default monospace)
   (axvr/set-font 'fixed-pitch monospace)
