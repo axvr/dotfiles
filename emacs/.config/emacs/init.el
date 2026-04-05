@@ -40,8 +40,8 @@
     :init
     (exec-path-from-shell-initialize)
     ;; Elpaca needs these values to be reset now that `PATH' is correct.
-    (setq elpaca-makeinfo-executable (executable-find "makeinfo"))
-    (setq elpaca-install-info-executable (executable-find "install-info"))
+    (setq elpaca-makeinfo-executable (executable-find "makeinfo")
+          elpaca-install-info-executable (executable-find "install-info"))
     ;; Rebuild Elpaca's docs if not built due to missing the above executables.
     (unless (file-exists-p (expand-file-name "elpaca/dir" elpaca-builds-directory))
       (elpaca-rebuild 'elpaca))))
@@ -90,7 +90,7 @@
   :ensure nil
   :commands (dired)
   :hook
-  ((dired-mode . dired-hide-details-mode)
+  (;; (dired-mode . dired-hide-details-mode)
    (dired-mode . hl-line-mode))
   :config
   (setq dired-recursive-copies 'always)
@@ -146,6 +146,16 @@
 (global-prettify-symbols-mode)
 
 (require 'project)
+
+(use-package project
+  :ensure nil
+  :init
+  (project-forget-zombie-projects)
+  (project-remember-projects-under (expand-file-name "~/Projects"))
+  (project-remember-projects-under (expand-file-name "~/Projects/Work"))
+  ;; (project-remember-project (expand-file-name "~/Documents/Ledger"))
+  ;; (project-remember-project (expand-file-name "~/Documents/Notes"))
+  )
 
 ;; TODO: trim trailing whitespace on save.
 (setq require-final-newline 'ask)
