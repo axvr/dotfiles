@@ -48,4 +48,16 @@
 
 (setq use-package-always-ensure t)
 
+(when axvr/macos?
+  (use-package exec-path-from-shell
+    :ensure (:wait t)
+    :init
+    (exec-path-from-shell-initialize)
+    ;; Elpaca needs these values to be reset now that `PATH' is correct.
+    (setq elpaca-makeinfo-executable (executable-find "makeinfo")
+          elpaca-install-info-executable (executable-find "install-info"))
+    ;; Rebuild Elpaca's docs if not built due to missing the above executables.
+    (unless (file-exists-p (expand-file-name "elpaca/dir" elpaca-builds-directory))
+      (elpaca-rebuild 'elpaca))))
+
 (provide 'axvr-packages)
