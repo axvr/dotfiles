@@ -21,8 +21,10 @@ packadd info
 packadd qf
 let g:qf_number = 0
 
-packadd matchit
+let g:fugitive_legacy_commands = v:false
 packadd fugitive
+
+packadd matchit
 if has('nvim')
     packadd commentary
     let g:conjure#filetypes = ['clojure']
