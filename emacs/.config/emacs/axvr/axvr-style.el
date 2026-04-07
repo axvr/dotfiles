@@ -57,7 +57,7 @@
   (vertico-mouse-mode))
 
 (use-package marginalia
-  :hook (after-init . marginalia-mode))
+  :config (marginalia-mode))
 
 (setopt mode-line-collapse-minor-modes t)
 

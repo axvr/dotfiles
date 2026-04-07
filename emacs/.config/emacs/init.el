@@ -151,11 +151,10 @@
   :ensure nil
   :init
   (project-forget-zombie-projects)
-  (project-remember-projects-under (expand-file-name "~/Projects"))
-  (project-remember-projects-under (expand-file-name "~/Projects/Work"))
-  ;; (project-remember-project (expand-file-name "~/Documents/Ledger"))
-  ;; (project-remember-project (expand-file-name "~/Documents/Notes"))
-  )
+  (mapc (lambda (dir)
+          (when (file-exists-p dir)
+            (project-remember-projects-under dir)))
+        '("~/Projects" "~/Projects/Work" "~/Documents")))
 
 ;; TODO: trim trailing whitespace on save.
 (setq require-final-newline 'ask)
@@ -198,12 +197,15 @@
   :mode ("TODO\\'" "DOING\\'" "DONE\\'"))
 
 (use-package org
-  :hook (org-mode . org-indent-mode))
+  :hook (org-mode . org-indent-mode)
+  :config
+  (setq org-todo-keywords '((sequence "TODO" "DOING" "|" "DONE"))))
 
 ;; TODO
 (setq scheme-program-name "csi -:c")
 (use-package sly :defer t :config (setq inferior-lisp-program "sbcl"))
-(use-package clojure-mode) ; TODO: clojure-ts-mode?
+(use-package clojure-ts-mode)
+;; TODO: inf-clojure vs. cider.
 
 (use-package execline)
 
@@ -258,5 +260,10 @@
 
 ;; (use-package erlang
 ;;   :vc (:url "https://github.com/erlang/otp" :lisp-dir "lib/tools/emacs" :make ""))
+
+(use-package typst-ts-mode
+  :config
+  ;; TODO: do not do this on start up.
+  (typst-ts-mc-install-grammar))
 
 (require 'axvr-tools)
