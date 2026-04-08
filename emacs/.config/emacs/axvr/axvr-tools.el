@@ -12,11 +12,15 @@
 (defun axvr/do ()
   "Execute a `do' script."
   (interactive)
-  (if-let ((default-directory (locate-dominating-file "." "do/")))
-      (async-shell-command
-       (expand-file-name
-        (read-file-name "Run do script: " (expand-file-name "do/" default-directory))
-        default-directory))
+  (if-let* ((default-directory (locate-dominating-file "." "do/"))
+            (script (expand-file-name
+                     (read-file-name "Run do script: "
+                                     (expand-file-name "do/")
+                                     nil t nil
+                                     #'f-executable?))))
+      (if (f-executable? script)
+          (async-shell-command script)
+        (message "No executable selected."))
     (message "Not in a project with do scripts.")))
 
 (use-package undo-fu
@@ -39,10 +43,8 @@
 
 (use-package pdf-tools
   :mode "\\.pdf\\'"
-  :hook
-  (pdf-view-mode . pdf-view-roll-minor-mode) ; enable continuous scrolling
-  :init
-  (pdf-loader-install))
+  :hook (pdf-view-mode . pdf-view-roll-minor-mode) ; enable continuous scrolling
+  :init (pdf-loader-install))
 
 (use-package multiple-cursors
   :config

@@ -15,6 +15,14 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings 'meta))
+
+(defalias 'yes-or-no-p 'y-or-n-p)
+(setq confirm-kill-emacs 'yes-or-no-p)
+
+(global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
+
 ;; When using a trackpad and the control key is was very common to accidentally
 ;; increase/decrease the font size.  Let's remove those bindings.
 (when (default-value 'mouse-wheel-mode)

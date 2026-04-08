@@ -16,9 +16,12 @@
   :config
   (setq org-todo-keywords '((sequence "TODO" "DOING" "|" "DONE"))))
 
-;; TODO
 (setq scheme-program-name "csi -:c")
-(use-package sly :defer t :config (setq inferior-lisp-program "sbcl"))
+
+(use-package sly
+  :defer t
+  :config (setq inferior-lisp-program "sbcl"))
+
 (use-package clojure-ts-mode)
 ;; TODO: inf-clojure vs. cider.
 
@@ -26,9 +29,6 @@
 
 (use-package erlang-ts :mode ("\\.erl\\'" . erlang-ts-mode))
 
-(use-package typst-ts-mode
-  :config
-  ;; TODO: do not do this on start up.
-  (typst-ts-mc-install-grammar))
+(use-package typst-ts-mode :init (typst-ts-mc-install-grammar))
 
 (provide 'axvr-languages)

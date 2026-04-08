@@ -36,11 +36,6 @@
 
 (require 'axvr-style)
 
-(defalias 'yes-or-no-p 'y-or-n-p)
-(setq confirm-kill-emacs 'yes-or-no-p)
-
-(global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
-
 (setq ring-bell-function #'ignore)
 
 (setq-default frame-title-format '("%n %b - %F"))
@@ -113,8 +108,6 @@
 (electric-indent-mode)
 (delete-selection-mode)
 
-(global-prettify-symbols-mode)
-
 (require 'project)
 
 (use-package project
@@ -137,9 +130,6 @@
 
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
 
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings 'meta))
-
 ;; (axvr/package-install 'paren-face)
 ;; (setq paren-face-regexp "[][(){}]")
 ;; (global-paren-face-mode) ; TODO: only on prog mode.
@@ -149,3 +139,4 @@
 ;; (fido-mode)
 
 (require 'axvr-tools)
+(require 'axvr-languages)

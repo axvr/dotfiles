@@ -83,4 +83,6 @@
   (axvr/set-font 'fixed-pitch monospace)
   (axvr/set-font 'variable-pitch variable))
 
+(global-prettify-symbols-mode)
+
 (provide 'axvr-style)
