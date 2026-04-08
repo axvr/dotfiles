@@ -62,8 +62,7 @@
 (use-package transient)
 (use-package magit
   :after (transient)
-  :defer t
-  :functions magit-status)
+  :defer t)
 
 (use-package diff-hl
   :config (global-diff-hl-mode)

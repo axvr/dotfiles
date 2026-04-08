@@ -126,7 +126,7 @@
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (setq-default indicate-empty-lines t)
 
-(which-key-mode)
+(add-hook 'elpaca-after-init-hook #'which-key-mode)
 
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
 
