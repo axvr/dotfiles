@@ -12,12 +12,7 @@
 (use-package markdown-mode
   :commands (markdown-mode)
   :mode
-  ("TODO\\'" "DOING\\'" "DONE\\'")
-  ("\\.md\\'" . markdown-mode)
-  ("\\.mkd\\'" . markdown-mode)
-  ("\\.markd\\'" . markdown-mode)
-  ("\\.markdown\\'" . markdown-mode)
-  ("README.md\\'" . gfm-mode))
+  ("TODO\\'" "DOING\\'" "DONE\\'" "\\.md\\'" "\\.mkd\\'" "\\.markdown\\'"))
 
 (use-package org
   :hook (org-mode . org-indent-mode)

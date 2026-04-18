@@ -41,12 +41,8 @@
   (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
   (undo-fu-session-global-mode))
 
-(use-package pdf-tools
-  :mode "\\.pdf\\'"
-  :hook (pdf-view-mode . pdf-view-roll-minor-mode) ; enable continuous scrolling
-  :init (pdf-loader-install))
-
 (use-package multiple-cursors
+  :commands (mc/mark-next-like-this mc/mark-previous-like-this mc/mark-all-like-this mc/edit-lines)
   :config
   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)

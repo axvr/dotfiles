@@ -6,4 +6,7 @@
 importas -i input 1
 importas -i output 2
 
-gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=$output $input
+gs -sDEVICE=pdfwrite \
+   -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH \
+   -sOutputFile=$output \
+   $input

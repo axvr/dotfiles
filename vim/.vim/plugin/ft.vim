@@ -1,9 +1,10 @@
 " Ftplugin config.
 let g:tex_flavor = "latex"
 let g:markdown_minlines = 200
-let g:ledger_is_hledger = v:true
+let g:ledger_bin = 'hledger'
 let g:ledger_align_at = 50
 let g:org_clean_folds = 1
+let g:org_state_keywords = ['TODO', 'DOING', 'DONE']
 
 augroup axvr/filetype_config
     autocmd!

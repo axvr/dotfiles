@@ -2,6 +2,8 @@
 
 ;; TODO: move most of this file into the axvr directory.  `axvr-init.el' and symbolic link it.
 
+;; TODO: add optional Evil mode back?
+
 (setq user-full-name "Alex Vear"
       user-mail-address "alex@vear.uk")
 

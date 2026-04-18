@@ -1,4 +1,4 @@
-vim.lsp.config['elixirls'] = {
+return {
     cmd = { vim.env.HOME .. '/.local/share/mise/installs/elixir-ls/latest/language_server.sh' },
     filetypes = { 'elixir', 'eelixir', 'heex', 'surface' },
     -- Taken from: https://github.com/neovim/nvim-lspconfig/blob/e688b486fe9291f151eae7e5c0b5a5c4ef980847/lsp/elixirls.lua#L36-L45

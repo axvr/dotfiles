@@ -48,6 +48,11 @@
 
 (setq use-package-always-ensure t)
 
+(use-package trust-manager
+  :ensure (:wait t)
+  :init
+  (trust-manager-mode))
+
 (when axvr/macos?
   (use-package exec-path-from-shell
     :ensure (:wait t)
