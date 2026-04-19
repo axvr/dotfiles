@@ -16,7 +16,7 @@ augroup axvr/filetype_config
     autocmd FileType robots,crontab,spec,desktop,execline setl commentstring=#%s
     autocmd FileType c,cpp setl path+=/usr/include
     autocmd FileType tex compiler latexmk
-    autocmd FileType gitcommit setl spell
+    autocmd FileType gitcommit,markdown,org,outline,text setl spell
     autocmd FileType git,gitcommit,diff setl foldmethod=syntax foldlevel=100
     autocmd FileType sh,bash setl keywordprg=:Man | compiler shellcheck
     autocmd FileType erlang compiler erlang

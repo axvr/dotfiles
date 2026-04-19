@@ -45,7 +45,7 @@ nnoremap Y y$
 
 " "<Leader>" and "<LocalLeader>" prefixes.
 let g:mapleader = " "
-let g:maplocalleader = "\\"
+let g:maplocalleader = "  "
 
 " Clean up Neovim PopUp menu.
 if has('nvim') && exists(':menu')

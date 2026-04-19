@@ -8,8 +8,12 @@ CLR
 Clojure
 ClojureCLR
 ClojureScript
+DFA
+DFSM
 Datalog
+EDSL
 EditorConfig
+FSM
 GC
 GCs
 Graal
@@ -24,6 +28,9 @@ Lua
 MessagePack
 MoarVM
 MsgPack/?
+NDFSM/?
+NFA
+NFSM
 Neovim
 OOP
 OTP
