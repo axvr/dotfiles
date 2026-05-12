@@ -29,3 +29,10 @@ command! -nargs=+ -bang -complete=shellcmdline LgrepaddWith
 
 command! -nargs=* -bang -complete=file_in_path Todos
     \ exec 'GrepWith'..<q-bang> 'todos' <q-args>
+
+if ! has('nvim')
+    augroup axvr/search
+        autocmd!
+        autocmd QuickFixCmdPost,ShellCmdPost * redraw!
+    augroup END
+endif
