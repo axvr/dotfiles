@@ -11,8 +11,9 @@ nnoremap <leader>gd :Gvdiffsplit<CR>
 " Quickly save/update session files.
 function! s:mksession(file = '') abort
     let sfile = a:file->axvr#Else(v:this_session)->axvr#Else('Session.vim')->fnamemodify(':.')
-    let sfile = axvr#Ask({'prompt': 'Save session to: ', 'default': sfile, 'completion': 'file'})
+    let sfile = axvr#Ask('Save session to: ', sfile, 'file')
     if !empty(sfile)
+        call axvr#AskCreateDirs(fnamemodify(sfile, ':p:h'))
         exec 'mksession!' sfile
         redraw | echomsg 'Saved session:' sfile
     endif

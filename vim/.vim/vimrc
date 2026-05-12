@@ -23,7 +23,7 @@ set sessionoptions=buffers,curdir,tabpages viewoptions=folds,cursor,curdir
 set complete=.,w,b,u,t completeopt=menu,menuone,popup,fuzzy
 if has('nvim') | set winborder=single | endif
 
-" Backup, swap and undo.  (TODO: unify these between editors?)
+" Backup, swap and undo.
 if has('nvim')
     set backupdir-=.
 else

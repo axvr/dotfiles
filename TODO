@@ -1,7 +1,5 @@
 - Vim:
-  - Better learn to use marks and registers.
-  - `:h shada-file`
-  - Finish arglist bookmark plugin.  Publish?
+  - Finish arglist bookmark plugin.
   - Finish file linking plugin.
   - Alternate REPL plugins?  Zepl, Zepl2, Tmux?
     - Tmux send-keys: <https://damonkelley.com/blog/2016/09/07/tmux-send-keys/>
@@ -12,6 +10,5 @@
     - vim-execline is closed source and cannot be included in Vim.
     - Open Web docs binding or include links in Vim help doc?
 
-- Scripts:
-  - Clojure equivalent to my HyperSpec command (+ `<C-K>` Vim mapping).
-    - <https://clojuredocs.org/>, <https://cljdoc.org/>
+- Emacs:
+  - Finish getting initial config working.

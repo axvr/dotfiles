@@ -3,13 +3,6 @@ let [g:netrw_banner, g:loaded_netrw, g:loaded_netrwPlugin] = [0, 1, 1]
 let g:dirvish_mode = ':sort | silent! g,\v/\.(DS_Store|git/)$,d _'
 packadd dirvish
 
-function! s:create_parent_dirs()
-    let dir = expand("%:p:h")
-    if ! isdirectory(dir) && axvr#YN('Create directory?')
-        call mkdir(dir, 'p')
-    endif
-endfunction
-
 function! s:trim_whitespace()
     if ! get(b:, 'no_whitespace_trim')
         let view = winsaveview()
@@ -20,7 +13,7 @@ endfunction
 
 augroup axvr/file_utils
     autocmd!
-    autocmd BufWritePre * call s:create_parent_dirs()
+    autocmd BufWritePre * call axvr#AskCreateDirs(expand("%:p:h"))
     autocmd BufWritePre * call s:trim_whitespace()
     " Don't trim whitespace on diff files as it breaks syntax highlighting.
     autocmd FileType gitcommit,diff let b:no_whitespace_trim = 1

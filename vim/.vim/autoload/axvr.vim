@@ -24,16 +24,22 @@ function! axvr#YN(qn) abort
     return confirm(a:qn, "&Yes\n&No", 0, 'Question') == 1
 endfunction
 
-function! axvr#Ask(opts) abort
+function! axvr#Ask(prompt, default = '', completion = 'file') abort
     try
         echohl Question
         call inputsave()
-        let resp = input(a:opts)
+        let resp = input(a:prompt, a:default, a:completion)
         call inputrestore()
         return resp
     finally
         echohl NONE
     endtry
+endfunction
+
+function! axvr#AskCreateDirs(dirs) abort
+    if ! isdirectory(a:dirs) && axvr#YN('Create directory?')
+        call mkdir(a:dirs, 'p')
+    endif
 endfunction
 
 function! axvr#ReEscape(str) abort
