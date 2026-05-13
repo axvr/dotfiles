@@ -65,4 +65,6 @@
     (unless (file-exists-p (expand-file-name "elpaca/dir" elpaca-builds-directory))
       (elpaca-rebuild 'elpaca))))
 
+(use-package compat)
+
 (provide 'axvr-packages)

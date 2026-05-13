@@ -4,6 +4,12 @@
 [submodule "vim/.vim/pack/core/start/apart"]
 	path = vim/.vim/pack/core/start/apart
 	url = https://github.com/axvr/apart.vim
+[submodule "vim/.vim/pack/lang/start/org"]
+	path = vim/.vim/pack/lang/start/org
+	url = https://github.com/axvr/org.vim
+[submodule "vim/.vim/pack/lang/start/ical"]
+	path = vim/.vim/pack/lang/start/ical
+	url = https://github.com/axvr/ical.vim
 [submodule "vim/.vim/pack/core/start/cool"]
 	path = vim/.vim/pack/core/start/cool
 	url = https://github.com/romainl/vim-cool
@@ -22,33 +28,24 @@
 [submodule "vim/.vim/pack/core/opt/dirvish"]
 	path = vim/.vim/pack/core/opt/dirvish
 	url = https://github.com/justinmk/vim-dirvish
-[submodule "vim/.vim/pack/lang/start/ical"]
-	path = vim/.vim/pack/lang/start/ical
-	url = https://github.com/axvr/ical.vim
-[submodule "vim/.vim/pack/lang/start/org"]
-	path = vim/.vim/pack/lang/start/org
-	url = https://github.com/axvr/org.vim
-[submodule "vim/.vim/pack/lang/start/ledger"]
-	path = vim/.vim/pack/lang/start/ledger
-	url = https://github.com/ledger/vim-ledger
-[submodule "vim/.vim/pack/lang/opt/conjure"]
-	path = vim/.vim/pack/lang/opt/conjure
-	url = https://github.com/Olical/conjure
-[submodule "vim/.vim/pack/lang/start/terraform"]
-	path = vim/.vim/pack/lang/start/terraform
-	url = https://github.com/hashivim/vim-terraform
 [submodule "vim/.vim/pack/core/opt/info"]
 	path = vim/.vim/pack/core/opt/info
 	url = https://github.com/hiphish/info.vim
 [submodule "vim/.vim/pack/core/start/characterize"]
 	path = vim/.vim/pack/core/start/characterize
 	url = https://github.com/tpope/vim-characterize
-[submodule "vim/.vim/pack/lang/start/execline"]
-	path = vim/.vim/pack/lang/start/execline
-	url = git@github.com:djpohly/vim-execline
 [submodule "vim/.vim/pack/lang/start/elixir"]
 	path = vim/.vim/pack/lang/start/elixir
 	url = https://github.com/elixir-editors/vim-elixir
+[submodule "vim/.vim/pack/lang/start/ledger"]
+	path = vim/.vim/pack/lang/start/ledger
+	url = https://github.com/ledger/vim-ledger
+[submodule "vim/.vim/pack/lang/opt/conjure"]
+	path = vim/.vim/pack/lang/opt/conjure
+	url = https://github.com/Olical/conjure
 [submodule "vim/.vim/pack/core/opt/unimpaired"]
 	path = vim/.vim/pack/core/opt/unimpaired
 	url = https://github.com/tpope/vim-unimpaired
+[submodule "vim/.vim/pack/lang/start/execline"]
+	path = vim/.vim/pack/lang/start/execline
+	url = git@github.com:djpohly/vim-execline
