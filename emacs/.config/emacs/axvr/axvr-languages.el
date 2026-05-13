@@ -11,8 +11,7 @@
 
 (use-package markdown-mode
   :commands (markdown-mode)
-  :mode
-  ("TODO\\'" "DOING\\'" "DONE\\'" "\\.md\\'" "\\.mkd\\'" "\\.markdown\\'"))
+  :mode ("TODO\\'" "DOING\\'" "DONE\\'" "\\.md\\'" "\\.mkd\\'" "\\.markdown\\'"))
 
 (use-package org
   :hook (org-mode . org-indent-mode)
@@ -39,12 +38,12 @@
   ("\\.bb\\'" . clojure-ts-mode))
 ;; TODO: inf-clojure vs. cider.
 
-;; TODO: enable based on shebang.
-(use-package execline :defer t)
+(use-package execline)
 
 (use-package erlang-ts
   :mode ("\\.erl\\'" . erlang-ts-mode))
 
+;; TODO: do I even need this "mode"?  Install the grammar directly?
 (use-package typst-ts-mode
   :mode ("\\.typ\\'" . typst-ts-mode)
   :config (typst-ts-mc-install-grammar))

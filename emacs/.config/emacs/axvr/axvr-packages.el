@@ -48,6 +48,7 @@
 
 (setq use-package-always-ensure t)
 
+;; TODO: saving trusted files requires a static custom file.
 (use-package trust-manager
   :ensure (:wait t)
   :init

@@ -15,8 +15,9 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings 'meta))
+;; FIXME: this breaks org-mode bindings.
+;; (when (fboundp 'windmove-default-keybindings)
+;;   (windmove-default-keybindings 'meta))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq confirm-kill-emacs 'yes-or-no-p)

@@ -140,5 +140,7 @@
 
 ;; (fido-mode)
 
+;; (use-package olivetti)
+
 (require 'axvr-tools)
 (require 'axvr-languages)

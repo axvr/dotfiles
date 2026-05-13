@@ -33,9 +33,6 @@
 ;; (use-package alabaster-themes
 ;;   :config (axvr/set-theme 'alabaster-themes-light))
 
-;; (use-package spacemacs-theme
-;;   :config (axvr/set-theme 'spacemacs-light))
-
 (pixel-scroll-precision-mode)
 
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1))
