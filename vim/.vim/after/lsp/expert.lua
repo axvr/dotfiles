@@ -1,5 +1,5 @@
 return {
-    cmd = { 'expert' },
+    cmd = { 'expert', '--stdio' },
     filetypes = { 'elixir', 'eelixir', 'heex', 'surface' },
     -- Taken from: https://github.com/neovim/nvim-lspconfig/blob/e688b486fe9291f151eae7e5c0b5a5c4ef980847/lsp/elixirls.lua#L36-L45
     root_dir = function(bufnr, on_dir)

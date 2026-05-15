@@ -17,8 +17,8 @@
                      (read-file-name "Run do script: "
                                      (expand-file-name "do/")
                                      nil t nil
-                                     #'f-executable?))))
-      (if (f-executable? script)
+                                     #'file-executable-p))))
+      (if (file-executable-p script)
           (async-shell-command script)
         (message "No executable selected."))
     (message "Not in a project with do scripts.")))

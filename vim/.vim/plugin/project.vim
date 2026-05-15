@@ -23,6 +23,8 @@ nnoremap <silent> <leader>S :<C-u>call <SID>mksession()<CR>
 
 " Task management.
 command! -nargs=0 -bar Tasks tabedit DONE | split DOING | split TODO
+command! -nargs=0 -bar Notes
+            \ <mods> tabedit $NOTES_DIR | silent lcd $NOTES_DIR | arglocal
 
 " :help diff-original-file
 command! -nargs=0 -bar DiffOrig
