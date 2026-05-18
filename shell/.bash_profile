@@ -14,8 +14,6 @@ append_to() {
 }
 
 prepend_to PATH "$HOME/.local/bin"
-# prepend_to MANPATH "$HOME/.local/share/man"
-# prepend_to INFOPATH "$HOME/.local/share/info"
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1 ASPNETCORE_ENVIRONMENT=Development
 append_to PATH "$HOME/.dotnet/tools"

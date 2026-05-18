@@ -7,8 +7,5 @@ elixir    = 'latest'
 # elixir-ls = 'latest'
 # babashka  = 'latest'
 
-[tool_alias]
-babashka  = 'asdf:b-social/asdf-babashka'
-
 [settings]
 experimental = true
