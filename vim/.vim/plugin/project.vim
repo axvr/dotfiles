@@ -54,8 +54,4 @@ command! -nargs=0 -bar DiagExplain   call v:lua.vim.diagnostic.open_float({"scop
 command! -nargs=0 -bar DiagToQfList  call v:lua.vim.diagnostic.setqflist()
 command! -nargs=0 -bar DiagToLocList call v:lua.vim.diagnostic.setloclist()
 
-if executable('expert')
-    call v:lua.vim.lsp.enable('expert')
-elseif executable('elixirls')
-    call v:lua.vim.lsp.enable('elixirls')
-endif
+call v:lua.vim.lsp.enable('expert')

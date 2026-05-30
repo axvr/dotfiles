@@ -4,7 +4,7 @@ clojure   = 'latest'
 leiningen = 'latest'
 erlang    = 'latest'
 elixir    = 'latest'
-# elixir-ls = 'latest'
+# expert    = 'latest'
 # babashka  = 'latest'
 
 [settings]
