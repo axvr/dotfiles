@@ -1,5 +1,8 @@
 - Vim:
+  - Replace `fd` use?
   - Finish arglist bookmark plugin.
+  - Dired-like interface in Vim for file management?
+  - IBuffer-like interface in Vim for buffer management?
   - Alternate REPL plugins?  Zepl, Zepl2, Tmux?
     - Tmux send-keys: <https://damonkelley.com/blog/2016/09/07/tmux-send-keys/>
     - Restore Zepl and REPL configs?  Commit: `67395567abeff763ba50f6c52bb0a1ff04db3bdd`

@@ -1,8 +1,10 @@
 function! argbook#Jump(name) abort
     if !empty(a:name)
         " FIXME: broken name normalisation breaks jumping.
-        " TODO: custom error messgae if not found.
+        " TODO: custom error message if not found.
+        " FIXME: not updating the jumplist correctly :(
         exec 'keepalt' 'argument' 1 + index(argv()->map({_, v -> fnamemodify(v, ':p:.')}), a:name)
+        " normal m'
     else
         call axvr#Warn('argbook#Jump: No file under cursor.')
     endif
