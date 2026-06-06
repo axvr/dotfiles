@@ -4,6 +4,7 @@
   "Start a serial term that connects to my Replica 1 Plus."
   (interactive)
   ;; TODO: create an axvr/upper-case-mode (minor mode) and enable it in this buffer.
+  ;; https://lists.gnu.org/archive/html/gnu-emacs-sources/2001-09/msg00014.html
   (serial-term (if axvr/macos?
                    "/dev/tty.usbserial-AC00JRMK"
                  "/dev/ttyUSB1")
