@@ -1,17 +1,37 @@
 - Vim:
   - Replace `fd` use?
-  - Finish arglist bookmark plugin.
-  - Dired-like interface in Vim for file management?
-  - IBuffer-like interface in Vim for buffer management?
+  - Interactive Vim commands
+    - Finish arglist bookmark plugin.
+    - Create an IBuffer-like interface in Vim for buffer management.
+    - Dired-like interface in Vim for file management?
+    - Package into a plugin and share?
   - Alternate REPL plugins?  Zepl, Zepl2, Tmux?
     - Tmux send-keys: <https://damonkelley.com/blog/2016/09/07/tmux-send-keys/>
     - Restore Zepl and REPL configs?  Commit: `67395567abeff763ba50f6c52bb0a1ff04db3bdd`
     - Conjure's jump to source (incl. Java source) is useful.
-    - Common Lisp, Clojure, Julia, Elixir need interactive REPL TUIs with mouse support which Conjure doesn't do well.
+    - Common Lisp, Clojure, Julia, Elixir need interactive REPL TUIs with mouse
+      support which Conjure doesn't do well.
   - Create an execline plugin <https://skarnet.org/software/execline/>
     - vim-execline is closed source and cannot be included in Vim.
     - Open Web docs binding or include links in Vim help doc?
+    - Man pages exist <https://git.sr.ht/~humm/execline-man-pages>
+    - Highlight TODOs in comments.
+
+- Tmux:
+  - Try GNU Screen again now that v5 is out?
+    - Works as an alternative to Picocom and Emacs too with serial mode.
+  - Other alternatives:
+    - mtm <https://github.com/deadpixi/mtm>
+    - dvtm <https://www.brain-dump.org/projects/dvtm/>
+    - abduco <https://github.com/martanne/abduco>
 
 - Emacs:
   - Finish getting initial config working.
+    - <https://protesilaos.com/codelog/2024-11-28-basic-emacs-configuration/>
+    - <https://codeberg.org/shinmera/.emacs>
+    - <https://github.com/progfolio/.emacs.d>
+    - <https://www.masteringemacs.org/article/how-to-get-started-tree-sitter>
+    - Many packages likely contain LLM code, e.g. clojure-mode?
+      - But Vim, Ghostty and maybe Tmux all do too.
+    - Trim down Emacs packages.  Evil mode?
   - Emacs fix execline package?

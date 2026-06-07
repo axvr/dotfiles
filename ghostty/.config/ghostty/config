@@ -19,7 +19,7 @@ auto-update = off
 theme = raider
 
 window-height = 40
-window-width = 120
+window-width = 90
 window-step-resize = false
 window-padding-x = 5
 window-padding-y = 5

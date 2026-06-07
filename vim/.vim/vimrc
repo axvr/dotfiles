@@ -21,7 +21,7 @@ set spelllang=en_gb spellfile=~/.vim/spell/en.utf-8.add
 set dictionary=/usr/dict/words,/usr/share/dict/words
 set sessionoptions=buffers,curdir,tabpages viewoptions=folds,cursor,curdir
 set complete=.,w,b,u,t completeopt=menu,menuone,popup,fuzzy
-if has('nvim') | set winborder=single | endif
+if exists('+winborder') | set winborder=single | endif
 
 " Backup, swap and undo.
 if has('nvim')

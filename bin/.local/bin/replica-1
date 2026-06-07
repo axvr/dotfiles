@@ -2,4 +2,5 @@
 
 # Connect to my Replica 1 computer via Serial over USB.
 
+# TODO: swich on Linux to: /dev/ttyUSB0
 picocom -b 9600 /dev/tty.usbserial-AC00JRMK

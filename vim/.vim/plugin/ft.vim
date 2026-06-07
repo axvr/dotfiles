@@ -6,6 +6,22 @@ let g:ledger_align_at = 50
 let g:org_clean_folds = 1
 let g:org_state_keywords = ['TODO', 'DOING', 'DONE']
 
+" Minimal writing mode.
+function! s:typewriter() abort
+    setlocal wrap showbreak=NONE linebreak wrapmargin=0 textwidth=0
+    noremap <buffer> j gj
+    noremap <buffer> k gk
+    noremap <buffer> <up> g<up>
+    noremap <buffer> <down> g<down>
+    noremap <buffer> $ g$
+    noremap <buffer> <End> g<End>
+    noremap <buffer> ^ g^
+    noremap <buffer> 0 g0
+    noremap <buffer> <Home> g<Home>
+endfunction
+
+command -nargs=0 Typewriter call s:typewriter()
+
 augroup axvr/filetype_config
     autocmd!
     autocmd FileType c,cpp,go,gitconfig,fstab setl noet sts=8 sw=8

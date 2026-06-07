@@ -1,0 +1,25 @@
+# ~/.screenrc - GNU Screen Configuration
+
+escape ^Zz                  # Change the escape key to `Ctrl-z`
+startup_message off
+term screen-256color        # Terminal hacks.
+altscreen on                # Clear screen on TUI close.
+maptimeout 5                # Avoid slowing down responsiveness of the ESC key.
+defscrollback 20000
+mousetrack on               # Enable mouse support.
+truecolor on                # Enable true colour support on Screen v5.
+
+# Start windows at index `1` instead of `0`.
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10
+screen 1
+
+# TODO: status line / caption.
+# TODO: `screen-project` switcher?
+
+# Connect to Replica 1:
+#   Linux:  ^Z :screen /dev/ttyUSB0
+#   macOS:  ^Z :screen /dev/tty.usbserial-AC00JRMK
+
+# TODO: check /etc/screenrc
