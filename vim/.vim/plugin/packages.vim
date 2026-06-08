@@ -25,13 +25,17 @@ let g:fugitive_legacy_commands = v:false
 packadd fugitive
 
 packadd matchit
+
+" Vim 9.1 has a built-in "comment" package.  Fallback to "commentary".
+try | packadd comment | catch | packadd commentary | endtry
+
 if has('nvim')
-    packadd commentary
     let g:conjure#filetypes = ['clojure']
     packadd conjure
 else
-    packadd comment
     packadd traces
     packadd unimpaired
-    packadd editorconfig
+
+    " Vim 9.1 adds a built-in "editorconfig" package.
+    silent! packadd editorconfig
 endif

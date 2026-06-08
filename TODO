@@ -1,5 +1,6 @@
 - Vim:
   - Replace `fd` use?
+  - Build extra dictionary file from custom spell file?
   - Interactive Vim commands
     - Finish arglist bookmark plugin.
     - Create an IBuffer-like interface in Vim for buffer management.
@@ -34,4 +35,7 @@
     - Many packages likely contain LLM code, e.g. clojure-mode?
       - But Vim, Ghostty and maybe Tmux all do too.
     - Trim down Emacs packages.  Evil mode?
+      - <https://lobste.rs/s/sz3gab/what_are_your_favorite_emacs_packages>
   - Emacs fix execline package?
+  - Open PDFs and images outside of Emacs: <https://emacs.stackexchange.com/questions/3105/how-to-use-an-external-program-as-the-default-way-to-open-pdfs-from-emacs>
+  - Maybe not bother?
