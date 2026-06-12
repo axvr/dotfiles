@@ -5,7 +5,8 @@ if filereadable('do/build') | set makeprg=do/build | endif
 
 packadd fugitive
 nnoremap <leader>gs :Git<CR>
-nnoremap <leader>ga :Git add -p<CR>
+nnoremap <leader>gA :Git add -p -- .<CR>
+nnoremap <leader>ga :Git add -p -- %<CR>
 nnoremap <leader>gd :Gvdiffsplit<CR>
 
 " Quickly save/update session files.

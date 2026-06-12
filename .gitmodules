@@ -49,3 +49,6 @@
 [submodule "vim/.vim/pack/lang/start/execline"]
 	path = vim/.vim/pack/lang/start/execline
 	url = git@github.com:djpohly/vim-execline
+[submodule "vim/.vim/pack/core/opt/zepl"]
+	path = vim/.vim/pack/core/opt/zepl
+	url = https://github.com/axvr/zepl.vim
