@@ -36,4 +36,5 @@ augroup axvr/filetype_config
     autocmd FileType git,gitcommit,diff setl foldmethod=syntax foldlevel=100
     autocmd FileType sh,bash setl keywordprg=:Man
     autocmd FileType erlang compiler erlang
+    autocmd FileType ledger inoremap <buffer> @@ A:B:K:C<C-x><C-o><C-y>
 augroup END

@@ -4,6 +4,7 @@ filetype plugin indent on
 if !exists('g:syntax_on') | syntax enable | endif
 
 " Essentials.
+set secure nomodeline noexrc
 set startofline hidden autoread display=truncate
 set backspace=indent,eol,start nrformats=bin,hex,unsigned
 set showmatch showcmd ruler history=10000 shortmess=aoOTt
@@ -19,7 +20,7 @@ set shiftround autoindent nosmarttab
 set wrap showbreak=↳\  linebreak breakindent
 set path=.,,** clipboard=unnamed
 set spelllang=en_gb spellfile=~/.vim/spell/en.utf-8.add
-set dictionary=/usr/dict/words,/usr/share/dict/words
+set dictionary=/usr/dict/words,/usr/share/dict/words,~/.vim/state/dict
 set sessionoptions=buffers,curdir,tabpages viewoptions=folds,cursor,curdir
 set complete=.,w,b,u,t completeopt=menu,menuone,popup,fuzzy
 if exists('+winborder') | set winborder=single | endif

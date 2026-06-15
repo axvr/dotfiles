@@ -1,6 +1,5 @@
 - Vim:
   - Replace `fd` use?
-  - Build extra dictionary file from custom spell file?
   - Interactive Vim commands
     - Finish arglist bookmark plugin.
     - Create an IBuffer-like interface in Vim for buffer management.

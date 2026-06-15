@@ -16,7 +16,7 @@ let g:axvr_shebang = {
     \   'python':     '#!/usr/bin/env python3',
     \   'scheme':     '#!/usr/bin/env -S csi -script',
     \   'sh':         ['#!/bin/sh', '', 'set -e'],
-    \   'vim':        '#!/usr/bin/env vim -S'
+    \   'vim':        '#!/usr/bin/env vim -ES'
     \ }
 
 function! s:to_script(ft) abort
