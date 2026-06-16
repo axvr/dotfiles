@@ -6,19 +6,13 @@ set -ex
 
 if [ "$(command -v brew)" ]; then
     {
-        export HOMEBREW_NO_ENV_HINTS=1 HOMEBREW_NO_INSTALL_CLEANUP=1
-
+        export HOMEBREW_NO_ENV_HINTS=1 \
+               HOMEBREW_NO_INSTALL_CLEANUP=1 \
+               HOMEBREW_DISPLAY_INSTALL_TIMES=1
         brew update
-        brew outdated --greedy --verbose 2> /dev/null | tee /tmp/brew-outdated
-
-        if [ -s "/tmp/brew-outdated" ]; then
-            read -p "Update? [y/n]: " update
-            if [ "${update^^}" = 'Y' ]; then
-                brew upgrade --greedy --verbose
-                brew autoremove
-                brew cleanup
-            fi
-        fi
+        brew upgrade --greedy --verbose --require-sha
+        brew autoremove
+        brew cleanup
     }
 elif [ "$(command -v dnf)" ]; then
     sudo dnf upgrade --refresh
@@ -41,5 +35,5 @@ fi
 (
   pushd ~/Projects/dotfiles/
   git submodule-pull
-  vim -Es +Helptags +qall
+  vim -Es +Helptags +MkWords +qall
 )
