@@ -1,4 +1,14 @@
 - Vim:
+  - vim-qf issues:
+    - use of `:Restore` with `:colder` is broken.
+      - Overwrites other qf lists with old versions of different ones.
+      - not sure if possible to fix easily?  cfilter creates new entries
+        instead of modifying old ones.
+      - make qf's colder and cnewer functions resize the window.
+        - contribute this as a fix upstream
+        - missing a dedicated function to performthe resize.
+      - maybe switch to cfilter and custom code.
+  - block writing file with name: `\\`
   - Replace `fd` use?
   - Interactive Vim commands
     - Finish arglist bookmark plugin.
