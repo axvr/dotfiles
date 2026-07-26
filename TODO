@@ -13,6 +13,7 @@
   - Interactive Vim commands
     - Finish arglist bookmark plugin.
     - Create an IBuffer-like interface in Vim for buffer management.
+    - Interactive register interface in Vim.  Update/clear registers.
     - Dired-like interface in Vim for file management?
     - Package into a plugin and share?
   - Alternate REPL plugins?  Zepl, Zepl2, Tmux?

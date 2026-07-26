@@ -4,7 +4,7 @@
 if filereadable('do/build') | set makeprg=do/build | endif
 
 packadd fugitive
-nnoremap <leader>gs :Git<CR>
+nnoremap <leader>G  :Git<CR>
 nnoremap <leader>gA :Git add -p -- .<CR>
 nnoremap <leader>ga :Git add -p -- %<CR>
 nnoremap <leader>gd :Gvdiffsplit<CR>

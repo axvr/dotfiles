@@ -9,13 +9,14 @@
 
 command! -bar -nargs=0 Argbook call argbook#Open()
 
-nnoremap <leader>ab :Argbook<CR>
+nnoremap <leader>A  :Argbook<CR>
 nnoremap <leader>ac :argument<CR>
 nnoremap <leader>aa :$argadd %<CR>
 nnoremap <leader>ad :argdelete %<CR>
 nnoremap <leader>au :argdedupe<CR>
 
-nmap _ <leader>ab
+" TODO: <Plug> this.
+nmap _ <leader>A
 
 " Use <C-g> to see if file is in the arglist and where it is in it.
 " See: :help arglist-position
