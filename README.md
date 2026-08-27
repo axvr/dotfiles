@@ -1,6 +1,7 @@
 # dotfiles
 
-These configuration files are managed using [GNU Stow](https://www.gnu.org/software/stow/) (`stow(8)`).
+My personal configuration files for my computers.  They are managed using
+[GNU Stow](https://www.gnu.org/software/stow/).
 
 ```sh
 # Clone this repo
