@@ -29,6 +29,7 @@ if has('nvim')
 else
     packadd traces
     packadd unimpaired
+    packadd zepl
 
     " Vim 9.1 adds a built-in "editorconfig" package.
     silent! packadd editorconfig

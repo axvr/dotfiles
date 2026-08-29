@@ -13,6 +13,7 @@ endfunction
 
 augroup axvr/file_utils
     autocmd!
+    autocmd BufWritePre [\\] throw 'Invalid file name: ' .. expand('<afile>')
     autocmd BufWritePre * call axvr#AskCreateDirs(expand("%:p:h"))
     autocmd BufWritePre * call s:trim_whitespace()
     " Don't trim whitespace on diff files as it breaks syntax highlighting.

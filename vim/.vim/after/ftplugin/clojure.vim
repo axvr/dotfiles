@@ -7,6 +7,8 @@ if ! exists('g:conjure#client#clojure#nrepl#connection#auto_repl#cmd')
         let g:conjure#client#clojure#nrepl#connection#auto_repl#cmd = 'lein repl'
     elseif filereadable('bb.edn')
         " Use default.
+    else
+        let g:conjure#client#clojure#nrepl#connection#auto_repl#cmd = 'clojure -M:repl/nrepl'
     endif
 endif
 
