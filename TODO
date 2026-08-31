@@ -15,12 +15,9 @@
     - Interactive register interface in Vim.  Update/clear registers.
     - Dired-like interface in Vim for file management?
     - Package into a plugin and share?
-  - Alternate REPL plugins?  Zepl, Zepl2, Tmux?
-    - Tmux send-keys: <https://damonkelley.com/blog/2016/09/07/tmux-send-keys/>
-    - Restore Zepl and REPL configs?  Commit: `67395567abeff763ba50f6c52bb0a1ff04db3bdd`
-    - Conjure's jump to source (incl. Java source) is useful.
-    - Common Lisp, Clojure, Julia, Elixir need interactive REPL TUIs with mouse
-      support which Conjure doesn't do well.
+  - Switch back to Zepl as my main REPL.
+    - Add Tmux send-keys?  <https://damonkelley.com/blog/2016/09/07/tmux-send-keys/>
+    - Restore configs?  Commit: `67395567abeff763ba50f6c52bb0a1ff04db3bdd`
   - Create an execline plugin <https://skarnet.org/software/execline/>
     - vim-execline is closed source and cannot be included in Vim.
     - Open Web docs binding or include links in Vim help doc?
