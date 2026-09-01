@@ -1,24 +1,27 @@
 - Vim:
   - vim-qf issues:
-    - use of `:Restore` with `:colder` is broken.
+    - Use of `:Restore` with `:colder` is broken.
       - Overwrites other qf lists with old versions of different ones.
-      - not sure if possible to fix easily?  cfilter creates new entries
+      - Not sure if possible to fix easily?  cfilter creates new entries
         instead of modifying old ones.
-      - make qf's colder and cnewer functions resize the window.
-        - contribute this as a fix upstream
-        - missing a dedicated function to performthe resize.
-      - maybe switch to cfilter and custom code.
+      - Make qf's colder and cnewer functions resize the window.
+        - Contribute this as a fix upstream
+        - Missing a dedicated function to perform the resize.
+      - Maybe switch to cfilter and custom code.
   - Replace `fd` use?
   - Re-add Ascribe?
+  - Do I need:
+    - vim-fugitive?
+    - vim-unimpaired?
   - Interactive Vim commands
-    - Finish arglist bookmark plugin.
+    - Finish arglist plugin.
     - Create an IBuffer-like interface in Vim for buffer management.
     - Interactive register interface in Vim.  Update/clear registers.
     - Dired-like interface in Vim for file management?
     - Package into a plugin and share?
   - Switch back to Zepl as my main REPL.
-    - Fix restored Zepl configs.
-    - Remove Conjure?
+    - Fix restored Zepl configs.  (Translate to old Vim script?)
+      - Update to use `<cword>` to grab the word under the cursor.
   - Create an execline plugin <https://skarnet.org/software/execline/>
     - vim-execline is closed source and cannot be included in Vim.
     - Open Web docs binding or include links in Vim help doc?

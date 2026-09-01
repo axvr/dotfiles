@@ -18,10 +18,12 @@ let g:qf_number = 0
 let g:fugitive_legacy_commands = v:false
 packadd fugitive
 
+packadd argbook
 packadd matchit
 
 packadd zepl
 runtime zepl/contrib/load_files.vim
+if has('nvim') | runtime zepl/contrib/nvim_autoscroll_hack.vim | endif
 command! -bar -nargs=0 ReplClear call zepl#send("\<C-l>", 1)
 nnoremap gz<C-l> :ReplClear<CR>
 
@@ -33,5 +35,7 @@ if !has('nvim')
     packadd unimpaired
 
     " Vim 9.1 adds a built-in "editorconfig" package.
-    silent! packadd editorconfig
+    if filereadable('.editorconfig')
+        silent! packadd editorconfig
+    endif
 endif
