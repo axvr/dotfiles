@@ -28,10 +28,7 @@ nnoremap gz<C-l> :ReplClear<CR>
 " Vim 9.1 has a built-in "comment" package.  Fallback to "commentary".
 try | packadd comment | catch | packadd commentary | endtry
 
-if has('nvim')
-    let g:conjure#filetypes = ['clojure']
-    packadd conjure
-else
+if !has('nvim')
     packadd traces
     packadd unimpaired
 
