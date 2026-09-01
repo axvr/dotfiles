@@ -35,7 +35,5 @@ if !has('nvim')
     packadd unimpaired
 
     " Vim 9.1 adds a built-in "editorconfig" package.
-    if filereadable('.editorconfig')
-        silent! packadd editorconfig
-    endif
+    if filereadable('.editorconfig') | silent! packadd editorconfig | endif
 endif

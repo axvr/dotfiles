@@ -40,13 +40,15 @@ def PrettyPrint(expr: string): string
 enddef
 
 export def Doc(sym: string)
-    sym -> FixSymbol()
+    sym -> axvr#Else(expand('<cword>'))
+        -> FixSymbol()
         -> Apply('clojure.repl/doc')
         -> zepl#send()
 enddef
 
 export def Source(sym: string)
-    sym -> FixSymbol()
+    sym -> axvr#Else(expand('<cword>'))
+        -> FixSymbol()
         -> Apply('clojure.repl/source')
         -> zepl#send()
 enddef
@@ -61,8 +63,8 @@ enddef
 
 export def Dir(ns: string)
     ns -> FixNs()
-        -> Apply('clojure.repl/dir')
-        -> zepl#send()
+       -> Apply('clojure.repl/dir')
+       -> zepl#send()
 enddef
 
 export def FindDoc(txt: string)
@@ -74,38 +76,38 @@ enddef
 
 export def Require(ns: string, reload = false)
     ns -> FixNs()
-        -> Quote()
-        -> Concat((reload ? ' :reload' : ''))
-        -> Apply('clojure.core/require')
-        -> zepl#send()
+       -> Quote()
+       -> Concat((reload ? ' :reload' : ''))
+       -> Apply('clojure.core/require')
+       -> zepl#send()
 enddef
 
 export def Import(ns: string)
     ns -> FixNs()
-        -> Quote()
-        -> Apply('clojure.core/import')
-        -> zepl#send()
+       -> Quote()
+       -> Apply('clojure.core/import')
+       -> zepl#send()
 enddef
 
 export def Use(ns: string)
     ns -> FixNs()
-        -> Quote()
-        -> Apply('clojure.core/use')
-        -> zepl#send()
+       -> Quote()
+       -> Apply('clojure.core/use')
+       -> zepl#send()
 enddef
 
 export def NsUnmap(ns: string, sym: string)
     ns -> FixNs()
-        -> Concat(sym -> FixSymbol() -> Quote())
-        -> Apply('clojure.core/ns-unmap')
-        -> zepl#send()
+       -> Concat(sym -> axvr#Else(expand('<cword>')) -> FixSymbol() -> Quote())
+       -> Apply('clojure.core/ns-unmap')
+       -> zepl#send()
 enddef
 
 export def NsUnalias(ns: string, sym: string)
     ns -> FixNs()
-        -> Concat(sym -> FixSymbol() -> Quote())
-        -> Apply('clojure.core/ns-unalias')
-        -> zepl#send()
+       -> Concat(sym -> axvr#Else(expand('<cword>')) -> FixSymbol() -> Quote())
+       -> Apply('clojure.core/ns-unalias')
+       -> zepl#send()
 enddef
 
 export def Ns(file = '%'): string

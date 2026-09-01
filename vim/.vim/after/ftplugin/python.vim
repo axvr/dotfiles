@@ -1,1 +1,1 @@
-setlocal keywordprg=:Help
+setlocal keywordprg=:PyHelp
