@@ -2,13 +2,12 @@ vim9script
 
 # TODO: translate to old Vim Script?
 
-def FixSymbol(symbol: string): string
-    return substitute(symbol, '\', '', 'g')
+def Symbol(sym: string): string
+    return sym -> axvr#Else(expand('<cword>')) -> substitute('\', '', 'g') -> trim()
 enddef
 
 def FixNs(ns: string): string
-    return ns -> substitute('\', '', 'g')
-              -> substitute('\m/\k*$', '', '')
+    return ns -> Symbol() -> substitute('\m/\k*$', '', '')
 enddef
 
 export def FormatNsAsPath(ns: string): string
@@ -27,7 +26,7 @@ def String(expr: string): string
     return '"' .. expr .. '"'
 enddef
 
-def Concat(...exprs: list<string>): string
+def List(...exprs: list<string>): string
     return join(exprs, ' ')
 enddef
 
@@ -35,36 +34,24 @@ def Apply(expr: string, func: string): string
     return '(' .. func .. ' ' .. expr .. ')'
 enddef
 
-def PrettyPrint(expr: string): string
-    return expr -> Apply('clojure.pprint/pprint')
-enddef
-
 export def Doc(sym: string)
-    sym -> axvr#Else(expand('<cword>'))
-        -> FixSymbol()
-        -> Apply('clojure.repl/doc')
-        -> zepl#send()
+    sym -> Symbol() -> Apply('clojure.repl/doc') -> zepl#send()
 enddef
 
 export def Source(sym: string)
-    sym -> axvr#Else(expand('<cword>'))
-        -> FixSymbol()
-        -> Apply('clojure.repl/source')
-        -> zepl#send()
+    sym -> Symbol() -> Apply('clojure.repl/source') -> zepl#send()
 enddef
 
 export def Apropos(txt: string)
-    txt -> FixSymbol()
+    txt -> Symbol()
         -> String()
         -> Apply('clojure.repl/apropos')
-        -> PrettyPrint()
+        -> Apply('clojure.pprint/pprint')
         -> zepl#send()
 enddef
 
 export def Dir(ns: string)
-    ns -> FixNs()
-       -> Apply('clojure.repl/dir')
-       -> zepl#send()
+    ns -> FixNs() -> Apply('clojure.repl/dir') -> zepl#send()
 enddef
 
 export def FindDoc(txt: string)
@@ -77,44 +64,38 @@ enddef
 export def Require(ns: string, reload = false)
     ns -> FixNs()
        -> Quote()
-       -> Concat((reload ? ' :reload' : ''))
+       -> List((reload ? ' :reload' : ''))
        -> Apply('clojure.core/require')
        -> zepl#send()
 enddef
 
 export def Import(ns: string)
-    ns -> FixNs()
-       -> Quote()
-       -> Apply('clojure.core/import')
-       -> zepl#send()
+    ns -> FixNs() -> Quote() -> Apply('clojure.core/import') -> zepl#send()
 enddef
 
 export def Use(ns: string)
-    ns -> FixNs()
-       -> Quote()
-       -> Apply('clojure.core/use')
-       -> zepl#send()
+    ns -> FixNs() -> Quote() -> Apply('clojure.core/use') -> zepl#send()
 enddef
 
 export def NsUnmap(ns: string, sym: string)
     ns -> FixNs()
-       -> Concat(sym -> axvr#Else(expand('<cword>')) -> FixSymbol() -> Quote())
+       -> List(sym -> Symbol() -> Quote())
        -> Apply('clojure.core/ns-unmap')
        -> zepl#send()
 enddef
 
 export def NsUnalias(ns: string, sym: string)
     ns -> FixNs()
-       -> Concat(sym -> axvr#Else(expand('<cword>')) -> FixSymbol() -> Quote())
+       -> List(sym -> Symbol() -> Quote())
        -> Apply('clojure.core/ns-unalias')
        -> zepl#send()
 enddef
 
-export def Ns(file = '%'): string
-    const GetNs = (ln) => matchstr(ln, '\m(ns\s\+\zs\(\k\+\)\ze')
+export def GetNs(file = '%'): string
+    const FindNs = (ln) => matchstr(ln, '\m(ns\s\+\zs\(\k\+\)\ze')
     if bufnr(file) == -1
-        for line in readfile(file, '', 100)
-            const ns = GetNs(line)
+        for line in readfile(file, '', 50)
+            const ns = FindNs(line)
             if empty(ns) | return ns | endif
         endfor
     else
@@ -122,7 +103,7 @@ export def Ns(file = '%'): string
         while lnr <= line('$')
             const line = getbufline(file, lnr)
             if !empty(line)
-                const ns = GetNs(line[0])
+                const ns = FindNs(line[0])
                 if !empty(ns) | return ns | endif
             endif
             lnr += 1
@@ -135,7 +116,7 @@ export def ChangeNs(ns = '')
     var ns2 = ns
 
     if empty(trim(ns2))
-        ns2 = Ns('%')
+        ns2 = GetNs('%')
     endif
 
     if empty(ns2)
@@ -145,12 +126,7 @@ export def ChangeNs(ns = '')
     endif
 enddef
 
-# TODO <cword> or <cWORD>
-# def GetSymbolUnderCursor()
-# enddef
-
 # CustomList function for :command-complete to complete Clojure syntax keywords.
 export def CmdComplete(text: string, wholecmd: string, curpos: number): list<string>
-    const symbols = uniq(clojurecomplete#Complete(0, '')['words'])
-    return empty(text) ? symbols : matchfuzzy(symbols, text)
+    return axvr#MatchFuzzy(uniq(clojurecomplete#Complete(0, '')['words']), text)
 enddef

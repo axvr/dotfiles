@@ -74,6 +74,11 @@ function! axvr#GrepWith(prg, args = '', opts = {})
     call axvr#TempSetBufOpt('&grepprg', a:prg, {-> execute(grep .. a:args, 'silent')})
 endfunction
 
+" CustomList function for `:command-complete` to complete syntax keywords.
+function! axvr#CmdComplete(text, wholecmd, curpos) abort
+    return axvr#MatchFuzzy(uniq(syntaxcomplete#Complete(0, '')), a:text)
+endfunction
+
 let s:trust_store = expand($HOME .. '/.vim/state/trust/')
 call mkdir(s:trust_store, 'p')
 
