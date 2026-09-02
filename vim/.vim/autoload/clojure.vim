@@ -1,132 +1,131 @@
-vim9script
+func! s:Symbol(sym) abort
+    return a:sym->substitute('\', '', 'g')->trim()
+endfunc
 
-# TODO: translate to old Vim Script?
+func! clojure#GetSymbol() abort
+    return s:Symbol(expand('<cword>'))
+endfunc
 
-def Symbol(sym: string): string
-    return sym -> axvr#Else(expand('<cword>')) -> substitute('\', '', 'g') -> trim()
-enddef
+func! s:FixNs(ns) abort
+    return a:ns->s:Symbol()->substitute('\m/\k*$', '', '')
+endfunc
 
-def FixNs(ns: string): string
-    return ns -> Symbol() -> substitute('\m/\k*$', '', '')
-enddef
+func! clojure#FormatNsAsPath(ns) abort
+    return tr(s:FixNs(a:ns), '-.', '_/')
+endfunc
 
-export def FormatNsAsPath(ns: string): string
-    return tr(FixNs(ns), '-.', '_/')
-enddef
+func! s:Quote(expr) abort
+    return (a:expr =~# "^'" ? a:expr : "'" .. a:expr)
+endfunc
 
-def Quote(expr: string): string
-    return (expr =~# "^'" ? expr : "'" .. expr)
-enddef
+func! s:Keyword(expr) abort
+    return (a:expr =~# '^:' ? a:expr : ':' .. a:expr)
+endfunc
 
-def Keyword(expr: string): string
-    return (expr =~# '^:' ? expr : ':' .. expr)
-enddef
+func! s:String(expr) abort
+    return '"' .. a:expr .. '"'
+endfunc
 
-def String(expr: string): string
-    return '"' .. expr .. '"'
-enddef
+func! s:List(...) abort
+    return join(a:000, ' ')
+endfunc
 
-def List(...exprs: list<string>): string
-    return join(exprs, ' ')
-enddef
+func! s:Apply(expr, func) abort
+    return '(' .. a:func .. ' ' .. a:expr .. ')'
+endfunc
 
-def Apply(expr: string, func: string): string
-    return '(' .. func .. ' ' .. expr .. ')'
-enddef
+func! clojure#Doc(sym) abort
+    return a:sym->s:Symbol()->s:Apply('clojure.repl/doc')->zepl#send()
+endfunc
 
-export def Doc(sym: string)
-    sym -> Symbol() -> Apply('clojure.repl/doc') -> zepl#send()
-enddef
+func! clojure#Source(sym) abort
+    return a:sym->s:Symbol()->s:Apply('clojure.repl/source')->zepl#send()
+endfunc
 
-export def Source(sym: string)
-    sym -> Symbol() -> Apply('clojure.repl/source') -> zepl#send()
-enddef
+func! clojure#Apropos(txt) abort
+    return a:txt->s:Symbol()
+         \ ->s:String()
+         \ ->s:Apply('clojure.repl/apropos')
+         \ ->s:Apply('clojure.pprint/pprint')
+         \ ->zepl#send()
+endfunc
 
-export def Apropos(txt: string)
-    txt -> Symbol()
-        -> String()
-        -> Apply('clojure.repl/apropos')
-        -> Apply('clojure.pprint/pprint')
-        -> zepl#send()
-enddef
+func! clojure#Dir(ns) abort
+    return a:ns->s:FixNs()->s:Apply('clojure.repl/dir')->zepl#send()
+endfunc
 
-export def Dir(ns: string)
-    ns -> FixNs() -> Apply('clojure.repl/dir') -> zepl#send()
-enddef
+func! clojure#FindDoc(txt) abort
+    return a:txt->s:String()
+         \ ->substitute('\', '\\\', 'g')
+         \ ->s:Apply('clojure.repl/find-doc')
+         \ ->zepl#send()
+endfunc
 
-export def FindDoc(txt: string)
-    txt -> String()
-        -> substitute('\', '\\\', 'g')
-        -> Apply('clojure.repl/find-doc')
-        -> zepl#send()
-enddef
+func! clojure#Require(ns, reload = false) abort
+    return a:ns
+         \ ->s:FixNs()
+         \ ->s:Quote()
+         \ ->s:List((a:reload ? ' :reload' : ''))
+         \ ->s:Apply('clojure.core/require')
+         \ ->zepl#send()
+endfunc
 
-export def Require(ns: string, reload = false)
-    ns -> FixNs()
-       -> Quote()
-       -> List((reload ? ' :reload' : ''))
-       -> Apply('clojure.core/require')
-       -> zepl#send()
-enddef
+func! clojure#Import(ns) abort
+    return a:ns->s:FixNs()->s:Quote()->s:Apply('clojure.core/import')->zepl#send()
+endfunc
 
-export def Import(ns: string)
-    ns -> FixNs() -> Quote() -> Apply('clojure.core/import') -> zepl#send()
-enddef
+func! clojure#Use(ns) abort
+    return a:ns->s:FixNs()->s:Quote()->s:Apply('clojure.core/use')->zepl#send()
+endfunc
 
-export def Use(ns: string)
-    ns -> FixNs() -> Quote() -> Apply('clojure.core/use') -> zepl#send()
-enddef
+func! clojure#NsUnmap(ns, sym) abort
+    let ns = (a:ns ==# '*ns*' ? a:ns : s:Quote(a:ns))
 
-export def NsUnmap(ns: string, sym: string)
-    ns -> FixNs()
-       -> List(sym -> Symbol() -> Quote())
-       -> Apply('clojure.core/ns-unmap')
-       -> zepl#send()
-enddef
+    return ns
+         \ ->s:List(a:sym->s:Symbol()->s:Quote())
+         \ ->s:Apply('clojure.core/ns-unmap')
+         \ ->zepl#send()
+endfunc
 
-export def NsUnalias(ns: string, sym: string)
-    ns -> FixNs()
-       -> List(sym -> Symbol() -> Quote())
-       -> Apply('clojure.core/ns-unalias')
-       -> zepl#send()
-enddef
+func! clojure#NsUnalias(ns, sym) abort
+    let ns = (a:ns ==# '*ns*' ? a:ns : Quote(a:ns))
 
-export def GetNs(file = '%'): string
-    const FindNs = (ln) => matchstr(ln, '\m(ns\s\+\zs\(\k\+\)\ze')
-    if bufnr(file) == -1
-        for line in readfile(file, '', 50)
-            const ns = FindNs(line)
+    return ns
+         \ ->s:List(a:sym->s:Symbol()->s:Quote())
+         \ ->s:Apply('clojure.core/ns-unalias')
+         \ ->zepl#send()
+endfunc
+
+func! clojure#GetNs(file = '%') abort
+    let ns_re = '\m(ns\s\+\zs\(\k\+\)\ze'
+    if bufnr(a:file) == -1
+        for line in readfile(a:file, '', 50)
+            const ns = matchstr(line, ns_re)
             if empty(ns) | return ns | endif
         endfor
     else
-        var lnr = 1
+        let lnr = 1
         while lnr <= line('$')
-            const line = getbufline(file, lnr)
+            let line = getbufline(a:file, lnr)
             if !empty(line)
-                const ns = FindNs(line[0])
+                let ns = matchstr(line[0], ns_re)
                 if !empty(ns) | return ns | endif
             endif
-            lnr += 1
+            let lnr += 1
         endwhile
     endif
     return ''
-enddef
+endfunc
 
-export def ChangeNs(ns = '')
-    var ns2 = ns
-
-    if empty(trim(ns2))
-        ns2 = GetNs('%')
-    endif
-
-    if empty(ns2)
-        axvr#Err('No namespace specified.')
+func! clojure#ChangeNs(ns = '') abort
+    if empty(a:ns)
+        call axvr#Err('No namespace specified.')
     else
-        ns2 -> Apply('clojure.core/ns') -> zepl#send()
+        return a:ns->s:Apply('clojure.core/ns')->zepl#send()
     endif
-enddef
+endfunc
 
-# CustomList function for :command-complete to complete Clojure syntax keywords.
-export def CmdComplete(text: string, wholecmd: string, curpos: number): list<string>
-    return axvr#MatchFuzzy(uniq(clojurecomplete#Complete(0, '')['words']), text)
-enddef
+" CustomList func for :command-complete to complete Clojure syntax keywords.
+func! clojure#CmdComplete(text, wholecmd, curpos) abort
+    return axvr#MatchFuzzy(uniq(clojurecomplete#Complete(0, '')['words']), a:text)
+endfunc

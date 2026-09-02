@@ -12,19 +12,27 @@ let b:repl_config = {
     \   'load_file': '(clojure.core/load-file "%s")'
     \ }
 
-com! -buffer       -bar -nargs=? CljNs          :call clojure#ChangeNs(<q-args>)
+" If `try` is `true`, try to get the buffer's namespace, otherwise `*ns*`.
+function! s:TryUseBufNs(try) abort
+    return a:try ? axvr#Else(clojure#GetNs(), '*ns*') : '*ns*'
+endfunction
+
+" Unless an override is provided, returns the symbol under the cursor.
+function! s:TryUseCurSym(override) abort
+    return axvr#Else(a:override, clojure#GetSymbol())
+endfunction
+
+com! -buffer       -bar -nargs=? CljNs          :call clojure#ChangeNs(axvr#Else(<q-args>, clojure#GetNs()))
 com! -buffer       -bar -nargs=1 CljDir         :call clojure#Dir(<q-args>)
 com! -buffer       -bar -nargs=+ CljFindDoc     :call clojure#FindDoc(<q-args>)
 com! -buffer -bang -bar -nargs=1 CljRequire     :call clojure#Require(<q-args>, (<q-bang> ==# '!'))
 com! -buffer       -bar -nargs=1 CljImport      :call clojure#Import(<q-args>)
 com! -buffer       -bar -nargs=1 CljUse         :call clojure#Use(<q-args>)
-" TODO: pick up namespace of current file?
-com! -buffer       -bar -nargs=? CljNsUnmap     :call clojure#NsUnmap('*ns*', <q-args>)
-com! -buffer       -bar -nargs=? CljNsUnalias   :call clojure#NsUnalias('*ns*', <q-args>)
+com! -buffer -bang -bar -nargs=? CljNsUnmap     :call clojure#NsUnmap(s:TryUseBufNs(<q-bang> ==# ''), s:TryUseCurSym(<q-args>))
+com! -buffer -bang -bar -nargs=? CljNsUnalias   :call clojure#NsUnalias(s:TryUseBufNs(<q-bang> ==# ''), s:TryUseCurSym(<q-args>))
 com! -buffer       -bar -nargs=0 CljPrettyPrint :call zepl#send('(clojure.pprint/pp)')
-
-com! -buffer       -bar -nargs=? -complete=customlist,clojure#CmdComplete CljDoc     :call clojure#Doc(<q-args>)
-com! -buffer       -bar -nargs=? -complete=customlist,clojure#CmdComplete CljSource  :call clojure#Source(<q-args>)
+com! -buffer       -bar -nargs=? -complete=customlist,clojure#CmdComplete CljDoc     :call clojure#Doc(s:TryUseCurSym(<q-args>))
+com! -buffer       -bar -nargs=? -complete=customlist,clojure#CmdComplete CljSource  :call clojure#Source(s:TryUseCurSym(<q-args>))
 com! -buffer       -bar -nargs=1 -complete=customlist,clojure#CmdComplete CljApropos :call clojure#Apropos(<q-args>)
 
 " TODO: remap definition lookups.  (e.g. <C-]>)
