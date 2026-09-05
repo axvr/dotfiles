@@ -4,24 +4,19 @@
       - Overwrites other qf lists with old versions of different ones.
       - Not sure if possible to fix easily?  cfilter creates new entries
         instead of modifying old ones.
-      - Make qf's colder and cnewer functions resize the window.
-        - Contribute this as a fix upstream
+      - Make qf's `colder` and `cnewer` functions resize the window.
+        - Contribute this as a fix upstream.
         - Missing a dedicated function to perform the resize.
       - Maybe switch to cfilter and custom code.
   - Replace `fd` use?
   - Re-add Ascribe?
-  - Do I need:
-    - vim-fugitive?
-    - vim-unimpaired?
+  - Do I need: vim-fugitive? vim-unimpaired?
   - Interactive Vim commands
     - Finish arglist plugin.
     - Create an IBuffer-like interface in Vim for buffer management.
     - Interactive register interface in Vim.  Update/clear registers.
     - Dired-like interface in Vim for file management?
     - Package into a plugin and share?
-  - Switch back to Zepl as my main REPL.
-    - Fix restored Zepl configs.  (Translate to old Vim script?)
-      - Update to use `<cword>` to grab the word under the cursor.
   - Create an execline plugin <https://skarnet.org/software/execline/>
     - vim-execline is closed source and cannot be included in Vim.
     - Open Web docs binding or include links in Vim help doc?
@@ -32,6 +27,6 @@
   - Try GNU Screen again now that v5 is out?
     - Works as an alternative to Picocom and Emacs too with serial mode.
   - Other alternatives:
+    - Screen <https://www.gnu.org/software/screen/>
     - mtm <https://github.com/deadpixi/mtm>
     - dvtm <https://www.brain-dump.org/projects/dvtm/>
-    - abduco <https://github.com/martanne/abduco>
