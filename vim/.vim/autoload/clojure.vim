@@ -15,11 +15,11 @@ func! clojure#FormatNsAsPath(ns) abort
 endfunc
 
 func! s:Quote(expr) abort
-    return (a:expr =~# "^'" ? a:expr : "'" .. a:expr)
+    return a:expr =~# "^'" ? a:expr : "'" .. a:expr
 endfunc
 
 func! s:Keyword(expr) abort
-    return (a:expr =~# '^:' ? a:expr : ':' .. a:expr)
+    return a:expr =~# '^:' ? a:expr : ':' .. a:expr
 endfunc
 
 func! s:String(expr) abort
@@ -62,9 +62,7 @@ func! clojure#FindDoc(txt) abort
 endfunc
 
 func! clojure#Require(ns, reload = false) abort
-    return a:ns
-         \ ->s:FixNs()
-         \ ->s:Quote()
+    return a:ns->s:FixNs()->s:Quote()
          \ ->s:List((a:reload ? ' :reload' : ''))
          \ ->s:Apply('clojure.core/require')
          \ ->zepl#send()
