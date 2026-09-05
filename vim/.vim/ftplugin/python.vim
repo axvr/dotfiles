@@ -6,4 +6,4 @@ let b:repl_config = {
     \   'load_file': 'exec(open("%s").read())'
     \ }
 
-command! -buffer -bar -nargs=1 PyHelp :call zepl#send('help(' . substitute(<q-args>, '\', '', 'g') . ')')
+command! -buffer -bar -nargs=1 PyHelp call zepl#send('help(' . substitute(<q-args>, '\', '', 'g') . ')')

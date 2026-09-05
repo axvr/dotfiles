@@ -61,17 +61,12 @@ endfunction
 function! axvr#TempSetBufOpt(opt, val, callback)
     let buf = bufnr('%')
     let prevval = getbufvar(buf, a:opt)
-    call setbufvar(buf, a:opt, a:val)
-    call a:callback()
-    call setbufvar(buf, a:opt, prevval)
-endfunction
-
-function! axvr#GrepWith(prg, args = '', opts = {})
-    let jump = get(a:opts, 'jump', 1) ? ''    : '!'
-    let add  = get(a:opts, 'add', 0)  ? 'add' : ''
-    let loc  = get(a:opts, 'loc', 0)  ? 'l'   : ''
-    let grep = loc .. 'grep' .. add .. jump .. ' '
-    call axvr#TempSetBufOpt('&grepprg', a:prg, {-> execute(grep .. a:args, 'silent')})
+    try
+        call setbufvar(buf, a:opt, a:val)
+        call a:callback()
+    finally
+        call setbufvar(buf, a:opt, prevval)
+    endtry
 endfunction
 
 " CustomList function for `:command-complete` to complete syntax keywords.
