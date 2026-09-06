@@ -24,6 +24,7 @@ set dictionary=/usr/dict/words,/usr/share/dict/words,~/.vim/state/dict
 set sessionoptions=buffers,curdir,tabpages viewoptions=folds,cursor,curdir
 set complete=.,w,b,u,t completeopt=menu,menuone,popup,fuzzy
 if exists('+winborder') | set winborder=single | endif
+" TODO: replace "fuzzy" if "!exists('*matchfuzzy')".
 
 " Backup, swap and undo.
 if has('nvim')

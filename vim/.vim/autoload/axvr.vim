@@ -69,6 +69,12 @@ function! axvr#TempSetBufOpt(opt, val, callback)
     endtry
 endfunction
 
+function! axvr#BackgroundJob(cmd, opts = {}) abort
+    if exists('*term_start') && mode() !~# '^c'
+        call term_start(a:cmd, extend({'term_kill': 'int', 'hidden': 1, 'norestore': 1}, a:opts))
+    endif
+endfunction
+
 " CustomList function for `:command-complete` to complete syntax keywords.
 function! axvr#CmdComplete(text, wholecmd, curpos) abort
     return axvr#MatchFuzzy(uniq(syntaxcomplete#Complete(0, '')), a:text)
