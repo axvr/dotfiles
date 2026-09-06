@@ -76,7 +76,7 @@ function! axvr#BackgroundJob(cmd, opts = {}) abort
 endfunction
 
 " CustomList function for `:command-complete` to complete syntax keywords.
-function! axvr#CmdComplete(text, wholecmd, curpos) abort
+function! axvr#CmdSynComplete(text, wholecmd, curpos) abort
     return axvr#MatchFuzzy(uniq(syntaxcomplete#Complete(0, '')), a:text)
 endfunction
 

@@ -30,3 +30,6 @@
     - Screen <https://www.gnu.org/software/screen/>
     - mtm <https://github.com/deadpixi/mtm>
     - dvtm <https://www.brain-dump.org/projects/dvtm/>
+    - abduco <https://www.brain-dump.org/projects/abduco/>
+      - Use for Vim background jobs so that it can continue running while Vim is suspended?
+      - Rewrite in CHICKEN Scheme?

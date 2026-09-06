@@ -12,11 +12,11 @@ com! -buffer -bar -nargs=1 LispIntrospect call lisp#Introspect(s:TryUseCurSym(<q
 com! -buffer -bar -nargs=+ LispUnintern   call lisp#Unintern(<f-args>)
 com! -buffer -bar -nargs=? LispMakunbound call lisp#Makunbound(s:TryUseCurSym(<q-args>))
 
-com! -buffer       -bar -nargs=? -complete=customlist,axvr#CmdComplete LispDescribe      call lisp#Describe(s:TryUseCurSym(<q-args>))
-com! -buffer       -bar -nargs=+ -complete=customlist,axvr#CmdComplete LispDocumentation call lisp#Documentation(<f-args>)
-com! -buffer       -bar -nargs=? -complete=customlist,axvr#CmdComplete LispDisassemble   call lisp#Disassemble(s:TryUseCurSym(<q-args>))
-com! -buffer -bang -bar -nargs=* -complete=customlist,axvr#CmdComplete LispApropos       call s:Apropos(s:TryUseCurSym(<q-args>), <q-bang> == '!')
-com! -buffer       -bar -nargs=? -complete=customlist,axvr#CmdComplete LispHyperSpec     call lisp#HyperSpec(s:TryUseCurSym(<q-args>))
+com! -buffer       -bar -nargs=? -complete=customlist,axvr#CmdSynComplete LispDescribe      call lisp#Describe(s:TryUseCurSym(<q-args>))
+com! -buffer       -bar -nargs=+ -complete=customlist,axvr#CmdSynComplete LispDocumentation call lisp#Documentation(<f-args>)
+com! -buffer       -bar -nargs=? -complete=customlist,axvr#CmdSynComplete LispDisassemble   call lisp#Disassemble(s:TryUseCurSym(<q-args>))
+com! -buffer -bang -bar -nargs=* -complete=customlist,axvr#CmdSynComplete LispApropos       call s:Apropos(s:TryUseCurSym(<q-args>), <q-bang> == '!')
+com! -buffer       -bar -nargs=? -complete=customlist,axvr#CmdSynComplete LispHyperSpec     call lisp#HyperSpec(s:TryUseCurSym(<q-args>))
 
 function! s:TryUseCurSym(override) abort
     return axvr#Else(a:override, lisp#GetSymbol())
