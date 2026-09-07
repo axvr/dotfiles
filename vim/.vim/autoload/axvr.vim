@@ -71,7 +71,7 @@ endfunction
 
 function! axvr#BackgroundJob(cmd, opts = {}) abort
     if exists('*term_start') && mode() !~# '^c'
-        call term_start(a:cmd, extend({'term_kill': 'int', 'hidden': 1, 'norestore': 1}, a:opts))
+        return term_start(a:cmd, extend({'term_kill': 'int', 'hidden': 1, 'norestore': 1}, a:opts))
     endif
 endfunction
 

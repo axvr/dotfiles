@@ -20,16 +20,16 @@
   - Create an execline plugin <https://skarnet.org/software/execline/>
     - vim-execline is closed source and cannot be included in Vim.
     - Open Web docs binding or include links in Vim help doc?
-    - Man pages exist <https://git.sr.ht/~humm/execline-man-pages>
+    - Man pages exist: <https://git.sr.ht/~humm/execline-man-pages>
     - Highlight TODOs in comments.
 
 - Tmux:
-  - Try GNU Screen again now that v5 is out?
-    - Works as an alternative to Picocom and Emacs too with serial mode.
-  - Other alternatives:
-    - Screen <https://www.gnu.org/software/screen/>
-    - mtm <https://github.com/deadpixi/mtm>
+  - Alternatives:
     - dvtm <https://www.brain-dump.org/projects/dvtm/>
     - abduco <https://www.brain-dump.org/projects/abduco/>
-      - Use for Vim background jobs so that it can continue running while Vim is suspended?
-      - Rewrite in CHICKEN Scheme?
+      - Set environment variable to place session info into `~/.local/state/abduco/`?
+      - Replace tmux-project script using abduco?
+        - Write in execline.
+        - abduco -e ^q -f -A session-name command
+        - recursively call back to itself upon exit?
+      - Use for background jobs in Vim to continue running while Vim is suspended?

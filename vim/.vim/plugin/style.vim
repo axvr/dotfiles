@@ -1,7 +1,7 @@
 " Summary: Vim styling.  E.g. colours and statusline config.
 " Help:    N/A
 
-if &term =~# '256color$' || has('gui')
+if &term =~# '\(256color\|ghostty\)$' || has('gui')
     set termguicolors
     colorscheme raider
     let &colorcolumn='+'.join(range(1,256),',+')

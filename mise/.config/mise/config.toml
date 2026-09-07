@@ -6,6 +6,3 @@ erlang    = 'latest'
 elixir    = 'latest'
 # expert    = 'latest'
 # babashka  = 'latest'
-
-[settings]
-experimental = true
