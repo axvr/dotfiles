@@ -30,12 +30,11 @@ if has('nvim') | runtime zepl/contrib/nvim_autoscroll_hack.vim | endif
 command! -bar -nargs=0 ReplClear call zepl#send("\<C-l>", 1)
 nnoremap gz<C-l> :ReplClear<CR>
 
-" Vim 9.1 has a built-in "comment" package.  Fallback to "commentary".
-try | packadd comment | catch | packadd commentary | endtry
+" Vim 9.1 has a built-in "comment" package.
+try | packadd comment | catch | endtry
 
 if !has('nvim')
     packadd traces
-    packadd unimpaired
 
     " Vim 9.1 adds a built-in "editorconfig" package.
     if filereadable('.editorconfig') | silent! packadd editorconfig | endif

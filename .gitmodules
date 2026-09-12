@@ -19,18 +19,12 @@
 [submodule "vim/.vim/pack/core/opt/traces"]
 	path = vim/.vim/pack/core/opt/traces
 	url = https://github.com/markonm/traces.vim
-[submodule "vim/.vim/pack/core/opt/commentary"]
-	path = vim/.vim/pack/core/opt/commentary
-	url = https://github.com/tpope/vim-commentary
 [submodule "vim/.vim/pack/core/opt/fugitive"]
 	path = vim/.vim/pack/core/opt/fugitive
 	url = https://github.com/tpope/vim-fugitive
 [submodule "vim/.vim/pack/core/opt/dirvish"]
 	path = vim/.vim/pack/core/opt/dirvish
 	url = https://github.com/justinmk/vim-dirvish
-[submodule "vim/.vim/pack/core/opt/info"]
-	path = vim/.vim/pack/core/opt/info
-	url = https://github.com/hiphish/info.vim
 [submodule "vim/.vim/pack/core/start/characterize"]
 	path = vim/.vim/pack/core/start/characterize
 	url = https://github.com/tpope/vim-characterize
@@ -40,12 +34,12 @@
 [submodule "vim/.vim/pack/lang/start/ledger"]
 	path = vim/.vim/pack/lang/start/ledger
 	url = https://github.com/ledger/vim-ledger
-[submodule "vim/.vim/pack/core/opt/unimpaired"]
-	path = vim/.vim/pack/core/opt/unimpaired
-	url = https://github.com/tpope/vim-unimpaired
 [submodule "vim/.vim/pack/core/opt/zepl"]
 	path = vim/.vim/pack/core/opt/zepl
 	url = https://github.com/axvr/zepl.vim
 [submodule "vim/.vim/pack/lang/start/execline"]
 	path = vim/.vim/pack/lang/start/execline
 	url = https://codeberg.org/axvr/execline.vim
+[submodule "vim/.vim/pack/core/opt/info"]
+	path = vim/.vim/pack/core/opt/info
+	url = https://gitlab.com/HiPhish/info.vim
