@@ -1,4 +1,5 @@
 - Vim:
+  - Try vim-classic?
   - vim-qf issues:
     - Use of `:Restore` with `:colder` is broken.
       - Overwrites other qf lists with old versions of different ones.
@@ -8,7 +9,7 @@
         - Contribute this as a fix upstream.
         - Missing a dedicated function to perform the resize.
       - Maybe switch to cfilter and custom code.
-  - Replace `fd` use?
+  - Replace `fd`?
   - Re-add Ascribe?
   - Do I need: vim-fugitive? vim-unimpaired?
   - Interactive Vim commands
@@ -19,12 +20,21 @@
     - Package into a plugin and share?
 
 - Tmux:
+  - <https://jkrl.me/2025/11/28/suspending-shell-processes.html>
   - Alternatives:
     - dvtm <https://www.brain-dump.org/projects/dvtm/>
     - abduco <https://www.brain-dump.org/projects/abduco/>
+      - Homebrew version is out of date.
       - Set environment variable to place session info into `~/.local/state/abduco/`?
       - Replace tmux-project script using abduco?
         - Write in execline.
-        - abduco -e ^q -f -A session-name command
+        - `abduco -e ^q -f -A session-name command`
         - recursively call back to itself upon exit?
       - Use for background jobs in Vim to continue running while Vim is suspended?
+        - `call axvr#BackgroundJob('abduco -e ^q -A website-server do/serve')`
+          - Or maybe the `do/serve` script should do this?
+
+- More:
+  - Install execline and s6 man pages.  <https://sr.ht/~humm/skarnet-man-pages/sources>
+  - Start using s6 running in userspace?
+    <https://lobste.rs/s/evnx8i/s6_skarnet_s_small_supervision_suite#c_h6vwgn>
