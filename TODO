@@ -17,11 +17,6 @@
     - Interactive register interface in Vim.  Update/clear registers.
     - Dired-like interface in Vim for file management?
     - Package into a plugin and share?
-  - Create an execline plugin <https://skarnet.org/software/execline/>
-    - vim-execline is closed source and cannot be included in Vim.
-    - Open Web docs binding or include links in Vim help doc?
-    - Man pages exist: <https://git.sr.ht/~humm/execline-man-pages>
-    - Highlight TODOs in comments.
 
 - Tmux:
   - Alternatives:
