@@ -42,4 +42,4 @@
 	url = https://codeberg.org/axvr/execline.vim
 [submodule "vim/.vim/pack/core/opt/info"]
 	path = vim/.vim/pack/core/opt/info
-	url = https://gitlab.com/HiPhish/info.vim
+	url = https://gitlab.com/HiPhish/info.vim.git

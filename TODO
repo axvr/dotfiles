@@ -11,7 +11,6 @@
       - Maybe switch to cfilter and custom code.
   - Replace `fd`?
   - Re-add Ascribe?
-  - Do I need: vim-fugitive? vim-unimpaired?
   - Interactive Vim commands
     - Finish arglist plugin.
     - Create an IBuffer-like interface in Vim for buffer management.
@@ -21,18 +20,16 @@
 
 - Tmux:
   - <https://jkrl.me/2025/11/28/suspending-shell-processes.html>
-  - Alternatives:
-    - dvtm <https://www.brain-dump.org/projects/dvtm/>
-    - abduco <https://www.brain-dump.org/projects/abduco/>
-      - Homebrew version is out of date.
-      - Set environment variable to place session info into `~/.local/state/abduco/`?
-      - Replace tmux-project script using abduco?
-        - Write in execline.
-        - `abduco -e ^q -f -A session-name command`
-        - recursively call back to itself upon exit?
-      - Use for background jobs in Vim to continue running while Vim is suspended?
-        - `call axvr#BackgroundJob('abduco -e ^q -A website-server do/serve')`
-          - Or maybe the `do/serve` script should do this?
+  - <https://www.brain-dump.org/projects/abduco/>
+    - Homebrew version is out of date.
+    - Set environment variable to place session info into `~/.local/state/abduco/`?
+    - Replace tmux-project script using abduco?
+      - Write in execline.
+      - `abduco -e ^q -f -A session-name command`
+      - recursively call back to itself upon exit?
+    - Use for background jobs in Vim to continue running while Vim is suspended?
+      - `call axvr#BackgroundJob('abduco -e ^q -A website-server do/serve')`
+        - Or maybe the `do/serve` script should do this?
 
 - More:
   - Install execline and s6 man pages.  <https://sr.ht/~humm/skarnet-man-pages/sources>
