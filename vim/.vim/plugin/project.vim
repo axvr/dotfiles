@@ -3,7 +3,12 @@
 
 if filereadable('do/build') | set makeprg=do/build | endif
 
+let g:fugitive_legacy_commands = v:false
 packadd fugitive
+if !has('nvim')
+    autocmd! fugitive TerminalOpen !git* set nobuflisted
+endif
+
 nnoremap <leader>G  :Git<CR>
 nnoremap <leader>gA :Git add -p -- .<CR>
 nnoremap <leader>ga :Git add -p -- %<CR>

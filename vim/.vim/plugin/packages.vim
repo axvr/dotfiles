@@ -15,12 +15,6 @@ packadd info
 packadd qf
 let g:qf_number = 0
 
-let g:fugitive_legacy_commands = v:false
-packadd fugitive
-if !has('nvim')
-    autocmd! fugitive TerminalOpen !git* set nobuflisted
-endif
-
 packadd argbook
 packadd matchit
 
