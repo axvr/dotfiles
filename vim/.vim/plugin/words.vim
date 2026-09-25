@@ -6,7 +6,8 @@ command! -nargs=0 -bar -bang Mkspell
     \ call glob('~/.vim/spell/*', 1, 1)
     \ ->foreach("exec '<mods> mkspell<bang>' v:val")
 
-" Generate a dictionary file from custom spell files.  (Excl. rare words.)
+" Generate a dictionary file from custom spell files.
+" Excludes rare `/?` and bad `/!` words.
 command! -nargs=0 -bar MkDictFromSpell
     \ call glob('~/.vim/spell/*', 1, 1)
     \ ->filter("v:val !~# '\\m.spl$'")

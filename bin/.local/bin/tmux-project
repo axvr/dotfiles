@@ -9,7 +9,7 @@ if [ -z "$1" ]; then
     project="$(cd "$proj_root" \
                && find . -maxdepth 2 -type d -name '.git' \
                | sed -e 's,^\./,,' -e 's,/.git$,,' | sort \
-               | fzf --layout=reverse --no-color --info=right)"
+               | fzy --show-info --lines=100)"
     [ -z "$project" ] && exit 1
     project="$proj_root/$project"
 fi

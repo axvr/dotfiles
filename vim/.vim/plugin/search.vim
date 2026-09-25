@@ -1,9 +1,11 @@
 " Summary: Better searching and search tools.
 " Help:    N/A
 
+let g:list_files_cmd = 'fd -HE .git -d 8 .'
+
 " Faster `:find` and `:grep`.
 function! s:find_fuzzy(cmdarg, _) abort
-    return axvr#MatchFuzzy(systemlist('fd -HE .git -d 8 .'), a:cmdarg)
+    return axvr#MatchFuzzy(systemlist(g:list_files_cmd), a:cmdarg)
 endfunction
 if executable('fd') && exists('+findfunc') | set findfunc=s:find_fuzzy | endif
 if executable('rg') | set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ -g\ '!.git/*' | endif
@@ -11,6 +13,21 @@ if executable('rg') | set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ -g\ '!.
 nnoremap <leader>/ :silent grep! ''<left>
 nnoremap <leader>f :find<space>
 nnoremap <leader>b :buffer<space>
+
+" Based on: <https://github.com/jhawthorn/fzy#use-with-vim>
+function! Fzy(choice_cmd, callback) abort
+    try
+        let output = system(a:choice_cmd .. ' | fzy')
+        if v:shell_error == 0 && !empty(output)
+            call a:callback(output)
+        endif
+    finally
+        redraw!
+    endtry
+endfunction
+
+" Interactive file fuzzy finder.
+nnoremap <leader><Space> :call Fzy(g:list_files_cmd, {out -> execute('edit ' .. out)})<CR>
 
 " Quickly use alternate grep-style output tools.
 "   :GrepWith todos % | grep src

@@ -14,6 +14,7 @@ nnoremap <leader>ac :argument<CR>
 nnoremap <leader>aa :$argadd %<CR>
 nnoremap <leader>ad :argdelete %<CR>
 nnoremap <leader>au :argdedupe<CR>
+nnoremap <leader>at :Todos! ##<CR>
 
 " TODO: <Plug> this.
 nmap _ <leader>A

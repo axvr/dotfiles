@@ -16,13 +16,14 @@
     - Create an IBuffer-like interface in Vim for buffer management.
     - Interactive register interface in Vim.  Update/clear registers.
     - Dired-like interface in Vim for file management?
+      - <https://www.are.na/block/50371058>
     - Package into a plugin and share?
 
 - Tmux:
   - <https://jkrl.me/2025/11/28/suspending-shell-processes.html>
   - <https://www.brain-dump.org/projects/abduco/>
-    - Homebrew version is out of date.
     - Set environment variable to place session info into `~/.local/state/abduco/`?
+      - Homebrew version is out of date.
     - Replace tmux-project script using abduco?
       - Write in execline.
       - `abduco -e ^q -f -A session-name command`
@@ -33,5 +34,5 @@
 
 - More:
   - Install execline and s6 man pages.  <https://sr.ht/~humm/skarnet-man-pages/sources>
-  - Start using s6 running in userspace?
+  - Start using s6 running in user space?
     <https://lobste.rs/s/evnx8i/s6_skarnet_s_small_supervision_suite#c_h6vwgn>

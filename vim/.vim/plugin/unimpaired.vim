@@ -1,4 +1,5 @@
-" Add some of the better mappings from https://github.com/tpope/vim-unimpaired
+" Summary: Provides just the good mappings from vim-unimpaired.
+" Help:    N/A
 
 " Neovim already has these built in.
 if has('nvim') | finish | endif

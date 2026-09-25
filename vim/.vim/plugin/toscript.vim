@@ -34,9 +34,7 @@ function! s:to_script(ft) abort
         call axvr#Warn('No matching shebang identified for filetype: ' .. a:ft)
     endif
 
-    if &modifiable && !empty(bufname(bufnr))
-        update
-    endif
+    if &modifiable && !empty(bufname(bufnr)) | update | endif
 
     let fpath = expand('%:.')
     if filereadable(fpath)
