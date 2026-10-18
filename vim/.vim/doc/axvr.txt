@@ -15,8 +15,7 @@ Welcome to the Axvr Vim config user manual.          *axvr*  *axvr.vim*  *vim-ax
 ------------------------------------------------------------------------------
 
 TODO
-    * Write |axvr/grep| section.
-    * Add section on |:find| and `<leader>f`.
+    * Add section on search and find enhancements.
     * Add section on `<leader>` and `<localleader>` bindings.  List all custom.
     * Add section on `:Todos`, `:Tasks` and `:Notes`.
     * Add section on automatic whitespace trimming.

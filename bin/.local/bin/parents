@@ -1,0 +1,16 @@
+#!/usr/bin/env -S csi -script
+
+;; Reads file paths from stdin and prints the parent paths.
+
+(import (chicken io)
+        (chicken irregex))
+
+(define (parents paths)
+  (let ((path (irregex-replace "(/|^)[^/]+/?$" (car paths) "/")))
+    (if (equal? path "/")
+      paths
+      (parents (cons path paths)))))
+
+(for-each
+  (lambda (path) (for-each print (parents `(,path))))
+  (read-lines))
