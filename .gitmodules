@@ -43,3 +43,6 @@
 [submodule "vim/.vim/pack/core/opt/info"]
 	path = vim/.vim/pack/core/opt/info
 	url = https://gitlab.com/HiPhish/info.vim.git
+[submodule "vim/.vim/pack/core/start/ascribe"]
+	path = vim/.vim/pack/core/start/ascribe
+	url = https://git.sr.ht/~axvr/ascribe.vim

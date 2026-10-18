@@ -1,6 +1,5 @@
 - Vim:
   - Try vim-classic?
-  - Re-add Ascribe?
   - vim-qf issues:
     - Use of `:Restore` with `:colder` is broken.
       - Overwrites other qf lists with old versions of different ones.
