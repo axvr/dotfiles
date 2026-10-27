@@ -21,27 +21,6 @@ nnoremap <leader>/ :silent grep! ''<left>
 nnoremap <leader>f :find<space>
 nnoremap <leader>b :buffer<space>
 
-" Based on: <https://github.com/jhawthorn/fzy#use-with-vim>
-if ! has('nvim')
-    function! Fzy(choice_cmd, callback) abort
-        try
-            let output = system(a:choice_cmd .. ' | fzy')
-            if v:shell_error == 0 && !empty(output)
-                call a:callback(output)
-            endif
-        finally
-            redraw!
-        endtry
-    endfunction
-endif
-
-" Interactive file fuzzy finder.
-if exists('g:list_files_cmd') && exists('*Fzy')
-    nnoremap <leader><space> :call Fzy(g:list_files_cmd, {out -> execute('edit ' .. out)})<CR>
-else
-    nnoremap <leader><space> :find<space>
-endif
-
 " Quickly use alternate grep-style output tools.
 "   :GrepWith todos % | grep src
 "   :GrepWith git grep -n something
