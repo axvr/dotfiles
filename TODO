@@ -30,6 +30,6 @@
         - Or maybe the `do/serve` script should do this?
 
 - More:
-  - Install execline and s6 man pages.  <https://sr.ht/~humm/skarnet-man-pages/sources>
+  - Install execline and s6 man pages.  <https://sr.ht/~humm/skarnet-man-pages>
   - Start using s6 running in user space?
     <https://lobste.rs/s/evnx8i/s6_skarnet_s_small_supervision_suite#c_h6vwgn>

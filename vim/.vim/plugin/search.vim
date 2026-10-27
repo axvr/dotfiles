@@ -1,7 +1,7 @@
 " Summary: Better searching and search tools.
 " Help:    N/A
 
-if executable('git') && filereadable('.git')
+if executable('git') && isdirectory('.git')
     let g:list_files_cmd = 'git ls-files -co --exclude-standard | parents | sort -u'
 elseif executable('fd')
     let g:list_files_cmd = 'fd --hidden --exclude .git --color never --max-depth 12 .'
