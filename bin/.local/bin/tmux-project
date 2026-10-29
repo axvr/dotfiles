@@ -7,7 +7,7 @@ project="$1"
 if [ -z "$1" ]; then
     proj_root="$HOME/Projects"
     project="$(cd "$proj_root" \
-               && find . -maxdepth 2 -type d -name '.git' \
+               && find . -maxdepth 3 -type d -name '.git' \
                | sed -e 's,^\./,,' -e 's,/.git$,,' | sort \
                | fzy --show-info --lines=100)"
     [ -z "$project" ] && exit 1
