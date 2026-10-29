@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Create and open/switch to a session in Tmux.
+#
+#     $ tmux-project-open "~/Projects/dotfiles"
+#     $ tmux-project-open "~/Documents" "docs"
+
+set -e
+
+dir="$1"
+[ -d "$dir" ] || exit 1
+
+# Use provided name or auto-pick one.
+name="$2"
+[ -n "$name" ] \
+    || name="$([ "$HOME" = "$dir" ] && echo '>_ ' || basename "$dir" | tr . _)"
+
+tmux has-session -t "$name" 2> /dev/null \
+    || tmux new-session -ds "$name" -c "$dir"
+
+[ -n "$TMUX" ] \
+    && tmux switch-client  -t "$name" \
+    || tmux attach-session -t "$name"
