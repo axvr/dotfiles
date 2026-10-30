@@ -2,8 +2,9 @@
 
 # Create and open/switch to a session in Tmux.
 #
-#     $ tmux-project-open "~/Projects/dotfiles"
-#     $ tmux-project-open "~/Documents" "docs"
+#     $ tmux-project-open ~/Projects/dotfiles  (open new or existing session)
+#     $ tmux-project-open ~/Documents docs     (as above but with custom name)
+#     $ tmux-project-open . docs               (open existing session by name)
 
 importas -i dir 1
 if { test -d $dir }

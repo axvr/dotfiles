@@ -1,20 +1,27 @@
 #!/usr/bin/env -S execlineb -W
 
 # Tmux project switcher.  Switch to and open projects as Tmux sessions.
-# Provide a base directory to search for projects in as the first arg.
+#
+#     $ tmux-project-select ~/Projects
+#
+# Note: in the `fzy` interface, you can type `..` to go up a directory.
 
-importas base 1
+importas -i base 1
 
 if { test -d $base }
 
 backtick -E dir_name {
     cd $base
-    pipeline { find . -maxdepth 3 -type d -name ".git" }
-    pipeline { sed -e "s,^\./,," -e "s,/.git$,," }
+    pipeline { find . -maxdepth 1 -mindepth 1 -type d }
+    pipeline { sed -e "s,^\./,," }
     pipeline { sort }
     fzy --show-info --lines=100
 }
 
 if -n { test -z $dir_name }
 
-tmux-project-open ${base}/${dir_name}
+backtick -E path { realpath ${base}/${dir_name} }
+
+ifthenelse { test -d ${path}/.git }
+{ tmux-project-open $path }
+{ importas prog 0 $prog $path }
