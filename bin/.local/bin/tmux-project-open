@@ -1,23 +1,28 @@
-#!/bin/sh
+#!/usr/bin/env -S execlineb -W
 
 # Create and open/switch to a session in Tmux.
 #
 #     $ tmux-project-open "~/Projects/dotfiles"
 #     $ tmux-project-open "~/Documents" "docs"
 
-set -e
+importas -i dir 1
+if { test -d $dir }
 
-dir="$1"
-[ -d "$dir" ] || exit 1
+backtick -E name {
+    # If a name was provided, use it.
+    ifelse { eltest -v 2 } { importas name 2 echo $name }
+    # Home directory, use special name.
+    ifelse { importas home HOME test $dir = $home } { echo ">_ " }
+    # Else, take the basename and modify it for Tmux.
+    pipeline { basename $dir } tr . _
+}
 
-# Use provided name or auto-pick one.
-name="$2"
-[ -n "$name" ] \
-    || name="$([ "$HOME" = "$dir" ] && echo '>_ ' || basename "$dir" | tr . _)"
+# If no Tmux session exists, create one.
+foreground {
+    if -n { redirfd -w 2 /dev/null tmux has-session -t $name }
+    tmux new-session -ds $name -c $dir
+}
 
-tmux has-session -t "$name" 2> /dev/null \
-    || tmux new-session -ds "$name" -c "$dir"
-
-[ -n "$TMUX" ] \
-    && tmux switch-client  -t "$name" \
-    || tmux attach-session -t "$name"
+# Switch or attach to the session.
+importas tmux TMUX
+ifte { tmux switch-client -t $name } { tmux attach-session -t $name } test -n $tmux
