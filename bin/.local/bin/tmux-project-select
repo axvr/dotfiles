@@ -18,7 +18,7 @@ backtick -E dir_name {
     fzy --show-info --lines=100
 }
 
-if -n { test -z $dir_name }
+if { test -n $dir_name }
 
 backtick -E path { realpath ${base}/${dir_name} }
 

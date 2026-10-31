@@ -1,15 +1,15 @@
 [submodule "vim/.vim/pack/core/start/raider"]
 	path = vim/.vim/pack/core/start/raider
-	url = https://github.com/axvr/raider.vim
+	url = https://codeberg.org/axvr/raider.vim
 [submodule "vim/.vim/pack/core/start/apart"]
 	path = vim/.vim/pack/core/start/apart
-	url = https://github.com/axvr/apart.vim
+	url = https://codeberg.org/axvr/apart.vim
 [submodule "vim/.vim/pack/lang/start/org"]
 	path = vim/.vim/pack/lang/start/org
-	url = https://github.com/axvr/org.vim
+	url = https://codeberg.org/axvr/org.vim
 [submodule "vim/.vim/pack/lang/start/ical"]
 	path = vim/.vim/pack/lang/start/ical
-	url = https://github.com/axvr/ical.vim
+	url = https://codeberg.org/axvr/ical.vim
 [submodule "vim/.vim/pack/core/start/cool"]
 	path = vim/.vim/pack/core/start/cool
 	url = https://github.com/romainl/vim-cool
@@ -36,7 +36,7 @@
 	url = https://github.com/ledger/vim-ledger
 [submodule "vim/.vim/pack/core/opt/zepl"]
 	path = vim/.vim/pack/core/opt/zepl
-	url = https://github.com/axvr/zepl.vim
+	url = https://codeberg.org/axvr/zepl.vim
 [submodule "vim/.vim/pack/lang/start/execline"]
 	path = vim/.vim/pack/lang/start/execline
 	url = https://codeberg.org/axvr/execline.vim
