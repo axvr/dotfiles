@@ -1,0 +1,44 @@
+#!/usr/bin/env -S execlineb -W
+
+# Reads from `.gitmirror` file (or a specified alternate) where each line is a
+# Git remote URL.  Then mirrors from the first remote to the remaining ones.
+#
+# Example file:
+#
+#   ssh://git@codeberg.org/axvr/example.git
+#   git@git.sr.ht:~axvr/example
+#   git@github.com:axvr/example.git
+
+importas -D ".gitmirror" mirror_file 1
+ifelse -n { test -s $mirror_file }
+{
+    fdmove -c 1 2
+    foreground { echo "No such file: \"${mirror_file}\"" }
+    exit 1
+}
+
+backtick -E fetch_remote { head -n 1 $mirror_file }
+
+getcwd -E cwd
+importas -i home HOME
+importas -D "${home}/.local/state" state_dir XDG_STATE_HOME
+define mirror_dir "${state_dir}/git-mirror"
+
+define repo "${mirror_dir}${cwd}__$mirror_file"
+foreground { echo "> Local mirror: \"${repo}\"" }
+
+ifthenelse { test -d $repo }
+{ git -C $repo remote set-url origin $fetch_remote }
+{ git clone --mirror --origin=origin -- $fetch_remote $repo }
+
+foreground { echo "> Fetching from: \"${fetch_remote}\"" }
+foreground { git -C $repo remote update origin }
+
+foreground { echo "> Cleaning and checking..." }
+foreground { git -C $repo gc }
+foreground { git -C $repo fsck --strict }
+
+pipeline { tail -n +2 $mirror_file }
+forstdin -E push_remote
+foreground { echo "> Mirroring to: \"${push_remote}\"" }
+git -C $repo push --mirror --atomic -- $push_remote
