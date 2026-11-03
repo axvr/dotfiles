@@ -3,6 +3,11 @@
 My personal configuration files for my computers.  They are managed using
 [GNU Stow](https://www.gnu.org/software/stow/).
 
+(This Git repository is mirrored to
+[Codeberg](https://codeberg.org/axvr/dotfiles),
+[Sourcehut](https://git.sr.ht/~axvr/dotfiles) and
+[GitHub](https://github.com/axvr/dotfiles).)
+
 ```sh
 # Clone this repo
 git clone <url> --recurse-submodules
