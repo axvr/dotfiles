@@ -5,7 +5,7 @@ My personal configuration files for my computers.  They are managed using
 
 (This Git repository is mirrored to
 [Codeberg](https://codeberg.org/axvr/dotfiles),
-[Sourcehut](https://git.sr.ht/~axvr/dotfiles) and
+[SourceHut](https://git.sr.ht/~axvr/dotfiles) and
 [GitHub](https://github.com/axvr/dotfiles).)
 
 ```sh
