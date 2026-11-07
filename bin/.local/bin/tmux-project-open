@@ -25,5 +25,5 @@ foreground {
 }
 
 # Switch or attach to the session.
-importas tmux TMUX
+importas -D "" tmux TMUX
 ifte { tmux switch-client -t $name } { tmux attach-session -t $name } test -n $tmux
