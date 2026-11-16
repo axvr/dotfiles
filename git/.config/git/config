@@ -29,6 +29,7 @@
 	branch-description = "! show_desc() { git config \"branch.$1.description\"; }; [ -n \"$1\" ] && show_desc"
 	purge-path = filter-repo --invert-paths --path
 	prep-archive = git filter-repo --to-subdirectory-filter
+	mirror-all = "! find ~/Projects -type f -name '*.gitmirror' -maxdepth 3 | xargs -n 1 git mirror"
 [help]
 	autoCorrect = 10
 [advice]

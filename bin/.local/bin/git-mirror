@@ -9,23 +9,27 @@
 #   git@git.sr.ht:~axvr/example
 #   git@github.com:axvr/example.git
 
-importas -D ".gitmirror" mirror_file 1
-ifelse -n { test -s $mirror_file }
-{
-    fdmove -c 1 2
-    foreground { echo "No such file: \"${mirror_file}\"" }
-    exit 1
-}
-
-backtick -E fetch_remote { head -n 1 $mirror_file }
-
-getcwd -E cwd
 importas -i home HOME
 importas -D "${home}/.local/state" state_dir XDG_STATE_HOME
 define mirror_dir "${state_dir}/git-mirror"
 
-define repo "${mirror_dir}${cwd}__$mirror_file"
+backtick -E mirror_file
+{
+    importas -D ".gitmirror" mirror_file 1
+    realpath $mirror_file
+}
+
+# Converts `/` into `%` like Vim does with undo files.
+backtick -E mirror_name
+{
+    pipeline { echo $mirror_file }
+    sed -e "s,%,%%,g" -e "s,/,%,g"
+}
+define repo "${mirror_dir}/${mirror_name}"
+
 foreground { echo "> Local mirror: \"${repo}\"" }
+
+backtick -E fetch_remote { head -n 1 $mirror_file }
 
 ifthenelse { test -d $repo }
 { git -C $repo remote set-url origin $fetch_remote }
